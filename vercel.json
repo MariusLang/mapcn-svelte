@@ -1,4 +1,4 @@
 {
-	"buildCommand": "pnpm build:registry && pnpm build",
-	"installCommand": "pnpm install"
+	"buildCommand": "npm build:registry && npm build",
+	"installCommand": "npm install"
 }
