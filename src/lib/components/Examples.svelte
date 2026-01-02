@@ -1,11 +1,13 @@
 <script lang="ts">
-	import Map from "$lib/registry/blocks/map/Map.svelte";
-	import MapMarker from "$lib/registry/blocks/map/MapMarker.svelte";
-	import MarkerContent from "$lib/registry/blocks/map/MarkerContent.svelte";
-	import MarkerTooltip from "$lib/registry/blocks/map/MarkerTooltip.svelte";
-	import MarkerLabel from "$lib/registry/blocks/map/MarkerLabel.svelte";
-	import MapControls from "$lib/registry/blocks/map/MapControls.svelte";
-	import MapRoute from "$lib/registry/blocks/map/MapRoute.svelte";
+	import {
+		Map,
+		MapMarker,
+		MarkerContent,
+		MarkerTooltip,
+		MarkerLabel,
+		MapControls,
+		MapRoute,
+	} from "$lib/components/ui/map";
 	import { cn } from "$lib/utils.js";
 	import Truck from "@lucide/svelte/icons/truck";
 	import Flame from "@lucide/svelte/icons/flame";

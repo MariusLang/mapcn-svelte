@@ -5,7 +5,7 @@
 		MarkerContent,
 		MarkerPopup,
 		MarkerTooltip,
-	} from "$lib/registry/blocks/map";
+	} from "$lib/components/ui/map";
 
 	const locations = [
 		{

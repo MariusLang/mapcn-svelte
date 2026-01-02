@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Map, MapPopup } from "$lib/registry/blocks/map";
+	import { Map, MapPopup } from "$lib/components/ui/map";
 	import { Button } from "$lib/registry/ui/button";
 
 	let showPopup = $state(true);

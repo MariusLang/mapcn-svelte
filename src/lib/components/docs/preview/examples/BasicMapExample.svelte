@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Map } from "$lib/registry/blocks/map";
+	import { Map } from "$lib/components/ui/map";
 </script>
 
 <div class="h-[400px] w-full">

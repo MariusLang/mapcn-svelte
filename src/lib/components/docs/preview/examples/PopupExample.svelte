@@ -5,7 +5,7 @@
 		MarkerContent,
 		MarkerLabel,
 		MarkerPopup,
-	} from "$lib/registry/blocks/map";
+	} from "$lib/components/ui/map";
 
 	import { Button } from "$lib/registry/ui/button";
 	import {

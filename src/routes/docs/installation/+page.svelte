@@ -3,7 +3,7 @@
 
 	import CodeBlock from "$lib/components/docs/preview/CodeBlock.svelte";
 	import { Card } from "$lib/registry/ui/card";
-	import { Map, MapControls } from "$lib/registry/blocks/map";
+	import { Map, MapControls } from "$lib/components/ui/map";
 	import DocsLayout from "$lib/components/docs/DocsLayout.svelte";
 	import DocsSection from "$lib/components/docs/DocsSection.svelte";
 	import DocsLink from "$lib/components/docs/DocsLink.svelte";

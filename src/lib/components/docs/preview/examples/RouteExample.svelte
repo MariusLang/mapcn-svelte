@@ -5,7 +5,7 @@
 		MarkerContent,
 		MarkerTooltip,
 		MapRoute,
-	} from "$lib/registry/blocks/map";
+	} from "$lib/components/ui/map";
 
 	const route: [number, number][] = [
 		[-74.006, 40.7128],   // NYC City Hall

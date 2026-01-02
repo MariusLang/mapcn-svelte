@@ -6,7 +6,7 @@
 		MarkerContent,
 		MapRoute,
 		MarkerLabel,
-	} from "$lib/registry/blocks/map";
+	} from "$lib/components/ui/map";
 	import { Loader2 } from "lucide-svelte";
 
 	const start = { name: "Times Square", lng: -73.9855, lat: 40.758 };
