@@ -20,7 +20,14 @@ export default ts.config(
 		languageOptions: {
 			globals: { ...globals.browser, ...globals.node },
 		},
-		rules: { "no-undef": "off" },
+		rules: {
+			"no-undef": "off",
+			// Allow unused variables starting with underscore
+			"@typescript-eslint/no-unused-vars": [
+				"error",
+				{ argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+			],
+		},
 	},
 	{
 		files: ["**/*.svelte", "**/*.svelte.ts", "**/*.svelte.js"],
@@ -31,6 +38,16 @@ export default ts.config(
 				parser: ts.parser,
 				svelteConfig,
 			},
+		},
+		rules: {
+			// MapLibre components require direct DOM manipulation
+			"svelte/no-dom-manipulating": "off",
+			// Using @html for trusted code highlighting content
+			"svelte/no-at-html-tags": "off",
+			// Not using SvelteKit's resolve() for simple internal navigation
+			"svelte/no-navigation-without-resolve": "off",
+			// Static content doesn't need keys in each blocks
+			"svelte/require-each-key": "off",
 		},
 	}
 );

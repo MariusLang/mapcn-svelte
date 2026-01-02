@@ -31,23 +31,23 @@
 		<TableBody>
 			{#each props as prop}
 				<TableRow>
-					<TableCell class="px-4 py-3.5 align-top font-mono text-primary">
+					<TableCell class="text-primary px-4 py-3.5 align-top font-mono">
 						<DocsCode className="text-[13px]">
 							{prop.name}
 						</DocsCode>
 					</TableCell>
 
-					<TableCell class="px-4 py-3.5 align-top font-mono text-muted-foreground">
+					<TableCell class="text-muted-foreground px-4 py-3.5 align-top font-mono">
 						<DocsCode className="text-xs">{prop.type}</DocsCode>
 					</TableCell>
 
-					<TableCell class="px-4 py-3.5 align-top font-mono text-muted-foreground">
+					<TableCell class="text-muted-foreground px-4 py-3.5 align-top font-mono">
 						<DocsCode className="text-xs">
 							{prop.default ?? "—"}
 						</DocsCode>
 					</TableCell>
 
-					<TableCell class="px-4 py-3.5 text-sm leading-relaxed text-muted-foreground">
+					<TableCell class="text-muted-foreground px-4 py-3.5 text-sm leading-relaxed">
 						{prop.description}
 					</TableCell>
 				</TableRow>

@@ -22,7 +22,8 @@
 </Map>`;
 
 	const useMapCode =
-		`<scr` + `ipt lang="ts">
+		`<scr` +
+		`ipt lang="ts">
   import { getContext } from "svelte";
   import type MapLibreGL from "maplibre-gl";
 
@@ -34,7 +35,8 @@
   // Access the map instance
   const map = mapCtx.getMap();
   const isLoaded = mapCtx.isLoaded();
-</scr` + `ipt>`;
+</scr` +
+		`ipt>`;
 </script>
 
 <DocsLayout
@@ -45,28 +47,18 @@
 >
 	<DocsNote>
 		<strong>Note:</strong> This library is built on top of
-		<DocsLink
-			href="https://maplibre.org/maplibre-gl-js/docs/API/"
-			external
-		>
+		<DocsLink href="https://maplibre.org/maplibre-gl-js/docs/API/" external>
 			MapLibre GL JS
 		</DocsLink>
-		.
-		Most components extend the native MapLibre options. Refer to the
-		<DocsLink
-			href="https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/"
-			external
-		>
+		. Most components extend the native MapLibre options. Refer to the
+		<DocsLink href="https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/" external>
 			MapLibre Map API
 		</DocsLink>
 		for additional options not listed here.
 	</DocsNote>
 
 	<DocsSection title="Component Anatomy">
-		<p>
-			All parts of the component that you can use and combine to build
-			your map.
-		</p>
+		<p>All parts of the component that you can use and combine to build your map.</p>
 
 		<CodeBlock code={anatomyCode} showCopyButton={false} />
 	</DocsSection>
@@ -74,9 +66,8 @@
 	<!-- Map -->
 	<DocsSection title="Map">
 		<p>
-			The root container component that initializes MapLibre GL and
-			provides context to child components. Automatically handles theme
-			switching between light and dark modes.
+			The root container component that initializes MapLibre GL and provides context to child
+			components. Automatically handles theme switching between light and dark modes.
 		</p>
 
 		<p>
@@ -99,14 +90,12 @@
 				{
 					name: "children",
 					type: "Snippet",
-					description:
-						"Child components (markers, popups, controls, routes).",
+					description: "Child components (markers, popups, controls, routes).",
 				},
 				{
 					name: "styles",
 					type: "{ light?: string | StyleSpecification; dark?: string | StyleSpecification }",
-					description:
-						"Custom map styles for light and dark themes.",
+					description: "Custom map styles for light and dark themes.",
 				},
 			]}
 		/>
@@ -115,8 +104,7 @@
 	<!-- Map Context -->
 	<DocsSection title="Map Context">
 		<p>
-			Access the MapLibre map instance and loading state via Svelte context.
-			Must be used within a
+			Access the MapLibre map instance and loading state via Svelte context. Must be used within a
 			<DocsCode>Map</DocsCode>
 			component.
 		</p>
@@ -127,10 +115,7 @@
 			Provides
 			<DocsCode>getMap()</DocsCode>
 			returning the
-			<DocsLink
-				href="https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/"
-				external
-			>
+			<DocsLink href="https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/" external>
 				MapLibre.Map
 			</DocsLink>
 			instance, and
@@ -142,8 +127,7 @@
 	<!-- MapControls -->
 	<DocsSection title="MapControls">
 		<p>
-			Renders map control buttons (zoom, compass, locate, fullscreen).
-			Must be used inside
+			Renders map control buttons (zoom, compass, locate, fullscreen). Must be used inside
 			<DocsCode>Map</DocsCode>
 			.
 		</p>
@@ -157,9 +141,24 @@
 					description: "Position of the controls.",
 				},
 				{ name: "showZoom", type: "boolean", default: "true", description: "Show zoom buttons." },
-				{ name: "showCompass", type: "boolean", default: "false", description: "Show compass button." },
-				{ name: "showLocate", type: "boolean", default: "false", description: "Show locate button." },
-				{ name: "showFullscreen", type: "boolean", default: "false", description: "Show fullscreen button." },
+				{
+					name: "showCompass",
+					type: "boolean",
+					default: "false",
+					description: "Show compass button.",
+				},
+				{
+					name: "showLocate",
+					type: "boolean",
+					default: "false",
+					description: "Show locate button.",
+				},
+				{
+					name: "showFullscreen",
+					type: "boolean",
+					default: "false",
+					description: "Show fullscreen button.",
+				},
 				{ name: "className", type: "string", description: "Additional CSS classes." },
 				{
 					name: "onLocate",
@@ -173,8 +172,7 @@
 	<!-- MapRoute -->
 	<DocsSection title="MapRoute">
 		<p>
-			Renders a line on the map connecting coordinate points. Must be used
-			inside
+			Renders a line on the map connecting coordinate points. Must be used inside
 			<DocsCode>Map</DocsCode>
 			.
 		</p>

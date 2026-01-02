@@ -55,7 +55,7 @@
 		{#each navigation as group}
 			<SidebarGroup>
 				<SidebarGroupLabel
-					class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/70"
+					class="text-muted-foreground/70 text-[11px] font-medium tracking-wider uppercase"
 				>
 					{group.title}
 				</SidebarGroupLabel>

@@ -20,15 +20,11 @@
 		<p>
 			The
 			<DocsCode>Map</DocsCode>
-			component handles MapLibre GL setup,
-			theming, and provides context for child components.
+			component handles MapLibre GL setup, theming, and provides context for child components.
 		</p>
 	</DocsSection>
 
-	<ComponentPreview
-		code={basicMapSource}
-		highlightedCode={basicMapHighlighted}
-	>
+	<ComponentPreview code={basicMapSource} highlightedCode={basicMapHighlighted}>
 		<BasicMapExample />
 	</ComponentPreview>
 </DocsLayout>

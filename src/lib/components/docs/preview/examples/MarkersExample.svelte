@@ -32,14 +32,9 @@
 <div class="h-[400px] w-full">
 	<Map center={[-73.98, 40.76]} zoom={12}>
 		{#each locations as location (location.id)}
-			<MapMarker
-				longitude={location.lng}
-				latitude={location.lat}
-			>
+			<MapMarker longitude={location.lng} latitude={location.lat}>
 				<MarkerContent>
-					<div
-						class="size-4 rounded-full border-2 border-white bg-primary shadow-lg"
-					></div>
+					<div class="bg-primary size-4 rounded-full border-2 border-white shadow-lg"></div>
 				</MarkerContent>
 
 				<MarkerTooltip>
@@ -48,10 +43,10 @@
 
 				<MarkerPopup>
 					<div class="space-y-1">
-						<p class="font-medium text-foreground">
+						<p class="text-foreground font-medium">
 							{location.name}
 						</p>
-						<p class="text-xs text-muted-foreground">
+						<p class="text-muted-foreground text-xs">
 							{location.lat.toFixed(4)}, {location.lng.toFixed(4)}
 						</p>
 					</div>

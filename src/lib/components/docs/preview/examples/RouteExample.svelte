@@ -1,14 +1,8 @@
 <script lang="ts">
-	import {
-		Map,
-		MapMarker,
-		MarkerContent,
-		MarkerTooltip,
-		MapRoute,
-	} from "$lib/components/ui/map";
+	import { Map, MapMarker, MarkerContent, MarkerTooltip, MapRoute } from "$lib/components/ui/map";
 
 	const route: [number, number][] = [
-		[-74.006, 40.7128],   // NYC City Hall
+		[-74.006, 40.7128], // NYC City Hall
 		[-73.9857, 40.7484], // Empire State Building
 		[-73.9772, 40.7527], // Grand Central
 		[-73.9654, 40.7829], // Central Park
@@ -24,12 +18,7 @@
 
 <div class="h-[400px] w-full">
 	<Map center={[-73.98, 40.75]} zoom={11.2}>
-		<MapRoute
-			coordinates={route}
-			color="#3b82f6"
-			width={4}
-			opacity={0.8}
-		/>
+		<MapRoute coordinates={route} color="#3b82f6" width={4} opacity={0.8} />
 
 		{#each stops as stop, index (stop.name)}
 			<MapMarker longitude={stop.lng} latitude={stop.lat}>

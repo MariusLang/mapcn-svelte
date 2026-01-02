@@ -18,12 +18,12 @@
 			{#if children}
 				{@render children()}
 			{/if}
-			<a href="/" class="flex items-center gap-1.5 hover:opacity-80 transition-opacity">
+			<a href="/" class="flex items-center gap-1.5 transition-opacity hover:opacity-80">
 				<MapPin class="size-4" />
 				<span class="font-semibold tracking-tight">mapcn-svelte</span>
 			</a>
 		</div>
-		<div class="flex items-center gap-1.5 h-4">
+		<div class="flex h-4 items-center gap-1.5">
 			<Separator orientation="vertical" />
 			<ThemeToggle />
 		</div>

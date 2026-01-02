@@ -11,10 +11,10 @@
 </script>
 
 <a
-	href={href}
+	{href}
 	target={external ? "_blank" : undefined}
 	rel={external ? "noopener noreferrer" : undefined}
-	class="font-medium text-foreground underline underline-offset-4 transition-colors hover:text-primary"
+	class="text-foreground hover:text-primary font-medium underline underline-offset-4 transition-colors"
 >
 	{@render children?.()}
 </a>

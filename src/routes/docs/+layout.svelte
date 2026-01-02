@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import { SidebarProvider } from "$lib/registry/ui/sidebar/index";
 	import Header from "$lib/components/Header.svelte";
 	import MobileSidebarTrigger from "$lib/components/MobileSidebarTrigger.svelte";
@@ -11,14 +10,14 @@
 <SidebarProvider>
 	<div class="flex min-h-screen w-full flex-col">
 		<Header
-			class="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60"
+			class="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 border-b backdrop-blur"
 		>
 			<MobileSidebarTrigger />
 		</Header>
 
 		<div class="felx flex-1">
 			<DocSidebar />
-			<main class="lex-1 max-w-3xl mx-auto w-full px-6 py-12">
+			<main class="lex-1 mx-auto w-full max-w-3xl px-6 py-12">
 				{@render children()}
 			</main>
 		</div>

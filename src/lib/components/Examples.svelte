@@ -36,17 +36,17 @@
 	<!-- Widget 1: Analytics - spans 2 cols, 2 rows -->
 	<div
 		class={cn(
-				"relative col-span-1 h-[300px] overflow-hidden rounded-xl border border-border/50 bg-card shadow sm:col-span-2 sm:row-span-2 lg:h-[412px]"
-			)}
+			"border-border/50 bg-card relative col-span-1 h-[300px] overflow-hidden rounded-xl border shadow sm:col-span-2 sm:row-span-2 lg:h-[412px]"
+		)}
 	>
 		<!-- Stats Panel -->
 		<div
-			class="absolute left-3 top-3 z-10 rounded-lg border border-border/50 bg-background/95 p-3 shadow-lg backdrop-blur-md"
+			class="border-border/50 bg-background/95 absolute top-3 left-3 z-10 rounded-lg border p-3 shadow-lg backdrop-blur-md"
 		>
-			<div class="text-muted-foreground mb-1 text-[10px] uppercase tracking-wider">
+			<div class="text-muted-foreground mb-1 text-[10px] tracking-wider uppercase">
 				Active Users
 			</div>
-			<div class="text-2xl font-bold leading-tight">2,847</div>
+			<div class="text-2xl leading-tight font-bold">2,847</div>
 			<div class="mt-1 flex items-center gap-1">
 				<TrendingUp class="size-3 text-emerald-500" />
 				<span class="text-xs text-emerald-500">+12.5%</span>
@@ -56,7 +56,7 @@
 
 		<!-- Legend -->
 		<div
-			class="absolute bottom-3 left-3 z-10 rounded-lg border border-border/50 bg-background/95 px-3 py-2 shadow-lg backdrop-blur-md"
+			class="border-border/50 bg-background/95 absolute bottom-3 left-3 z-10 rounded-lg border px-3 py-2 shadow-lg backdrop-blur-md"
 		>
 			<div class="flex items-center gap-4 text-[10px]">
 				<div class="flex items-center gap-1.5">
@@ -85,7 +85,8 @@
 							></div>
 							<div
 								class="absolute animate-ping rounded-full bg-emerald-500/40"
-								style="width: {loc.size * 1.5}px; height: {loc.size * 1.5}px; animation-duration: 2s;"
+								style="width: {loc.size * 1.5}px; height: {loc.size *
+									1.5}px; animation-duration: 2s;"
 							></div>
 							<div
 								class="relative rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/50"
@@ -106,9 +107,9 @@
 	</div>
 
 	<!-- Widget 2: EV Charging -->
-	<div class="relative h-[200px] overflow-hidden rounded-xl border border-border/50 bg-card shadow">
+	<div class="border-border/50 bg-card relative h-[200px] overflow-hidden rounded-xl border shadow">
 		<div
-			class="absolute left-2 top-2 z-10 rounded bg-background/90 px-2 py-1 text-[10px] text-muted-foreground backdrop-blur-sm"
+			class="bg-background/90 text-muted-foreground absolute top-2 left-2 z-10 rounded px-2 py-1 text-[10px] backdrop-blur-sm"
 		>
 			EV Charging
 		</div>
@@ -187,9 +188,9 @@
 	</div>
 
 	<!-- Widget 3: Locate Me -->
-	<div class="relative h-[200px] overflow-hidden rounded-xl border border-border/50 bg-card shadow">
+	<div class="border-border/50 bg-card relative h-[200px] overflow-hidden rounded-xl border shadow">
 		<div
-			class="absolute left-2 top-2 z-10 rounded bg-background/90 px-2 py-1 text-[10px] text-muted-foreground backdrop-blur-sm"
+			class="bg-background/90 text-muted-foreground absolute top-2 left-2 z-10 rounded px-2 py-1 text-[10px] backdrop-blur-sm"
 		>
 			Locate Me
 		</div>
@@ -210,21 +211,21 @@
 	</div>
 
 	<!-- Widget 4: Delivery Tracking -->
-	<div class="relative h-[200px] overflow-hidden rounded-xl border border-border/50 bg-card shadow">
+	<div class="border-border/50 bg-card relative h-[200px] overflow-hidden rounded-xl border shadow">
 		<div
-			class="absolute left-2 top-2 z-10 rounded bg-background/90 px-2 py-1 text-[10px] text-muted-foreground backdrop-blur-sm"
+			class="bg-background/90 text-muted-foreground absolute top-2 left-2 z-10 rounded px-2 py-1 text-[10px] backdrop-blur-sm"
 		>
 			Delivery
 		</div>
 		<Map center={[-0.1076, 51.517]} zoom={11.2}>
 			<MapRoute
 				coordinates={[
-						[-0.1276, 51.5074],
-						[-0.12, 51.512],
-						[-0.105, 51.518],
-						[-0.095, 51.522],
-						[-0.0876, 51.5274],
-					]}
+					[-0.1276, 51.5074],
+					[-0.12, 51.512],
+					[-0.105, 51.518],
+					[-0.095, 51.522],
+					[-0.0876, 51.5274],
+				]}
 				width={4}
 				color="#4285F4"
 			/>
@@ -256,9 +257,9 @@
 	</div>
 
 	<!-- Widget 5: Trending Now -->
-	<div class="relative h-[200px] overflow-hidden rounded-xl border border-border/50 bg-card shadow">
+	<div class="border-border/50 bg-card relative h-[200px] overflow-hidden rounded-xl border shadow">
 		<div
-			class="absolute left-2 top-2 z-10 rounded bg-background/90 px-2 py-1 text-[10px] text-muted-foreground backdrop-blur-sm"
+			class="bg-background/90 text-muted-foreground absolute top-2 left-2 z-10 rounded px-2 py-1 text-[10px] backdrop-blur-sm"
 		>
 			Trending
 		</div>

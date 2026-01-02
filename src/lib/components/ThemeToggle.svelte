@@ -24,12 +24,7 @@
 {#if !mounted}
 	<div class="size-4"></div>
 {:else}
-	<Button
-		onclick={toggleTheme}
-		variant="ghost"
-		size="icon-sm"
-		aria-label="Toggle theme"
-	>
+	<Button onclick={toggleTheme} variant="ghost" size="icon-sm" aria-label="Toggle theme">
 		<ThemeIcon className="size-4" />
 	</Button>
 {/if}

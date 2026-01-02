@@ -1,19 +1,8 @@
 <script lang="ts">
-	import {
-		Map,
-		MapMarker,
-		MarkerContent,
-		MarkerLabel,
-		MarkerPopup,
-	} from "$lib/components/ui/map";
+	import { Map, MapMarker, MarkerContent, MarkerLabel, MarkerPopup } from "$lib/components/ui/map";
 
 	import { Button } from "$lib/registry/ui/button";
-	import {
-		Star,
-		Navigation,
-		Clock,
-		ExternalLink,
-	} from "lucide-svelte";
+	import { Star, Navigation, Clock, ExternalLink } from "lucide-svelte";
 
 	const places = [
 		{
@@ -24,8 +13,7 @@
 			rating: 4.8,
 			reviews: 12453,
 			hours: "10:00 AM - 5:00 PM",
-			image:
-				"https://images.unsplash.com/photo-1575223970966-76ae61ee7838?w=300&h=200&fit=crop",
+			image: "https://images.unsplash.com/photo-1575223970966-76ae61ee7838?w=300&h=200&fit=crop",
 			lng: -73.9632,
 			lat: 40.7794,
 		},
@@ -37,8 +25,7 @@
 			rating: 4.9,
 			reviews: 8234,
 			hours: "Open 24 hours",
-			image:
-				"https://images.unsplash.com/photo-1496588152823-86ff7695e68f?w=300&h=200&fit=crop",
+			image: "https://images.unsplash.com/photo-1496588152823-86ff7695e68f?w=300&h=200&fit=crop",
 			lng: -73.9969,
 			lat: 40.7061,
 		},
@@ -50,8 +37,7 @@
 			rating: 4.7,
 			reviews: 5621,
 			hours: "5:15 AM - 2:00 AM",
-			image:
-				"https://images.unsplash.com/photo-1534430480872-3498386e7856?w=300&h=200&fit=crop",
+			image: "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=300&h=200&fit=crop",
 			lng: -73.9772,
 			lat: 40.7527,
 		},
@@ -83,12 +69,10 @@
 
 					<div class="space-y-2 p-3">
 						<div>
-							<span
-								class="text-xs font-medium uppercase tracking-wide text-muted-foreground"
-							>
+							<span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
 								{place.category}
 							</span>
-							<h3 class="leading-tight font-semibold text-foreground">
+							<h3 class="text-foreground leading-tight font-semibold">
 								{place.name}
 							</h3>
 						</div>
@@ -105,9 +89,7 @@
 							</div>
 						</div>
 
-						<div
-							class="flex items-center gap-1.5 text-sm text-muted-foreground"
-						>
+						<div class="text-muted-foreground flex items-center gap-1.5 text-sm">
 							<Clock class="size-3.5" />
 							<span>{place.hours}</span>
 						</div>

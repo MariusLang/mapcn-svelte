@@ -17,18 +17,11 @@
 				onClose={() => (showPopup = false)}
 			>
 				<div class="space-y-2">
-					<h3 class="font-semibold text-foreground">
-						New York City
-					</h3>
-					<p class="text-sm text-muted-foreground">
+					<h3 class="text-foreground font-semibold">New York City</h3>
+					<p class="text-muted-foreground text-sm">
 						The city that never sleeps. Population: 8.3 million
 					</p>
-					<Button
-						size="sm"
-						variant="outline"
-						class="w-full"
-						onclick={() => (showPopup = false)}
-					>
+					<Button size="sm" variant="outline" class="w-full" onclick={() => (showPopup = false)}>
 						Close
 					</Button>
 				</div>
@@ -37,11 +30,7 @@
 	</Map>
 
 	{#if !showPopup}
-		<Button
-			size="sm"
-			class="absolute bottom-4 left-4 z-10"
-			onclick={() => (showPopup = true)}
-		>
+		<Button size="sm" class="absolute bottom-4 left-4 z-10" onclick={() => (showPopup = true)}>
 			Show Popup
 		</Button>
 	{/if}

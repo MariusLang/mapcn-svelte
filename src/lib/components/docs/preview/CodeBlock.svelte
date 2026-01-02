@@ -22,15 +22,13 @@
 
 <div class="w-full overflow-hidden rounded-lg border">
 	{#if showCopyButton}
-		<div
-			class="flex h-9 items-center justify-end border-b bg-muted/30 px-2"
-		>
+		<div class="bg-muted/30 flex h-9 items-center justify-end border-b px-2">
 			<CopyButton command={code} />
 		</div>
 	{/if}
 
 	<div
-		class="overflow-auto bg-muted/20 p-4 text-sm [&_pre]:bg-transparent! [&_code]:bg-transparent!"
+		class="bg-muted/20 overflow-auto p-4 text-sm [&_code]:bg-transparent! [&_pre]:bg-transparent!"
 	>
 		{#if highlightedCode}
 			{@html highlightedCode}

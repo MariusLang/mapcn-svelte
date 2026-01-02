@@ -18,17 +18,13 @@
 >
 	<DocsSection>
 		<p>
-			Use <DocsCode>MapPopup</DocsCode> to display a popup at any
-			location on the map. Unlike
-			<DocsCode>MarkerPopup</DocsCode>, standalone popups are not
-			attached to markers and can be controlled programmatically.
+			Use <DocsCode>MapPopup</DocsCode> to display a popup at any location on the map. Unlike
+			<DocsCode>MarkerPopup</DocsCode>, standalone popups are not attached to markers and can be
+			controlled programmatically.
 		</p>
 	</DocsSection>
 
-	<ComponentPreview
-		code={popupSource}
-		highlightedCode={popupHighlighted}
-	>
+	<ComponentPreview code={popupSource} highlightedCode={popupHighlighted}>
 		<StandalonePopupExample />
 	</ComponentPreview>
 </DocsLayout>

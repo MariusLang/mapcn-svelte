@@ -1,12 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import {
-		Map,
-		MapMarker,
-		MarkerContent,
-		MapRoute,
-		MarkerLabel,
-	} from "$lib/components/ui/map";
+	import { Map, MapMarker, MarkerContent, MapRoute, MarkerLabel } from "$lib/components/ui/map";
 	import { Loader2 } from "lucide-svelte";
 
 	const start = { name: "Times Square", lng: -73.9855, lat: 40.758 };
@@ -18,7 +12,7 @@
 	onMount(async () => {
 		try {
 			const response = await fetch(
-				`https://router.project-osrm.org/route/v1/driving/${start.lng},${start.lat};${end.lng},${end.lat}?overview=full&geometries=geojson`,
+				`https://router.project-osrm.org/route/v1/driving/${start.lng},${start.lat};${end.lng},${end.lat}?overview=full&geometries=geojson`
 			);
 			const data = await response.json();
 
@@ -36,19 +30,12 @@
 <div class="relative h-[400px] w-full">
 	<Map center={[-73.975, 40.772]} zoom={12.5}>
 		{#if route}
-			<MapRoute
-				coordinates={route}
-				color="#6366f1"
-				width={5}
-				opacity={0.85}
-			/>
+			<MapRoute coordinates={route} color="#6366f1" width={5} opacity={0.85} />
 		{/if}
 
 		<MapMarker longitude={start.lng} latitude={start.lat}>
 			<MarkerContent>
-				<div
-					class="size-5 rounded-full border-2 border-white bg-green-500 shadow-lg"
-				></div>
+				<div class="size-5 rounded-full border-2 border-white bg-green-500 shadow-lg"></div>
 				<MarkerLabel position="bottom">
 					Start: {start.name}
 				</MarkerLabel>
@@ -57,9 +44,7 @@
 
 		<MapMarker longitude={end.lng} latitude={end.lat}>
 			<MarkerContent>
-				<div
-					class="size-5 rounded-full border-2 border-white bg-red-500 shadow-lg"
-				></div>
+				<div class="size-5 rounded-full border-2 border-white bg-red-500 shadow-lg"></div>
 				<MarkerLabel position="bottom">
 					End: {end.name}
 				</MarkerLabel>
@@ -68,8 +53,8 @@
 	</Map>
 
 	{#if isLoading}
-		<div class="absolute inset-0 flex items-center justify-center bg-background/50">
-			<Loader2 class="size-6 animate-spin text-muted-foreground" />
+		<div class="bg-background/50 absolute inset-0 flex items-center justify-center">
+			<Loader2 class="text-muted-foreground size-6 animate-spin" />
 		</div>
 	{/if}
 </div>

@@ -44,19 +44,19 @@ This will install `maplibre-gl` and add all map components to your project.
 
 ```svelte
 <script lang="ts">
-  import { Map, MapControls } from "$lib/components/ui/map";
+	import { Map, MapControls } from "$lib/components/ui/map";
 </script>
 
 <div class="h-[400px] w-full">
-  <Map center={[-74.006, 40.7128]} zoom={12}>
-    <MapControls />
-  </Map>
+	<Map center={[-74.006, 40.7128]} zoom={12}>
+		<MapControls />
+	</Map>
 </div>
 ```
 
 ## Documentation
 
-Full documentation is available at [your-domain.vercel.app/docs](https://your-domain.vercel.app/docs)
+Full documentation is available at [mapcn-svelte.vercel.app/docs](https://mapcn-svelte.vercel.app/docs)
 
 ## Components
 

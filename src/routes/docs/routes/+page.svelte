@@ -22,9 +22,8 @@
 		<p>
 			Use
 			<DocsCode>MapRoute</DocsCode>
-			to draw lines connecting a
-			series of coordinates. Perfect for showing directions,
-			trails, or any path between points.
+			to draw lines connecting a series of coordinates. Perfect for showing directions, trails, or any
+			path between points.
 		</p>
 	</DocsSection>
 
@@ -32,24 +31,15 @@
 		<p>Draw a route with numbered stop markers along the path.</p>
 	</DocsSection>
 
-	<ComponentPreview
-		code={routeSource}
-		highlightedCode={routeHighlighted}
-	>
+	<ComponentPreview code={routeSource} highlightedCode={routeHighlighted}>
 		<RouteExample />
 	</ComponentPreview>
 
 	<DocsSection title="Dynamic Route from OSRM">
-		<p>
-			Fetch real driving directions from the OSRM API and display
-			them on the map.
-		</p>
+		<p>Fetch real driving directions from the OSRM API and display them on the map.</p>
 	</DocsSection>
 
-	<ComponentPreview
-		code={osrmRouteSource}
-		highlightedCode={osrmRouteHighlighted}
-	>
+	<ComponentPreview code={osrmRouteSource} highlightedCode={osrmRouteHighlighted}>
 		<OsrmRouteExample />
 	</ComponentPreview>
 </DocsLayout>

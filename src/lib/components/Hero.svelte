@@ -7,22 +7,22 @@
 	const installCommand = `npx shadcn-svelte@latest add ${siteUrl}/r/map.json`;
 </script>
 
-<div class="space-y-6 mb-12">
-	<div class="text-center space-y-4">
-		<h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight animate-fade-up">
+<div class="mb-12 space-y-6">
+	<div class="space-y-4 text-center">
+		<h1 class="animate-fade-up text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
 			Beautiful maps, made simple.
 		</h1>
-		<p class="text-foreground/80 text-lg max-w-2xl mx-auto animate-fade-up delay-100">
-			Free & open source map components for Svelte. Zero config, one command setup. Built on MapLibre GL, styled with Tailwind,
-			works seamlessly with shadcn-svelte.
+		<p class="text-foreground/80 animate-fade-up mx-auto max-w-2xl text-lg delay-100">
+			Free & open source map components for Svelte. Zero config, one command setup. Built on
+			MapLibre GL, styled with Tailwind, works seamlessly with shadcn-svelte.
 		</p>
-		<p class="text-muted-foreground text-sm max-w-2xl mx-auto animate-fade-up delay-150">
+		<p class="text-muted-foreground animate-fade-up mx-auto max-w-2xl text-sm delay-150">
 			Svelte port of
 			<a
 				href="https://mapcn.vercel.app"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="font-medium text-foreground hover:underline"
+				class="text-foreground font-medium hover:underline"
 			>
 				mapcn
 			</a>
@@ -31,32 +31,32 @@
 				href="https://github.com/AnmolSaini16"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="font-medium text-foreground hover:underline"
+				class="text-foreground font-medium hover:underline"
 			>
 				Anmol
-			</a>.
-			Ported by
+			</a>. Ported by
 			<a
 				href="https://github.com/MariusLang"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="font-medium text-foreground hover:underline"
+				class="text-foreground font-medium hover:underline"
 			>
 				Marius Lang
 			</a>.
 		</p>
 	</div>
 
-	<div class="flex justify-center animate-fade-up delay-200 w-full px-4">
+	<div class="animate-fade-up flex w-full justify-center px-4 delay-200">
 		<div
-			class="inline-flex items-center gap-3 bg-secondary/50 border border-border/50 rounded-full px-5 py-2.5 font-mono text-sm max-w-full overflow-x-auto">
+			class="bg-secondary/50 border-border/50 inline-flex max-w-full items-center gap-3 overflow-x-auto rounded-full border px-5 py-2.5 font-mono text-sm"
+		>
 			<span class="text-muted-foreground shrink-0">$</span>
 			<code>{installCommand}</code>
 			<CopyButton command={installCommand} />
 		</div>
 	</div>
 
-	<div class="flex flex-wrap justify-center items-center gap-3 animate-fade-up delay-300">
+	<div class="animate-fade-up flex flex-wrap items-center justify-center gap-3 delay-300">
 		<Button>
 			<a href="/docs" class="inline-flex items-center gap-2">
 				Get Started
