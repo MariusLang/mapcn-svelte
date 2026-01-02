@@ -110,6 +110,18 @@
 		});
 	});
 
+	$effect(() => {
+		if (!map || !isReady) {
+			return;
+		}
+
+		const [lng, lat] = center;
+
+		untrack(() => {
+			map!.easeTo({ center: [lng, lat], zoom });
+		});
+	});
+
 	onDestroy(() => {
 		map?.remove();
 		map = null;
