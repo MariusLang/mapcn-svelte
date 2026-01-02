@@ -18,7 +18,7 @@
 
 ## About
 
-This is a **Svelte port** of [mapcn](https://github.com/AnmolSaini16/mapcn) by [Anmol Saini](https://github.com/AnmolSaini16). The original React version provides beautiful, composable map components for React applications. This port brings the same developer experience to Svelte 5, maintaining feature parity while adapting to Svelte's reactive paradigms.
+This is a **Svelte port** of [mapcn](https://github.com/AnmolSaini16/mapcn) by [Anmol](https://github.com/AnmolSaini16). The original React version provides beautiful, composable map components for React applications. This port brings the same developer experience to Svelte 5, maintaining feature parity while adapting to Svelte's reactive paradigms.
 
 ## Features
 
@@ -35,7 +35,7 @@ This is a **Svelte port** of [mapcn](https://github.com/AnmolSaini16/mapcn) by [
 ## Installation
 
 ```bash
-npx shadcn-svelte@latest add https://your-domain.vercel.app/r/map.json
+npx shadcn-svelte@latest add https://mapcn-svelte.vercel.app/r/map.json
 ```
 
 This will install `maplibre-gl` and add all map components to your project.

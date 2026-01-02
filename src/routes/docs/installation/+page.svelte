@@ -1,6 +1,4 @@
 <script lang="ts">
-
-
 	import CodeBlock from "$lib/components/docs/preview/CodeBlock.svelte";
 	import { Card } from "$lib/registry/ui/card";
 	import { Map, MapControls } from "$lib/components/ui/map";
@@ -41,8 +39,8 @@
 					Tailwind CSS
 				</DocsLink>
 				and
-				<DocsLink href="https://ui.shadcn.com" external>
-					shadcn/ui
+				<DocsLink href="https://www.shadcn-svelte.com" external>
+					shadcn-svelte
 				</DocsLink>
 				set up.
 			</p>
