@@ -8,14 +8,12 @@
 </script>
 
 <div class="relative">
-	<!--<div class="absolute inset-0 -z-10 overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.4] dark:opacity-[0.15]"
-          style={{
-            backgroundImage: `radial-gradient(circle, currentColor 1px, transparent 1px)`,
-            backgroundSize: "24px 24px",
-          }}
-        />-->
+	<div class="absolute inset-0 -z-10 overflow-hidden">
+		<div
+			class="absolute inset-0 opacity-[0.4] dark:opacity-[0.15]"
+			style="background-image: radial-gradient(circle, currentColor 1px, transparent 1px); background-size: 24px 24px;"
+		></div>
+	</div>
 	<div class="absolute -top-40 -right-40 size-96 rounded-full bg-emerald-500/10 blur-3xl"></div>
 	<div class="absolute -bottom-40 -left-40 size-96 rounded-full bg-sky-500/10 blur-3xl"></div>
 	<div class="from-background to-background absolute inset-0 bg-linear-to-b via-transparent"></div>
@@ -80,14 +78,14 @@
 	</div>
 </div>
 
-<div class="animate-fade-up flex flex-wrap items-center justify-center gap-3 delay-300">
-	<Button>
+<div class="animate-fade-up mt-8 flex flex-wrap items-center justify-center gap-3 delay-400">
+	<Button size="lg">
 		<a href="/docs" class="inline-flex items-center gap-2">
 			Get Started
 			<ArrowRight class="size-4" />
 		</a>
 	</Button>
-	<Button variant="outline" size="lg">
-		<a href="/docs/basic-map">View Examples</a>
+	<Button variant="ghost" size="lg">
+		<a href="/docs/basic-map">View Components</a>
 	</Button>
 </div>

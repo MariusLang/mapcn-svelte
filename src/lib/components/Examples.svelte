@@ -36,7 +36,7 @@
 	<!-- Widget 1: Analytics - spans 2 cols, 2 rows -->
 	<div
 		class={cn(
-			"border-border/50 bg-card relative col-span-1 h-[300px] overflow-hidden rounded-xl border shadow sm:col-span-2 sm:row-span-2 lg:h-[412px]"
+			"border-border/50 bg-card relative col-span-1 h-75 overflow-hidden rounded-xl border shadow sm:col-span-2 sm:row-span-2 lg:h-103"
 		)}
 	>
 		<!-- Stats Panel -->
@@ -107,7 +107,7 @@
 	</div>
 
 	<!-- Widget 2: EV Charging -->
-	<div class="border-border/50 bg-card relative h-[200px] overflow-hidden rounded-xl border shadow">
+	<div class="border-border/50 bg-card relative h-50 overflow-hidden rounded-xl border shadow">
 		<div
 			class="bg-background/90 text-muted-foreground absolute top-2 left-2 z-10 rounded px-2 py-1 text-[10px] backdrop-blur-sm"
 		>
@@ -188,7 +188,7 @@
 	</div>
 
 	<!-- Widget 3: Locate Me -->
-	<div class="border-border/50 bg-card relative h-[200px] overflow-hidden rounded-xl border shadow">
+	<div class="border-border/50 bg-card relative h-50 overflow-hidden rounded-xl border shadow">
 		<div
 			class="bg-background/90 text-muted-foreground absolute top-2 left-2 z-10 rounded px-2 py-1 text-[10px] backdrop-blur-sm"
 		>
@@ -211,7 +211,7 @@
 	</div>
 
 	<!-- Widget 4: Delivery Tracking -->
-	<div class="border-border/50 bg-card relative h-[200px] overflow-hidden rounded-xl border shadow">
+	<div class="border-border/50 bg-card relative h-50 overflow-hidden rounded-xl border shadow">
 		<div
 			class="bg-background/90 text-muted-foreground absolute top-2 left-2 z-10 rounded px-2 py-1 text-[10px] backdrop-blur-sm"
 		>
@@ -257,7 +257,7 @@
 	</div>
 
 	<!-- Widget 5: Trending Now -->
-	<div class="border-border/50 bg-card relative h-[200px] overflow-hidden rounded-xl border shadow">
+	<div class="border-border/50 bg-card relative h-50 overflow-hidden rounded-xl border shadow">
 		<div
 			class="bg-background/90 text-muted-foreground absolute top-2 left-2 z-10 rounded px-2 py-1 text-[10px] backdrop-blur-sm"
 		>
@@ -270,7 +270,7 @@
 						<div class="absolute size-12 rounded-full bg-orange-500/30"></div>
 						<div class="absolute size-7 rounded-full bg-orange-500/40"></div>
 						<div
-							class="rounded-full bg-gradient-to-br from-orange-500 to-red-500 p-1.5 shadow-lg shadow-orange-500/50"
+							class="rounded-full bg-linear-to-br from-orange-500 to-red-500 p-1.5 shadow-lg shadow-orange-500/50"
 						>
 							<Flame class="size-3.5 text-white" />
 						</div>
@@ -291,7 +291,7 @@
 					<div class="relative flex items-center justify-center">
 						<div class="absolute size-10 rounded-full bg-rose-500/30"></div>
 						<div
-							class="rounded-full bg-gradient-to-br from-rose-500 to-pink-500 p-1.5 shadow-lg shadow-rose-500/50"
+							class="rounded-full bg-linear-to-br from-rose-500 to-pink-500 p-1.5 shadow-lg shadow-rose-500/50"
 						>
 							<Flame class="size-3 text-white" />
 						</div>
@@ -312,7 +312,7 @@
 					<div class="relative flex items-center justify-center">
 						<div class="absolute size-8 rounded-full bg-amber-500/30"></div>
 						<div
-							class="rounded-full bg-gradient-to-br from-amber-500 to-yellow-500 p-1 shadow-lg shadow-amber-500/50"
+							class="rounded-full bg-linear-to-br from-amber-500 to-yellow-500 p-1 shadow-lg shadow-amber-500/50"
 						>
 							<Flame class="size-2.5 text-white" />
 						</div>

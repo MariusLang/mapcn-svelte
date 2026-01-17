@@ -31,11 +31,11 @@
 			<!--<CommandSearch />-->
 			<Separator orientation="vertical" class="hidden sm:block" />
 			<Tooltip.Provider>
-				<Tooltip.Root>
+				<!--<Tooltip.Root>
 					<Tooltip.Trigger>
 						<Button variant="ghost" size="sm">
 							<a
-								href="https://github.com/sponsors/AnmolSaini16"
+								href="https://github.com/sponsors/MariusLang"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
@@ -48,11 +48,11 @@
 						<p>Sponsor this project</p>
 					</Tooltip.Content>
 				</Tooltip.Root>
+				<Separator orientation="vertical" />-->
+				<GitHubButton />
+				<Separator orientation="vertical" />
+				<ThemeToggle />
 			</Tooltip.Provider>
-			<Separator orientation="vertical" />
-			<GitHubButton />
-			<Separator orientation="vertical" />
-			<ThemeToggle />
 		</div>
 	</nav>
 </header>
