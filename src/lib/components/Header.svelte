@@ -23,7 +23,7 @@
 				{@render children()}
 			{/if}
 			<a href="/" class="flex items-center gap-1.5 transition-opacity hover:opacity-80">
-				<MapPin class="size-4" />
+				<MapPin class="size-4 text-orange-600" />
 				<span class="font-semibold tracking-tight">mapcn-svelte</span>
 			</a>
 		</div>

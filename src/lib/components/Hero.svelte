@@ -14,7 +14,7 @@
 			style="background-image: radial-gradient(circle, currentColor 1px, transparent 1px); background-size: 24px 24px;"
 		></div>
 		<div class="absolute -top-40 -right-40 size-96 rounded-full bg-emerald-500/10 blur-3xl"></div>
-		<div class="absolute -bottom-40 -left-40 size-96 rounded-full bg-sky-500/10 blur-3xl"></div>
+		<div class="absolute -bottom-40 -left-40 size-96 rounded-full bg-orange-600/10 blur-3xl"></div>
 		<div
 			class="from-background to-background absolute inset-0 bg-linear-to-b via-transparent"
 		></div>
