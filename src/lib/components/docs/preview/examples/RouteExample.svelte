@@ -16,7 +16,7 @@
 	];
 </script>
 
-<div class="h-[400px] w-full">
+<div class="h-100 w-full">
 	<Map center={[-73.98, 40.75]} zoom={11.2}>
 		<MapRoute coordinates={route} color="#3b82f6" width={4} opacity={0.8} />
 

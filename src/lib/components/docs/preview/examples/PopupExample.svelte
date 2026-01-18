@@ -44,7 +44,7 @@
 	];
 </script>
 
-<div class="h-[500px] w-full">
+<div class="h-125 w-full">
 	<Map center={[-73.98, 40.74]} zoom={11}>
 		{#each places as place (place.id)}
 			<MapMarker longitude={place.lng} latitude={place.lat}>

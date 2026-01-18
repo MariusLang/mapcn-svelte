@@ -40,14 +40,14 @@
 </script>
 
 <svelte:head>
-	<title>API Reference - mapcn</title>
+	<title>API Reference - mapcn-svelte</title>
 </svelte:head>
 
 <DocsLayout
 	title="API Reference"
 	description="Complete reference for all map components and their props."
 	prev={{ title: "Installation", href: "/docs/installation" }}
-	next={{ title: "Basic Map", href: "/docs/basic-map" }}
+	next={{ title: "Map", href: "/docs/basic-map" }}
 >
 	<DocsNote>
 		<strong>Note:</strong> This library is built on top of

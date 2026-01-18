@@ -28,7 +28,7 @@
 </script>
 
 <svelte:head>
-	<title>Installation - mapcn</title>
+	<title>Installation - mapcn-svelte</title>
 </svelte:head>
 
 <DocsLayout
