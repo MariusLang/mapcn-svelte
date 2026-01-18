@@ -8,8 +8,6 @@
 	import DocsPropTable from "$lib/components/docs/DocsPropTable.svelte";
 
 	const anatomyCode = `<Map>
-  <MapClusterLayer data={...} />
-
   <MapMarker longitude={...} latitude={...}>
     <MarkerContent>
       <MarkerLabel />
@@ -21,6 +19,7 @@
   <MapPopup longitude={...} latitude={...} />
   <MapControls />
   <MapRoute coordinates={...} />
+  <MapClusterLayer data={...} />
 </Map>`;
 
 	const useMapCode =
@@ -88,9 +87,7 @@
 			<DocsCode>container</DocsCode>
 			and
 			<DocsCode>style</DocsCode>
-			). Additional options can be passed via the
-			<DocsCode>options</DocsCode>
-			prop.
+			).
 		</p>
 
 		<DocsPropTable
@@ -103,34 +100,409 @@
 				{
 					name: "theme",
 					type: '"light" | "dark"',
-					description: "Theme for the map. If not provided, automatically detects system preference.",
+					description: "Theme for the map. If not provided, automatically detects from document class or system preference.",
 				},
 				{
 					name: "styles",
 					type: "{ light?: string | StyleSpecification; dark?: string | StyleSpecification }",
-					description: "Custom map styles for light and dark themes.",
+					description: "Custom map styles for light and dark themes. Overrides the default Carto base map tiles.",
 				},
 				{
 					name: "projection",
 					type: "ProjectionSpecification",
 					description: "Map projection type. Use { type: 'globe' } for 3D globe view.",
 				},
+			]}
+		/>
+	</DocsSection>
+
+	<!-- Map Context -->
+	<DocsSection title="Map Context">
+		<p>
+			A hook that provides access to the MapLibre map instance and loading state. Must be used within a
+			<DocsCode>Map</DocsCode>
+			component.
+		</p>
+
+		<CodeBlock code={useMapCode} language="svelte" showCopyButton={false} />
+
+		<p>
+			Provides
+			<DocsCode>getMap()</DocsCode>
+			returning
+			<DocsLink href="https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/" external>
+				MapLibre.Map
+			</DocsLink>
+			instance, and
+			<DocsCode>isLoaded()</DocsCode>
+			returning a boolean tells you if the map is loaded and ready to use.
+		</p>
+	</DocsSection>
+
+	<!-- MapControls -->
+	<DocsSection title="MapControls">
+		<p>
+			Renders map control buttons (zoom, compass, locate, fullscreen). Must be used inside
+			<DocsCode>Map</DocsCode>
+			.
+		</p>
+
+		<DocsPropTable
+			props={[
 				{
-					name: "center",
-					type: "[number, number]",
-					default: "[13.405, 52.52]",
-					description: "Initial map center [longitude, latitude].",
+					name: "position",
+					type: '"top-left" | "top-right" | "bottom-left" | "bottom-right"',
+					default: '"bottom-right"',
+					description: "Position of the controls on the map.",
 				},
 				{
-					name: "zoom",
+					name: "showZoom",
+					type: "boolean",
+					default: "true",
+					description: "Show zoom in/out buttons.",
+				},
+				{
+					name: "showCompass",
+					type: "boolean",
+					default: "false",
+					description: "Show compass button to reset bearing.",
+				},
+				{
+					name: "showLocate",
+					type: "boolean",
+					default: "false",
+					description: "Show locate button to find user's location.",
+				},
+				{
+					name: "showFullscreen",
+					type: "boolean",
+					default: "false",
+					description: "Show fullscreen toggle button.",
+				},
+				{ name: "className", type: "string", description: "Additional CSS classes for the controls container." },
+				{
+					name: "onLocate",
+					type: "(coords: { longitude: number; latitude: number }) => void",
+					description: "Callback with user coordinates when located.",
+				},
+			]}
+		/>
+	</DocsSection>
+
+	<!-- MapMarker -->
+	<DocsSection title="MapMarker">
+		<p>
+			A container for marker-related components. Provides context for its children and handles marker positioning.
+		</p>
+
+		<p>
+			Extends
+			<DocsLink
+				href="https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/"
+				external
+			>
+				MarkerOptions
+			</DocsLink>
+			from MapLibre GL (excluding
+			<DocsCode>element</DocsCode>
+			).
+		</p>
+
+		<DocsPropTable
+			props={[
+				{
+					name: "longitude",
 					type: "number",
-					default: "0",
-					description: "Initial map zoom level.",
+					description: "Longitude coordinate for marker position.",
 				},
 				{
-					name: "options",
-					type: "Omit<MapOptions, 'container' | 'style'>",
-					description: "Additional MapLibre MapOptions (excluding container and style).",
+					name: "latitude",
+					type: "number",
+					description: "Latitude coordinate for marker position.",
+				},
+				{
+					name: "children",
+					type: "Snippet",
+					description: "Marker subcomponents (MarkerContent, MarkerPopup, etc).",
+				},
+				{
+					name: "onClick",
+					type: "(e: MouseEvent) => void",
+					description: "Callback when marker is clicked.",
+				},
+				{
+					name: "onMouseEnter",
+					type: "(e: MouseEvent) => void",
+					description: "Callback when mouse enters marker.",
+				},
+				{
+					name: "onMouseLeave",
+					type: "(e: MouseEvent) => void",
+					description: "Callback when mouse leaves marker.",
+				},
+				{
+					name: "onDragStart",
+					type: "(lngLat: {lng, lat}) => void",
+					description: "Callback when marker drag starts (requires draggable: true).",
+				},
+				{
+					name: "onDrag",
+					type: "(lngLat: {lng, lat}) => void",
+					description: "Callback during marker drag (requires draggable: true).",
+				},
+				{
+					name: "onDragEnd",
+					type: "(lngLat: {lng, lat}) => void",
+					description: "Callback when marker drag ends (requires draggable: true).",
+				},
+			]}
+		/>
+	</DocsSection>
+
+	<!-- MarkerContent -->
+	<DocsSection title="MarkerContent">
+		<p>
+			Renders the visual content of a marker. Must be used inside
+			<DocsCode>MapMarker</DocsCode>
+			. If no children provided, renders a default blue dot marker.
+		</p>
+
+		<DocsPropTable
+			props={[
+				{
+					name: "children",
+					type: "Snippet",
+					description: "Custom marker content. Defaults to a blue dot.",
+				},
+				{ name: "className", type: "string", description: "Additional CSS classes for the marker container." },
+			]}
+		/>
+	</DocsSection>
+
+	<!-- MarkerPopup -->
+	<DocsSection title="MarkerPopup">
+		<p>
+			Renders a popup attached to the marker that opens on click. Must be used inside
+			<DocsCode>MapMarker</DocsCode>
+			.
+		</p>
+
+		<p>
+			Extends
+			<DocsLink
+				href="https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PopupOptions/"
+				external
+			>
+				PopupOptions
+			</DocsLink>
+			from MapLibre GL (excluding
+			<DocsCode>className</DocsCode>
+			and
+			<DocsCode>closeButton</DocsCode>
+			).
+		</p>
+
+		<DocsNote>
+			The
+			<DocsCode>className</DocsCode>
+			and
+			<DocsCode>closeButton</DocsCode>
+			from MapLibre&apos;s PopupOptions are excluded to prevent style conflicts. Use the component&apos;s own
+			props to style the popup. MapLibre&apos;s default popup styles are reset via CSS.
+		</DocsNote>
+
+		<DocsPropTable
+			props={[
+				{
+					name: "children",
+					type: "Snippet",
+					description: "Popup content.",
+				},
+				{ name: "className", type: "string", description: "Additional CSS classes for the popup container." },
+				{
+					name: "closeButton",
+					type: "boolean",
+					default: "false",
+					description: "Show a close button in the popup.",
+				},
+			]}
+		/>
+	</DocsSection>
+
+	<!-- MarkerTooltip -->
+	<DocsSection title="MarkerTooltip">
+		<p>
+			Renders a tooltip that appears on hover. Must be used inside
+			<DocsCode>MapMarker</DocsCode>
+			.
+		</p>
+
+		<p>
+			Extends
+			<DocsLink
+				href="https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PopupOptions/"
+				external
+			>
+				PopupOptions
+			</DocsLink>
+			from MapLibre GL (excluding
+			<DocsCode>className</DocsCode>
+			,
+			<DocsCode>closeButton</DocsCode>
+			, and
+			<DocsCode>closeOnClick</DocsCode>
+			as tooltips auto-dismiss on hover out).
+		</p>
+
+		<DocsNote>
+			The
+			<DocsCode>className</DocsCode>
+			from MapLibre&apos;s PopupOptions is excluded to prevent style conflicts. Use the component&apos;s own
+			<DocsCode>className</DocsCode>
+			prop to style the tooltip content. MapLibre&apos;s default popup styles are reset via CSS.
+		</DocsNote>
+
+		<DocsPropTable
+			props={[
+				{
+					name: "children",
+					type: "Snippet",
+					description: "Tooltip content.",
+				},
+				{ name: "className", type: "string", description: "Additional CSS classes for the tooltip container." },
+			]}
+		/>
+	</DocsSection>
+
+	<!-- MarkerLabel -->
+	<DocsSection title="MarkerLabel">
+		<p>
+			Renders a text label above or below the marker. Must be used inside
+			<DocsCode>MarkerContent</DocsCode>
+			.
+		</p>
+
+		<DocsPropTable
+			props={[
+				{
+					name: "children",
+					type: "Snippet",
+					description: "Label text content.",
+				},
+				{ name: "className", type: "string", description: "Additional CSS classes for the label." },
+				{
+					name: "position",
+					type: '"top" | "bottom"',
+					default: '"top"',
+					description: "Position of the label relative to the marker.",
+				},
+			]}
+		/>
+	</DocsSection>
+
+	<!-- MapPopup -->
+	<DocsSection title="MapPopup">
+		<p>
+			A standalone popup component that can be placed anywhere on the map without a marker. Must be used inside
+			<DocsCode>Map</DocsCode>
+			.
+		</p>
+
+		<p>
+			Extends
+			<DocsLink
+				href="https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PopupOptions/"
+				external
+			>
+				PopupOptions
+			</DocsLink>
+			from MapLibre GL (excluding
+			<DocsCode>className</DocsCode>
+			and
+			<DocsCode>closeButton</DocsCode>
+			).
+		</p>
+
+		<DocsNote>
+			The
+			<DocsCode>className</DocsCode>
+			and
+			<DocsCode>closeButton</DocsCode>
+			from MapLibre&apos;s PopupOptions are excluded to prevent style conflicts. Use the component&apos;s own
+			props to style the popup. MapLibre&apos;s default popup styles are reset via CSS.
+		</DocsNote>
+
+		<DocsPropTable
+			props={[
+				{
+					name: "longitude",
+					type: "number",
+					description: "Longitude coordinate for popup position.",
+				},
+				{
+					name: "latitude",
+					type: "number",
+					description: "Latitude coordinate for popup position.",
+				},
+				{
+					name: "onClose",
+					type: "() => void",
+					description: "Callback when popup is closed.",
+				},
+				{
+					name: "children",
+					type: "Snippet",
+					description: "Popup content.",
+				},
+				{ name: "className", type: "string", description: "Additional CSS classes for the popup container." },
+				{
+					name: "closeButton",
+					type: "boolean",
+					default: "false",
+					description: "Show a close button in the popup.",
+				},
+			]}
+		/>
+	</DocsSection>
+
+	<!-- MapRoute -->
+	<DocsSection title="MapRoute">
+		<p>
+			Renders a line/route on the map connecting coordinate points. Must be used inside
+			<DocsCode>Map</DocsCode>
+			. Supports click and hover interactions for building route selection UIs.
+		</p>
+
+		<DocsPropTable
+			props={[
+				{
+					name: "id",
+					type: "string",
+					default: "undefined (auto-generated)",
+					description: "Optional unique identifier for the route layer. Auto-generated if not provided.",
+				},
+				{
+					name: "coordinates",
+					type: "[number, number][]",
+					description: "Array of [longitude, latitude] coordinate pairs.",
+				},
+				{
+					name: "color",
+					type: "string",
+					default: '"#4285F4"',
+					description: "Line color (CSS color value).",
+				},
+				{ name: "width", type: "number", default: "3", description: "Line width in pixels." },
+				{ name: "opacity", type: "number", default: "0.8", description: "Line opacity (0 to 1)." },
+				{
+					name: "dashArray",
+					type: "[number, number]",
+					description: "Dash pattern [dash length, gap length] for dashed lines.",
+				},
+				{
+					name: "onClick",
+					type: "() => void",
+					description: "Callback when the route line is clicked.",
 				},
 			]}
 		/>
@@ -139,8 +511,11 @@
 	<!-- MapClusterLayer -->
 	<DocsSection title="MapClusterLayer">
 		<p>
-			Renders clustered GeoJSON points on the map. Must be used inside
+			Renders clustered point data using MapLibre GL&apos;s native clustering. Automatically groups nearby points into
+			clusters that expand on click. Must be used inside
 			<DocsCode>Map</DocsCode>
+			. Supports a generic type parameter for typed feature properties:
+			<DocsCode>MapClusterLayer&lt;MyProperties&gt;</DocsCode>
 			.
 		</p>
 
@@ -148,7 +523,7 @@
 			props={[
 				{
 					name: "data",
-					type: "string | GeoJSON.FeatureCollection<Point, P>",
+					type: "string | GeoJSON.FeatureCollection",
 					description: "GeoJSON FeatureCollection data or URL to fetch GeoJSON from.",
 				},
 				{
@@ -161,7 +536,7 @@
 					name: "clusterRadius",
 					type: "number",
 					default: "50",
-					description: "Radius of each cluster when clustering points in pixels.",
+					description: "Radius of each cluster when clustering points (in pixels).",
 				},
 				{
 					name: "clusterColors",
@@ -182,460 +557,14 @@
 					description: "Color for unclustered individual points.",
 				},
 				{
-					name: "onpointclick",
-					type: "(feature: Feature<Point, P>, coordinates: [number, number]) => void",
+					name: "onPointClick",
+					type: "(feature: GeoJSON.Feature, coordinates: [number, number]) => void",
 					description: "Callback when an unclustered point is clicked.",
 				},
 				{
-					name: "onclusterclick",
+					name: "onClusterClick",
 					type: "(clusterId: number, coordinates: [number, number], pointCount: number) => void",
 					description: "Callback when a cluster is clicked. If not provided, zooms into the cluster.",
-				},
-			]}
-		/>
-	</DocsSection>
-
-	<!-- MapMarker -->
-	<DocsSection title="MapMarker">
-		<p>
-			Renders a draggable marker at a specific coordinate. Must be used inside
-			<DocsCode>Map</DocsCode>
-			.
-		</p>
-
-		<DocsPropTable
-			props={[
-				{
-					name: "longitude",
-					type: "number",
-					description: "Marker longitude coordinate.",
-				},
-				{
-					name: "latitude",
-					type: "number",
-					description: "Marker latitude coordinate.",
-				},
-				{
-					name: "children",
-					type: "Snippet",
-					description: "Child components (MarkerContent, MarkerLabel, MarkerPopup, MarkerTooltip).",
-				},
-				{
-					name: "onclick",
-					type: "(e: MouseEvent) => void",
-					description: "Callback when marker is clicked.",
-				},
-				{
-					name: "onmouseenter",
-					type: "(e: MouseEvent) => void",
-					description: "Callback when mouse enters marker.",
-				},
-				{
-					name: "onmouseleave",
-					type: "(e: MouseEvent) => void",
-					description: "Callback when mouse leaves marker.",
-				},
-				{
-					name: "ondragstart",
-					type: "(lngLat: { lng: number; lat: number }) => void",
-					description: "Callback when drag starts.",
-				},
-				{
-					name: "ondrag",
-					type: "(lngLat: { lng: number; lat: number }) => void",
-					description: "Callback while dragging.",
-				},
-				{
-					name: "ondragend",
-					type: "(lngLat: { lng: number; lat: number }) => void",
-					description: "Callback when drag ends.",
-				},
-				{
-					name: "draggable",
-					type: "boolean",
-					default: "false",
-					description: "Whether the marker is draggable.",
-				},
-				{
-					name: "anchor",
-					type: '"center" | "top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "bottom-left" | "bottom-right"',
-					default: '"bottom"',
-					description: "Point on the marker that anchors to the coordinate.",
-				},
-				{
-					name: "offset",
-					type: "PointLike",
-					description: "Offset from the anchor point.",
-				},
-				{
-					name: "rotation",
-					type: "number",
-					description: "Marker rotation in degrees.",
-				},
-				{
-					name: "pitchAlignment",
-					type: '"map" | "viewport" | "auto"',
-					description: "Pitch alignment behavior.",
-				},
-				{
-					name: "rotationAlignment",
-					type: '"map" | "viewport" | "auto"',
-					description: "Rotation alignment behavior.",
-				},
-			]}
-		/>
-	</DocsSection>
-
-	<!-- MarkerContent -->
-	<DocsSection title="MarkerContent">
-		<p>
-			Custom content for a
-			<DocsCode>MapMarker</DocsCode>
-			. Must be used inside
-			<DocsCode>MapMarker</DocsCode>
-			.
-		</p>
-
-		<DocsPropTable
-			props={[
-				{
-					name: "children",
-					type: "Snippet",
-					description: "Custom marker content.",
-				},
-				{
-					name: "className",
-					type: "string",
-					description: "Additional CSS classes.",
-				},
-			]}
-		/>
-	</DocsSection>
-
-	<!-- MarkerLabel -->
-	<DocsSection title="MarkerLabel">
-		<p>
-			Text label for a
-			<DocsCode>MapMarker</DocsCode>
-			. Must be used inside
-			<DocsCode>MapMarker</DocsCode>
-			.
-		</p>
-
-		<DocsPropTable
-			props={[
-				{
-					name: "children",
-					type: "Snippet",
-					description: "Label text content.",
-				},
-				{
-					name: "className",
-					type: "string",
-					description: "Additional CSS classes.",
-				},
-				{
-					name: "position",
-					type: '"top" | "bottom"',
-					default: '"top"',
-					description: "Position of the label relative to the marker.",
-				},
-			]}
-		/>
-	</DocsSection>
-
-	<!-- MarkerPopup -->
-	<DocsSection title="MarkerPopup">
-		<p>
-			Popup attached to a
-			<DocsCode>MapMarker</DocsCode>
-			. Must be used inside
-			<DocsCode>MapMarker</DocsCode>
-			.
-		</p>
-
-		<DocsPropTable
-			props={[
-				{
-					name: "children",
-					type: "Snippet",
-					description: "Popup content.",
-				},
-				{
-					name: "className",
-					type: "string",
-					description: "Additional CSS classes.",
-				},
-				{
-					name: "closeButton",
-					type: "boolean",
-					default: "false",
-					description: "Show close button.",
-				},
-				{
-					name: "offset",
-					type: "PointLike",
-					default: "16",
-					description: "Offset from the anchor point.",
-				},
-				{
-					name: "anchor",
-					type: '"top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "bottom-left" | "bottom-right"',
-					description: "Popup anchor position.",
-				},
-				{
-					name: "closeOnClick",
-					type: "boolean",
-					description: "Close popup when map is clicked.",
-				},
-				{
-					name: "closeOnMove",
-					type: "boolean",
-					description: "Close popup when map is moved.",
-				},
-				{
-					name: "focusAfterOpen",
-					type: "boolean",
-					description: "Focus popup after opening.",
-				},
-				{
-					name: "maxWidth",
-					type: "string",
-					description: "Maximum width of the popup.",
-				},
-			]}
-		/>
-	</DocsSection>
-
-	<!-- MarkerTooltip -->
-	<DocsSection title="MarkerTooltip">
-		<p>
-			Tooltip that appears on hover over a
-			<DocsCode>MapMarker</DocsCode>
-			. Must be used inside
-			<DocsCode>MapMarker</DocsCode>
-			.
-		</p>
-
-		<DocsPropTable
-			props={[
-				{
-					name: "children",
-					type: "Snippet",
-					description: "Tooltip content.",
-				},
-				{
-					name: "className",
-					type: "string",
-					description: "Additional CSS classes.",
-				},
-				{
-					name: "offset",
-					type: "PointLike",
-					default: "16",
-					description: "Offset from the anchor point.",
-				},
-				{
-					name: "anchor",
-					type: '"top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "bottom-left" | "bottom-right"',
-					description: "Tooltip anchor position.",
-				},
-			]}
-		/>
-	</DocsSection>
-
-	<!-- MapPopup -->
-	<DocsSection title="MapPopup">
-		<p>
-			Standalone popup at specific coordinates (not attached to a marker). Must be used inside
-			<DocsCode>Map</DocsCode>
-			.
-		</p>
-
-		<DocsPropTable
-			props={[
-				{
-					name: "longitude",
-					type: "number",
-					description: "Popup longitude coordinate.",
-				},
-				{
-					name: "latitude",
-					type: "number",
-					description: "Popup latitude coordinate.",
-				},
-				{
-					name: "children",
-					type: "Snippet",
-					description: "Popup content.",
-				},
-				{
-					name: "className",
-					type: "string",
-					description: "Additional CSS classes.",
-				},
-				{
-					name: "closeButton",
-					type: "boolean",
-					default: "false",
-					description: "Show close button.",
-				},
-				{
-					name: "onclose",
-					type: "() => void",
-					description: "Callback when popup is closed.",
-				},
-				{
-					name: "offset",
-					type: "PointLike",
-					default: "12",
-					description: "Offset from the anchor point.",
-				},
-				{
-					name: "anchor",
-					type: '"top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "bottom-left" | "bottom-right"',
-					description: "Popup anchor position.",
-				},
-				{
-					name: "closeOnClick",
-					type: "boolean",
-					description: "Close popup when map is clicked.",
-				},
-				{
-					name: "closeOnMove",
-					type: "boolean",
-					description: "Close popup when map is moved.",
-				},
-				{
-					name: "focusAfterOpen",
-					type: "boolean",
-					description: "Focus popup after opening.",
-				},
-				{
-					name: "maxWidth",
-					type: "string",
-					description: "Maximum width of the popup.",
-				},
-			]}
-		/>
-	</DocsSection>
-
-	<!-- Map Context -->
-	<DocsSection title="Map Context">
-		<p>
-			Access the MapLibre map instance and loading state via Svelte context. Must be used within a
-			<DocsCode>Map</DocsCode>
-			component.
-		</p>
-
-		<CodeBlock code={useMapCode} language="svelte" showCopyButton={false} />
-
-		<p>
-			Provides
-			<DocsCode>getMap()</DocsCode>
-			returning the
-			<DocsLink href="https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/" external>
-				MapLibre.Map
-			</DocsLink>
-			instance, and
-			<DocsCode>isLoaded()</DocsCode>
-			returning a boolean.
-		</p>
-	</DocsSection>
-
-	<!-- MapControls -->
-	<DocsSection title="MapControls">
-		<p>
-			Renders map control buttons (zoom, compass, locate, fullscreen). Must be used inside
-			<DocsCode>Map</DocsCode>
-			.
-		</p>
-
-		<DocsPropTable
-			props={[
-				{
-					name: "position",
-					type: '"top-left" | "top-right" | "bottom-left" | "bottom-right"',
-					default: '"bottom-right"',
-					description: "Position of the controls.",
-				},
-				{ name: "showZoom", type: "boolean", default: "true", description: "Show zoom buttons." },
-				{
-					name: "showCompass",
-					type: "boolean",
-					default: "false",
-					description: "Show compass button.",
-				},
-				{
-					name: "showLocate",
-					type: "boolean",
-					default: "false",
-					description: "Show locate button.",
-				},
-				{
-					name: "showFullscreen",
-					type: "boolean",
-					default: "false",
-					description: "Show fullscreen button.",
-				},
-				{ name: "className", type: "string", description: "Additional CSS classes." },
-				{
-					name: "onLocate",
-					type: "(coords: { longitude: number; latitude: number }) => void",
-					description: "Called when user is located.",
-				},
-			]}
-		/>
-	</DocsSection>
-
-	<!-- MapRoute -->
-	<DocsSection title="MapRoute">
-		<p>
-			Renders a line on the map connecting coordinate points. Must be used inside
-			<DocsCode>Map</DocsCode>
-			.
-		</p>
-
-		<DocsPropTable
-			props={[
-				{
-					name: "id",
-					type: "string",
-					description: "Optional unique identifier for the route layer.",
-				},
-				{
-					name: "coordinates",
-					type: "[number, number][]",
-					description: "Array of [lng, lat] pairs.",
-				},
-				{ name: "color", type: "string", default: '"#4285F4"', description: "Line color." },
-				{ name: "width", type: "number", default: "3", description: "Line width." },
-				{ name: "opacity", type: "number", default: "0.8", description: "Line opacity." },
-				{
-					name: "dashArray",
-					type: "[number, number]",
-					description: "Dash pattern for dashed lines.",
-				},
-				{
-					name: "onclick",
-					type: "() => void",
-					description: "Callback when the route line is clicked.",
-				},
-				{
-					name: "onmouseenter",
-					type: "() => void",
-					description: "Callback when mouse enters the route line.",
-				},
-				{
-					name: "onmouseleave",
-					type: "() => void",
-					description: "Callback when mouse leaves the route line.",
-				},
-				{
-					name: "interactive",
-					type: "boolean",
-					default: "true",
-					description: "Whether the route is interactive - shows pointer cursor on hover.",
 				},
 			]}
 		/>
