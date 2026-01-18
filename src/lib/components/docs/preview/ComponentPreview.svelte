@@ -1,20 +1,46 @@
 <script lang="ts">
 	import { cn } from "$lib/utils";
 	import CopyButton from "$lib/components/CopyButton.svelte";
+	import { Select, SelectContent, SelectItem, SelectTrigger } from "$lib/registry/ui/select";
+
+	interface CodeFile {
+		name: string;
+		code: string;
+		highlightedCode: string;
+	}
 
 	let {
 		code,
 		highlightedCode,
+		files,
 		class: className,
 		children,
-	}: {
-		code: string;
-		highlightedCode: string;
-		class?: string;
-		children?: import("svelte").Snippet;
-	} = $props();
+	}:
+		| {
+				code: string;
+				highlightedCode: string;
+				files?: undefined;
+				class?: string;
+				children?: import("svelte").Snippet;
+		  }
+		| {
+				code?: undefined;
+				highlightedCode?: undefined;
+				files: CodeFile[];
+				class?: string;
+				children?: import("svelte").Snippet;
+		  } = $props();
 
 	let activeTab = $state<"preview" | "code">("preview");
+
+	// Determine which files to use
+	const allFiles = $derived(
+		files ? files : [{ name: "index.svelte", code: code!, highlightedCode: highlightedCode! }]
+	);
+	let selectedFileIndex = $state(0);
+
+	// Get currently selected file
+	const currentFile = $derived(allFiles[selectedFileIndex]);
 </script>
 
 <div class="w-full overflow-hidden rounded-lg border">
@@ -45,7 +71,20 @@
 			</button>
 		</div>
 
-		<CopyButton command={code} />
+		{#if allFiles.length > 1}
+			<Select bind:value={selectedFileIndex}>
+				<SelectTrigger class="h-8 w-40 text-xs">
+					{currentFile.name}
+				</SelectTrigger>
+				<SelectContent>
+					{#each allFiles as file, i}
+						<SelectItem value={i.toString()} label={file.name} />
+					{/each}
+				</SelectContent>
+			</Select>
+		{/if}
+
+		<CopyButton command={currentFile.code} />
 	</div>
 
 	<div class={cn("h-100 overflow-hidden", className)}>
@@ -57,7 +96,7 @@
 			<div
 				class="bg-muted/20 h-full overflow-auto p-4 text-sm [&_code]:bg-transparent! [&_pre]:bg-transparent!"
 			>
-				{@html highlightedCode}
+				{@html currentFile.highlightedCode}
 			</div>
 		{/if}
 	</div>

@@ -47,12 +47,12 @@
 
 		return null;
 	}
-
+<\/script> 
 	// Usage
 	<Map center={[-74, 40.7]} zoom={10}>
 		<MapEventListener />
 	</Map>
-<\/script>`; // eslint-disable-line no-useless-escape
+<\/script>`;
 </script>
 
 <svelte:head>
@@ -84,7 +84,6 @@
 			For child components rendered inside <DocsCode>Map</DocsCode>, use
 			<DocsCode>getContext("map")</DocsCode> to access the map instance and listen to events.
 		</p>
-		<CodeBlock code={useContextCode} language="typescript" />
 	</DocsSection>
 
 	<DocsSection title="Listening to Map Events">
@@ -92,7 +91,7 @@
 			Use <DocsCode>onMount</DocsCode> with <DocsCode>getContext</DocsCode> to set up event listeners
 			in child components.
 		</p>
-		<CodeBlock code={useContextCode} language="typescript" />
+		<CodeBlock code={useContextCode} language="svelte" />
 	</DocsSection>
 
 	<DocsSection title="Example: Custom Controls">
