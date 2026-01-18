@@ -5,6 +5,7 @@
 	import { ComponentPreview } from "$lib/components/docs/preview";
 	import MarkersExample from "$lib/components/docs/preview/examples/MarkersExample.svelte";
 	import PopupExample from "$lib/components/docs/preview/examples/PopupExample.svelte";
+	import DraggableMarkerExample from "$lib/components/docs/preview/examples/DraggableMarkerExample.svelte";
 	import { page } from "$app/state";
 
 	const markersSource = $derived(page.data.markersSource);
@@ -12,6 +13,9 @@
 
 	const popupSource = $derived(page.data.popupSource);
 	const popupHighlighted = $derived(page.data.popupHighlighted);
+
+	const draggableMarkerSource = $derived(page.data.draggableMarkerSource);
+	const draggableMarkerHighlighted = $derived(page.data.draggableMarkerHighlighted);
 </script>
 
 <svelte:head>
@@ -49,5 +53,16 @@
 
 	<ComponentPreview code={popupSource} highlightedCode={popupHighlighted} class="h-125">
 		<PopupExample />
+	</ComponentPreview>
+
+	<DocsSection title="Draggable Marker">
+		<p>
+			Create draggable markers that users can move around the map. Click the marker to see its
+			current coordinates in a popup.
+		</p>
+	</DocsSection>
+
+	<ComponentPreview code={draggableMarkerSource} highlightedCode={draggableMarkerHighlighted}>
+		<DraggableMarkerExample />
 	</ComponentPreview>
 </DocsLayout>

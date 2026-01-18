@@ -1,7 +1,7 @@
 {
 	"name": "mapcn-svelte",
 	"private": true,
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"type": "module",
 	"packageManager": "pnpm@10.28.0",
 	"scripts": {
@@ -16,7 +16,7 @@
 		"build:registry": "pnpm shadcn-svelte registry build"
 	},
 	"dependencies": {
-		"@sveltejs/vite-plugin-svelte-inspector": "^5.0.2",
+		"@sveltejs/adapter-vercel": "^6.3.0",
 		"@vercel/analytics": "^1.6.1",
 		"lucide-svelte": "^0.562.0",
 		"maplibre-gl": "^5.16.0",
@@ -28,7 +28,6 @@
 		"@internationalized/date": "^3.10.1",
 		"@lucide/svelte": "^0.561.0",
 		"@sveltejs/adapter-auto": "^7.0.0",
-		"@sveltejs/adapter-vercel": "^6.3.0",
 		"@sveltejs/kit": "^2.50.0",
 		"@sveltejs/vite-plugin-svelte": "^6.2.4",
 		"@tailwindcss/vite": "^4.1.18",
@@ -41,7 +40,7 @@
 		"prettier": "^3.8.0",
 		"prettier-plugin-svelte": "^3.4.1",
 		"prettier-plugin-tailwindcss": "^0.7.2",
-		"shadcn-svelte": "^1.1.0",
+		"shadcn-svelte": "^1.1.1",
 		"svelte": "^5.46.4",
 		"svelte-check": "^4.3.5",
 		"tailwind-merge": "^3.4.0",

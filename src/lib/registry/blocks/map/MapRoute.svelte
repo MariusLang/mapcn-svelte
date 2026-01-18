@@ -3,12 +3,26 @@
 	import MapLibreGL from "maplibre-gl";
 
 	interface Props {
-		coordinates: [number, number][];
-		color?: string;
-		width?: number;
-		opacity?: number;
-		dashArray?: [number, number];
+		/** Optional unique identifier for the route layer */
 		id?: string;
+		/** Array of [longitude, latitude] coordinate pairs defining the route */
+		coordinates: [number, number][];
+		/** Line color as CSS color value (default: "#4285F4") */
+		color?: string;
+		/** Line width in pixels (default: 3) */
+		width?: number;
+		/** Line opacity from 0 to 1 (default: 0.8) */
+		opacity?: number;
+		/** Dash pattern [dash length, gap length] for dashed lines */
+		dashArray?: [number, number];
+		/** Callback when the route line is clicked */
+		onclick?: () => void;
+		/** Callback when mouse enters the route line */
+		onmouseenter?: () => void;
+		/** Callback when mouse leaves the route line */
+		onmouseleave?: () => void;
+		/** Whether the route is interactive - shows pointer cursor on hover (default: true) */
+		interactive?: boolean;
 	}
 
 	let {
@@ -17,6 +31,10 @@
 		width = 3,
 		opacity = 0.8,
 		dashArray,
+		onclick,
+		onmouseenter,
+		onmouseleave,
+		interactive = true,
 		id = crypto.randomUUID(),
 	}: Props = $props();
 
@@ -119,5 +137,35 @@
 		if (dashArray) {
 			map.setPaintProperty(layerId, "line-dasharray", dashArray);
 		}
+	});
+
+	// Handle click and hover events
+	$effect(() => {
+		const map = mapCtx.getMap();
+		const loaded = mapCtx.isLoaded();
+
+		if (!loaded || !map || !interactive) return;
+
+		const handleClick = () => {
+			onclick?.();
+		};
+		const handleMouseEnter = () => {
+			map.getCanvas().style.cursor = "pointer";
+			onmouseenter?.();
+		};
+		const handleMouseLeave = () => {
+			map.getCanvas().style.cursor = "";
+			onmouseleave?.();
+		};
+
+		map.on("click", layerId, handleClick);
+		map.on("mouseenter", layerId, handleMouseEnter);
+		map.on("mouseleave", layerId, handleMouseLeave);
+
+		return () => {
+			map.off("click", layerId, handleClick);
+			map.off("mouseenter", layerId, handleMouseEnter);
+			map.off("mouseleave", layerId, handleMouseLeave);
+		};
 	});
 </script>

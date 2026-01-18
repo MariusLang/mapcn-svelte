@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Copy, Check } from "@lucide/svelte";
+	import Copy from "@lucide/svelte/icons/copy";
+	import Check from "@lucide/svelte/icons/check";
 
 	const { command }: { command: string } = $props();
 

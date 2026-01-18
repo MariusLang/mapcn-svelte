@@ -9,39 +9,9 @@
 		CommandList,
 	} from "$lib/registry/ui/command/index.js";
 	import { Kbd } from "$lib/registry/ui/kbd/index.js";
-	import {
-		Map,
-		BookOpen,
-		Code,
-		Braces,
-		MapPin,
-		MessageSquare,
-		Route,
-		Settings,
-	} from "lucide-svelte";
+	import { docsNavigation } from "$lib/docs-navigation";
 
 	let open = $state(false);
-
-	const docsNavigation = [
-		{
-			title: "Basics",
-			items: [
-				{ title: "Getting Started", href: "/docs", icon: BookOpen },
-				{ title: "Installation", href: "/docs/installation", icon: Code },
-				{ title: "API Reference", href: "/docs/api-reference", icon: Braces },
-			],
-		},
-		{
-			title: "Examples",
-			items: [
-				{ title: "Map", href: "/docs/basic-map", icon: Map },
-				{ title: "Controls", href: "/docs/controls", icon: Settings },
-				{ title: "Markers", href: "/docs/markers", icon: MapPin },
-				{ title: "Popups", href: "/docs/popups", icon: MessageSquare },
-				{ title: "Routes", href: "/docs/routes", icon: Route },
-			],
-		},
-	];
 
 	function handleKeyDown(e: KeyboardEvent) {
 		if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -83,7 +53,7 @@
 			<CommandGroup heading={group.title}>
 				{#each group.items as item}
 					<CommandLinkItem href={item.href} value={item.title} onclick={closeDialog}>
-						<item.icon class="size-4" />
+						<item.icon />
 						<span>{item.title}</span>
 					</CommandLinkItem>
 				{/each}

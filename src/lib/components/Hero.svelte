@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button } from "$lib/registry/ui/button/index";
-	import { ArrowRight } from "@lucide/svelte";
+	import ArrowRight from "@lucide/svelte/icons/arrow-right";
 	import CopyButton from "$lib/components/CopyButton.svelte";
 
 	const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://mapcn-svelte.vercel.app";
@@ -32,12 +32,12 @@
 		<p
 			class="text-foreground/80 animate-fade-up mt-6 max-w-lg text-lg leading-relaxed delay-200 md:text-xl"
 		>
-			Free & open source map components for Svelte.
+			Ready to use, customizable map components for Svelte.
 			<br class="hidden sm:block" />
 			Built on MapLibre. Styled with Tailwind.
 		</p>
 
-		<div class="animate-fade-up mt-8 w-full max-w-xl delay-300">
+		<div class="animate-fade-up mt-8 w-full max-w-3xl delay-300">
 			<div class="bg-card border-border overflow-hidden rounded-lg border shadow-sm">
 				<div class="border-border/50 flex items-center gap-1.5 border-b px-3 py-2">
 					<span class="size-2.5 rounded-full bg-red-500/40"></span>

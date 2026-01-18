@@ -1,39 +1,9 @@
 <script lang="ts">
 	import { page } from "$app/state";
-
-	import {
-		Map,
-		BookOpen,
-		Code,
-		Braces,
-		MapPin,
-		MessageSquare,
-		Route,
-		Settings,
-	} from "lucide-svelte";
+	import { goto } from "$app/navigation";
 
 	import * as Sidebar from "$lib/registry/ui/sidebar";
-
-	const navigation = [
-		{
-			title: "Basics",
-			items: [
-				{ title: "Getting Started", href: "/docs", icon: BookOpen },
-				{ title: "Installation", href: "/docs/installation", icon: Code },
-				{ title: "API Reference", href: "/docs/api-reference", icon: Braces },
-			],
-		},
-		{
-			title: "Components",
-			items: [
-				{ title: "Map", href: "/docs/basic-map", icon: Map },
-				{ title: "Controls", href: "/docs/controls", icon: Settings },
-				{ title: "Markers", href: "/docs/markers", icon: MapPin },
-				{ title: "Popups", href: "/docs/popups", icon: MessageSquare },
-				{ title: "Routes", href: "/docs/routes", icon: Route },
-			],
-		},
-	];
+	import { docsNavigation as navigation } from "$lib/docs-navigation";
 
 	const { setOpenMobile } = Sidebar.useSidebar();
 
@@ -58,15 +28,15 @@
 								<Sidebar.MenuButton
 									isActive={pathname === item.href}
 									class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground data-[active=true]:font-medium"
+									onclick={() => {
+										setOpenMobile(false);
+										goto(item.href);
+									}}
 								>
-									<a
-										href={item.href}
-										class="flex items-center gap-2"
-										onclick={() => setOpenMobile(false)}
-									>
+									<span class="flex items-center gap-2">
 										<item.icon class="size-4" />
 										<span>{item.title}</span>
-									</a>
+									</span>
 								</Sidebar.MenuButton>
 							</Sidebar.MenuItem>
 						{/each}

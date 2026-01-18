@@ -53,8 +53,13 @@
 		<RouteExample />
 	</ComponentPreview>
 
-	<DocsSection title="Dynamic Route from OSRM">
-		<p>Fetch real driving directions from the OSRM API and display them on the map.</p>
+	<DocsSection title="Route Planning">
+		<p>
+			Display multiple route options and let users select between them. This example fetches real
+			driving directions from the <DocsLink href="https://project-osrm.org/" external>
+				OSRM API
+			</DocsLink>. Click on a route or use the buttons to switch.
+		</p>
 	</DocsSection>
 
 	<ComponentPreview code={osrmRouteSource} highlightedCode={osrmRouteHighlighted}>

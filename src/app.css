@@ -37,7 +37,7 @@
 	--color-popover: var(--popover);
 	--color-card-foreground: var(--card-foreground);
 	--color-card: var(--card);
-	--color-svelte: #FF3E00;
+	--color-svelte: #ff3e00;
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);
@@ -133,6 +133,12 @@
 	.maplibregl-popup-tip {
 		@apply hidden!;
 	}
+}
+
+/* Reduce font weights by 100 */
+
+.font-mono {
+	font-weight: 300 !important;
 }
 
 .container {
