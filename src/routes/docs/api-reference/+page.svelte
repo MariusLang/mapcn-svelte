@@ -40,7 +40,7 @@
 </script>
 
 <svelte:head>
-	<title>API Reference - mapcn</title>
+	<title>API Reference - mapcn-svelte</title>
 </svelte:head>
 
 <DocsLayout

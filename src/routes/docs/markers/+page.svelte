@@ -15,13 +15,13 @@
 </script>
 
 <svelte:head>
-	<title>Markers - mapcn</title>
+	<title>Markers - mapcn-svelte</title>
 </svelte:head>
 
 <DocsLayout
 	title="Markers"
 	description="Add interactive markers to your map with popups and tooltips."
-	prev={{ title: "Map Controls", href: "/docs/controls" }}
+	prev={{ title: "Controls", href: "/docs/controls" }}
 	next={{ title: "Popups", href: "/docs/popups" }}
 >
 	<DocsSection>

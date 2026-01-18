@@ -27,7 +27,7 @@
 			title: "Components",
 			items: [
 				{ title: "Map", href: "/docs/basic-map", icon: Map },
-				{ title: "Map Controls", href: "/docs/controls", icon: Settings },
+				{ title: "Controls", href: "/docs/controls", icon: Settings },
 				{ title: "Markers", href: "/docs/markers", icon: MapPin },
 				{ title: "Popups", href: "/docs/popups", icon: MessageSquare },
 				{ title: "Routes", href: "/docs/routes", icon: Route },
@@ -43,7 +43,7 @@
 <Sidebar.Root
 	class="sticky top-16 h-[calc(100svh-9.5rem)] border-none bg-transparent **:data-[sidebar=sidebar]:bg-transparent"
 >
-	<Sidebar.Content class="no-scrollbar overflow-x-hidden pt-8 ">
+	<Sidebar.Content class="no-scrollbar mx-4 overflow-x-hidden  pt-8">
 		{#each navigation as group}
 			<Sidebar.Group>
 				<Sidebar.GroupLabel

@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>mapcn - Map components for Svelte</title>
+	<title>mapcn-svelte - Map components for Svelte</title>
 </svelte:head>
 
 <div class="flex flex-col pb-28">

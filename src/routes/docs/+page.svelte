@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-	<title>Getting Started - mapcn</title>
+	<title>Getting Started - mapcn-svelte</title>
 </svelte:head>
 
 <DocsLayout
@@ -63,8 +63,8 @@
 
 	<DocsSection title="Quick Start">
 		<p>
-			Head to the <DocsLink href="/docs/installation">Installation</DocsLink> guide to add mapcn to
-			your project, then explore the examples to see what's possible.
+			Head to the <DocsLink href="/docs/installation">Installation</DocsLink> guide to add mapcn to your
+			project, then explore the examples to see what's possible.
 		</p>
 	</DocsSection>
 </DocsLayout>

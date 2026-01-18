@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { cn } from "$lib/utils";
 	import { Heart, MapPin } from "lucide-svelte";
-	//import { Button } from "$lib/registry/ui/button";
+	import { Button } from "$lib/registry/ui/button";
 	import { Separator } from "$lib/registry/ui/separator/index";
 	import * as Tooltip from "$lib/registry/ui/tooltip/index.js";
 	import GitHubButton from "$lib/components/GitHubButton.svelte";
@@ -16,7 +16,7 @@
 	const { class: className, children }: Props = $props();
 </script>
 
-<header class={cn("h-16 w-full", className)}>
+<header class={cn("h-16 w-full pt-5", className)}>
 	<nav class="container flex items-center justify-between">
 		<div class="flex items-center gap-4">
 			{#if children}
@@ -31,7 +31,7 @@
 			<CommandSearch />
 			<Separator orientation="vertical" class="hidden sm:block" />
 			<Tooltip.Provider>
-				<!--<Tooltip.Root>
+				<Tooltip.Root>
 					<Tooltip.Trigger>
 						<Button variant="ghost" size="sm">
 							<a
@@ -39,8 +39,8 @@
 								target="_blank"
 								rel="noopener noreferrer"
 							>
-								<Heart class="size-4 text-pink-500" />
-								<span class="hidden sm:inline">Sponsor</span>
+								<Heart class="inline size-4 items-center align-middle text-pink-500" />
+								<span class="hidden align-middle sm:ms-1 sm:inline">Sponsor</span>
 							</a>
 						</Button>
 					</Tooltip.Trigger>
@@ -48,7 +48,7 @@
 						<p>Sponsor this project</p>
 					</Tooltip.Content>
 				</Tooltip.Root>
-				<Separator orientation="vertical" />-->
+				<Separator orientation="vertical" />
 				<GitHubButton />
 				<Separator orientation="vertical" />
 				<ThemeToggle />

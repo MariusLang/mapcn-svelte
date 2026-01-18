@@ -35,7 +35,7 @@
 			title: "Examples",
 			items: [
 				{ title: "Map", href: "/docs/basic-map", icon: Map },
-				{ title: "Map Controls", href: "/docs/controls", icon: Settings },
+				{ title: "Controls", href: "/docs/controls", icon: Settings },
 				{ title: "Markers", href: "/docs/markers", icon: MapPin },
 				{ title: "Popups", href: "/docs/popups", icon: MessageSquare },
 				{ title: "Routes", href: "/docs/routes", icon: Route },

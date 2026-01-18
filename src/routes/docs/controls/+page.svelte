@@ -11,11 +11,11 @@
 </script>
 
 <svelte:head>
-	<title>Map Controls - mapcn</title>
+	<title>Controls - mapcn-svelte</title>
 </svelte:head>
 
 <DocsLayout
-	title="Map Controls"
+	title="Controls"
 	description="Add interactive controls to your map for zoom, compass, location, and fullscreen."
 	prev={{ title: "Map", href: "/docs/basic-map" }}
 	next={{ title: "Markers", href: "/docs/markers" }}

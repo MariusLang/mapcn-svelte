@@ -14,7 +14,7 @@
 </script>
 
 <svelte:head>
-	<title>Routes - mapcn</title>
+	<title>Routes - mapcn-svelte</title>
 </svelte:head>
 
 <DocsLayout

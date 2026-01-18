@@ -11,14 +11,14 @@
 </script>
 
 <svelte:head>
-	<title>Map - mapcn</title>
+	<title>Map - mapcn-svelte</title>
 </svelte:head>
 
 <DocsLayout
 	title="Map"
 	description="The simplest way to add an interactive map to your application."
 	prev={{ title: "API Reference", href: "/docs/api-reference" }}
-	next={{ title: "Map Controls", href: "/docs/controls" }}
+	next={{ title: "Controls", href: "/docs/controls" }}
 >
 	<DocsSection>
 		<p>

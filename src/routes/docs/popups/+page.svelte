@@ -11,7 +11,7 @@
 </script>
 
 <svelte:head>
-	<title>Popups - mapcn</title>
+	<title>Popups - mapcn-svelte</title>
 </svelte:head>
 
 <DocsLayout
