@@ -24,7 +24,7 @@
 			],
 		},
 		{
-			title: "Examples",
+			title: "Components",
 			items: [
 				{ title: "Map", href: "/docs/basic-map", icon: Map },
 				{ title: "Map Controls", href: "/docs/controls", icon: Settings },
@@ -40,8 +40,10 @@
 	const pathname = $derived(page.url.pathname);
 </script>
 
-<Sidebar.Root class="top-14  bg-transparent **:data-[sidebar=sidebar]:bg-transparent">
-	<Sidebar.Content class="pt-4">
+<Sidebar.Root
+	class="sticky top-16 h-[calc(100svh-9.5rem)] border-none bg-transparent **:data-[sidebar=sidebar]:bg-transparent"
+>
+	<Sidebar.Content class="no-scrollbar overflow-x-hidden pt-8 ">
 		{#each navigation as group}
 			<Sidebar.Group>
 				<Sidebar.GroupLabel

@@ -48,7 +48,7 @@
 		<CopyButton command={code} />
 	</div>
 
-	<div class={cn("h-[400px] overflow-hidden", className)}>
+	<div class={cn("h-100 overflow-hidden", className)}>
 		{#if activeTab === "preview"}
 			<div class="h-full">
 				{@render children?.()}

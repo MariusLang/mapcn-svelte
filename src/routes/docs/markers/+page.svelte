@@ -42,10 +42,12 @@
 	</ComponentPreview>
 
 	<DocsSection title="Rich Popups">
-		<p>Build complex popups with images, ratings, and action buttons using shadcn/ui components.</p>
+		<p>
+			Build complex popups with images, ratings, and action buttons using shadcn-svelte components.
+		</p>
 	</DocsSection>
 
-	<ComponentPreview code={popupSource} highlightedCode={popupHighlighted} class="h-[500px]">
+	<ComponentPreview code={popupSource} highlightedCode={popupHighlighted} class="h-125">
 		<PopupExample />
 	</ComponentPreview>
 </DocsLayout>

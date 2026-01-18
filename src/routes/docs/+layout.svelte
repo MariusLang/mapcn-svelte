@@ -7,7 +7,7 @@
 	let { children } = $props();
 </script>
 
-<SidebarProvider>
+<SidebarProvider style="--sidebar-width: 12rem; --sidebar-width-mobile: 24rem;">
 	<div class="flex min-h-screen w-full flex-col">
 		<Header
 			class="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 border-b backdrop-blur"
@@ -17,7 +17,7 @@
 
 		<div class="flex flex-1">
 			<DocSidebar />
-			<main class="lex-1 mx-auto w-full max-w-3xl px-6 py-12">
+			<main class="mx-auto w-full max-w-3xl flex-1 px-6 py-12">
 				{@render children()}
 			</main>
 		</div>

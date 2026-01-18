@@ -27,7 +27,7 @@
 	});
 </script>
 
-<div class="relative h-[400px] w-full">
+<div class="relative h-100 w-full">
 	<Map center={[-73.975, 40.772]} zoom={12.5}>
 		{#if route}
 			<MapRoute coordinates={route} color="#6366f1" width={5} opacity={0.85} />
