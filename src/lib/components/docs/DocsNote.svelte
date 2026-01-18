@@ -5,7 +5,7 @@
 </script>
 
 <div
-	class="bg-muted/40 text-muted-foreground [&>strong]:text-foreground rounded-lg border px-5 py-4 text-sm
+	class="bg-muted/40 text-muted-foreground [&>strong]:text-foreground rounded-lg border px-5 pt-4 text-sm
 	       leading-relaxed [&>strong]:font-medium"
 >
 	{@render children?.()}

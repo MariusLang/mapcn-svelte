@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from "$lib/utils";
-	import { Heart, MapPin } from "lucide-svelte";
+	import { MapPin } from "lucide-svelte";
 	//import { Button } from "$lib/registry/ui/button";
 	import { Separator } from "$lib/registry/ui/separator/index";
 	//import * as Tooltip from "$lib/registry/ui/tooltip/index.js";

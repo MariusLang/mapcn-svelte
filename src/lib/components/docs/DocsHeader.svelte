@@ -5,9 +5,9 @@
 	}>();
 </script>
 
-<div class="space-y-3">
+<div class="space-y-2">
 	<h1 class="text-foreground text-3xl font-semibold tracking-tight">{title}</h1>
-	<p class="text-muted-foreground text-lg leading-relaxed">
+	<p class="text-muted-foreground leading-relaxed">
 		{description}
 	</p>
 </div>

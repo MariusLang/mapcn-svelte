@@ -120,8 +120,8 @@
 	<DocsSection title="Example: Markers via Layers">
 		<p>
 			When displaying hundreds or thousands of markers, use GeoJSON layers instead of DOM-based
-			markers. This approach renders markers on the WebGL canvas, providing significantly better
-			performance.
+			<DocsCode>MapMarker</DocsCode> components. This approach renders markers on the WebGL canvas, providing
+			significantly better performance.
 		</p>
 	</DocsSection>
 

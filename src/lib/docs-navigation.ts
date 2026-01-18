@@ -12,7 +12,7 @@ import Wrench from "@lucide/svelte/icons/wrench";
 export interface NavItem {
 	title: string;
 	href: string;
-	icon: any;
+	icon: import("svelte").Component;
 }
 
 export interface NavGroup {

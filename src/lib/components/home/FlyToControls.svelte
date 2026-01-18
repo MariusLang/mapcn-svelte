@@ -6,8 +6,6 @@
 
 	interface Props {
 		destination: {
-			name: string;
-			description: string;
 			center: [number, number];
 		};
 	}

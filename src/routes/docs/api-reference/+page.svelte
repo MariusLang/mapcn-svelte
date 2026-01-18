@@ -100,12 +100,14 @@
 				{
 					name: "theme",
 					type: '"light" | "dark"',
-					description: "Theme for the map. If not provided, automatically detects from document class or system preference.",
+					description:
+						"Theme for the map. If not provided, automatically detects from document class or system preference.",
 				},
 				{
 					name: "styles",
 					type: "{ light?: string | StyleSpecification; dark?: string | StyleSpecification }",
-					description: "Custom map styles for light and dark themes. Overrides the default Carto base map tiles.",
+					description:
+						"Custom map styles for light and dark themes. Overrides the default Carto base map tiles.",
 				},
 				{
 					name: "projection",
@@ -119,7 +121,8 @@
 	<!-- Map Context -->
 	<DocsSection title="Map Context">
 		<p>
-			A hook that provides access to the MapLibre map instance and loading state. Must be used within a
+			A hook that provides access to the MapLibre map instance and loading state. Must be used
+			within a
 			<DocsCode>Map</DocsCode>
 			component.
 		</p>
@@ -179,7 +182,11 @@
 					default: "false",
 					description: "Show fullscreen toggle button.",
 				},
-				{ name: "className", type: "string", description: "Additional CSS classes for the controls container." },
+				{
+					name: "className",
+					type: "string",
+					description: "Additional CSS classes for the controls container.",
+				},
 				{
 					name: "onLocate",
 					type: "(coords: { longitude: number; latitude: number }) => void",
@@ -192,7 +199,8 @@
 	<!-- MapMarker -->
 	<DocsSection title="MapMarker">
 		<p>
-			A container for marker-related components. Provides context for its children and handles marker positioning.
+			A container for marker-related components. Provides context for its children and handles
+			marker positioning.
 		</p>
 
 		<p>
@@ -274,7 +282,11 @@
 					type: "Snippet",
 					description: "Custom marker content. Defaults to a blue dot.",
 				},
-				{ name: "className", type: "string", description: "Additional CSS classes for the marker container." },
+				{
+					name: "className",
+					type: "string",
+					description: "Additional CSS classes for the marker container.",
+				},
 			]}
 		/>
 	</DocsSection>
@@ -307,8 +319,8 @@
 			<DocsCode>className</DocsCode>
 			and
 			<DocsCode>closeButton</DocsCode>
-			from MapLibre&apos;s PopupOptions are excluded to prevent style conflicts. Use the component&apos;s own
-			props to style the popup. MapLibre&apos;s default popup styles are reset via CSS.
+			from MapLibre&apos;s PopupOptions are excluded to prevent style conflicts. Use the component&apos;s
+			own props to style the popup. MapLibre&apos;s default popup styles are reset via CSS.
 		</DocsNote>
 
 		<DocsPropTable
@@ -318,7 +330,11 @@
 					type: "Snippet",
 					description: "Popup content.",
 				},
-				{ name: "className", type: "string", description: "Additional CSS classes for the popup container." },
+				{
+					name: "className",
+					type: "string",
+					description: "Additional CSS classes for the popup container.",
+				},
 				{
 					name: "closeButton",
 					type: "boolean",
@@ -357,7 +373,8 @@
 		<DocsNote>
 			The
 			<DocsCode>className</DocsCode>
-			from MapLibre&apos;s PopupOptions is excluded to prevent style conflicts. Use the component&apos;s own
+			from MapLibre&apos;s PopupOptions is excluded to prevent style conflicts. Use the component&apos;s
+			own
 			<DocsCode>className</DocsCode>
 			prop to style the tooltip content. MapLibre&apos;s default popup styles are reset via CSS.
 		</DocsNote>
@@ -369,7 +386,11 @@
 					type: "Snippet",
 					description: "Tooltip content.",
 				},
-				{ name: "className", type: "string", description: "Additional CSS classes for the tooltip container." },
+				{
+					name: "className",
+					type: "string",
+					description: "Additional CSS classes for the tooltip container.",
+				},
 			]}
 		/>
 	</DocsSection>
@@ -403,7 +424,8 @@
 	<!-- MapPopup -->
 	<DocsSection title="MapPopup">
 		<p>
-			A standalone popup component that can be placed anywhere on the map without a marker. Must be used inside
+			A standalone popup component that can be placed anywhere on the map without a marker. Must be
+			used inside
 			<DocsCode>Map</DocsCode>
 			.
 		</p>
@@ -428,8 +450,8 @@
 			<DocsCode>className</DocsCode>
 			and
 			<DocsCode>closeButton</DocsCode>
-			from MapLibre&apos;s PopupOptions are excluded to prevent style conflicts. Use the component&apos;s own
-			props to style the popup. MapLibre&apos;s default popup styles are reset via CSS.
+			from MapLibre&apos;s PopupOptions are excluded to prevent style conflicts. Use the component&apos;s
+			own props to style the popup. MapLibre&apos;s default popup styles are reset via CSS.
 		</DocsNote>
 
 		<DocsPropTable
@@ -454,7 +476,11 @@
 					type: "Snippet",
 					description: "Popup content.",
 				},
-				{ name: "className", type: "string", description: "Additional CSS classes for the popup container." },
+				{
+					name: "className",
+					type: "string",
+					description: "Additional CSS classes for the popup container.",
+				},
 				{
 					name: "closeButton",
 					type: "boolean",
@@ -479,7 +505,8 @@
 					name: "id",
 					type: "string",
 					default: "undefined (auto-generated)",
-					description: "Optional unique identifier for the route layer. Auto-generated if not provided.",
+					description:
+						"Optional unique identifier for the route layer. Auto-generated if not provided.",
 				},
 				{
 					name: "coordinates",
@@ -511,8 +538,8 @@
 	<!-- MapClusterLayer -->
 	<DocsSection title="MapClusterLayer">
 		<p>
-			Renders clustered point data using MapLibre GL&apos;s native clustering. Automatically groups nearby points into
-			clusters that expand on click. Must be used inside
+			Renders clustered point data using MapLibre GL&apos;s native clustering. Automatically groups
+			nearby points into clusters that expand on click. Must be used inside
 			<DocsCode>Map</DocsCode>
 			. Supports a generic type parameter for typed feature properties:
 			<DocsCode>MapClusterLayer&lt;MyProperties&gt;</DocsCode>
@@ -564,7 +591,8 @@
 				{
 					name: "onClusterClick",
 					type: "(clusterId: number, coordinates: [number, number], pointCount: number) => void",
-					description: "Callback when a cluster is clicked. If not provided, zooms into the cluster.",
+					description:
+						"Callback when a cluster is clicked. If not provided, zooms into the cluster.",
 				},
 			]}
 		/>

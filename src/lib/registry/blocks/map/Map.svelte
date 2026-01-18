@@ -62,7 +62,6 @@
 	let isStyleLoaded = $state(false);
 	let currentStyleRef: MapStyleOption | null = $state(null);
 	let styleTimeoutId: ReturnType<typeof setTimeout> | null = null;
-	let initialStyleApplied = false;
 
 	let detectedTheme: Theme = $state(untrack(() => getDocumentTheme() ?? getSystemTheme()));
 
@@ -150,7 +149,6 @@
 			// else we have to force update every layer on setStyle change
 			styleTimeoutId = setTimeout(() => {
 				isStyleLoaded = true;
-				initialStyleApplied = true;
 				if (projection) {
 					mapInstance.setProjection(projection);
 				}
