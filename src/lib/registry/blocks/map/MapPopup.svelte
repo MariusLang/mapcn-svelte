@@ -26,7 +26,7 @@
 		class: className,
 		closeButton = false,
 		onclose,
-		offset = 12,
+		offset = 16,
 		anchor,
 		closeOnClick,
 		closeOnMove,

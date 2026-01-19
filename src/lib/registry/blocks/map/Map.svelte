@@ -4,37 +4,17 @@
 	import "maplibre-gl/dist/maplibre-gl.css";
 	import { browser } from "$app/environment";
 
+	let tailwindTheme: "light" | "dark" = $state("light");
+
 	type MapStyleOption = string | MapLibreGL.StyleSpecification;
-	type Theme = "light" | "dark";
-
-	// Check document class for theme (works with next-themes, etc.)
-	function getDocumentTheme(): Theme | null {
-		if (typeof document === "undefined") return null;
-		if (document.documentElement.classList.contains("dark")) return "dark";
-		if (document.documentElement.classList.contains("light")) return "light";
-		return null;
-	}
-
-	// Get system preference
-	function getSystemTheme(): Theme {
-		if (typeof window === "undefined") return "light";
-		return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-	}
 
 	interface Props {
 		children?: import("svelte").Snippet;
-		/**
-		 * Theme for the map. If not provided, automatically detects system preference.
-		 * Pass your theme value here.
-		 */
-		theme?: Theme;
-		/** Custom map styles for light and dark themes. Overrides the default Carto styles. */
 		styles?: {
 			light?: MapStyleOption;
 			dark?: MapStyleOption;
 		};
-		/** Map projection type. Use `{ type: "globe" }` for 3D globe view. */
-		projection?: MapLibreGL.ProjectionSpecification;
+		theme?: "light" | "dark";
 		center?: [number, number];
 		zoom?: number;
 		options?: Omit<MapLibreGL.MapOptions, "container" | "style">;
@@ -47,11 +27,10 @@
 
 	let {
 		children,
-		theme: themeProp,
 		styles,
-		projection,
+		theme: _theme = "light",
 		center = [13.405, 52.52],
-		zoom = 0,
+		zoom = 11,
 		options = {},
 	}: Props = $props();
 
@@ -60,20 +39,14 @@
 	let isMounted = $state(false);
 	let isLoaded = $state(false);
 	let isStyleLoaded = $state(false);
-	let currentStyleRef: MapStyleOption | null = $state(null);
-	let styleTimeoutId: ReturnType<typeof setTimeout> | null = null;
-
-	let detectedTheme: Theme = $state(untrack(() => getDocumentTheme() ?? getSystemTheme()));
-
-	// Resolve theme: use prop if provided, otherwise detect from document or system
-	const resolvedTheme = $derived(themeProp ?? detectedTheme);
+	let initialStyleApplied = false;
 
 	const mapStyles = $derived({
 		dark: styles?.dark ?? defaultStyles.dark,
 		light: styles?.light ?? defaultStyles.light,
 	});
 
-	const currentStyle = $derived(resolvedTheme === "dark" ? mapStyles.dark : mapStyles.light);
+	const currentStyle = $derived(tailwindTheme === "dark" ? mapStyles.dark : mapStyles.light);
 
 	const isReady = $derived(isMounted && isLoaded && isStyleLoaded);
 
@@ -82,103 +55,58 @@
 		isLoaded: () => isReady,
 	});
 
-	function clearStyleTimeout() {
-		if (styleTimeoutId) {
-			clearTimeout(styleTimeoutId);
-			styleTimeoutId = null;
-		}
-	}
-
 	onMount(() => {
 		isMounted = true;
 
-		if (browser && !themeProp) {
+		if (browser) {
 			const root = document.documentElement;
 
 			const updateTheme = () => {
-				const docTheme = getDocumentTheme();
-				if (docTheme) {
-					detectedTheme = docTheme;
-				}
+				tailwindTheme = root.classList.contains("dark") ? "dark" : "light";
 			};
 
 			updateTheme();
 
-			// Watch for document class changes (e.g., next-themes toggling dark class)
 			const observer = new MutationObserver(updateTheme);
 			observer.observe(root, {
 				attributes: true,
 				attributeFilter: ["class"],
 			});
 
-			// Also watch for system preference changes
-			const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-			const handleSystemChange = (e: MediaQueryListEvent) => {
-				// Only use system preference if no document class is set
-				if (!getDocumentTheme()) {
-					detectedTheme = e.matches ? "dark" : "light";
-				}
-			};
-			mediaQuery.addEventListener("change", handleSystemChange);
-
-			onDestroy(() => {
-				observer.disconnect();
-				mediaQuery.removeEventListener("change", handleSystemChange);
-			});
+			onDestroy(() => observer.disconnect());
 		}
-
-		const initialStyle = currentStyle;
-		currentStyleRef = initialStyle;
 
 		const mapInstance = new MapLibreGL.Map({
 			container: mapContainer,
-			style: initialStyle,
-			renderWorldCopies: false,
-			attributionControl: {
-				compact: true,
-			},
+			style: currentStyle,
 			center,
 			zoom,
+			attributionControl: false,
 			...options,
 		});
 
-		const styleDataHandler = () => {
-			clearStyleTimeout();
-			// Delay to ensure style is fully processed before allowing layer operations
-			// This is a workaround to avoid race conditions with the style loading
-			// else we have to force update every layer on setStyle change
-			styleTimeoutId = setTimeout(() => {
-				isStyleLoaded = true;
-				if (projection) {
-					mapInstance.setProjection(projection);
-				}
-			}, 100);
-		};
-
-		const loadHandler = () => {
+		mapInstance.on("load", () => {
 			isLoaded = true;
-		};
+		});
 
-		mapInstance.on("load", loadHandler);
-		mapInstance.on("styledata", styleDataHandler);
+		mapInstance.on("styledata", () => {
+			isStyleLoaded = true;
+			initialStyleApplied = true;
+		});
 
 		map = mapInstance;
 	});
 
-	// Effect to update style when theme changes
 	$effect(() => {
-		if (!map || !resolvedTheme) return;
+		const style = currentStyle;
 
-		const newStyle = currentStyle;
-
-		if (currentStyleRef === newStyle) return;
-
-		clearStyleTimeout();
-		currentStyleRef = newStyle;
-		isStyleLoaded = false;
+		if (!map || !initialStyleApplied) {
+			return;
+		}
 
 		untrack(() => {
-			map!.setStyle(newStyle, { diff: true });
+			isStyleLoaded = false;
+			map!.setStyle(style, { diff: true });
 		});
 	});
 
@@ -195,12 +123,10 @@
 	});
 
 	onDestroy(() => {
-		clearStyleTimeout();
 		map?.remove();
 		map = null;
 		isLoaded = false;
 		isStyleLoaded = false;
-		currentStyleRef = null;
 	});
 </script>
 
