@@ -59,19 +59,11 @@
 </script>
 
 <div class="ml-10 flex gap-8">
-	<div class="mx-auto min-w-0 flex-1 py-8 pb-20">
+	<div class="mx-auto max-w-[720px] min-w-0 flex-1 py-8 pb-20">
 		<DocsHeader {title} {description} />
 
-		<div class="grid grid-cols-1 gap-10 xl:grid-cols-[minmax(0,1fr)_250px]">
-			<div class="mt-10 space-y-10">
-				{@render children?.()}
-			</div>
-
-			<aside class="hidden w-44 shrink-0 xl:block">
-				<nav class="sticky top-28">
-					<DocsToc items={toc ?? registeredToc} />
-				</nav>
-			</aside>
+		<div class="mt-10 space-y-10">
+			{@render children?.()}
 		</div>
 
 		{#if neighbors.previous || neighbors.next}
@@ -98,4 +90,10 @@
 			</div>
 		{/if}
 	</div>
+
+	<aside class=" hidden w-44 shrink-0 xl:block">
+		<nav class="sticky top-28">
+			<DocsToc items={toc ?? registeredToc} />
+		</nav>
+	</aside>
 </div>
