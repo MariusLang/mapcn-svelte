@@ -30,7 +30,7 @@
 		styles,
 		theme: _theme = "light",
 		center = [13.405, 52.52],
-		zoom = 11,
+		zoom = 0,
 		options = {},
 	}: Props = $props();
 
