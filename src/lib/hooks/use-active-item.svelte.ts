@@ -38,7 +38,7 @@ export function useActiveItem(getItems: () => TocItem[]) {
 					activeId = topmost.target.id;
 				}
 			},
-			{ threshold: [0], rootMargin: "-100px 0px -66% 0px" }
+			{ threshold: [0], rootMargin: "0px 0px 0% 0px" }
 		);
 
 		for (const id of itemIds) {
