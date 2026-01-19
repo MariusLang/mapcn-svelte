@@ -3,11 +3,13 @@
 		title?: string;
 		children?: import("svelte").Snippet;
 	}>();
+
+	const tocSlug = title ? title.toLowerCase().replace(/\s+/g, "-") : undefined;
 </script>
 
 <section class="space-y-5">
 	{#if title}
-		<h2 class="text-xl font-semibold tracking-tight">{title}</h2>
+		<h2 class="text-xl font-semibold tracking-tight">{title}{tocSlug}</h2>
 	{/if}
 
 	<div class="text-foreground/80 space-y-4 leading-7 [&>ul]:list-disc [&>ul]:space-y-2 [&>ul]:pl-6">
