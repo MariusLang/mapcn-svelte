@@ -15,7 +15,7 @@
 	}
 </script>
 
-{#if items?.length}
+{#if items?.length > 1}
 	<div class={cn("flex flex-col gap-2.5 text-sm", className)}>
 		<p class="text-muted-foreground mb-1 text-xs font-medium">On This Page</p>
 		{#each items as item}
