@@ -2,6 +2,8 @@
 	import DocsLayout from "$lib/components/docs/DocsLayout.svelte";
 	import DocsSection from "$lib/components/docs/DocsSection.svelte";
 	import DocsCode from "$lib/components/docs/DocsCode.svelte";
+	import DocsNote from "$lib/components/docs/DocsNote.svelte";
+	import DocsLink from "$lib/components/docs/DocsLink.svelte";
 	import { ComponentPreview } from "$lib/components/docs/preview";
 	import MarkersExample from "$lib/components/docs/preview/examples/MarkersExample.svelte";
 	import PopupExample from "$lib/components/docs/preview/examples/PopupExample.svelte";
@@ -35,6 +37,16 @@
 			tooltips that appear on hover.
 		</p>
 	</DocsSection>
+
+	<DocsNote>
+		<strong>Performance tip:</strong>
+		<DocsCode>MapMarker</DocsCode> is DOM-based and works best for a few hundred markers. For larger datasets,
+		see the
+		<DocsLink href="/docs/advanced-usage#example-markers-via-layers">
+			GeoJSON layers example
+		</DocsLink>
+		instead. Rendering many DOM markers can make the browser sluggish.
+	</DocsNote>
 
 	<DocsSection title="Basic Example">
 		<p>Simple markers with tooltips and popups showing location information.</p>

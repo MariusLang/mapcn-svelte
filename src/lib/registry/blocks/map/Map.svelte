@@ -90,9 +90,12 @@
 		const mapInstance = new MapLibreGL.Map({
 			container: mapContainer,
 			style: currentStyle,
+			renderWorldCopies: false,
+			attributionControl: {
+				compact: true,
+			},
 			center,
 			zoom,
-			attributionControl: false,
 			...options,
 		});
 
