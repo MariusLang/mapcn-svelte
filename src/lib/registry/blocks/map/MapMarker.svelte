@@ -57,6 +57,7 @@
 	let marker: MapLibreGL.Marker | null = $state(null);
 	let markerElement: HTMLDivElement | null = $state(null);
 	let isReady = $state(false);
+	let isDragging = $state(false);
 
 	// Provide marker context for child components
 	setContext("marker", {
@@ -64,6 +65,8 @@
 		getElement: () => markerElement,
 		getMap: () => mapCtx.getMap(),
 		isReady: () => isReady,
+		isDraggable: () => draggable,
+		isDragging: () => isDragging,
 	});
 
 	// Create marker when map is ready
@@ -110,10 +113,15 @@
 		// Mouse event listeners on the container
 		if (onclick) container.addEventListener("click", onclick);
 		if (onmouseenter) container.addEventListener("mouseenter", onmouseenter);
-		if (onmouseleave) container.addEventListener("mouseleave", onmouseleave);
+		if (onmouseleave) {
+			container.addEventListener("mouseleave", (e) => {
+				if (!isDragging) onmouseleave(e);
+			});
+		}
 
 		// Drag event handlers
 		const handleDragStart = () => {
+			isDragging = true;
 			const lngLat = markerInstance.getLngLat();
 			ondragstart?.({ lng: lngLat.lng, lat: lngLat.lat });
 		};
@@ -122,6 +130,7 @@
 			ondrag?.({ lng: lngLat.lng, lat: lngLat.lat });
 		};
 		const handleDragEnd = () => {
+			isDragging = false;
 			const lngLat = markerInstance.getLngLat();
 			ondragend?.({ lng: lngLat.lng, lat: lngLat.lat });
 		};

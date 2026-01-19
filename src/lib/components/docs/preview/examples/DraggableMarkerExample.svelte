@@ -12,12 +12,12 @@
 	}
 </script>
 
-<div class="h-[400px] w-full">
+<div class="h-100 w-full">
 	<Map center={[-73.98, 40.75]} zoom={12}>
 		<MapMarker
 			longitude={markerPosition.lng}
 			latitude={markerPosition.lat}
-			draggable={true}
+			draggable
 			ondragend={handleDragEnd}
 		>
 			<MarkerContent>
@@ -26,7 +26,7 @@
 				</div>
 			</MarkerContent>
 
-			<MarkerPopup closeOnClick={false} closeOnMove={false}>
+			<MarkerPopup>
 				<div class="space-y-1">
 					<p class="text-foreground font-medium">Coordinates</p>
 					<p class="text-muted-foreground text-xs">

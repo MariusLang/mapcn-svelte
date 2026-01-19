@@ -33,10 +33,13 @@
 		getElement: () => HTMLDivElement | null;
 		getMap: () => MapLibreGL.Map | null;
 		isReady: () => boolean;
+		isDraggable?: () => boolean;
+		isDragging?: () => boolean;
 	}>("marker");
 
 	let popup: MapLibreGL.Popup | null = null;
 	let wrapperElement: HTMLDivElement | null = $state(null);
+	let shouldStayOpen = $state(false);
 
 	// Create popup when marker is ready
 	$effect(() => {
@@ -60,6 +63,11 @@
 		if (closeOnMove !== undefined) popupOptions.closeOnMove = closeOnMove;
 		if (focusAfterOpen !== undefined) popupOptions.focusAfterOpen = focusAfterOpen;
 
+		// If marker is draggable, preserve popup state during movement
+		if (markerCtx.isDraggable?.()) {
+			popupOptions.closeOnMove = false;
+		}
+
 		// Create popup
 		const popupInstance = new MapLibreGL.Popup(popupOptions).setDOMContent(container);
 
@@ -72,6 +80,28 @@
 		// Attach popup to marker
 		marker.setPopup(popupInstance);
 		popup = popupInstance;
+
+		// Prevent popup from closing during drag
+		$effect(() => {
+			const isDragging = markerCtx.isDragging?.();
+			if (isDragging && popupInstance.isOpen()) {
+				shouldStayOpen = true;
+			}
+		});
+
+		// Reopen popup after drag if it was open
+		$effect(() => {
+			const isDragging = markerCtx.isDragging?.();
+			if (!isDragging && shouldStayOpen && !popupInstance.isOpen()) {
+				// Small delay to ensure popup has finished closing
+				setTimeout(() => {
+					if (!popupInstance.isOpen()) {
+						marker.togglePopup();
+					}
+					shouldStayOpen = false;
+				}, 10);
+			}
+		});
 
 		// Move content to popup container
 		while (wrapperElement.firstChild) {

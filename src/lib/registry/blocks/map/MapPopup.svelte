@@ -39,6 +39,10 @@
 		isLoaded: () => boolean;
 	}>("map");
 
+	const markerCtx = getContext<{
+		isDraggable?: () => boolean;
+	}>("marker") || {};
+
 	let popup: MapLibreGL.Popup | null = null;
 	let wrapperElement: HTMLDivElement | null = $state(null);
 
@@ -68,6 +72,11 @@
 			closeButton: false,
 			className: "maplibre-popup-transparent",
 		};
+
+		// If marker is draggable, preserve popup state during movement
+		if (markerCtx.isDraggable?.()) {
+			popupOptions.closeOnMove = false;
+		}
 
 		if (anchor !== undefined) popupOptions.anchor = anchor;
 		if (closeOnClick !== undefined) popupOptions.closeOnClick = closeOnClick;
