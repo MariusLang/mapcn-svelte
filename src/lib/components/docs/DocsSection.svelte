@@ -39,7 +39,9 @@
 
 <section class="space-y-5">
 	{#if title}
-		<h2 id={slug} class="text-xl font-semibold tracking-tight">{title}</h2>
+		<h2 id={slug} class="scroll-mt-28 text-xl font-semibold tracking-tight">
+			{title}
+		</h2>
 	{/if}
 
 	<div class="text-foreground/80 space-y-4 leading-7 [&>ul]:list-disc [&>ul]:space-y-2 [&>ul]:pl-6">

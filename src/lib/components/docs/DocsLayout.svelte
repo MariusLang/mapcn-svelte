@@ -67,9 +67,7 @@
 <div>
 	<DocsHeader {title} {description} />
 
-	<div
-		class="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1fr)_200px] lg:grid-cols-[minmax(0,1fr)_250px]"
-	>
+	<div class="grid grid-cols-1 gap-10 xl:grid-cols-[minmax(0,1fr)_250px]">
 		<div class="mt-10 space-y-10">
 			{@render children?.()}
 		</div>
