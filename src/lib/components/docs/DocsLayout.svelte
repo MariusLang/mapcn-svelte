@@ -58,7 +58,7 @@
 	});
 </script>
 
-<div class="ml-10 flex gap-8">
+<div class="flex gap-8 md:ml-16">
 	<div class="mx-auto max-w-[720px] min-w-0 flex-1 py-8 pb-20">
 		<DocsHeader {title} {description} />
 
