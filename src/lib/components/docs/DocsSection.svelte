@@ -16,8 +16,8 @@
 	const slug = $derived(title ? title.toLowerCase().replace(/\s+/g, "-") : undefined);
 	let tocContext: TocContext | null = null;
 
-	// Register with TOC context
-	$effect(() => {
+	// Register with TOC context on mount
+	$effect.root(() => {
 		if (title && slug) {
 			try {
 				tocContext = getContext<TocContext>(DOCS_TOC_CONTEXT);
