@@ -51,12 +51,6 @@
 	title="Introduction"
 	description="Beautiful, accessible map components."
 	pathname="/docs"
-	toc={[
-		{ title: "Why mapcn-svelte?", slug: "why-mapcn-svelte" },
-		{ title: "Why MapLibre Directly?", slug: "why-maplibre-directly" },
-		{ title: "Any Map Style", slug: "any-map-style" },
-		{ title: "Features", slug: "features" },
-	]}
 >
 	<DocsSection>
 		<p>

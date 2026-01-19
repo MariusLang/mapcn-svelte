@@ -4,7 +4,7 @@
 
 	let { items, className }: { items: TocItem[]; className?: string } = $props();
 
-	const { activeId } = useActiveItem(items);
+	const { activeId } = useActiveItem(() => items);
 
 	function scrollTo(slug: string, event: MouseEvent) {
 		event.preventDefault();

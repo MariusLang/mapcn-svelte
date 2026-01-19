@@ -6,7 +6,7 @@ export interface TocItem {
 	slug: string;
 }
 
-export function useActiveItem(items: TocItem[]) {
+export function useActiveItem(getItems: () => TocItem[]) {
 	let activeId = $state<string | null>(null);
 	let observer: IntersectionObserver | null = null;
 
@@ -44,11 +44,11 @@ export function useActiveItem(items: TocItem[]) {
 	}
 
 	// Set up observer initially
-	setupObserver(items);
+	setupObserver(getItems());
 
 	// Watch for changes to items
 	$effect(() => {
-		setupObserver(items);
+		setupObserver(getItems());
 		return () => {
 			if (observer) {
 				observer.disconnect();

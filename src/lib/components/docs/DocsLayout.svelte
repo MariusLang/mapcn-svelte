@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { setContext } from "svelte";
 	import DocsHeader from "./DocsHeader.svelte";
 	import DocsToc from "./DocsToc.svelte";
 	import { findNeighbors } from "$lib/docs-navigation";
@@ -8,13 +9,20 @@
 		href: string;
 	}
 
+	interface TocItem {
+		title: string;
+		slug: string;
+	}
+
+	const DOCS_TOC_CONTEXT = "docs-toc";
+
 	const { title, description, pathname, prev, next, toc, children } = $props<{
 		title: string;
 		description: string;
 		pathname?: string;
 		prev?: NavLink;
 		next?: NavLink;
-		toc?: { title: string; slug: string }[];
+		toc?: TocItem[];
 		children?: import("svelte").Snippet;
 	}>();
 
@@ -28,6 +36,21 @@
 		}
 		return { previous: prev, next };
 	});
+
+	let registeredToc = $state<TocItem[]>([]);
+
+	function registerSection(item: TocItem) {
+		registeredToc = [...registeredToc, item];
+	}
+
+	function unregisterSection(slug: string) {
+		registeredToc = registeredToc.filter((item) => item.slug !== slug);
+	}
+
+	setContext(DOCS_TOC_CONTEXT, {
+		registerSection,
+		unregisterSection,
+	});
 </script>
 
 <div>
@@ -40,9 +63,11 @@
 			{@render children?.()}
 		</div>
 
-		<div class="hidden md:block">
-			<DocsToc items={toc ?? []} />
-		</div>
+		<aside class="hidden w-44 shrink-0 xl:block">
+			<nav class="sticky top-28">
+				<DocsToc items={toc ?? registeredToc} />
+			</nav>
+		</aside>
 	</div>
 
 	{#if neighbors.previous || neighbors.next}
