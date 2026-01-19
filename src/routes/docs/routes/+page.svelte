@@ -21,8 +21,7 @@
 <DocsLayout
 	title="Routes"
 	description="Draw lines and paths connecting coordinates on the map."
-	prev={{ title: "Popups", href: "/docs/popups" }}
-	next={{ title: "Clusters", href: "/docs/clusters" }}
+	pathname="/docs/routes"
 >
 	<DocsSection>
 		<p>

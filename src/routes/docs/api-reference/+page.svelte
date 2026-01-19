@@ -47,8 +47,7 @@
 <DocsLayout
 	title="API Reference"
 	description="Complete reference for all map components and their props."
-	prev={{ title: "Installation", href: "/docs/installation" }}
-	next={{ title: "Map", href: "/docs/basic-map" }}
+	pathname="/docs/api-reference"
 >
 	<DocsNote>
 		<strong>Note:</strong> This library is built on top of

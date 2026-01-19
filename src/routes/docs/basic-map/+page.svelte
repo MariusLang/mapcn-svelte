@@ -17,8 +17,7 @@
 <DocsLayout
 	title="Map"
 	description="The simplest way to add an interactive map to your application."
-	prev={{ title: "API Reference", href: "/docs/api-reference" }}
-	next={{ title: "Controls", href: "/docs/controls" }}
+	pathname="/docs/basic-map"
 >
 	<DocsSection>
 		<p>

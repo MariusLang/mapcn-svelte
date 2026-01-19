@@ -25,8 +25,7 @@
 <DocsLayout
 	title="Markers"
 	description="Add interactive markers to your map with popups and tooltips."
-	prev={{ title: "Controls", href: "/docs/controls" }}
-	next={{ title: "Popups", href: "/docs/popups" }}
+	pathname="/docs/markers"
 >
 	<DocsSection>
 		<p>

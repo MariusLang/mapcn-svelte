@@ -34,8 +34,7 @@
 <DocsLayout
 	title="Installation"
 	description="How to install and set up mapcn in your project."
-	prev={{ title: "Getting Started", href: "/docs" }}
-	next={{ title: "API Reference", href: "/docs/api-reference" }}
+	pathname="/docs/installation"
 >
 	<DocsSection title="Prerequisites">
 		<p>

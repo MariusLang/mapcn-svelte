@@ -21,7 +21,7 @@
 <DocsLayout
 	title="Getting Started"
 	description="Beautiful, customizable map components for Svelte applications."
-	next={{ title: "Installation", href: "/docs/installation" }}
+	pathname="/docs"
 >
 	<DocsSection>
 		<p>
@@ -68,8 +68,8 @@
 
 	<DocsSection title="Quick Start">
 		<p>
-			Head to the <DocsLink href="/docs/installation">Installation</DocsLink> guide to add mapcn to your
-			project, then explore the examples to see what's possible.
+			Head to the <DocsLink href="/docs/installation">Installation</DocsLink> guide to add mapcn to
+			your project, then explore the examples to see what's possible.
 		</p>
 	</DocsSection>
 </DocsLayout>

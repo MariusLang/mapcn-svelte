@@ -17,8 +17,7 @@
 <DocsLayout
 	title="Controls"
 	description="Add interactive controls to your map for zoom, compass, location, and fullscreen."
-	prev={{ title: "Map", href: "/docs/basic-map" }}
-	next={{ title: "Markers", href: "/docs/markers" }}
+	pathname="/docs/controls"
 >
 	<DocsSection>
 		<p>

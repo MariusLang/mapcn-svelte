@@ -42,3 +42,31 @@ export const docsNavigation: NavGroup[] = [
 		],
 	},
 ];
+
+export const fullNavItems: NavItem[] = docsNavigation.flatMap((group) => group.items);
+
+export function findNeighbors(pathName: string): {
+	previous: NavItem | null;
+	next: NavItem | null;
+} {
+	const path = pathName.split("?")[0].split("#")[0];
+	const index = fullNavItems.findIndex((item) => item.href === path);
+
+	let previous: NavItem | null = null;
+	for (let i = index - 1; i >= 0; i--) {
+		if (fullNavItems[i].href !== "/llms.txt") {
+			previous = fullNavItems[i];
+			break;
+		}
+	}
+
+	let next: NavItem | null = null;
+	for (let i = index + 1; i < fullNavItems.length; i++) {
+		if (fullNavItems[i].href !== "/llms.txt") {
+			next = fullNavItems[i];
+			break;
+		}
+	}
+
+	return { previous, next };
+}

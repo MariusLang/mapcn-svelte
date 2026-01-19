@@ -58,7 +58,7 @@
 <DocsLayout
 	title="Advanced"
 	description="Access the underlying MapLibre GL instance for advanced customization."
-	prev={{ title: "Clusters", href: "/docs/clusters" }}
+	pathname="/docs/advanced-usage"
 >
 	<DocsSection>
 		<p>

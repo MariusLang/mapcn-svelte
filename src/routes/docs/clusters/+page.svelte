@@ -17,8 +17,7 @@
 <DocsLayout
 	title="Clusters"
 	description="Visualize large datasets with automatic point clustering."
-	prev={{ title: "Routes", href: "/docs/routes" }}
-	next={{ title: "Advanced", href: "/docs/advanced-usage" }}
+	pathname="/docs/clusters"
 >
 	<DocsSection>
 		<p>
