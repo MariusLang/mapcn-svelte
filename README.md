@@ -69,6 +69,7 @@ Full documentation is available at [mapcn-svelte.vercel.app/docs](https://mapcn-
 - `MapPopup` — Standalone popups
 - `MapControls` — UI controls (zoom, compass, locate, fullscreen)
 - `MapRoute` — Draw routes and paths
+- `MapClusterLayer` — Cluster markers into groups
 
 ## Credits
 
