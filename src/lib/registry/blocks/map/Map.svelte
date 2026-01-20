@@ -15,6 +15,8 @@
 			dark?: MapStyleOption;
 		};
 		theme?: "light" | "dark";
+		/** Map projection type. Use `{ type: "globe" }` for 3D globe view. */
+		projection?: MapLibreGL.ProjectionSpecification;
 		center?: [number, number];
 		zoom?: number;
 		options?: Omit<MapLibreGL.MapOptions, "container" | "style">;
@@ -29,8 +31,9 @@
 		children,
 		styles,
 		theme: _theme = "light",
+		projection,
 		center = [13.405, 52.52],
-		zoom = 11,
+		zoom = 0,
 		options = {},
 	}: Props = $props();
 
@@ -40,13 +43,14 @@
 	let isLoaded = $state(false);
 	let isStyleLoaded = $state(false);
 	let initialStyleApplied = false;
+	let styleTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
 	const mapStyles = $derived({
 		dark: styles?.dark ?? defaultStyles.dark,
 		light: styles?.light ?? defaultStyles.light,
 	});
 
-	const currentStyle = $derived(tailwindTheme === "dark" ? mapStyles.dark : mapStyles.light);
+	const currentStyle = $derived(tailwindTheme === "light" ? mapStyles.light : mapStyles.dark);
 
 	const isReady = $derived(isMounted && isLoaded && isStyleLoaded);
 
@@ -54,6 +58,13 @@
 		getMap: () => map,
 		isLoaded: () => isReady,
 	});
+
+	function clearStyleTimeout() {
+		if (styleTimeoutId) {
+			clearTimeout(styleTimeoutId);
+			styleTimeoutId = null;
+		}
+	}
 
 	onMount(() => {
 		isMounted = true;
@@ -79,20 +90,37 @@
 		const mapInstance = new MapLibreGL.Map({
 			container: mapContainer,
 			style: currentStyle,
+			renderWorldCopies: false,
+			attributionControl: {
+				compact: true,
+			},
 			center,
 			zoom,
-			attributionControl: false,
 			...options,
 		});
 
-		mapInstance.on("load", () => {
-			isLoaded = true;
-		});
+		const styleDataHandler = () => {
+			clearStyleTimeout();
+			// Delay to ensure style is fully processed before allowing layer operations
+			// This is a workaround to avoid race conditions with the style loading
+			// else we have to force update every layer on setStyle change
+			styleTimeoutId = setTimeout(() => {
+				isStyleLoaded = true;
+				if (!initialStyleApplied) {
+					initialStyleApplied = true;
+				}
+				if (projection) {
+					mapInstance.setProjection(projection);
+				}
+			}, 100);
+		};
 
-		mapInstance.on("styledata", () => {
-			isStyleLoaded = true;
-			initialStyleApplied = true;
-		});
+		const loadHandler = () => {
+			isLoaded = true;
+		};
+
+		mapInstance.on("load", loadHandler);
+		mapInstance.on("styledata", styleDataHandler);
 
 		map = mapInstance;
 	});

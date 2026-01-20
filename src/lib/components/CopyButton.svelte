@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Button } from "$lib/registry/ui/button/index";
-	import { Copy, Check } from "@lucide/svelte";
+	import Copy from "@lucide/svelte/icons/copy";
+	import Check from "@lucide/svelte/icons/check";
 
 	const { command }: { command: string } = $props();
 
@@ -13,10 +13,10 @@
 	};
 </script>
 
-<Button onclick={copy} class="bg-muted hover:bg-muted transition-colors">
+<button onclick={copy} class="hover:bg-muted rounded p-1.5 transition-colors">
 	{#if copied}
-		<Check class="size-4 text-emerald-500" />
+		<Check class="size-3.5 text-emerald-500" />
 	{:else}
-		<Copy class="text-muted-foreground size-4" />
+		<Copy class="text-muted-foreground size-3.5" />
 	{/if}
-</Button>
+</button>

@@ -2,9 +2,12 @@
 	import DocsLayout from "$lib/components/docs/DocsLayout.svelte";
 	import DocsSection from "$lib/components/docs/DocsSection.svelte";
 	import DocsCode from "$lib/components/docs/DocsCode.svelte";
+	import DocsNote from "$lib/components/docs/DocsNote.svelte";
+	import DocsLink from "$lib/components/docs/DocsLink.svelte";
 	import { ComponentPreview } from "$lib/components/docs/preview";
 	import MarkersExample from "$lib/components/docs/preview/examples/MarkersExample.svelte";
 	import PopupExample from "$lib/components/docs/preview/examples/PopupExample.svelte";
+	import DraggableMarkerExample from "$lib/components/docs/preview/examples/DraggableMarkerExample.svelte";
 	import { page } from "$app/state";
 
 	const markersSource = $derived(page.data.markersSource);
@@ -12,17 +15,19 @@
 
 	const popupSource = $derived(page.data.popupSource);
 	const popupHighlighted = $derived(page.data.popupHighlighted);
+
+	const draggableMarkerSource = $derived(page.data.draggableMarkerSource);
+	const draggableMarkerHighlighted = $derived(page.data.draggableMarkerHighlighted);
 </script>
 
 <svelte:head>
-	<title>Markers - mapcn</title>
+	<title>Markers - mapcn-svelte</title>
 </svelte:head>
 
 <DocsLayout
 	title="Markers"
 	description="Add interactive markers to your map with popups and tooltips."
-	prev={{ title: "Map Controls", href: "/docs/controls" }}
-	next={{ title: "Popups", href: "/docs/popups" }}
+	pathname="/docs/markers"
 >
 	<DocsSection>
 		<p>
@@ -33,6 +38,16 @@
 		</p>
 	</DocsSection>
 
+	<DocsNote>
+		<strong>Performance tip:</strong>
+		<DocsCode>MapMarker</DocsCode> is DOM-based and works best for a few hundred markers. For larger datasets,
+		see the
+		<DocsLink href="/docs/advanced-usage#example-markers-via-layers">
+			GeoJSON layers example
+		</DocsLink>
+		instead. Rendering many DOM markers can make the browser sluggish.
+	</DocsNote>
+
 	<DocsSection title="Basic Example">
 		<p>Simple markers with tooltips and popups showing location information.</p>
 	</DocsSection>
@@ -42,10 +57,23 @@
 	</ComponentPreview>
 
 	<DocsSection title="Rich Popups">
-		<p>Build complex popups with images, ratings, and action buttons using shadcn/ui components.</p>
+		<p>
+			Build complex popups with images, ratings, and action buttons using shadcn-svelte components.
+		</p>
 	</DocsSection>
 
-	<ComponentPreview code={popupSource} highlightedCode={popupHighlighted} class="h-[500px]">
+	<ComponentPreview code={popupSource} highlightedCode={popupHighlighted} class="h-125">
 		<PopupExample />
+	</ComponentPreview>
+
+	<DocsSection title="Draggable Marker">
+		<p>
+			Create draggable markers that users can move around the map. Click the marker to see its
+			current coordinates in a popup.
+		</p>
+	</DocsSection>
+
+	<ComponentPreview code={draggableMarkerSource} highlightedCode={draggableMarkerHighlighted}>
+		<DraggableMarkerExample />
 	</ComponentPreview>
 </DocsLayout>

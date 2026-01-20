@@ -2,6 +2,7 @@
 	import DocsLayout from "$lib/components/docs/DocsLayout.svelte";
 	import DocsSection from "$lib/components/docs/DocsSection.svelte";
 	import DocsCode from "$lib/components/docs/DocsCode.svelte";
+	import DocsLink from "$lib/components/docs/DocsLink.svelte";
 	import { ComponentPreview } from "$lib/components/docs/preview";
 	import RouteExample from "$lib/components/docs/preview/examples/RouteExample.svelte";
 	import OsrmRouteExample from "$lib/components/docs/preview/examples/OsrmRouteExample.svelte";
@@ -14,13 +15,13 @@
 </script>
 
 <svelte:head>
-	<title>Routes - mapcn</title>
+	<title>Routes - mapcn-svelte</title>
 </svelte:head>
 
 <DocsLayout
 	title="Routes"
 	description="Draw lines and paths connecting coordinates on the map."
-	prev={{ title: "Popups", href: "/docs/popups" }}
+	pathname="/docs/routes"
 >
 	<DocsSection>
 		<p>
@@ -39,11 +40,16 @@
 		<RouteExample />
 	</ComponentPreview>
 
-	<DocsSection title="Dynamic Route from OSRM">
-		<p>Fetch real driving directions from the OSRM API and display them on the map.</p>
+	<DocsSection title="Route Planning">
+		<p>
+			Display multiple route options and let users select between them. This example fetches real
+			driving directions from the <DocsLink href="https://project-osrm.org/" external>
+				OSRM API
+			</DocsLink>. Click on a route or use the buttons to switch.
+		</p>
 	</DocsSection>
 
-	<ComponentPreview code={osrmRouteSource} highlightedCode={osrmRouteHighlighted}>
+	<ComponentPreview code={osrmRouteSource} highlightedCode={osrmRouteHighlighted} class="h-125">
 		<OsrmRouteExample />
 	</ComponentPreview>
 </DocsLayout>

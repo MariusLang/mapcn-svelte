@@ -35,18 +35,18 @@
 
 	let waitingForLocation = $state(false);
 	let compassElement: SVGSVGElement | null = $state(null);
+	const loaded = $derived(mapCtx.isLoaded());
 
 	const positionClasses = {
 		"top-left": "top-2 left-2",
 		"top-right": "top-2 right-2",
 		"bottom-left": "bottom-2 left-2",
-		"bottom-right": "bottom-2 right-2",
+		"bottom-right": "bottom-10 right-2",
 	};
 
 	// Update compass rotation
 	$effect(() => {
 		const map = mapCtx.getMap();
-		const loaded = mapCtx.isLoaded();
 
 		if (!loaded || !map || !compassElement) return;
 
@@ -124,7 +124,7 @@
 	}
 </script>
 
-{#if mapCtx.isLoaded()}
+{#if loaded}
 	<div class={cn("absolute z-10 flex flex-col gap-1.5", positionClasses[position], className)}>
 		{#if showZoom}
 			<div

@@ -57,6 +57,11 @@
 					"target": "map/MapRoute.svelte"
 				},
 				{
+					"path": "src/lib/registry/blocks/map/MapClusterLayer.svelte",
+					"type": "registry:ui",
+					"target": "map/MapClusterLayer.svelte"
+				},
+				{
 					"path": "src/lib/registry/blocks/map/index.ts",
 					"type": "registry:ui",
 					"target": "map/index.ts"

@@ -11,14 +11,13 @@
 </script>
 
 <svelte:head>
-	<title>Popups - mapcn</title>
+	<title>Popups - mapcn-svelte</title>
 </svelte:head>
 
 <DocsLayout
 	title="Standalone Popups"
 	description="Display popups anywhere on the map without markers."
-	prev={{ title: "Markers", href: "/docs/markers" }}
-	next={{ title: "Routes", href: "/docs/routes" }}
+	pathname="/docs/popups"
 >
 	<DocsSection>
 		<p>

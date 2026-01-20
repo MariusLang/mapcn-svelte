@@ -22,6 +22,7 @@ export default ts.config(
 		},
 		rules: {
 			"no-undef": "off",
+			"no-useless-escape": "off",
 			// Allow unused variables starting with underscore
 			"@typescript-eslint/no-unused-vars": [
 				"error",
