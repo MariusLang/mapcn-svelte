@@ -16,9 +16,7 @@
 	<Sidebar.Content class="no-scrollbar overflow-x-hidden  pt-8">
 		{#each navigation as group}
 			<Sidebar.Group>
-				<Sidebar.GroupLabel
-					class="text-muted-foreground/70 text-[11px] font-medium tracking-wider uppercase"
-				>
+				<Sidebar.GroupLabel class="text-muted-foreground/70 text-[11px] tracking-wider uppercase">
 					{group.title}
 				</Sidebar.GroupLabel>
 				<Sidebar.GroupContent>
@@ -27,7 +25,7 @@
 							<Sidebar.MenuItem>
 								<Sidebar.MenuButton
 									isActive={pathname === item.href}
-									class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground data-[active=true]:font-medium"
+									class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground data-[active=true]:font-normal"
 									onclick={() => {
 										setOpenMobile(false);
 										goto(item.href);
