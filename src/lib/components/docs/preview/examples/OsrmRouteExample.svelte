@@ -74,7 +74,7 @@
 
 <div class="relative h-125 w-full">
 	<Map center={[4.69, 52.14]} zoom={8.5}>
-		{#each sortedRoutes as { route, index }}
+		{#each sortedRoutes as { route, index } (index)}
 			{@const isSelected = index === selectedIndex}
 			<MapRoute
 				coordinates={route.coordinates}
