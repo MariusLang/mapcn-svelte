@@ -52,6 +52,6 @@
 			</MapPopup>
 		{/if}
 
-		<MapControls position="bottom-right" showZoom class="bottom-2" />
+		<MapControls position="bottom-right" showZoom />
 	</Map>
 </div>
