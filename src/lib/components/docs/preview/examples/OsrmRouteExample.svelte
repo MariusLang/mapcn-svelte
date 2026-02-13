@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Map, MapMarker, MarkerContent, MapRoute, MarkerLabel } from "$lib/components/ui/map";
-	import { Loader2, Clock, Route } from "lucide-svelte";
+	import { Loader2, Clock, Route } from "@lucide/svelte";
 	import { Button } from "$lib/registry/ui/button/index";
 
 	const start = { name: "Amsterdam", lng: 4.9041, lat: 52.3676 };

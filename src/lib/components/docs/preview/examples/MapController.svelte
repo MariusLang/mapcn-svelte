@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { useMap } from "$lib/hooks/use-map.svelte";
 	import { Button } from "$lib/registry/ui/button/index";
-	import { RotateCcw, Mountain } from "lucide-svelte";
+	import { RotateCcw, Mountain } from "@lucide/svelte";
 
 	let pitch = $state(0);
 	let bearing = $state(0);
