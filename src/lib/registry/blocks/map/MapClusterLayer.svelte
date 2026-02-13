@@ -9,7 +9,7 @@
 		clusterMaxZoom?: number;
 		/** Radius of each cluster when clustering points in pixels (default: 50) */
 		clusterRadius?: number;
-		/** Colors for cluster circles: [small, medium, large] based on point count (default: ["#51bbd6", "#f1f075", "#f28cb1"]) */
+		/** Colors for cluster circles: [small, medium, large] based on point count (default: ["#22c55e", "#eab308", "#ef4444"]) */
 		clusterColors?: [string, string, string];
 		/** Point count thresholds for color/size steps: [medium, large] (default: [100, 750]) */
 		clusterThresholds?: [number, number];
@@ -28,7 +28,7 @@
 		data,
 		clusterMaxZoom = 14,
 		clusterRadius = 50,
-		clusterColors = ["#51bbd6", "#f1f075", "#f28cb1"],
+		clusterColors = ["#22c55e", "#eab308", "#ef4444"],
 		clusterThresholds = [100, 750],
 		pointColor = "#3b82f6",
 		onpointclick,
@@ -103,6 +103,9 @@
 					clusterThresholds[1],
 					40,
 				],
+				"circle-stroke-width": 1,
+				"circle-stroke-color": "#fff",
+				"circle-opacity": 0.85,
 			},
 		});
 
@@ -129,7 +132,9 @@
 			filter: ["!", ["has", "point_count"]],
 			paint: {
 				"circle-color": pointColor,
-				"circle-radius": 6,
+				"circle-radius": 5,
+				"circle-stroke-width": 2,
+				"circle-stroke-color": "#fff",
 			},
 		});
 

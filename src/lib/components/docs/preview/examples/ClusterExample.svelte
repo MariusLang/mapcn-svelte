@@ -22,7 +22,7 @@
 			data="https://maplibre.org/maplibre-gl-js/docs/assets/earthquakes.geojson"
 			clusterRadius={50}
 			clusterMaxZoom={14}
-			clusterColors={["#22c55e", "#eab308", "#ef4444"]}
+			clusterColors={["#1d8cf8", "#6d5dfc", "#e23670"]}
 			pointColor="#3b82f6"
 			onpointclick={(feature, coordinates) => {
 				if (feature.properties) {
