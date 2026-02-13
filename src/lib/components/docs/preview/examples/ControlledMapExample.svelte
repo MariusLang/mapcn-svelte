@@ -20,7 +20,11 @@
 <div class="relative h-[400px] w-full">
 	<Map center={viewport.center} zoom={viewport.zoom}>
 		<ViewportTracker bind:viewport />
-		<div class="absolute left-2 top-2 z-10 flex flex-wrap gap-x-3 gap-y-1 rounded border bg-background/80 px-2 py-1.5 text-xs font-mono backdrop-blur">
+		<div
+			role="status"
+			aria-live="polite"
+			class="absolute left-2 top-2 z-10 flex flex-wrap gap-x-3 gap-y-1 rounded border bg-background/80 px-2 py-1.5 text-xs font-mono backdrop-blur"
+		>
 			<span>
 				<span class="text-muted-foreground">lng:</span>
 				{viewport.center[0].toFixed(3)}

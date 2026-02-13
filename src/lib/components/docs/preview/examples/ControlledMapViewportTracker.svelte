@@ -38,10 +38,8 @@
 		mapInstance = mapCtx.getMap();
 
 		if (mapInstance) {
+			// The 'move' event fires during zoom, rotate, and pitch changes
 			mapInstance.on("move", updateViewport);
-			mapInstance.on("zoom", updateViewport);
-			mapInstance.on("rotate", updateViewport);
-			mapInstance.on("pitch", updateViewport);
 
 			// Initialize viewport with current map state
 			updateViewport();
@@ -51,9 +49,6 @@
 	onDestroy(() => {
 		if (mapInstance) {
 			mapInstance.off("move", updateViewport);
-			mapInstance.off("zoom", updateViewport);
-			mapInstance.off("rotate", updateViewport);
-			mapInstance.off("pitch", updateViewport);
 		}
 	});
 </script>
