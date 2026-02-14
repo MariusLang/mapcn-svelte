@@ -59,9 +59,9 @@
 
 {#if items?.length}
 	<div class={cn("flex flex-col gap-1", className)}>
-		<p class="text-foreground text-xs font-medium mb-2">On This Page</p>
+		<p class="text-foreground mb-2 text-xs font-medium">On This Page</p>
 		<div class="relative">
-			<div class="absolute left-0 top-1 bottom-1 w-px bg-border"></div>
+			<div class="bg-border absolute top-1 bottom-1 left-0 w-px"></div>
 			<div class="flex flex-col gap-1">
 				{#each items as item}
 					{@const isActive = item.slug === activeId}
@@ -69,14 +69,12 @@
 						href={`#${item.slug}`}
 						onclick={(e) => scrollTo(item.slug, e)}
 						class={cn(
-							"relative pl-3 py-1 text-[13px] no-underline transition-colors",
-							isActive
-								? "text-foreground font-medium"
-								: "text-muted-foreground hover:text-foreground"
+							"relative py-1 pl-3 text-[13px] no-underline transition-colors",
+							isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
 						)}
 					>
 						{#if isActive}
-							<div class="absolute left-0 top-1 bottom-1 w-px bg-foreground rounded-full"></div>
+							<div class="bg-foreground absolute top-1 bottom-1 left-0 w-px rounded-full"></div>
 						{/if}
 						{item.title}
 					</a>
