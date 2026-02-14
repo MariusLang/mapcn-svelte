@@ -8,7 +8,7 @@
 	import DocsCode from "$lib/components/docs/DocsCode.svelte";
 	import DocsNote from "$lib/components/docs/DocsNote.svelte";
 
-	const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://mapcn-svelte.vercel.app";
+	const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://mapcn-svelte.dev";
 
 	const installCode = `npx shadcn-svelte@latest add ${siteUrl}/r/map.json`;
 

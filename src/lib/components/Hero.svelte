@@ -3,7 +3,7 @@
 	import ArrowRight from "@lucide/svelte/icons/arrow-right";
 	import CopyButton from "$lib/components/CopyButton.svelte";
 
-	const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://mapcn-svelte.vercel.app";
+	const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://mapcn-svelte.dev";
 	const installCommand = `npx shadcn-svelte@latest add ${siteUrl}/r/map.json`;
 </script>
 
