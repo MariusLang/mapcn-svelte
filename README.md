@@ -1,11 +1,11 @@
 <div align="center">
     <h1>mapcn-svelte</h1>
-    <p><strong>Beautiful maps, made simple.</strong></p>  <br>
-  <br>
+    <p><strong>Beautiful maps, made simple.</strong></p>
+    <br/>
   <p>
     Free & open source map components. Zero config, one command setup.<br/>
     Built on <a href="https://maplibre.org/">MapLibre GL</a>, styled with <a href="https://tailwindcss.com/">Tailwind</a>, works seamlessly with <a href="https://shadcn-svelte.com/">shadcn-svelte</a>.
-    <br/>
+    <br/><br/>
     Based on <a href="https://github.com/AnmolSaini16/mapcn">mapcn</a> by <a href="https://github.com/AnmolSaini16">Anmol Saini</a>.
   </p>
   
