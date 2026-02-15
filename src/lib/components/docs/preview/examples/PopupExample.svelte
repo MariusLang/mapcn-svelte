@@ -2,7 +2,7 @@
 	import { Map, MapMarker, MarkerContent, MarkerLabel, MarkerPopup } from "$lib/components/ui/map";
 
 	import { Button } from "$lib/registry/ui/button";
-	import { Star, Navigation, Clock, ExternalLink } from "lucide-svelte";
+	import { Star, Navigation, Clock, ExternalLink } from "@lucide/svelte";
 
 	const places = [
 		{

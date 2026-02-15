@@ -1,15 +1,9 @@
 <script lang="ts">
-	import { Search } from "lucide-svelte";
-	import {
-		CommandDialog,
-		CommandEmpty,
-		CommandGroup,
-		CommandInput,
-		CommandLinkItem,
-		CommandList,
-	} from "$lib/registry/ui/command/index.js";
+	import { ArrowDown, ArrowUp, CornerDownLeft, SearchIcon } from "@lucide/svelte";
+	import * as Command from "$lib/registry/ui/command/index.js";
 	import { Kbd } from "$lib/registry/ui/kbd/index.js";
 	import { docsNavigation } from "$lib/docs-navigation";
+	import Button from "$lib/registry/ui/button/button.svelte";
 
 	let open = $state(false);
 
@@ -31,33 +25,58 @@
 	});
 </script>
 
-<button
+<Button
+	variant="outline"
+	size="sm"
 	onclick={() => (open = true)}
 	aria-label="Search documentation"
-	class="group bg-secondary/60 border-border/40 text-muted-foreground hover:text-foreground hover:border-border hidden h-8 items-center gap-2 rounded-full border px-3 text-sm transition-colors sm:flex"
+	class="group dark:border-border/50 border-border/70 text-muted-foreground hidden w-[180px] items-center rounded-lg text-sm font-normal md:flex"
 >
-	<Search class="size-3.5" />
-	<span class="hidden sm:inline">Search...</span>
-	<Kbd class="ml-2 hidden sm:inline-flex">⌘K</Kbd>
-</button>
+	<SearchIcon className="size-3.5 shrink-0" />
+	<span>Search docs...</span>
+	<Kbd class="ml-auto">⌘K</Kbd>
+</Button>
 
-<CommandDialog
+<Command.Dialog
 	bind:open
 	title="Search Documentation"
 	description="Search for documentation pages and components"
 >
-	<CommandInput placeholder="Type to search..." />
-	<CommandList>
-		<CommandEmpty>No results found.</CommandEmpty>
+	<Command.Input placeholder="Type to search..." />
+	<Command.List>
+		<Command.Empty>No results found.</Command.Empty>
 		{#each docsNavigation as group}
-			<CommandGroup heading={group.title}>
+			<Command.Group heading={group.title}>
 				{#each group.items as item}
-					<CommandLinkItem href={item.href} value={item.title} onclick={closeDialog}>
+					<Command.LinkItem href={item.href} value={item.title} onclick={closeDialog}>
 						<item.icon />
 						<span>{item.title}</span>
-					</CommandLinkItem>
+					</Command.LinkItem>
 				{/each}
-			</CommandGroup>
+			</Command.Group>
 		{/each}
-	</CommandList>
-</CommandDialog>
+	</Command.List>
+	<div class="text-muted-foreground/80 flex items-center justify-between border-t p-3 text-xs">
+		<div class="flex items-center gap-2.5">
+			<span class="flex items-center gap-1.5">
+				<Kbd>
+					<ArrowUp class="size-3" />
+				</Kbd>
+				<Kbd>
+					<ArrowDown class="size-3" />
+				</Kbd>
+				<span>navigate</span>
+			</span>
+			<span class="flex items-center gap-1.5">
+				<Kbd>
+					<CornerDownLeft className="size-3" />
+				</Kbd>
+				<span>select</span>
+			</span>
+		</div>
+		<span class="flex items-baseline gap-1.5">
+			<Kbd>esc</Kbd>
+			<span>close</span>
+		</span>
+	</div>
+</Command.Dialog>

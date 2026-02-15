@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getContext, setContext } from "svelte";
+	import { getContext, setContext, untrack } from "svelte";
 	import MapLibreGL, { type MarkerOptions } from "maplibre-gl";
 
 	type Anchor =
@@ -76,12 +76,14 @@
 
 		if (!map || !mapLoaded) return;
 
-		// Validate coordinates
+		// Validate coordinates (untracked — position updates are handled by a separate effect)
+		const lng = untrack(() => longitude);
+		const lat = untrack(() => latitude);
 		if (
-			typeof longitude !== "number" ||
-			typeof latitude !== "number" ||
-			Number.isNaN(longitude) ||
-			Number.isNaN(latitude)
+			typeof lng !== "number" ||
+			typeof lat !== "number" ||
+			Number.isNaN(lng) ||
+			Number.isNaN(lat)
 		) {
 			return;
 		}
@@ -104,9 +106,7 @@
 		if (rotationAlignment !== undefined) markerOptions.rotationAlignment = rotationAlignment;
 
 		// Create and add marker
-		const markerInstance = new MapLibreGL.Marker(markerOptions)
-			.setLngLat([longitude, latitude])
-			.addTo(map);
+		const markerInstance = new MapLibreGL.Marker(markerOptions).setLngLat([lng, lat]).addTo(map);
 
 		marker = markerInstance;
 

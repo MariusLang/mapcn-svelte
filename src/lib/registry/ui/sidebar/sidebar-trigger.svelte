@@ -6,6 +6,7 @@
 	import { useSidebar } from "./context.svelte.js";
 
 	let {
+		// eslint-disable-next-line no-useless-assignment
 		ref = $bindable(null),
 		class: className,
 		onclick,

@@ -40,7 +40,7 @@
 
 	const mapCtx = getContext<{
 		getMap: () => MapLibreGL.Map | null;
-		isLoaded: () => boolean;
+		isStyleReady: () => boolean;
 	}>("map");
 
 	const sourceId = $derived(`route-source-${id}`);
@@ -49,7 +49,7 @@
 	// Add route when map is ready
 	$effect(() => {
 		const map = mapCtx.getMap();
-		const loaded = mapCtx.isLoaded();
+		const loaded = mapCtx.isStyleReady();
 
 		if (!loaded || !map || coordinates.length < 2) return;
 
@@ -111,7 +111,7 @@
 	// Update route data when coordinates change
 	$effect(() => {
 		const map = mapCtx.getMap();
-		const loaded = mapCtx.isLoaded();
+		const loaded = mapCtx.isStyleReady();
 
 		if (!loaded || !map || coordinates.length < 2) return;
 
@@ -131,7 +131,7 @@
 	// Update paint properties when they change
 	$effect(() => {
 		const map = mapCtx.getMap();
-		const loaded = mapCtx.isLoaded();
+		const loaded = mapCtx.isStyleReady();
 
 		if (!loaded || !map || !map.getLayer(layerId)) return;
 
@@ -156,7 +156,7 @@
 	// Handle click and hover events
 	$effect(() => {
 		const map = mapCtx.getMap();
-		const loaded = mapCtx.isLoaded();
+		const loaded = mapCtx.isStyleReady();
 
 		if (!loaded || !map || !interactive) return;
 

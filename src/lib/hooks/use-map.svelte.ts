@@ -4,6 +4,7 @@ import MapLibreGL from "maplibre-gl";
 type MapContext = {
 	getMap: () => MapLibreGL.Map | null;
 	isLoaded: () => boolean;
+	isStyleReady: () => boolean;
 };
 
 export function useMap() {
@@ -11,6 +12,7 @@ export function useMap() {
 
 	const map = $derived.by(() => mapCtx?.getMap() ?? null);
 	const isLoaded = $derived.by(() => mapCtx?.isLoaded() ?? false);
+	const isStyleReady = $derived.by(() => mapCtx?.isStyleReady() ?? false);
 
 	return {
 		get map() {
@@ -18,6 +20,9 @@ export function useMap() {
 		},
 		get isLoaded() {
 			return isLoaded;
+		},
+		get isStyleReady() {
+			return isStyleReady;
 		},
 	};
 }

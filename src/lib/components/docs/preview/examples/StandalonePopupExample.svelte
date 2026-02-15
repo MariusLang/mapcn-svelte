@@ -15,6 +15,7 @@
 				focusAfterOpen={false}
 				closeOnClick={false}
 				onclose={() => (showPopup = false)}
+				class="w-62"
 			>
 				<div class="space-y-2">
 					<h3 class="text-foreground font-semibold">New York City</h3>

@@ -121,11 +121,18 @@
 		@apply border-border outline-ring/50;
 	}
 	body {
-		@apply bg-background text-foreground font-sans;
+		@apply bg-background text-foreground font-sans antialiased;
+		font-feature-settings:
+			"rlig" 1,
+			"calt" 1;
 	}
 	button:not(:disabled),
 	[role="button"]:not(:disabled) {
 		cursor: pointer;
+	}
+	strong,
+	b {
+		@apply font-medium;
 	}
 	.maplibregl-popup-content {
 		@apply rounded-none! bg-transparent! p-0! shadow-none!;

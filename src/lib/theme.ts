@@ -22,4 +22,5 @@ theme.subscribe((value) => {
 
 	const root = document.documentElement;
 	root.classList.toggle("dark", value === "dark");
+	root.classList.toggle("light", value === "light");
 });

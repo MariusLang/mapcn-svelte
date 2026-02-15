@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from "$lib/utils";
-	import { MapPin } from "lucide-svelte";
+	import { MapPin } from "@lucide/svelte";
 	//import { Button } from "$lib/registry/ui/button";
 	import { Separator } from "$lib/registry/ui/separator/index";
 	//import * as Tooltip from "$lib/registry/ui/tooltip/index.js";
@@ -17,7 +17,7 @@
 </script>
 
 <header class={cn("h-16 w-full", className)}>
-	<nav class="container flex h-full items-center justify-between">
+	<nav class="container flex size-full items-center justify-between">
 		<div class="flex items-center gap-4">
 			{#if children}
 				{@render children()}

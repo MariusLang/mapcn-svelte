@@ -8,7 +8,7 @@
 	import DocsCode from "$lib/components/docs/DocsCode.svelte";
 	import DocsNote from "$lib/components/docs/DocsNote.svelte";
 
-	const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://mapcn-svelte.vercel.app";
+	const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://mapcn-svelte.dev";
 
 	const installCode = `npx shadcn-svelte@latest add ${siteUrl}/r/map.json`;
 
@@ -18,13 +18,13 @@
   import { Map, MapControls } from "$lib/components/ui/map";
   import { Card } from "$lib/components/ui/card";
 </scr` +
-		`ipt>;
+		`ipt>
 
 <Card class="h-[300px] overflow-hidden p-0">
   <Map center={[-74.006, 40.7128]} zoom={11}>
     <MapControls />
   </Map>
-</Card>;`;
+</Card>`;
 </script>
 
 <svelte:head>

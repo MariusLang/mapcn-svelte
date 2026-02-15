@@ -15,11 +15,31 @@
 
 	onMount(() => {
 		mounted = true;
-		return unsubscribe;
+		window.addEventListener("keydown", handleKeyDown);
+		return () => {
+			unsubscribe();
+			window.removeEventListener("keydown", handleKeyDown);
+		};
 	});
 
 	function toggleTheme() {
 		theme.set(currentTheme === "dark" ? "light" : "dark");
+	}
+	function handleKeyDown(e: KeyboardEvent) {
+		// toggle theme on d/D
+		if ((e.key === "t" || e.key === "T") && !e.metaKey && !e.ctrlKey) {
+			if (
+				(e.target instanceof HTMLElement && e.target.isContentEditable) ||
+				e.target instanceof HTMLInputElement ||
+				e.target instanceof HTMLTextAreaElement ||
+				e.target instanceof HTMLSelectElement
+			) {
+				return;
+			}
+
+			e.preventDefault();
+			toggleTheme();
+		}
 	}
 </script>
 

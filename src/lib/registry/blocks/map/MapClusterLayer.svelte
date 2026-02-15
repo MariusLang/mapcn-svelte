@@ -9,7 +9,7 @@
 		clusterMaxZoom?: number;
 		/** Radius of each cluster when clustering points in pixels (default: 50) */
 		clusterRadius?: number;
-		/** Colors for cluster circles: [small, medium, large] based on point count (default: ["#51bbd6", "#f1f075", "#f28cb1"]) */
+		/** Colors for cluster circles: [small, medium, large] based on point count (default: ["#22c55e", "#eab308", "#ef4444"]) */
 		clusterColors?: [string, string, string];
 		/** Point count thresholds for color/size steps: [medium, large] (default: [100, 750]) */
 		clusterThresholds?: [number, number];
@@ -28,7 +28,7 @@
 		data,
 		clusterMaxZoom = 14,
 		clusterRadius = 50,
-		clusterColors = ["#51bbd6", "#f1f075", "#f28cb1"],
+		clusterColors = ["#22c55e", "#eab308", "#ef4444"],
 		clusterThresholds = [100, 750],
 		pointColor = "#3b82f6",
 		onpointclick,
@@ -37,7 +37,7 @@
 
 	const mapCtx = getContext<{
 		getMap: () => MapLibreGL.Map | null;
-		isLoaded: () => boolean;
+		isStyleReady: () => boolean;
 	}>("map");
 
 	const id = crypto.randomUUID();
@@ -55,7 +55,7 @@
 	// Add source and layers when map is ready
 	$effect(() => {
 		const map = mapCtx.getMap();
-		const loaded = mapCtx.isLoaded();
+		const loaded = mapCtx.isStyleReady();
 
 		if (!loaded || !map) return;
 
@@ -103,6 +103,9 @@
 					clusterThresholds[1],
 					40,
 				],
+				"circle-stroke-width": 1,
+				"circle-stroke-color": "#fff",
+				"circle-opacity": 0.85,
 			},
 		});
 
@@ -129,7 +132,9 @@
 			filter: ["!", ["has", "point_count"]],
 			paint: {
 				"circle-color": pointColor,
-				"circle-radius": 6,
+				"circle-radius": 5,
+				"circle-stroke-width": 2,
+				"circle-stroke-color": "#fff",
 			},
 		});
 
@@ -148,7 +153,7 @@
 	// Update source data when data prop changes (only for non-URL data)
 	$effect(() => {
 		const map = mapCtx.getMap();
-		const loaded = mapCtx.isLoaded();
+		const loaded = mapCtx.isStyleReady();
 
 		if (!loaded || !map || typeof data === "string") return;
 
@@ -161,7 +166,7 @@
 	// Update layer styles when props change
 	$effect(() => {
 		const map = mapCtx.getMap();
-		const loaded = mapCtx.isLoaded();
+		const loaded = mapCtx.isStyleReady();
 
 		if (!loaded || !map) return;
 
@@ -200,7 +205,7 @@
 	// Handle click events
 	$effect(() => {
 		const map = mapCtx.getMap();
-		const loaded = mapCtx.isLoaded();
+		const loaded = mapCtx.isStyleReady();
 
 		if (!loaded || !map) return;
 
