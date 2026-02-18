@@ -1,4 +1,5 @@
 {
-	"buildCommand": "pnpm run build:registry && pnpm run build",
-	"installCommand": "pnpm install"
+	"buildCommand": "pnpm run build",
+	"installCommand": "pnpm install",
+	"outputDirectory": "build"
 }
