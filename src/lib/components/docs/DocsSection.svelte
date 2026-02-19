@@ -13,7 +13,10 @@
 		children?: import("svelte").Snippet;
 	}>();
 
-	const slug = $derived(title ? title.toLowerCase().replace(/\s+/g, "-") : undefined);
+	const slug = $derived(title ? title
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, "-")
+		.replace(/(^-|-$)/g, "") : undefined);
 	let tocContext: TocContext | null = null;
 
 	// Register with TOC context on mount

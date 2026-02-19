@@ -29,8 +29,8 @@
 		</div>
 		<div class="flex h-4.5 items-center gap-2">
 			<CommandSearch />
-			<!--<Separator orientation="vertical" class="hidden sm:block" />
-				<Tooltip.Root>
+			<Separator orientation="vertical" class="hidden sm:block" />
+			<!--<Tooltip.Root>
 					<Tooltip.Trigger>
 						<Button variant="ghost" size="sm">
 							<a
@@ -46,8 +46,8 @@
 					<Tooltip.Content>
 						<p>Sponsor this project</p>
 					</Tooltip.Content>
-				</Tooltip.Root>-->
-			<Separator orientation="vertical" />
+				</Tooltip.Root>
+			<Separator orientation="vertical" />-->
 			<GitHubButton />
 			<Separator orientation="vertical" />
 			<ThemeToggle />
