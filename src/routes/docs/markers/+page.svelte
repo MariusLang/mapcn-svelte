@@ -50,30 +50,27 @@
 
 	<DocsSection title="Basic Example">
 		<p>Simple markers with tooltips and popups showing location information.</p>
+		<ComponentPreview code={markersSource} highlightedCode={markersHighlighted}>
+			<MarkersExample />
+		</ComponentPreview>
 	</DocsSection>
-
-	<ComponentPreview code={markersSource} highlightedCode={markersHighlighted}>
-		<MarkersExample />
-	</ComponentPreview>
 
 	<DocsSection title="Rich Popups">
 		<p>
 			Build complex popups with images, ratings, and action buttons using shadcn-svelte components.
 		</p>
+		<ComponentPreview code={popupSource} highlightedCode={popupHighlighted} class="h-125">
+			<PopupExample />
+		</ComponentPreview>
 	</DocsSection>
-
-	<ComponentPreview code={popupSource} highlightedCode={popupHighlighted} class="h-125">
-		<PopupExample />
-	</ComponentPreview>
 
 	<DocsSection title="Draggable Marker">
 		<p>
 			Create draggable markers that users can move around the map. Click the marker to see its
 			current coordinates in a popup.
 		</p>
+		<ComponentPreview code={draggableMarkerSource} highlightedCode={draggableMarkerHighlighted}>
+			<DraggableMarkerExample />
+		</ComponentPreview>
 	</DocsSection>
-
-	<ComponentPreview code={draggableMarkerSource} highlightedCode={draggableMarkerHighlighted}>
-		<DraggableMarkerExample />
-	</ComponentPreview>
 </DocsLayout>

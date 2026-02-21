@@ -13,10 +13,14 @@
 		children?: import("svelte").Snippet;
 	}>();
 
-	const slug = $derived(title ? title
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/(^-|-$)/g, "") : undefined);
+	const slug = $derived(
+		title
+			? title
+					.toLowerCase()
+					.replace(/[^a-z0-9]+/g, "-")
+					.replace(/(^-|-$)/g, "")
+			: undefined
+	);
 	let tocContext: TocContext | null = null;
 
 	// Register with TOC context on mount
@@ -47,7 +51,9 @@
 		</h2>
 	{/if}
 
-	<div class="text-foreground/80 space-y-4 leading-7 [&>ul]:list-disc [&>ul]:space-y-2 [&>ul]:pl-6">
+	<div
+		class="text-foreground/80 [&_strong]:text-foreground [&_em]:text-muted-foreground space-y-4 text-base leading-7 [&_li]:leading-7 [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-5 [&_p]:leading-7 [&_strong]:font-medium [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5"
+	>
 		{@render children?.()}
 	</div>
 </section>

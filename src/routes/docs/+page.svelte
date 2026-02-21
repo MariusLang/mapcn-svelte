@@ -54,8 +54,8 @@
 >
 	<DocsSection>
 		<p>
-			<strong class="text-foreground">mapcn-svelte</strong> provides beautifully designed,
-			accessible, and customizable map components. Built on
+			<strong>mapcn-svelte</strong> provides beautifully designed, accessible, and customizable map
+			components. Built on
 			<DocsLink href="https://maplibre.org" external>MapLibre GL</DocsLink>
 			, styled with
 			<DocsLink href="https://tailwindcss.com" external>Tailwind CSS</DocsLink>

@@ -12,7 +12,7 @@
   <p>
     <a href="https://mapcn-svelte.dev/docs">Get Started</a> •
     <a href="https://mapcn-svelte.dev/docs/installation">Installation</a> •
-    <a href="https://mapcn-svelte.dev/docs/basic-map">Examples</a>
+    <a href="https://mapcn-svelte.dev/docs/basic-map">Components</a>
   </p>
 </div>
 

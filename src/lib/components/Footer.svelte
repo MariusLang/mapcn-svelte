@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { cn } from "$lib/utils";
+	import Button from "$lib/registry/ui/button/button.svelte";
 
 	interface Props {
 		class?: string;
@@ -8,43 +9,38 @@
 	const { class: className }: Props = $props();
 </script>
 
-<footer class={cn("border-border/40 bg-muted/20 w-full border-t py-8", className)}>
+<footer class={cn("w-full border-t py-5", className)}>
 	<div
-		class="text-muted-foreground container flex flex-col items-center justify-between gap-4 text-sm sm:flex-row"
+		class="text-muted-foreground container flex w-full flex-col items-center justify-between gap-2 text-sm sm:flex-row"
 	>
-		<div class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+		<div class="flex items-center gap-2">
+			<span class="text-foreground font-medium">mapcn-svelte</span>
+			<span class="text-muted-foreground/80">•</span>
 			<span>
-				Built by
-				<a
-					href="https://github.com/AnmolSaini16"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="text-foreground font-medium underline-offset-4 hover:underline"
-				>
-					Anmol
-				</a>
-				<span class="text-border">•</span>
 				Ported to Svelte by
-				<a
+				<Button
+					variant="link"
+					size="sm"
+					class="px-1"
 					href="https://github.com/MariusLang"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="text-foreground font-medium underline-offset-4 hover:underline"
 				>
 					Marius Lang
-				</a>
+				</Button>
 			</span>
 		</div>
-		<div class="flex items-center gap-6">
-			<a href="/docs" class="hover:text-foreground transition-colors">Documentation</a>
-			<a
+		<div class="flex items-center">
+			<Button variant="ghost" size="sm" href="/docs">Documentation</Button>
+			<Button
+				variant="ghost"
+				size="sm"
 				href="https://github.com/MariusLang/mapcn-svelte"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="hover:text-foreground transition-colors"
 			>
 				GitHub
-			</a>
+			</Button>
 		</div>
 	</div>
 </footer>

@@ -1,9 +1,16 @@
 <script lang="ts">
 	import { ArrowDown, ArrowUp, CornerDownLeft, SearchIcon } from "@lucide/svelte";
 	import * as Command from "$lib/registry/ui/command/index.js";
-	import { Kbd } from "$lib/registry/ui/kbd/index.js";
+	import { Kbd, KbdGroup } from "$lib/registry/ui/kbd/index.js";
 	import { docsNavigation } from "$lib/docs-navigation";
 	import Button from "$lib/registry/ui/button/button.svelte";
+	import { cn } from "$lib/utils";
+
+	interface Props {
+		class?: string;
+	}
+
+	const { class: className }: Props = $props();
 
 	let open = $state(false);
 
@@ -30,11 +37,17 @@
 	size="sm"
 	onclick={() => (open = true)}
 	aria-label="Search documentation"
-	class="group dark:border-border/50 border-border/70 text-muted-foreground hidden w-[180px] items-center rounded-lg text-sm font-normal md:flex"
+	class={cn(
+		"group dark:border-border/60 border-border/80 text-muted-foreground hidden w-[200px] items-center text-sm md:flex",
+		className
+	)}
 >
-	<SearchIcon className="size-3.5 shrink-0" />
+	<SearchIcon class="size-3.5 shrink-0" />
 	<span>Search docs...</span>
-	<Kbd class="ml-auto">⌘K</Kbd>
+	<KbdGroup class="ml-auto">
+		<Kbd>⌘</Kbd>
+		<Kbd>K</Kbd>
+	</KbdGroup>
 </Button>
 
 <Command.Dialog

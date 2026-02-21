@@ -20,7 +20,7 @@
 </scr` +
 		`ipt>
 
-<Card class="h-[300px] overflow-hidden p-0">
+<Card class="h-[320px] overflow-hidden p-0">
   <Map center={[-74.006, 40.7128]} zoom={11}>
     <MapControls />
   </Map>
@@ -63,7 +63,7 @@
 
 		<CodeBlock code={usageCode} />
 
-		<Card class="h-[300px] overflow-hidden rounded-lg p-0">
+		<Card class="h-[320px] overflow-hidden rounded-lg p-0">
 			<Map center={[-74.006, 40.7128]} zoom={11}>
 				<MapControls />
 			</Map>

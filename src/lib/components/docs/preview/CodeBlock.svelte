@@ -22,7 +22,7 @@
 
 <div class="w-full overflow-hidden rounded-lg border">
 	{#if showCopyButton}
-		<div class="bg-muted/30 flex h-9 items-center justify-end border-b px-2">
+		<div class="bg-muted/30 flex h-10 items-center justify-end border-b px-2">
 			<CopyButton command={code} />
 		</div>
 	{/if}

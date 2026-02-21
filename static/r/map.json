@@ -4,12 +4,8 @@
 	"title": "Map",
 	"type": "registry:ui",
 	"description": "A MapLibre-powered map component with markers, popups, tooltips, routes, and controls.",
-	"dependencies": [
-		"maplibre-gl"
-	],
-	"devDependencies": [
-		"@lucide/svelte@^0.564.0"
-	],
+	"dependencies": ["maplibre-gl"],
+	"devDependencies": ["@lucide/svelte@^0.564.0"],
 	"meta": {
 		"author": "MariusLang"
 	},
