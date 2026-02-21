@@ -5,11 +5,11 @@
 	import type { ComponentProps } from "svelte";
 	import { useSidebar } from "./context.svelte.js";
 
-let {
-	class: className,
-	onclick,
-	...restProps
-}: ComponentProps<typeof Button> & {
+	let {
+		class: className,
+		onclick,
+		...restProps
+	}: ComponentProps<typeof Button> & {
 		onclick?: (e: MouseEvent) => void;
 	} = $props();
 

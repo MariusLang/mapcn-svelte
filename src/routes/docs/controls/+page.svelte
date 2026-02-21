@@ -25,9 +25,8 @@
 			<DocsCode>MapControls</DocsCode>
 			component provides a set of interactive controls that can be positioned on any corner of the map.
 		</p>
+		<ComponentPreview code={controlsSource} highlightedCode={controlsHighlighted}>
+			<MapControlsExample />
+		</ComponentPreview>
 	</DocsSection>
-
-	<ComponentPreview code={controlsSource} highlightedCode={controlsHighlighted}>
-		<MapControlsExample />
-	</ComponentPreview>
 </DocsLayout>
