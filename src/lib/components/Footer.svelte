@@ -26,7 +26,7 @@
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					Marius
+					Marius Lang
 				</Button>
 			</span>
 		</div>
