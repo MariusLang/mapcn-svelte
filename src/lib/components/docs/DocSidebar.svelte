@@ -4,28 +4,33 @@
 
 	import * as Sidebar from "$lib/registry/ui/sidebar";
 	import { docsNavigation as navigation } from "$lib/docs-navigation";
+	import Logo from "$lib/components/Logo.svelte";
+	import CommandSearch from "$lib/components/CommandSearch.svelte";
+	import ThemeToggle from "$lib/components/ThemeToggle.svelte";
+	import GitHubButton from "$lib/components/GitHubButton.svelte";
 
 	const { setOpenMobile } = Sidebar.useSidebar();
 
 	const pathname = $derived(page.url.pathname);
 </script>
 
-<Sidebar.Root
-	class="sticky top-16 h-[calc(100svh-9.5rem)] border-none bg-transparent **:data-[sidebar=sidebar]:bg-transparent"
->
-	<Sidebar.Content class="no-scrollbar overflow-x-hidden  pt-8">
+<Sidebar.Root>
+	<Sidebar.Header class="gap-4 p-4 pb-2">
+		<Logo />
+		<CommandSearch class="flex w-full" />
+	</Sidebar.Header>
+
+	<Sidebar.Content>
 		{#each navigation as group}
 			<Sidebar.Group>
-				<Sidebar.GroupLabel class="text-muted-foreground/70 text-[11px] tracking-wider uppercase">
-					{group.title}
-				</Sidebar.GroupLabel>
+				<Sidebar.GroupLabel>{group.title}</Sidebar.GroupLabel>
 				<Sidebar.GroupContent>
 					<Sidebar.Menu>
 						{#each group.items as item}
 							<Sidebar.MenuItem>
 								<Sidebar.MenuButton
 									isActive={pathname === item.href}
-									class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground data-[active=true]:font-normal"
+									class="text-muted-foreground font-medium"
 									onclick={() => {
 										setOpenMobile(false);
 										goto(item.href);
@@ -43,4 +48,11 @@
 			</Sidebar.Group>
 		{/each}
 	</Sidebar.Content>
+
+	<Sidebar.Footer class="border-t">
+		<div class="flex justify-between">
+			<GitHubButton withCount={false} />
+			<ThemeToggle />
+		</div>
+	</Sidebar.Footer>
 </Sidebar.Root>

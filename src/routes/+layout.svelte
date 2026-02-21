@@ -1,6 +1,5 @@
 <script lang="ts">
 	import "../app.css";
-	import Footer from "$lib/components/Footer.svelte";
 	import { TooltipProvider } from "$lib/registry/ui/tooltip/index";
 	import { injectAnalytics } from "@vercel/analytics/sveltekit";
 
@@ -12,4 +11,3 @@
 <TooltipProvider>
 	{@render children()}
 </TooltipProvider>
-<Footer />

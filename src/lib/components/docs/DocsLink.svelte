@@ -14,7 +14,7 @@
 	{href}
 	target={external ? "_blank" : undefined}
 	rel={external ? "noopener noreferrer" : undefined}
-	class="text-foreground hover:text-primary font-medium underline underline-offset-4 transition-colors"
+	class="text-foreground font-medium underline underline-offset-4 transition-colors"
 >
 	{@render children?.()}
 </a>

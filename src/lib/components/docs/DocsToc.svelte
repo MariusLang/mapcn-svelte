@@ -59,7 +59,7 @@
 
 {#if items?.length}
 	<div class={cn("flex flex-col gap-1", className)}>
-		<p class="text-foreground mb-2 text-xs font-medium">On This Page</p>
+		<p class="text-foreground mb-2 text-[13px] font-medium">On This Page</p>
 		<div class="relative">
 			<div class="bg-border absolute top-1 bottom-1 left-0 w-px"></div>
 			<div class="flex flex-col gap-1">

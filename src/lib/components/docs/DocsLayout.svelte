@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { setContext } from "svelte";
-	import DocsHeader from "./DocsHeader.svelte";
 	import DocsToc from "./DocsToc.svelte";
 	import { findNeighbors } from "$lib/docs-navigation";
+	import Button from "$lib/registry/ui/button/button.svelte";
+	import ChevronLeft from "@lucide/svelte/icons/chevron-left";
+	import ChevronRight from "@lucide/svelte/icons/chevron-right";
 
 	interface NavLink {
 		title: string;
@@ -58,41 +60,45 @@
 	});
 </script>
 
-<div class="flex gap-8 md:ml-16">
-	<div class="mx-auto max-w-[720px] min-w-0 flex-1 py-8 pb-20">
-		<DocsHeader {title} {description} />
+<div class="flex gap-8">
+	<div class="mx-auto max-w-3xl min-w-0 flex-1 pt-10 pb-20">
+		<div class="space-y-3">
+			<h1 class="text-foreground text-3xl font-semibold tracking-tight">{title}</h1>
+			<p class="text-muted-foreground leading-relaxed">{description}</p>
+		</div>
 
-		<div class="mt-10 space-y-10">
+		<div class="mt-12 space-y-12">
 			{@render children?.()}
 		</div>
 
 		{#if neighbors.previous || neighbors.next}
-			<div class="mb-14 flex items-center justify-between gap-4 pt-8">
+			<div class="mt-16 flex items-center justify-between gap-4">
 				{#if neighbors.previous}
-					<a href={neighbors.previous.href} class="group flex flex-col items-start gap-1.5">
-						<span class="text-muted-foreground text-xs">Previous</span>
-						<span class="text-sm font-medium underline-offset-4 group-hover:underline">
-							{neighbors.previous.title}
-						</span>
-					</a>
+					<Button
+						variant="ghost"
+						size="sm"
+						class="-ml-2 h-auto py-2"
+						href={neighbors.previous.href}
+					>
+						<ChevronLeft />
+						{neighbors.previous.title}
+					</Button>
 				{:else}
 					<div></div>
 				{/if}
 
 				{#if neighbors.next}
-					<a href={neighbors.next.href} class="group flex flex-col items-end gap-1.5">
-						<span class="text-muted-foreground text-xs">Next</span>
-						<span class="text-sm font-medium underline-offset-4 group-hover:underline">
-							{neighbors.next.title}
-						</span>
-					</a>
+					<Button variant="ghost" size="sm" class="-mr-2 h-auto py-2" href={neighbors.next.href}>
+						{neighbors.next.title}
+						<ChevronRight />
+					</Button>
 				{/if}
 			</div>
 		{/if}
 	</div>
 
-	<aside class=" hidden w-44 shrink-0 xl:block">
-		<nav class="sticky top-28">
+	<aside class="hidden w-44 shrink-0 xl:block">
+		<nav class="sticky top-24">
 			<DocsToc items={toc ?? registeredToc} />
 		</nav>
 	</aside>
