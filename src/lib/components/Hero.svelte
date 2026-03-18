@@ -8,7 +8,7 @@
 </script>
 
 <div class="relative">
-	<div class="absolute inset-0 -z-10 overflow-hidden">
+	<div class="absolute inset-x-0 -inset-y-10 -z-10 overflow-hidden">
 		<div
 			class="absolute inset-0 opacity-[0.4] dark:opacity-[0.15]"
 			style="background-image: radial-gradient(circle, currentColor 1px, transparent 1px); background-size: 24px 24px;"
@@ -20,17 +20,17 @@
 		></div>
 	</div>
 
-	<div class="container flex flex-col items-center text-center">
+	<div class="container flex max-w-6xl flex-col items-center gap-4 text-center">
 		<h1
-			class="animate-fade-up text-4xl font-semibold tracking-tight delay-100 sm:text-5xl md:text-6xl"
+			class="animate-fade-up max-w-4xl text-4xl font-semibold tracking-tight delay-100 sm:text-5xl md:text-6xl"
 		>
-			<span class="from-foreground to-foreground/60 bg-linear-to-b bg-clip-text text-transparent">
+			<span class="from-foreground via-foreground to-foreground/65 bg-linear-to-b bg-clip-text text-transparent">
 				Beautiful maps, made simple.
 			</span>
 		</h1>
 
 		<p
-			class="text-foreground/80 animate-fade-up mt-6 max-w-lg text-lg leading-relaxed delay-200 md:text-xl"
+			class="text-muted-foreground animate-fade-up max-w-2xl delay-200 sm:text-lg sm:leading-relaxed md:text-xl md:leading-relaxed"
 		>
 			Ready to use, customizable map components for Svelte.
 			<br class="hidden sm:block" />
@@ -55,7 +55,7 @@
 			</div>
 		</div>
 
-		<div class="animate-fade-up mt-8 flex flex-wrap items-center justify-center gap-3 delay-400">
+		<div class="animate-fade-up mt-3 flex flex-wrap items-center justify-center gap-3 delay-400">
 			<Button size="lg" href="/docs">Get Started</Button>
 			<Button size="lg" variant="outline" href="/docs/basic-map">View Components</Button>
 		</div>

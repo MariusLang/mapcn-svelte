@@ -22,7 +22,7 @@
 		<Sheet.SheetHeader>
 			<Sheet.SheetTitle class="sr-only">Navigation</Sheet.SheetTitle>
 		</Sheet.SheetHeader>
-		<div class="mt-6 overflow-y-auto px-2">
+		<div class="overflow-y-auto px-2">
 			<nav class="space-y-6">
 				{#each siteNavigation as group}
 					<div>
@@ -35,7 +35,7 @@
 									<a
 										href={item.href}
 										onclick={() => (open = false)}
-										class="hover:bg-accent flex items-center rounded-md px-3 py-2.5 text-sm transition-colors"
+										class="flex items-center px-3 py-2.5 transition-colors"
 									>
 										{item.title}
 									</a>

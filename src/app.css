@@ -146,6 +146,10 @@
 	@apply mx-auto max-w-360 px-6;
 }
 
+.container-wide {
+	@apply mx-auto max-w-[1640px] px-6;
+}
+
 /*  animations for the home page */
 @keyframes fade-up {
 	from {
