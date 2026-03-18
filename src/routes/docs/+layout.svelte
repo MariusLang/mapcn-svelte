@@ -6,7 +6,7 @@
 	let { children } = $props();
 </script>
 
-<SidebarProvider style="--sidebar-width: 16rem; --sidebar-width-mobile: 24rem;">
+<SidebarProvider style="--sidebar-width: 13rem; --sidebar-width-mobile: 24rem;">
 	<div class="flex min-h-screen w-full flex-col">
 		<Header />
 
