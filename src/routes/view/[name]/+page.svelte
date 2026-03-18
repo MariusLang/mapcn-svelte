@@ -2,7 +2,7 @@
 	import type { PageData } from "./$types";
 
 	const { data }: { data: PageData } = $props();
-	const Component = data.component as import("svelte").Component;
+	const Component = $derived(data.component as import("svelte").Component);
 </script>
 
 <svelte:head>

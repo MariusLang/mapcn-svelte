@@ -20,12 +20,10 @@
 
 	const { block, tree, highlightedFiles, preview }: Props = $props();
 
-	const { name, title, description, meta } = block;
-
 	let copiedType: "cli" | null = $state(null);
 
 	async function copyCli() {
-		await navigator.clipboard.writeText(`npx shadcn-svelte@latest add @mapcn-svelte/${name}`);
+		await navigator.clipboard.writeText(`npx shadcn-svelte@latest add @mapcn-svelte/${block.name}`);
 		copiedType = "cli";
 		setTimeout(() => (copiedType = null), 2000);
 	}
@@ -33,12 +31,12 @@
 
 <div
 	class="space-y-4"
-	style="--block-preview-height: {meta?.iframeHeight ?? '930px'}"
+	style="--block-preview-height: {block.meta?.iframeHeight ?? '930px'}"
 >
 	<div>
-		<h2 class="text-xl font-semibold tracking-tight">{title}</h2>
-		{#if description}
-			<p class="text-muted-foreground mt-1 text-sm">{description}</p>
+		<h2 class="text-xl font-semibold tracking-tight">{block.title}</h2>
+		{#if block.description}
+			<p class="text-muted-foreground mt-1 text-sm">{block.description}</p>
 		{/if}
 	</div>
 
@@ -59,7 +57,7 @@
 				<Button
 					variant="outline"
 					size="icon-sm"
-					href="/view/{name}"
+					href="/view/{block.name}"
 					target="_blank"
 					aria-label="Open in new tab"
 				>
@@ -72,7 +70,7 @@
 					{:else}
 						<Terminal />
 					{/if}
-					npx shadcn-svelte add @mapcn-svelte/{name}
+					npx shadcn-svelte add @mapcn-svelte/{block.name}
 				</Button>
 			</div>
 		</div>

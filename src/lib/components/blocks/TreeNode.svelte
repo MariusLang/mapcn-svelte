@@ -34,14 +34,17 @@
 	<Sidebar.MenuItem>
 		<Collapsible.Collapsible open class="w-full [&[data-state=open]>button>svg:first-child]:rotate-90">
 			<Collapsible.CollapsibleTrigger>
-				<Sidebar.MenuButton
-					class="hover:bg-muted-foreground/15 focus:bg-muted-foreground/15 rounded-none whitespace-nowrap w-full"
-					style="padding-left: {depth * 1.0}rem"
-				>
-					<ChevronRight class="transition-transform" />
-					<Folder />
-					{item.name}
-				</Sidebar.MenuButton>
+				{#snippet child({ props })}
+					<Sidebar.MenuButton
+						{...props}
+						class="hover:bg-muted-foreground/15 focus:bg-muted-foreground/15 rounded-none whitespace-nowrap w-full"
+						style="padding-left: {depth * 1.0}rem"
+					>
+						<ChevronRight class="transition-transform" />
+						<Folder />
+						{item.name}
+					</Sidebar.MenuButton>
+				{/snippet}
 			</Collapsible.CollapsibleTrigger>
 			<Collapsible.CollapsibleContent>
 				<Sidebar.MenuSub class="m-0 w-full translate-x-0 border-none p-0">

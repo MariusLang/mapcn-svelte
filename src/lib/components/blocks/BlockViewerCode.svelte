@@ -20,7 +20,10 @@
 
 	const { tree, highlightedFiles }: Props = $props();
 
-	let activeFile = $state(highlightedFiles[0]?.target ?? "");
+	let activeFile = $state("");
+$effect(() => {
+	activeFile = highlightedFiles[0]?.target ?? "";
+});
 
 	const currentFile = $derived(highlightedFiles.find((f) => f.target === activeFile));
 

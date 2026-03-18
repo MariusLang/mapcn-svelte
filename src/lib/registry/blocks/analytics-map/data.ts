@@ -43,10 +43,20 @@ export const usersPerDay = [
 ];
 
 export const deviceCategoryData = [
-	{ name: "Desktop", value: 73.3 },
-	{ name: "Mobile", value: 25.0 },
-	{ name: "Tablet", value: 1.7 },
+	{ name: "Desktop", value: 73.3, fill: "var(--chart-1)" },
+	{ name: "Mobile", value: 25.0, fill: "var(--chart-2)" },
+	{ name: "Tablet", value: 1.7, fill: "var(--chart-3)" },
 ];
+
+export const usersPerDayChartConfig = {
+	users: { label: "Users", color: "var(--chart-1)" },
+} as const;
+
+export const deviceCategoryChartConfig = {
+	Desktop: { label: "Desktop", color: "var(--chart-1)" },
+	Mobile: { label: "Mobile", color: "var(--chart-2)" },
+	Tablet: { label: "Tablet", color: "var(--chart-3)" },
+} as const;
 
 export const visitedPagesRows: BreakdownRow[] = [
 	{ label: "Home", value: 31 },
