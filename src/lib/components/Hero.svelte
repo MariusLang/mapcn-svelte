@@ -60,7 +60,7 @@
 				Get Started
 				<ArrowRight class="size-4" />
 			</Button>
-			<Button variant="ghost" size="lg" href="/docs/basic-map" class="text-muted-foreground">
+			<Button variant="outline" size="lg" href="/docs/basic-map" class="text-muted-foreground">
 				View Components
 			</Button>
 		</div>

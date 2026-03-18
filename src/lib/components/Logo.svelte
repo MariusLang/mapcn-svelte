@@ -11,5 +11,5 @@
 
 <a href="/" class={cn("flex w-fit items-center gap-1.5", className)}>
 	<MapPin class="text-svelte size-4 shrink-0" />
-	<span class="text-lg font-semibold tracking-tight">mapcn-svelte</span>
+	<span class="text-base font-semibold tracking-tight">mapcn-svelte</span>
 </a>
