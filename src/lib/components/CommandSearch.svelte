@@ -43,7 +43,7 @@
 	)}
 >
 	<SearchIcon class="size-3.5 shrink-0" />
-	<span>Search docs...</span>
+	<span>Search...</span>
 	<KbdGroup class="ml-auto">
 		<Kbd>⌘</Kbd>
 		<Kbd>K</Kbd>
