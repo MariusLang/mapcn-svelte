@@ -3,6 +3,7 @@
 	import BlockDisplay from "$lib/components/blocks/BlockDisplay.svelte";
 	import Footer from "$lib/components/Footer.svelte";
 	import Header from "$lib/components/Header.svelte";
+	import { Button } from "$lib/registry/ui/button/index";
 
 	const { data }: { data: PageData } = $props();
 </script>
@@ -15,7 +16,7 @@
 	/>
 </svelte:head>
 
-<Header class="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 border-b backdrop-blur" />
+<Header />
 
 <!-- Page header -->
 <div class="relative">
@@ -44,18 +45,8 @@
 			command.
 		</p>
 		<div class="animate-fade-up mt-3 flex flex-wrap items-center gap-3 delay-300">
-			<a
-				href="#blocks"
-				class="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-9 items-center justify-center rounded-md px-4 py-2 text-sm font-medium shadow-xs transition-all"
-			>
-				Browse Blocks
-			</a>
-			<a
-				href="/docs"
-				class="bg-background hover:bg-accent hover:text-accent-foreground border inline-flex h-9 items-center justify-center rounded-md px-4 py-2 text-sm font-medium shadow-xs transition-all"
-			>
-				View Documentation
-			</a>
+			<Button href="#blocks">Browse Blocks</Button>
+			<Button variant="outline" href="/docs">View Documentation</Button>
 		</div>
 	</section>
 </div>
