@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from "$lib/registry/ui/button/button.svelte";
 	import { cn } from "$lib/utils";
 	import MapPin from "@lucide/svelte/icons/map-pin";
 
@@ -9,7 +10,7 @@
 	const { class: className }: Props = $props();
 </script>
 
-<a href="/" class={cn("flex w-fit items-center gap-1.5", className)}>
+<Button href="/" size="sm" variant="ghost" class={cn("px-2.5 text-base font-semibold", className)}>
 	<MapPin class="text-svelte size-4 shrink-0" />
 	<span class="text-base font-semibold tracking-tight">mapcn-svelte</span>
-</a>
+</Button>
