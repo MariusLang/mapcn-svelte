@@ -37,7 +37,7 @@
 			Built on MapLibre. Styled with Tailwind.
 		</p>
 
-		<div class="animate-fade-up mt-8 w-full max-w-3xl delay-300">
+		<div class="animate-fade-up mt-8 hidden w-full max-w-3xl delay-300 lg:block">
 			<div class="bg-card border-border overflow-hidden rounded-lg border shadow-sm">
 				<div class="border-border/50 flex items-center gap-1.5 border-b px-3 py-2">
 					<span class="size-2.5 rounded-full bg-red-500/40"></span>
@@ -56,13 +56,8 @@
 		</div>
 
 		<div class="animate-fade-up mt-8 flex flex-wrap items-center justify-center gap-3 delay-400">
-			<Button size="lg" href="/docs">
-				Get Started
-				<ArrowRight class="size-4" />
-			</Button>
-			<Button variant="outline" size="lg" href="/docs/basic-map" class="text-muted-foreground">
-				View Components
-			</Button>
+			<Button size="lg" href="/docs">Get Started</Button>
+			<Button size="lg" variant="outline" href="/docs/basic-map">View Components</Button>
 		</div>
 	</div>
 </div>
