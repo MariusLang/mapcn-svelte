@@ -43,9 +43,9 @@ export const usersPerDay = [
 ];
 
 export const deviceCategoryData = [
-	{ name: "Desktop", value: 73.3, fill: "var(--chart-1)" },
-	{ name: "Mobile", value: 25.0, fill: "var(--chart-2)" },
-	{ name: "Tablet", value: 1.7, fill: "var(--chart-3)" },
+	{ name: "Desktop", value: 73.3, fill: "var(--color-blue-500)" },
+	{ name: "Mobile", value: 25.0, fill: "var(--color-sky-500)" },
+	{ name: "Tablet", value: 1.7, fill: "var(--color-blue-300)" },
 ];
 
 export const usersPerDayChartConfig = {

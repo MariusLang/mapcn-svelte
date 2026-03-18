@@ -80,8 +80,7 @@
 			"meta": {
 				"author": "MariusLang"
 			}
-		}
-	,
+		},
 		{
 			"name": "analytics-map",
 			"type": "registry:block",

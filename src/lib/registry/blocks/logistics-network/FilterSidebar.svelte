@@ -86,7 +86,10 @@
 			<Sidebar.GroupContent>
 				<Sidebar.Menu>
 					<Sidebar.MenuItem>
-						<Sidebar.MenuButton tooltipContent={statusConfig.active.label} class="pointer-events-none">
+						<Sidebar.MenuButton
+							tooltipContent={statusConfig.active.label}
+							class="pointer-events-none"
+						>
 							<span class="flex size-4 items-center justify-center">
 								<span
 									class="size-2 rounded-full"
@@ -98,7 +101,10 @@
 						<Sidebar.MenuBadge>{activeCount}</Sidebar.MenuBadge>
 					</Sidebar.MenuItem>
 					<Sidebar.MenuItem>
-						<Sidebar.MenuButton tooltipContent={statusConfig.delayed.label} class="pointer-events-none">
+						<Sidebar.MenuButton
+							tooltipContent={statusConfig.delayed.label}
+							class="pointer-events-none"
+						>
 							<span class="flex size-4 items-center justify-center">
 								<span
 									class="size-2 rounded-full"
@@ -117,7 +123,7 @@
 			<Sidebar.GroupLabel>Region</Sidebar.GroupLabel>
 			<Sidebar.GroupContent>
 				<Sidebar.Menu>
-					{#each (["west", "midwest", "south", "northeast"] as const) as region}
+					{#each ["west", "midwest", "south", "northeast"] as const as region}
 						{@const hubsInRegion = hubs.filter((h) => h.region === region)}
 						<Sidebar.MenuItem>
 							<Sidebar.MenuButton tooltipContent={regionLabels[region]} class="pointer-events-none">

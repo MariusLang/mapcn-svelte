@@ -4,13 +4,7 @@
 	const EARTHQUAKE_GEOJSON_URL =
 		"https://maplibre.org/maplibre-gl-js/docs/assets/earthquakes.geojson";
 
-	const HEATMAP_GRADIENT_COLORS = [
-		"#fff7bc",
-		"#fee391",
-		"#fec44f",
-		"#fe9929",
-		"#d7301f",
-	];
+	const HEATMAP_GRADIENT_COLORS = ["#fff7bc", "#fee391", "#fec44f", "#fe9929", "#d7301f"];
 
 	const HEATMAP_COLOR_STOPS: [number, string][] = [
 		[0.15, HEATMAP_GRADIENT_COLORS[0]],
@@ -71,10 +65,14 @@
 						"interpolate",
 						["linear"],
 						["get", "mag"],
-						1, HEATMAP_GRADIENT_COLORS[1],
-						2.5, HEATMAP_GRADIENT_COLORS[2],
-						4, HEATMAP_GRADIENT_COLORS[3],
-						6, HEATMAP_GRADIENT_COLORS[4],
+						1,
+						HEATMAP_GRADIENT_COLORS[1],
+						2.5,
+						HEATMAP_GRADIENT_COLORS[2],
+						4,
+						HEATMAP_GRADIENT_COLORS[3],
+						6,
+						HEATMAP_GRADIENT_COLORS[4],
 					],
 					"circle-stroke-width": 1,
 					"circle-stroke-color": "rgba(255,255,255,0.8)",

@@ -48,8 +48,7 @@
 			</div>
 			<div class="bg-border h-4 w-px"></div>
 			<div class="flex items-center gap-1.5">
-				<div class="size-2.5 shrink-0 rounded-full border border-white bg-blue-500 shadow-sm">
-				</div>
+				<div class="size-2.5 shrink-0 rounded-full border border-white bg-blue-500 shadow-sm"></div>
 				<span>Hub</span>
 			</div>
 		</div>

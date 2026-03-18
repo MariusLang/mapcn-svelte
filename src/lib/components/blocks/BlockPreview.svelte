@@ -29,10 +29,7 @@
 	}
 </script>
 
-<div
-	class="space-y-4"
-	style="--block-preview-height: {block.meta?.iframeHeight ?? '930px'}"
->
+<div class="space-y-4" style="--block-preview-height: {block.meta?.iframeHeight ?? '930px'}">
 	<div>
 		<h2 class="text-xl font-semibold tracking-tight">{block.title}</h2>
 		{#if block.description}

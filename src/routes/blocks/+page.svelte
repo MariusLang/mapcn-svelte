@@ -25,10 +25,13 @@
 			class="absolute inset-0 opacity-[0.20] dark:opacity-[0.12]"
 			style="background-image: radial-gradient(circle, currentColor 1px, transparent 1px); background-size: 24px 24px;"
 		></div>
-		<div class="from-background to-background absolute inset-0 bg-gradient-to-b via-transparent">
-		</div>
+		<div
+			class="from-background to-background absolute inset-0 bg-gradient-to-b via-transparent"
+		></div>
 	</div>
-	<section class="container mx-auto flex w-full max-w-6xl flex-col gap-4 items-start text-left py-16 md:py-24">
+	<section
+		class="container mx-auto flex w-full max-w-6xl flex-col items-start gap-4 py-16 text-left md:py-24"
+	>
 		<h1
 			class="animate-fade-up max-w-4xl text-4xl font-semibold tracking-tight delay-100 sm:text-5xl md:text-5xl"
 		>
@@ -52,10 +55,7 @@
 </div>
 
 <!-- Blocks list -->
-<section
-	class="animate-fade-up container scroll-mt-20 space-y-20 delay-400 mb-20"
-	id="blocks"
->
+<section class="animate-fade-up container mb-20 scroll-mt-20 space-y-20 delay-400" id="blocks">
 	{#each data.blocksWithData as { block, tree, highlightedFiles }}
 		<BlockDisplay {block} {tree} {highlightedFiles} />
 	{/each}

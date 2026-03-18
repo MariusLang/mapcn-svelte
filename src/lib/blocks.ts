@@ -39,7 +39,7 @@ export function getAllBlocks(): RegistryBlockItem[] {
 }
 
 export function createFileTreeForRegistryItemFiles(
-	files: Array<{ path: string; target?: string }>,
+	files: Array<{ path: string; target?: string }>
 ): FileTree[] {
 	const root: FileTree[] = [];
 
@@ -58,7 +58,9 @@ export function createFileTreeForRegistryItemFiles(
 					currentLevel = existingNode.children!;
 				}
 			} else {
-				const newNode: FileTree = isFile ? { name: part, path: filePath } : { name: part, children: [] };
+				const newNode: FileTree = isFile
+					? { name: part, path: filePath }
+					: { name: part, children: [] };
 				currentLevel.push(newNode);
 				if (!isFile) {
 					currentLevel = newNode.children!;

@@ -22,7 +22,7 @@
 		<Sidebar.MenuButton
 			isActive={item.path === activeFile}
 			onclick={() => item.path && onSelect(item.path)}
-			class="hover:bg-muted-foreground/15 focus:bg-muted-foreground/15 rounded-none whitespace-nowrap data-[active=true]:bg-muted-foreground/15"
+			class="hover:bg-muted-foreground/15 focus:bg-muted-foreground/15 data-[active=true]:bg-muted-foreground/15 rounded-none whitespace-nowrap"
 			style="padding-left: {depth * 1.2}rem"
 		>
 			<ChevronRight class="invisible" />
@@ -32,12 +32,15 @@
 	</Sidebar.MenuItem>
 {:else}
 	<Sidebar.MenuItem>
-		<Collapsible.Collapsible open class="w-full [&[data-state=open]>button>svg:first-child]:rotate-90">
+		<Collapsible.Collapsible
+			open
+			class="w-full [&[data-state=open]>button>svg:first-child]:rotate-90"
+		>
 			<Collapsible.CollapsibleTrigger>
 				{#snippet child({ props })}
 					<Sidebar.MenuButton
 						{...props}
-						class="hover:bg-muted-foreground/15 focus:bg-muted-foreground/15 rounded-none whitespace-nowrap w-full"
+						class="hover:bg-muted-foreground/15 focus:bg-muted-foreground/15 w-full rounded-none whitespace-nowrap"
 						style="padding-left: {depth * 1.0}rem"
 					>
 						<ChevronRight class="transition-transform" />

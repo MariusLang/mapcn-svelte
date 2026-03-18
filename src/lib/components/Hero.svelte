@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button } from "$lib/registry/ui/button/index";
-	import ArrowRight from "@lucide/svelte/icons/arrow-right";
+
 	import CopyButton from "$lib/components/CopyButton.svelte";
 
 	const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://mapcn-svelte.dev";
@@ -24,7 +24,9 @@
 		<h1
 			class="animate-fade-up max-w-4xl text-4xl font-semibold tracking-tight delay-100 sm:text-5xl md:text-6xl"
 		>
-			<span class="from-foreground via-foreground to-foreground/65 bg-linear-to-b bg-clip-text text-transparent">
+			<span
+				class="from-foreground via-foreground to-foreground/65 bg-linear-to-b bg-clip-text text-transparent"
+			>
 				Beautiful maps, made simple.
 			</span>
 		</h1>

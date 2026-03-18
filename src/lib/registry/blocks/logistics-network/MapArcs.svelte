@@ -12,11 +12,7 @@
 	const SOURCE_ID = "logistics-arcs-source";
 	const LAYER_ID = "logistics-arcs-layer";
 
-	function generateArc(
-		start: [number, number],
-		end: [number, number],
-		segments = 50,
-	): number[][] {
+	function generateArc(start: [number, number], end: [number, number], segments = 50): number[][] {
 		const [x1, y1] = start;
 		const [x2, y2] = end;
 		const mx = (x1 + x2) / 2;
@@ -58,9 +54,7 @@
 					mode: route.mode,
 					status: route.status,
 					color:
-						route.status === "delayed"
-							? statusConfig.delayed.color
-							: modeConfig[route.mode].color,
+						route.status === "delayed" ? statusConfig.delayed.color : modeConfig[route.mode].color,
 				},
 				geometry: {
 					type: "LineString" as const,

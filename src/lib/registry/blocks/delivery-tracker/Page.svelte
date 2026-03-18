@@ -49,12 +49,11 @@
 	}
 
 	let routeData: OsrmRouteData | null = $state(null);
-	let loading = $state(true);
 
 	const progressCoordinates = $derived.by(() => {
 		const progressCount = Math.max(
 			2,
-			Math.floor((routeData?.coordinates?.length ?? 0) * (routeData ? 0.62 : 0.66)),
+			Math.floor((routeData?.coordinates?.length ?? 0) * (routeData ? 0.62 : 0.66))
 		);
 		return routeData?.coordinates?.slice(0, progressCount) ?? [];
 	});
@@ -63,10 +62,9 @@
 
 	$effect(() => {
 		async function fetchRoute() {
-			loading = true;
 			try {
 				const response = await fetch(
-					`https://router.project-osrm.org/route/v1/driving/${pickup.lng},${pickup.lat};${dropoff.lng},${dropoff.lat}?overview=full&geometries=geojson`,
+					`https://router.project-osrm.org/route/v1/driving/${pickup.lng},${pickup.lat};${dropoff.lng},${dropoff.lat}?overview=full&geometries=geojson`
 				);
 				const data = await response.json();
 				const route = data?.routes?.[0];
@@ -80,7 +78,7 @@
 			} catch (error) {
 				console.error("Failed to fetch route:", error);
 			} finally {
-				loading = false;
+				// route fetch complete
 			}
 		}
 		fetchRoute();
@@ -89,7 +87,7 @@
 
 <div class="p-8">
 	<div
-		class="bg-sidebar grid rounded-lg border md:grid-cols-[1.05fr_1fr] md:h-[600px] max-w-7xl mx-auto"
+		class="bg-sidebar mx-auto grid max-w-7xl rounded-lg border md:h-[600px] md:grid-cols-[1.05fr_1fr]"
 	>
 		<!-- Left panel -->
 		<div class="flex flex-col p-5 md:p-6">
@@ -107,9 +105,7 @@
 				<Card.Content class="space-y-5">
 					{#each deliveryMeals as meal (meal.name)}
 						<div class="flex items-center gap-3">
-							<div
-								class="bg-muted grid size-8 place-items-center rounded-full text-xs font-medium"
-							>
+							<div class="bg-muted grid size-8 place-items-center rounded-full text-xs font-medium">
 								<Utensils class="text-muted-foreground size-4" />
 							</div>
 							<div class="min-w-4 flex-1">
@@ -121,9 +117,7 @@
 							</Badge.Badge>
 						</div>
 					{/each}
-					<div
-						class="border-border/60 flex items-center justify-between border-t pt-3 text-sm"
-					>
+					<div class="border-border/60 flex items-center justify-between border-t pt-3 text-sm">
 						<span class="text-muted-foreground">Bundle total</span>
 						<span class="font-medium">$189.00</span>
 					</div>
@@ -186,11 +180,7 @@
 				/>
 
 				{#if courierPosition}
-					<MapMarker
-						longitude={courierPosition[0]}
-						latitude={courierPosition[1]}
-						offset={[0, 10]}
-					>
+					<MapMarker longitude={courierPosition[0]} latitude={courierPosition[1]} offset={[0, 10]}>
 						<MarkerContent>
 							<div
 								class="relative grid size-9 place-items-center rounded-full bg-emerald-500 dark:bg-emerald-600"
@@ -213,8 +203,7 @@
 
 				<MapMarker longitude={pickup.lng} latitude={pickup.lat}>
 					<MarkerContent>
-						<div class="size-4 rounded-full border-2 border-white bg-emerald-500 shadow-sm">
-						</div>
+						<div class="size-4 rounded-full border-2 border-white bg-emerald-500 shadow-sm"></div>
 					</MarkerContent>
 					<MarkerTooltip>
 						<p class="text-xs font-medium">Origin</p>
@@ -223,8 +212,7 @@
 
 				<MapMarker longitude={dropoff.lng} latitude={dropoff.lat}>
 					<MarkerContent>
-						<div class="size-4 rounded-full border-2 border-white bg-rose-500 shadow-sm">
-						</div>
+						<div class="size-4 rounded-full border-2 border-white bg-rose-500 shadow-sm"></div>
 					</MarkerContent>
 					<MarkerTooltip>
 						<p class="text-xs font-medium">Destination</p>

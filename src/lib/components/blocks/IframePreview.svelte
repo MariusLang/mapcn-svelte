@@ -7,6 +7,6 @@
 	const { src, title }: Props = $props();
 </script>
 
-<div class="relative w-full overflow-hidden rounded-xl border h-(--block-preview-height)">
+<div class="relative h-(--block-preview-height) w-full overflow-hidden rounded-xl border">
 	<iframe {src} {title} class="size-full border-0"></iframe>
 </div>

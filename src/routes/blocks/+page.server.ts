@@ -21,11 +21,11 @@ export const load: PageServerLoad = async () => {
 						content,
 						highlightedContent,
 					};
-				}),
+				})
 			);
 
 			return { block, tree, highlightedFiles };
-		}),
+		})
 	);
 
 	return { blocksWithData };
