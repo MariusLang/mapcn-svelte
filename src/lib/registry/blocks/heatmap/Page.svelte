@@ -6,13 +6,7 @@
 	const EARTHQUAKE_GEOJSON_URL =
 		"https://maplibre.org/maplibre-gl-js/docs/assets/earthquakes.geojson";
 
-	const HEATMAP_GRADIENT_COLORS = [
-		"#fff7bc",
-		"#fee391",
-		"#fec44f",
-		"#fe9929",
-		"#d7301f",
-	];
+	const HEATMAP_GRADIENT_COLORS = ["#fff7bc", "#fee391", "#fec44f", "#fe9929", "#d7301f"];
 </script>
 
 <div class="bg-muted/50 relative h-screen">
@@ -41,7 +35,7 @@
 				<span>Low</span>
 				<span>High</span>
 			</div>
-			<p class="text-muted-foreground pt-2 text-xs">
+			<p class="text-muted-foreground pt-2 text-xs text-nowrap">
 				Data source:
 				<a
 					href={EARTHQUAKE_GEOJSON_URL}
