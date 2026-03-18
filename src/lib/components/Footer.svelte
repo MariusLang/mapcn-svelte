@@ -16,7 +16,7 @@
 		],
 		community: [
 			{ label: "GitHub", href: "https://github.com/MariusLang/mapcn-svelte", external: true },
-			{ label: "Upstream (React)", href: "https://github.com/AnmolSaini16/mapcn", external: true },
+			{ label: "Original (React)", href: "https://github.com/AnmolSaini16/mapcn", external: true },
 		],
 		resources: [
 			{ label: "MapLibre GL", href: "https://maplibre.org/", external: true },
@@ -31,7 +31,7 @@
 		<div class="grid grid-cols-2 gap-8 md:grid-cols-4">
 			<div class="col-span-2 md:col-span-1">
 				<a href="/" class="flex w-fit items-center gap-1.5">
-					<MapPin class="size-4 shrink-0" />
+					<MapPin class="text-svelte size-4 shrink-0" />
 					<span class="text-lg font-semibold tracking-tight">mapcn-svelte</span>
 				</a>
 				<p class="text-muted-foreground mt-3 max-w-xs text-sm leading-relaxed">
