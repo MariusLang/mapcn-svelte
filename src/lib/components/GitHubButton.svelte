@@ -6,9 +6,9 @@
 
 	async function getGithubStarCount() {
 		try {
-			const res = await fetch("https://ungh.cc/repos/MariusLang/mapcn-svelte");
+			const res = await fetch("https://api.github.com/repos/mariuslang/mapcn-svelte");
 			const data = await res.json();
-			return data.repo?.stars ?? FALLBACK_STAR_COUNT;
+			return data.stargazers_count ?? FALLBACK_STAR_COUNT;
 		} catch (error) {
 			console.error(error);
 			return FALLBACK_STAR_COUNT;
