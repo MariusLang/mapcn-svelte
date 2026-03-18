@@ -87,8 +87,8 @@
 			"type": "registry:block",
 			"title": "Analytics Map",
 			"description": "Real-time analytics overview with a world map, breakdown cards, and device stats.",
-			"dependencies": ["maplibre-gl"],
-			"registryDependencies": ["map", "card"],
+			"dependencies": ["maplibre-gl", "layerchart"],
+			"registryDependencies": ["map", "card", "chart"],
 			"files": [
 				{
 					"path": "src/lib/registry/blocks/analytics-map/Page.svelte",
@@ -114,41 +114,6 @@
 			"categories": ["analytics", "dashboard"],
 			"meta": {
 				"iframeHeight": "970px"
-			}
-		},
-		{
-			"name": "heatmap",
-			"type": "registry:block",
-			"title": "Heatmap",
-			"description": "Globe-projected heatmap visualizing earthquake density with zoom-dependent styling.",
-			"dependencies": ["maplibre-gl"],
-			"registryDependencies": ["map", "card"],
-			"files": [
-				{
-					"path": "src/lib/registry/blocks/heatmap/Page.svelte",
-					"type": "registry:page",
-					"target": "heatmap/+page.svelte"
-				}
-			],
-			"categories": ["visualization", "heatmap"]
-		},
-		{
-			"name": "delivery-tracker",
-			"type": "registry:block",
-			"title": "Delivery Tracker",
-			"description": "Live order tracking with route progress, courier position, and order details.",
-			"dependencies": ["maplibre-gl"],
-			"registryDependencies": ["map", "card", "badge", "button"],
-			"files": [
-				{
-					"path": "src/lib/registry/blocks/delivery-tracker/Page.svelte",
-					"type": "registry:page",
-					"target": "delivery/+page.svelte"
-				}
-			],
-			"categories": ["tracking", "delivery"],
-			"meta": {
-				"iframeHeight": "680px"
 			}
 		},
 		{
@@ -188,6 +153,41 @@
 			"categories": ["logistics", "network"],
 			"meta": {
 				"iframeHeight": "800px"
+			}
+		},
+		{
+			"name": "heatmap",
+			"type": "registry:block",
+			"title": "Heatmap",
+			"description": "Globe-projected heatmap visualizing earthquake density with zoom-dependent styling.",
+			"dependencies": ["maplibre-gl"],
+			"registryDependencies": ["map", "card"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/heatmap/Page.svelte",
+					"type": "registry:page",
+					"target": "heatmap/+page.svelte"
+				}
+			],
+			"categories": ["visualization", "heatmap"]
+		},
+		{
+			"name": "delivery-tracker",
+			"type": "registry:block",
+			"title": "Delivery Tracker",
+			"description": "Live order tracking with route progress, courier position, and order details.",
+			"dependencies": ["maplibre-gl"],
+			"registryDependencies": ["map", "card", "badge", "button"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/delivery-tracker/Page.svelte",
+					"type": "registry:page",
+					"target": "delivery/+page.svelte"
+				}
+			],
+			"categories": ["tracking", "delivery"],
+			"meta": {
+				"iframeHeight": "680px"
 			}
 		}
 	]

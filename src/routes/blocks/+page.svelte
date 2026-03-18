@@ -2,6 +2,7 @@
 	import type { PageData } from "./$types";
 	import BlockDisplay from "$lib/components/blocks/BlockDisplay.svelte";
 	import Footer from "$lib/components/Footer.svelte";
+	import Header from "$lib/components/Header.svelte";
 
 	const { data }: { data: PageData } = $props();
 </script>
@@ -13,6 +14,8 @@
 		content="Pre-built, ready-to-use map blocks. Browse, preview, and copy them into your app with one command."
 	/>
 </svelte:head>
+
+<Header class="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 border-b backdrop-blur" />
 
 <!-- Page header -->
 <div class="relative">

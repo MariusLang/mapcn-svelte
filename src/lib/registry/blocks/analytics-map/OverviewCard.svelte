@@ -1,14 +1,24 @@
 <script lang="ts">
 	import * as Card from "$lib/registry/ui/card/index.js";
+	import * as Chart from "$lib/registry/ui/chart/index.js";
+	import { AreaChart, PieChart } from "layerchart";
 	import { usersPerDay, deviceCategoryData } from "./data.js";
+	import type { ChartConfig } from "$lib/registry/ui/chart/index.js";
 
-	const maxUsers = Math.max(...usersPerDay.map((d) => d.users));
 	const totalUsers = usersPerDay.reduce((sum, d) => sum + d.users, 0);
+
+	const usersChartConfig = {
+		users: { label: "Users", color: "var(--chart-1)" },
+	} satisfies ChartConfig;
+
+	const deviceChartConfig = {
+		Desktop: { label: "Desktop", color: "var(--chart-1)" },
+		Mobile: { label: "Mobile", color: "var(--chart-2)" },
+		Tablet: { label: "Tablet", color: "var(--chart-3)" },
+	} satisfies ChartConfig;
 </script>
 
-<Card.Root
-	class="pointer-events-auto absolute bottom-8 left-4 z-10 w-72 shadow-lg"
->
+<Card.Root class="pointer-events-auto absolute bottom-8 left-4 z-10 w-72 shadow-lg">
 	<Card.Header class="pb-2">
 		<div class="flex items-center justify-between">
 			<Card.Title class="text-sm font-medium">Active Users</Card.Title>
@@ -17,36 +27,49 @@
 		<p class="text-2xl font-bold tabular-nums">{totalUsers.toLocaleString()}</p>
 	</Card.Header>
 	<Card.Content class="space-y-4">
-		<!-- Bar chart -->
-		<div class="flex h-16 items-end gap-1">
-			{#each usersPerDay as day}
-				{@const height = Math.round((day.users / maxUsers) * 100)}
-				<div class="flex flex-1 flex-col items-center gap-1">
-					<div
-						class="w-full rounded-sm bg-blue-500"
-						style="height: {height}%"
-					></div>
-					<span class="text-muted-foreground text-[10px]">{day.day}</span>
-				</div>
-			{/each}
-		</div>
+		<!-- Area chart sparkline -->
+		<Chart.Container config={usersChartConfig} class="h-16 w-full">
+			<AreaChart
+				data={usersPerDay}
+				x="day"
+				series={[{ key: "users", value: "users", color: "var(--chart-1)" }]}
+				props={{
+					area: { "fill-opacity": 0.2 },
+					grid: { x: false, y: false },
+				}}
+			/>
+		</Chart.Container>
 
-		<!-- Device breakdown -->
+		<!-- Donut chart for device breakdown -->
 		<div>
-			<p class="text-muted-foreground mb-2 text-xs font-medium">Devices</p>
-			<div class="space-y-1.5">
-				{#each deviceCategoryData as device}
-					<div class="flex items-center justify-between text-xs">
-						<span class="text-muted-foreground">{device.name}</span>
-						<span class="font-medium tabular-nums">{device.value}%</span>
-					</div>
-					<div class="bg-muted h-1 w-full overflow-hidden rounded-full">
-						<div
-							class="h-full rounded-full bg-blue-500"
-							style="width: {device.value}%"
-						></div>
-					</div>
-				{/each}
+			<p class="text-muted-foreground mb-1 text-xs font-medium">Devices</p>
+			<div class="flex items-center gap-3">
+				<Chart.Container config={deviceChartConfig} class="h-20 w-20 shrink-0">
+					<PieChart
+						data={deviceCategoryData}
+						key="name"
+						label="name"
+						value="value"
+						innerRadius={0.6}
+						cRange={["var(--chart-1)", "var(--chart-2)", "var(--chart-3)"]}
+					/>
+				</Chart.Container>
+				<div class="space-y-1.5 text-xs">
+					{#each deviceCategoryData as device}
+						<div class="flex items-center gap-1.5">
+							<span
+								class="inline-block size-2 shrink-0 rounded-[2px]"
+								style="background-color: {device.name === 'Desktop'
+									? 'var(--chart-1)'
+									: device.name === 'Mobile'
+										? 'var(--chart-2)'
+										: 'var(--chart-3)'}"
+							></span>
+							<span class="text-muted-foreground">{device.name}</span>
+							<span class="ml-auto font-medium tabular-nums">{device.value}%</span>
+						</div>
+					{/each}
+				</div>
 			</div>
 		</div>
 	</Card.Content>

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { Snippet } from "svelte";
 	import BlockPreview from "./BlockPreview.svelte";
 	import IframePreview from "./IframePreview.svelte";
 	import type { FileTree, RegistryBlockItem } from "$lib/blocks.js";
