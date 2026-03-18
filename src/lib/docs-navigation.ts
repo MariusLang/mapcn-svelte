@@ -8,6 +8,7 @@ import Route from "@lucide/svelte/icons/route";
 import Settings from "@lucide/svelte/icons/settings";
 import Layers from "@lucide/svelte/icons/layers";
 import Wrench from "@lucide/svelte/icons/wrench";
+import LayoutGrid from "@lucide/svelte/icons/layout-grid";
 
 export interface NavItem {
 	title: string;
@@ -44,6 +45,20 @@ export const docsNavigation: NavGroup[] = [
 ];
 
 export const fullNavItems: NavItem[] = docsNavigation.flatMap((group) => group.items);
+
+export const mainNavItems: NavItem[] = [
+	{ title: "Docs", href: "/docs", icon: BookOpen },
+	{ title: "Components", href: "/docs/basic-map", icon: Map },
+	{ title: "Blocks", href: "/blocks", icon: LayoutGrid },
+];
+
+export const siteNavigation: NavGroup[] = [
+	{
+		title: "Pages",
+		items: mainNavItems,
+	},
+	...docsNavigation,
+];
 
 export function findNeighbors(pathName: string): {
 	previous: NavItem | null;

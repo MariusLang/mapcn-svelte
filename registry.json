@@ -81,5 +81,114 @@
 				"author": "MariusLang"
 			}
 		}
+	,
+		{
+			"name": "analytics-map",
+			"type": "registry:block",
+			"title": "Analytics Map",
+			"description": "Real-time analytics overview with a world map, breakdown cards, and device stats.",
+			"dependencies": ["maplibre-gl"],
+			"registryDependencies": ["map", "card"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/analytics-map/Page.svelte",
+					"type": "registry:page",
+					"target": "analytics/+page.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/analytics-map/data.ts",
+					"type": "registry:component",
+					"target": "analytics/data.ts"
+				},
+				{
+					"path": "src/lib/registry/blocks/analytics-map/OverviewCard.svelte",
+					"type": "registry:component",
+					"target": "analytics/OverviewCard.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/analytics-map/BreakdownCard.svelte",
+					"type": "registry:component",
+					"target": "analytics/BreakdownCard.svelte"
+				}
+			],
+			"categories": ["analytics", "dashboard"],
+			"meta": {
+				"iframeHeight": "970px"
+			}
+		},
+		{
+			"name": "heatmap",
+			"type": "registry:block",
+			"title": "Heatmap",
+			"description": "Globe-projected heatmap visualizing earthquake density with zoom-dependent styling.",
+			"dependencies": ["maplibre-gl"],
+			"registryDependencies": ["map", "card"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/heatmap/Page.svelte",
+					"type": "registry:page",
+					"target": "heatmap/+page.svelte"
+				}
+			],
+			"categories": ["visualization", "heatmap"]
+		},
+		{
+			"name": "delivery-tracker",
+			"type": "registry:block",
+			"title": "Delivery Tracker",
+			"description": "Live order tracking with route progress, courier position, and order details.",
+			"dependencies": ["maplibre-gl"],
+			"registryDependencies": ["map", "card", "badge", "button"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/delivery-tracker/Page.svelte",
+					"type": "registry:page",
+					"target": "delivery/+page.svelte"
+				}
+			],
+			"categories": ["tracking", "delivery"],
+			"meta": {
+				"iframeHeight": "680px"
+			}
+		},
+		{
+			"name": "logistics-network",
+			"type": "registry:block",
+			"title": "Logistics Network",
+			"description": "Domestic logistics map with a sidebar of stats.",
+			"dependencies": ["maplibre-gl"],
+			"registryDependencies": ["map", "sidebar", "separator"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/logistics-network/Page.svelte",
+					"type": "registry:page",
+					"target": "logistics/+page.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/logistics-network/data.ts",
+					"type": "registry:component",
+					"target": "logistics/data.ts"
+				},
+				{
+					"path": "src/lib/registry/blocks/logistics-network/MapArcs.svelte",
+					"type": "registry:component",
+					"target": "logistics/MapArcs.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/logistics-network/FilterSidebar.svelte",
+					"type": "registry:component",
+					"target": "logistics/FilterSidebar.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/logistics-network/NetworkMap.svelte",
+					"type": "registry:component",
+					"target": "logistics/NetworkMap.svelte"
+				}
+			],
+			"categories": ["logistics", "network"],
+			"meta": {
+				"iframeHeight": "800px"
+			}
+		}
 	]
 }
