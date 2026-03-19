@@ -171,6 +171,7 @@
 		const mapInstance = new MapLibreGL.Map({
 			container: mapContainer,
 			style: currentStyle,
+			fadeDuration: 0,
 			renderWorldCopies: false,
 			attributionControl: {
 				compact: true,

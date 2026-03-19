@@ -46,12 +46,6 @@
 	const clusterCountLayerId = $derived(`cluster-count-${id}`);
 	const unclusteredLayerId = $derived(`unclustered-point-${id}`);
 
-	const styleProps = $derived({
-		clusterColors,
-		clusterThresholds,
-		pointColor,
-	});
-
 	// Add source and layers when map is ready
 	$effect(() => {
 		const map = mapCtx.getMap();
@@ -171,12 +165,8 @@
 
 		if (!loaded || !map) return;
 
-		const prev = styleProps;
-		const colorsChanged =
-			prev.clusterColors !== clusterColors || prev.clusterThresholds !== clusterThresholds;
-
 		// Update cluster layer colors and sizes
-		if (map.getLayer(clusterLayerId) && colorsChanged) {
+		if (map.getLayer(clusterLayerId)) {
 			map.setPaintProperty(clusterLayerId, "circle-color", [
 				"step",
 				["get", "point_count"],
@@ -198,7 +188,7 @@
 		}
 
 		// Update unclustered point layer color
-		if (map.getLayer(unclusteredLayerId) && prev.pointColor !== pointColor) {
+		if (map.getLayer(unclusteredLayerId)) {
 			map.setPaintProperty(unclusteredLayerId, "circle-color", pointColor);
 		}
 	});
