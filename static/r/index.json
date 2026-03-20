@@ -4,9 +4,7 @@
 		"title": "Map",
 		"type": "registry:ui",
 		"description": "A MapLibre-powered map component with markers, popups, tooltips, routes, and controls.",
-		"dependencies": [
-			"maplibre-gl"
-		],
+		"dependencies": ["maplibre-gl"],
 		"registryDependencies": [],
 		"meta": {
 			"author": "MariusLang"
@@ -18,15 +16,8 @@
 		"title": "Analytics Map",
 		"type": "registry:block",
 		"description": "Real-time analytics overview with a world map, breakdown cards, and device stats.",
-		"dependencies": [
-			"maplibre-gl",
-			"layerchart"
-		],
-		"registryDependencies": [
-			"map",
-			"card",
-			"chart"
-		],
+		"dependencies": ["maplibre-gl", "layerchart"],
+		"registryDependencies": ["map", "card", "chart"],
 		"meta": {
 			"iframeHeight": "970px"
 		},
@@ -37,14 +28,8 @@
 		"title": "Logistics Network",
 		"type": "registry:block",
 		"description": "Domestic logistics map with a sidebar of stats.",
-		"dependencies": [
-			"maplibre-gl"
-		],
-		"registryDependencies": [
-			"map",
-			"sidebar",
-			"separator"
-		],
+		"dependencies": ["maplibre-gl"],
+		"registryDependencies": ["map", "sidebar", "separator"],
 		"meta": {
 			"iframeHeight": "800px"
 		},
@@ -55,13 +40,8 @@
 		"title": "Heatmap",
 		"type": "registry:block",
 		"description": "Globe-projected heatmap visualizing earthquake density with zoom-dependent styling.",
-		"dependencies": [
-			"maplibre-gl"
-		],
-		"registryDependencies": [
-			"map",
-			"card"
-		],
+		"dependencies": ["maplibre-gl"],
+		"registryDependencies": ["map", "card"],
 		"relativeUrl": "heatmap.json"
 	},
 	{
@@ -69,15 +49,8 @@
 		"title": "Delivery Tracker",
 		"type": "registry:block",
 		"description": "Live order tracking with route progress, courier position, and order details.",
-		"dependencies": [
-			"maplibre-gl"
-		],
-		"registryDependencies": [
-			"map",
-			"card",
-			"badge",
-			"button"
-		],
+		"dependencies": ["maplibre-gl"],
+		"registryDependencies": ["map", "card", "badge", "button"],
 		"meta": {
 			"iframeHeight": "680px"
 		},
