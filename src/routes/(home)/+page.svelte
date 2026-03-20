@@ -13,11 +13,11 @@
 	<Header />
 
 	<main class="flex-1 pb-32">
-		<section class="relative w-full py-20">
+		<section class="relative w-full py-16 md:py-24 lg:pt-26 lg:pb-24">
 			<Hero />
 		</section>
 
-		<section class="container px-6">
+		<section class="container-wide px-6">
 			<ExamplesGrid />
 		</section>
 	</main>

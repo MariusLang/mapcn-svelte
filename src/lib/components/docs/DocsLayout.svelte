@@ -61,7 +61,7 @@
 </script>
 
 <div class="flex gap-8">
-	<div class="mx-auto max-w-3xl min-w-0 flex-1 pt-10 pb-20">
+	<div class="mx-auto max-w-3xl min-w-0 flex-1 pt-12 pb-20">
 		<div class="space-y-3">
 			<h1 class="text-foreground text-3xl font-semibold tracking-tight">{title}</h1>
 			<p class="text-muted-foreground leading-relaxed">{description}</p>

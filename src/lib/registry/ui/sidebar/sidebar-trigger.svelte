@@ -6,6 +6,7 @@
 	import { useSidebar } from "./context.svelte.js";
 
 	let {
+		ref = $bindable(null),
 		class: className,
 		onclick,
 		...restProps
@@ -17,6 +18,7 @@
 </script>
 
 <Button
+	bind:ref
 	data-sidebar="trigger"
 	data-slot="sidebar-trigger"
 	variant="ghost"

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button } from "$lib/registry/ui/button/index";
-	import ArrowRight from "@lucide/svelte/icons/arrow-right";
+
 	import CopyButton from "$lib/components/CopyButton.svelte";
 
 	const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://mapcn-svelte.dev";
@@ -8,7 +8,7 @@
 </script>
 
 <div class="relative">
-	<div class="absolute inset-0 -z-10 overflow-hidden">
+	<div class="absolute inset-x-0 -inset-y-10 -z-10 overflow-hidden">
 		<div
 			class="absolute inset-0 opacity-[0.4] dark:opacity-[0.15]"
 			style="background-image: radial-gradient(circle, currentColor 1px, transparent 1px); background-size: 24px 24px;"
@@ -20,24 +20,26 @@
 		></div>
 	</div>
 
-	<div class="container flex flex-col items-center text-center">
+	<div class="container flex max-w-6xl flex-col items-center gap-4 text-center">
 		<h1
-			class="animate-fade-up text-4xl font-semibold tracking-tight delay-100 sm:text-5xl md:text-6xl"
+			class="animate-fade-up max-w-4xl text-4xl font-semibold tracking-tight delay-100 sm:text-5xl md:text-6xl"
 		>
-			<span class="from-foreground to-foreground/60 bg-linear-to-b bg-clip-text text-transparent">
+			<span
+				class="from-foreground via-foreground to-foreground/65 bg-linear-to-b bg-clip-text text-transparent"
+			>
 				Beautiful maps, made simple.
 			</span>
 		</h1>
 
 		<p
-			class="text-foreground/80 animate-fade-up mt-6 max-w-lg text-lg leading-relaxed delay-200 md:text-xl"
+			class="text-muted-foreground animate-fade-up max-w-2xl delay-200 sm:text-lg sm:leading-relaxed md:text-xl md:leading-relaxed"
 		>
 			Ready to use, customizable map components for Svelte.
 			<br class="hidden sm:block" />
 			Built on MapLibre. Styled with Tailwind.
 		</p>
 
-		<div class="animate-fade-up mt-8 w-full max-w-3xl delay-300">
+		<div class="animate-fade-up mt-8 hidden w-full max-w-3xl delay-300 lg:block">
 			<div class="bg-card border-border overflow-hidden rounded-lg border shadow-sm">
 				<div class="border-border/50 flex items-center gap-1.5 border-b px-3 py-2">
 					<span class="size-2.5 rounded-full bg-red-500/40"></span>
@@ -55,14 +57,9 @@
 			</div>
 		</div>
 
-		<div class="animate-fade-up mt-8 flex flex-wrap items-center justify-center gap-3 delay-400">
-			<Button size="lg" href="/docs">
-				Get Started
-				<ArrowRight class="size-4" />
-			</Button>
-			<Button variant="ghost" size="lg" href="/docs/basic-map" class="text-muted-foreground">
-				View Components
-			</Button>
+		<div class="animate-fade-up mt-3 flex flex-wrap items-center justify-center gap-3 delay-400">
+			<Button size="lg" href="/docs">Get Started</Button>
+			<Button size="lg" variant="outline" href="/docs/basic-map">View Components</Button>
 		</div>
 	</div>
 </div>

@@ -1,17 +1,20 @@
 <script lang="ts">
-	import { SidebarInset, SidebarProvider } from "$lib/registry/ui/sidebar/index";
+	import { SidebarProvider } from "$lib/registry/ui/sidebar/index";
+	import Header from "$lib/components/Header.svelte";
 	import DocSidebar from "$lib/components/docs/DocSidebar.svelte";
-	import DocsHeader from "$lib/components/docs/DocsHeader.svelte";
 
 	let { children } = $props();
 </script>
 
-<SidebarProvider>
-	<DocSidebar />
-	<SidebarInset>
-		<DocsHeader />
-		<main class="container">
-			{@render children()}
-		</main>
-	</SidebarInset>
+<SidebarProvider style="--sidebar-width: 13rem; --sidebar-width-mobile: 24rem;">
+	<div class="flex min-h-screen w-full flex-col">
+		<Header />
+
+		<div class="container flex flex-1">
+			<DocSidebar />
+			<main class="w-full flex-1">
+				{@render children()}
+			</main>
+		</div>
+	</div>
 </SidebarProvider>
