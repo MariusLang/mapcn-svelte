@@ -1,11 +1,10 @@
-import { highlightCode } from "$lib/highlight";
-import { getExampleSource } from "$lib/examples";
+import { docsExampleLoader } from "$lib/docs-example-loader";
 
 export const load = async () => {
-	const clusterSource = getExampleSource("ClusterExample");
+	const clusterExample = await docsExampleLoader.single("ClusterExample");
 
 	return {
-		clusterSource,
-		clusterHighlighted: await highlightCode(clusterSource, "svelte"),
+		clusterSource: clusterExample.source,
+		clusterHighlighted: clusterExample.highlighted,
 	};
 };

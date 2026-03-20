@@ -1,11 +1,10 @@
-import { highlightCode } from "$lib/highlight";
-import { getExampleSource } from "$lib/examples";
+import { docsExampleLoader } from "$lib/docs-example-loader";
 
 export const load = async () => {
-	const controlsSource = getExampleSource("MapControlsExample");
+	const controlsExample = await docsExampleLoader.single("MapControlsExample");
 
 	return {
-		controlsSource,
-		controlsHighlighted: await highlightCode(controlsSource, "svelte"),
+		controlsSource: controlsExample.source,
+		controlsHighlighted: controlsExample.highlighted,
 	};
 };

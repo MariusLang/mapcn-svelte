@@ -1,11 +1,10 @@
-import { highlightCode } from "$lib/highlight";
-import { getExampleSource } from "$lib/examples";
+import { docsExampleLoader } from "$lib/docs-example-loader";
 
 export const load = async () => {
-	const popupSource = getExampleSource("StandalonePopupExample");
+	const popupExample = await docsExampleLoader.single("StandalonePopupExample");
 
 	return {
-		popupSource,
-		popupHighlighted: await highlightCode(popupSource, "svelte"),
+		popupSource: popupExample.source,
+		popupHighlighted: popupExample.highlighted,
 	};
 };

@@ -4,6 +4,7 @@
 	import "maplibre-gl/dist/maplibre-gl.css";
 	import { browser } from "$app/environment";
 	import { theme } from "$lib/theme";
+	import { resolveMapTheme } from "./theme";
 
 	// Check document class for theme (works with next-themes, etc.)
 	function getDocumentTheme(): "light" | "dark" | null {
@@ -68,7 +69,7 @@
 	let {
 		children,
 		styles,
-		theme: _theme = "light",
+		theme: explicitTheme,
 		projection,
 		center = [13.405, 52.52],
 		zoom = 0,
@@ -106,7 +107,9 @@
 		light: styles?.light ?? defaultStyles.light,
 	});
 
-	const currentStyle = $derived(tailwindTheme === "light" ? mapStyles.light : mapStyles.dark);
+	const resolvedTheme = $derived(resolveMapTheme({ explicitTheme, ambientTheme: tailwindTheme }));
+
+	const currentStyle = $derived(resolvedTheme === "light" ? mapStyles.light : mapStyles.dark);
 
 	const isReady = $derived(isMounted && isLoaded && isStyleLoaded);
 

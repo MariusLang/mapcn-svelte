@@ -100,7 +100,7 @@
 					name: "theme",
 					type: '"light" | "dark"',
 					description:
-						"Theme for the map. If not provided, automatically detects from document class or system preference.",
+						"Force a fixed light or dark map style. If omitted, the map follows the document theme or system preference.",
 				},
 				{
 					name: "styles",
