@@ -66,13 +66,13 @@
 		light: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
 	};
 
-		let {
-			children,
-			styles,
-			theme: explicitTheme,
-			projection,
-			center = [13.405, 52.52],
-			zoom = 0,
+	let {
+		children,
+		styles,
+		theme: explicitTheme,
+		projection,
+		center = [13.405, 52.52],
+		zoom = 0,
 		options = {},
 		viewport,
 		onviewportchange,
@@ -109,9 +109,7 @@
 
 	const resolvedTheme = $derived(resolveMapTheme({ explicitTheme, ambientTheme: tailwindTheme }));
 
-	const currentStyle = $derived(
-		resolvedTheme === "light" ? mapStyles.light : mapStyles.dark
-	);
+	const currentStyle = $derived(resolvedTheme === "light" ? mapStyles.light : mapStyles.dark);
 
 	const isReady = $derived(isMounted && isLoaded && isStyleLoaded);
 
