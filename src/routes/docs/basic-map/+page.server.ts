@@ -1,36 +1,15 @@
-import { highlightCode } from "$lib/highlight";
-import { getExampleSource } from "$lib/examples";
+import { docsExampleLoader } from "$lib/docs-example-loader";
 
 export const load = async () => {
-	const basicMapSource = getExampleSource("BasicMapExample");
-	const controlledMapSource = getExampleSource("ControlledMapExample");
-	const controlledMapTrackerSource = getExampleSource("ControlledMapViewportTracker");
-	const customStyleSource = getExampleSource("CustomStyleExample");
-	const customStyleControllerSource = getExampleSource("CustomStylePitchController");
-
-	const controlledMapFiles = await Promise.all(
-		[
-			{ name: "ControlledMapExample.svelte", code: controlledMapSource },
-			{ name: "ControlledMapViewportTracker.svelte", code: controlledMapTrackerSource },
-		].map(async (f) => ({
-			...f,
-			highlightedCode: await highlightCode(f.code, "svelte"),
-		}))
-	);
-
-	const customStyleFiles = await Promise.all(
-		[
-			{ name: "CustomStyleExample.svelte", code: customStyleSource },
-			{ name: "CustomStylePitchController.svelte", code: customStyleControllerSource },
-		].map(async (f) => ({
-			...f,
-			highlightedCode: await highlightCode(f.code, "svelte"),
-		}))
-	);
+	const [basicMapExample, controlledMapFiles, customStyleFiles] = await Promise.all([
+		docsExampleLoader.single("BasicMapExample"),
+		docsExampleLoader.namedFiles(["ControlledMapExample", "ControlledMapViewportTracker"]),
+		docsExampleLoader.namedFiles(["CustomStyleExample", "CustomStylePitchController"]),
+	]);
 
 	return {
-		basicMapSource,
-		basicMapHighlighted: await highlightCode(basicMapSource, "svelte"),
+		basicMapSource: basicMapExample.source,
+		basicMapHighlighted: basicMapExample.highlighted,
 
 		controlledMapFiles,
 		customStyleFiles,

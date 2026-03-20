@@ -1,19 +1,20 @@
-import { highlightCode } from "$lib/highlight";
-import { getExampleSource } from "$lib/examples";
+import { docsExampleLoader } from "$lib/docs-example-loader";
 
 export const load = async () => {
-	const markersSource = getExampleSource("MarkersExample");
-	const popupSource = getExampleSource("PopupExample");
-	const draggableMarkerSource = getExampleSource("DraggableMarkerExample");
+	const [markersExample, popupExample, draggableMarkerExample] = await Promise.all([
+		docsExampleLoader.single("MarkersExample"),
+		docsExampleLoader.single("PopupExample"),
+		docsExampleLoader.single("DraggableMarkerExample"),
+	]);
 
 	return {
-		markersSource,
-		markersHighlighted: await highlightCode(markersSource, "svelte"),
+		markersSource: markersExample.source,
+		markersHighlighted: markersExample.highlighted,
 
-		popupSource,
-		popupHighlighted: await highlightCode(popupSource, "svelte"),
+		popupSource: popupExample.source,
+		popupHighlighted: popupExample.highlighted,
 
-		draggableMarkerSource,
-		draggableMarkerHighlighted: await highlightCode(draggableMarkerSource, "svelte"),
+		draggableMarkerSource: draggableMarkerExample.source,
+		draggableMarkerHighlighted: draggableMarkerExample.highlighted,
 	};
 };

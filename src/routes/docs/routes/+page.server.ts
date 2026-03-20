@@ -1,15 +1,16 @@
-import { highlightCode } from "$lib/highlight";
-import { getExampleSource } from "$lib/examples";
+import { docsExampleLoader } from "$lib/docs-example-loader";
 
 export const load = async () => {
-	const routeSource = getExampleSource("RouteExample");
-	const osrmRouteSource = getExampleSource("OsrmRouteExample");
+	const [routeExample, osrmRouteExample] = await Promise.all([
+		docsExampleLoader.single("RouteExample"),
+		docsExampleLoader.single("OsrmRouteExample"),
+	]);
 
 	return {
-		routeSource,
-		routeHighlighted: await highlightCode(routeSource, "svelte"),
+		routeSource: routeExample.source,
+		routeHighlighted: routeExample.highlighted,
 
-		osrmRouteSource,
-		osrmRouteHighlighted: await highlightCode(osrmRouteSource, "svelte"),
+		osrmRouteSource: osrmRouteExample.source,
+		osrmRouteHighlighted: osrmRouteExample.highlighted,
 	};
 };
