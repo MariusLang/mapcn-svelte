@@ -8,6 +8,8 @@ const blockComponents: Record<string, () => Promise<{ default: unknown }>> = {
 	"logistics-network": () => import("$lib/registry/blocks/logistics-network/Page.svelte"),
 };
 
+export const entries = () => Object.keys(blockComponents).map((name) => ({ name }));
+
 export const load: PageLoad = async ({ params }) => {
 	const loader = blockComponents[params.name];
 	if (!loader) {
