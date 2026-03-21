@@ -1,5 +1,6 @@
 {
 	"buildCommand": "pnpm run build",
 	"installCommand": "pnpm install",
-	"outputDirectory": "build"
+	"outputDirectory": "build",
+	"routes": [{ "handle": "filesystem" }, { "src": "/(.*)", "dest": "/200.html" }]
 }
