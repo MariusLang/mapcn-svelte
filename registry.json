@@ -87,7 +87,7 @@
 			"title": "Analytics Map",
 			"description": "Real-time analytics overview with a world map, breakdown cards, and device stats.",
 			"dependencies": ["maplibre-gl", "layerchart"],
-			"registryDependencies": ["map", "card", "chart"],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card", "chart"],
 			"files": [
 				{
 					"path": "src/lib/registry/blocks/analytics-map/Page.svelte",
@@ -121,7 +121,7 @@
 			"title": "Logistics Network",
 			"description": "Domestic logistics map with a sidebar of stats.",
 			"dependencies": ["maplibre-gl"],
-			"registryDependencies": ["map", "sidebar", "separator"],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "sidebar", "separator"],
 			"files": [
 				{
 					"path": "src/lib/registry/blocks/logistics-network/Page.svelte",
@@ -160,7 +160,7 @@
 			"title": "Heatmap",
 			"description": "Globe-projected heatmap visualizing earthquake density with zoom-dependent styling.",
 			"dependencies": ["maplibre-gl"],
-			"registryDependencies": ["map", "card"],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card"],
 			"files": [
 				{
 					"path": "src/lib/registry/blocks/heatmap/Page.svelte",
@@ -176,7 +176,7 @@
 			"title": "Delivery Tracker",
 			"description": "Live order tracking with route progress, courier position, and order details.",
 			"dependencies": ["maplibre-gl"],
-			"registryDependencies": ["map", "card", "badge", "button"],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card", "badge", "button"],
 			"files": [
 				{
 					"path": "src/lib/registry/blocks/delivery-tracker/Page.svelte",
