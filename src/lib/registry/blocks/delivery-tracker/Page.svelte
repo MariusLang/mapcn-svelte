@@ -87,7 +87,7 @@
 
 <div class="p-8">
 	<div
-		class="bg-sidebar mx-auto grid max-w-7xl rounded-lg border md:h-[600px] md:grid-cols-[1.05fr_1fr]"
+		class="bg-sidebar mx-auto grid max-w-7xl overflow-hidden rounded-lg border md:h-[600px] md:grid-cols-[1.05fr_1fr]"
 	>
 		<!-- Left panel -->
 		<div class="flex flex-col p-5 md:p-6">
