@@ -3,6 +3,7 @@
 	import { Button } from "$lib/registry/ui/button/index.js";
 	import * as Sheet from "$lib/registry/ui/sheet/index.js";
 	import { siteNavigation } from "$lib/docs-navigation.js";
+	import Logo from "./Logo.svelte";
 
 	let open = $state(false);
 </script>
@@ -20,7 +21,9 @@
 <Sheet.Sheet bind:open>
 	<Sheet.SheetContent side="left" class="rounded-r-xl">
 		<Sheet.SheetHeader>
-			<Sheet.SheetTitle class="sr-only">Navigation</Sheet.SheetTitle>
+			<Sheet.SheetTitle>
+				<Logo isLink={false} />
+			</Sheet.SheetTitle>
 		</Sheet.SheetHeader>
 		<div class="overflow-y-auto px-2">
 			<nav class="space-y-6">
@@ -35,7 +38,7 @@
 									<a
 										href={item.href}
 										onclick={() => (open = false)}
-										class="flex items-center px-3 py-2.5 transition-colors"
+										class="active:text-muted-foreground flex items-center px-3 py-2 text-lg transition-colors"
 									>
 										{item.title}
 									</a>

@@ -1,14 +1,6 @@
-import Map from "@lucide/svelte/icons/map";
 import BookOpen from "@lucide/svelte/icons/book-open";
-import Code from "@lucide/svelte/icons/code";
-import Braces from "@lucide/svelte/icons/braces";
-import MapPin from "@lucide/svelte/icons/map-pin";
-import MessageSquare from "@lucide/svelte/icons/message-square";
-import Route from "@lucide/svelte/icons/route";
-import Settings from "@lucide/svelte/icons/settings";
-import Layers from "@lucide/svelte/icons/layers";
-import Wrench from "@lucide/svelte/icons/wrench";
-import LayoutGrid from "@lucide/svelte/icons/layout-grid";
+import CornerDownRight from "@lucide/svelte/icons/corner-down-right";
+import Layers2 from "@lucide/svelte/icons/layers-2";
 
 export interface NavItem {
 	title: string;
@@ -26,20 +18,20 @@ export const docsNavigation: NavGroup[] = [
 		title: "Basics",
 		items: [
 			{ title: "Getting Started", href: "/docs", icon: BookOpen },
-			{ title: "Installation", href: "/docs/installation", icon: Code },
-			{ title: "API Reference", href: "/docs/api-reference", icon: Braces },
+			{ title: "Installation", href: "/docs/installation", icon: BookOpen },
+			{ title: "API Reference", href: "/docs/api-reference", icon: BookOpen },
 		],
 	},
 	{
 		title: "Components",
 		items: [
-			{ title: "Map", href: "/docs/basic-map", icon: Map },
-			{ title: "Controls", href: "/docs/controls", icon: Settings },
-			{ title: "Markers", href: "/docs/markers", icon: MapPin },
-			{ title: "Popups", href: "/docs/popups", icon: MessageSquare },
-			{ title: "Routes", href: "/docs/routes", icon: Route },
-			{ title: "Clusters", href: "/docs/clusters", icon: Layers },
-			{ title: "Advanced", href: "/docs/advanced-usage", icon: Wrench },
+			{ title: "Map", href: "/docs/basic-map", icon: Layers2 },
+			{ title: "Controls", href: "/docs/controls", icon: Layers2 },
+			{ title: "Markers", href: "/docs/markers", icon: Layers2 },
+			{ title: "Popups", href: "/docs/popups", icon: Layers2 },
+			{ title: "Routes", href: "/docs/routes", icon: Layers2 },
+			{ title: "Clusters", href: "/docs/clusters", icon: Layers2 },
+			{ title: "Advanced", href: "/docs/advanced-usage", icon: Layers2 },
 		],
 	},
 ];
@@ -47,9 +39,9 @@ export const docsNavigation: NavGroup[] = [
 export const fullNavItems: NavItem[] = docsNavigation.flatMap((group) => group.items);
 
 export const mainNavItems: NavItem[] = [
-	{ title: "Docs", href: "/docs", icon: BookOpen },
-	{ title: "Components", href: "/docs/basic-map", icon: Map },
-	{ title: "Blocks", href: "/blocks", icon: LayoutGrid },
+	{ title: "Docs", href: "/docs", icon: CornerDownRight },
+	{ title: "Components", href: "/docs/basic-map", icon: CornerDownRight },
+	{ title: "Blocks", href: "/blocks", icon: CornerDownRight },
 ];
 
 export const siteNavigation: NavGroup[] = [

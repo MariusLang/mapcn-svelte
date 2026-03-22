@@ -17,12 +17,12 @@
 </script>
 
 <header class={cn("bg-background sticky top-0 z-50 h-14 w-full", className)}>
-	<nav class="container flex size-full items-center gap-2">
+	<nav class="container flex size-full items-center">
 		<MobileNav />
-		<Logo class="hidden shrink-0 lg:flex" />
-		<nav class="hidden items-center gap-1 lg:flex">
+		<Logo class="mr-3 hidden shrink-0 lg:flex" />
+		<nav class="hidden items-center lg:flex">
 			{#each mainNavItems as item}
-				<Button variant="ghost" size="sm" href={item.href} class="px-2.5">
+				<Button variant="ghost" size="sm" href={item.href}>
 					{item.title}
 				</Button>
 			{/each}
@@ -30,7 +30,7 @@
 
 		<div class="ml-auto flex h-4.5 items-center gap-2">
 			<CommandSearch />
-			<Separator orientation="vertical" class="hidden md:block" />
+			<Separator orientation="vertical" class="ml-2 hidden md:block" />
 			<GitHubButton />
 			<Separator orientation="vertical" />
 			<ThemeToggle />

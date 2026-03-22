@@ -1,16 +1,28 @@
 <script lang="ts">
-	import Button from "$lib/registry/ui/button/button.svelte";
 	import { cn } from "$lib/utils";
 	import MapPin from "@lucide/svelte/icons/map-pin";
 
 	interface Props {
 		class?: string;
+		onclick?: () => void;
+		isLink?: boolean;
 	}
 
-	const { class: className }: Props = $props();
+	const { class: className, onclick, isLink = true }: Props = $props();
 </script>
 
-<Button href="/" size="sm" variant="ghost" class={cn("px-2.5 text-base font-semibold", className)}>
-	<MapPin class="text-svelte size-4 shrink-0" />
-	<span class="text-base font-semibold tracking-tight">mapcn-svelte</span>
-</Button>
+{#if isLink}
+	<a
+		href="/"
+		{onclick}
+		class={cn("flex h-8 items-center gap-1.5 text-lg font-semibold", className)}
+	>
+		<MapPin class="text-svelte size-4" />
+		mapcn-svelte
+	</a>
+{:else}
+	<div class={cn("flex items-center gap-1.5 text-lg font-semibold", className)}>
+		<MapPin class="text-svelte size-4" />
+		mapcn-svelte
+	</div>
+{/if}

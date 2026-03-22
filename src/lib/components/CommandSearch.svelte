@@ -36,7 +36,7 @@
 	variant="outline"
 	size="sm"
 	onclick={() => (open = true)}
-	aria-label="Search documentation"
+	aria-label="Jump to pages, components, and docs"
 	class={cn(
 		"group dark:border-border/60 border-border/80 text-muted-foreground hidden w-[200px] items-center text-sm md:flex",
 		className
