@@ -28,20 +28,20 @@
 		theme.set(currentTheme === "dark" ? "light" : "dark");
 	}
 	function handleKeyDown(e: KeyboardEvent) {
-		// toggle theme on d/D
-		if ((e.key === "t" || e.key === "T") && !e.metaKey && !e.ctrlKey) {
-			if (
-				(e.target instanceof HTMLElement && e.target.isContentEditable) ||
-				e.target instanceof HTMLInputElement ||
-				e.target instanceof HTMLTextAreaElement ||
-				e.target instanceof HTMLSelectElement
-			) {
-				return;
-			}
+		if (e.defaultPrevented || e.repeat) return;
+		if (e.metaKey || e.ctrlKey || e.altKey) return;
+		if (e.key.toLowerCase() !== "t") return;
 
-			e.preventDefault();
-			toggleTheme();
+		if (
+			(e.target instanceof HTMLElement && e.target.isContentEditable) ||
+			e.target instanceof HTMLInputElement ||
+			e.target instanceof HTMLTextAreaElement ||
+			e.target instanceof HTMLSelectElement
+		) {
+			return;
 		}
+
+		toggleTheme();
 	}
 </script>
 

@@ -6,7 +6,7 @@
 	"description": "Live order tracking with route progress, courier position, and order details.",
 	"dependencies": ["maplibre-gl"],
 	"devDependencies": ["@lucide/svelte@^0.577.0"],
-	"registryDependencies": ["map", "card", "badge", "button"],
+	"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card", "badge", "button"],
 	"meta": {
 		"iframeHeight": "680px"
 	},

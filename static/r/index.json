@@ -17,7 +17,7 @@
 		"type": "registry:block",
 		"description": "Real-time analytics overview with a world map, breakdown cards, and device stats.",
 		"dependencies": ["maplibre-gl", "layerchart"],
-		"registryDependencies": ["map", "card", "chart"],
+		"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card", "chart"],
 		"meta": {
 			"iframeHeight": "970px"
 		},
@@ -29,7 +29,7 @@
 		"type": "registry:block",
 		"description": "Domestic logistics map with a sidebar of stats.",
 		"dependencies": ["maplibre-gl"],
-		"registryDependencies": ["map", "sidebar", "separator"],
+		"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "sidebar", "separator"],
 		"meta": {
 			"iframeHeight": "800px"
 		},
@@ -41,7 +41,7 @@
 		"type": "registry:block",
 		"description": "Globe-projected heatmap visualizing earthquake density with zoom-dependent styling.",
 		"dependencies": ["maplibre-gl"],
-		"registryDependencies": ["map", "card"],
+		"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card"],
 		"relativeUrl": "heatmap.json"
 	},
 	{
@@ -50,7 +50,7 @@
 		"type": "registry:block",
 		"description": "Live order tracking with route progress, courier position, and order details.",
 		"dependencies": ["maplibre-gl"],
-		"registryDependencies": ["map", "card", "badge", "button"],
+		"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card", "badge", "button"],
 		"meta": {
 			"iframeHeight": "680px"
 		},

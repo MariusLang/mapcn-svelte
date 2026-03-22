@@ -1,14 +1,10 @@
-import { createHighlighter, type Highlighter } from "shiki";
-
-let highlighter: Highlighter | null = null;
+import { getSingletonHighlighter } from "shiki";
 
 export async function highlightCode(code: string, lang: string = "svelte"): Promise<string> {
-	if (!highlighter) {
-		highlighter = await createHighlighter({
-			themes: ["github-dark", "github-light"],
-			langs: ["ts", "tsx", "js", "jsx", "json", "bash", "css", "html", "md", "svelte"],
-		});
-	}
+	const highlighter = await getSingletonHighlighter({
+		themes: ["github-dark", "github-light"],
+		langs: ["ts", "tsx", "js", "jsx", "json", "bash", "css", "html", "md", "svelte"],
+	});
 
 	return highlighter.codeToHtml(code, {
 		lang,

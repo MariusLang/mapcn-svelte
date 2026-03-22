@@ -15,7 +15,7 @@ describe("getAllBlocks", () => {
 
 		expect(blocks[0]).toMatchObject({
 			title: "Analytics Map",
-			registryDependencies: ["map", "card", "chart"],
+			registryDependencies: ["https://mapcn-svelte.dev/r/map.json", "card", "chart"],
 			categories: ["analytics", "dashboard"],
 			meta: { iframeHeight: "970px" },
 		});
@@ -25,7 +25,7 @@ describe("getAllBlocks", () => {
 			files: [
 				{ path: "src/lib/registry/blocks/heatmap/Page.svelte", target: "heatmap/+page.svelte" },
 			],
-			registryDependencies: ["map", "card"],
+			registryDependencies: ["https://mapcn-svelte.dev/r/map.json", "card"],
 			categories: ["visualization", "heatmap"],
 		});
 		expect(blocks[2].meta).toBeUndefined();

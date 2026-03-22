@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.name}</title>
+	<title>{data.name} - mapcn-svelte</title>
 </svelte:head>
 
 <div class="bg-background min-h-screen">

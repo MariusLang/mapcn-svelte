@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const codeToHtml = vi.fn();
-const createHighlighter = vi.fn(async () => ({ codeToHtml }));
+const getSingletonHighlighter = vi.fn(async () => ({ codeToHtml }));
 
 vi.mock("shiki", () => ({
-	createHighlighter,
+	getSingletonHighlighter,
 }));
 
 describe("highlightCode", () => {
@@ -19,8 +19,8 @@ describe("highlightCode", () => {
 		const { highlightCode } = await import("./highlight");
 
 		await expect(highlightCode("<script />")).resolves.toBe("<pre>first</pre>");
-		expect(createHighlighter).toHaveBeenCalledTimes(1);
-		expect(createHighlighter).toHaveBeenCalledWith({
+		expect(getSingletonHighlighter).toHaveBeenCalledTimes(1);
+		expect(getSingletonHighlighter).toHaveBeenCalledWith({
 			themes: ["github-dark", "github-light"],
 			langs: ["ts", "tsx", "js", "jsx", "json", "bash", "css", "html", "md", "svelte"],
 		});
@@ -43,7 +43,7 @@ describe("highlightCode", () => {
 		await highlightCode("const value = 1;", "ts");
 		await highlightCode("console.log(value)", "js");
 
-		expect(createHighlighter).toHaveBeenCalledTimes(1);
+		expect(getSingletonHighlighter).toHaveBeenCalledTimes(2);
 		expect(codeToHtml).toHaveBeenNthCalledWith(1, "const value = 1;", {
 			lang: "ts",
 			themes: {

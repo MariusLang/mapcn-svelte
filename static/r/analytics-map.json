@@ -6,7 +6,7 @@
 	"description": "Real-time analytics overview with a world map, breakdown cards, and device stats.",
 	"dependencies": ["maplibre-gl", "layerchart"],
 	"devDependencies": ["@lucide/svelte@^0.577.0"],
-	"registryDependencies": ["map", "card", "chart"],
+	"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card", "chart"],
 	"meta": {
 		"iframeHeight": "970px"
 	},

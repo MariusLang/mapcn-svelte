@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from "$lib/utils";
-	import MapPin from "@lucide/svelte/icons/map-pin";
+	import Logo from "$lib/components/Logo.svelte";
 
 	interface Props {
 		class?: string;
@@ -30,10 +30,7 @@
 	<div class="container py-12 md:py-16">
 		<div class="grid grid-cols-2 gap-8 md:grid-cols-4">
 			<div class="col-span-2 md:col-span-1">
-				<a href="/" class="flex w-fit items-center gap-1.5">
-					<MapPin class="text-svelte size-4 shrink-0" />
-					<span class="text-lg font-semibold tracking-tight">mapcn-svelte</span>
-				</a>
+				<Logo class="w-fit" />
 				<p class="text-muted-foreground mt-3 max-w-xs text-sm leading-relaxed">
 					Free & open-source, ready-to-use, customizable map components for Svelte.
 				</p>
