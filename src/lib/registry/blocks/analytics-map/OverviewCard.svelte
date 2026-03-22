@@ -85,15 +85,21 @@
 					props={{ arc: { stroke: "var(--card)", "stroke-width": 2 } }}
 				/>
 			</Chart.Container>
-			<div class="mt-3 grid grid-cols-3 gap-1 text-[10px]">
+			<div class="mt-3 grid grid-cols-3 gap-2">
 				{#each deviceCategoryData as device}
-					<div class="flex flex-col items-center gap-0.5">
-						<span
-							class="inline-block size-2 rounded-full"
-							style="background-color: {device.fill}"
-						></span>
-						<span class="text-muted-foreground uppercase">{device.name}</span>
-						<span class="font-medium tabular-nums">{device.value}%</span>
+					<div class="text-center">
+						<p
+							class="text-muted-foreground flex items-center justify-center gap-1.5 text-[10px] tracking-wide uppercase"
+						>
+							<span
+								class="size-2 rounded-full"
+								style="background-color: {device.fill}"
+							></span>
+							{device.name}
+						</p>
+						<p class="text-foreground mt-1 font-medium leading-none tabular-nums">
+							{device.value}%
+						</p>
 					</div>
 				{/each}
 			</div>
