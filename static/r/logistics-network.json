@@ -4,17 +4,9 @@
 	"title": "Logistics Network",
 	"type": "registry:block",
 	"description": "Domestic logistics map with a sidebar of stats.",
-	"dependencies": [
-		"maplibre-gl"
-	],
-	"devDependencies": [
-		"@lucide/svelte@^0.577.0"
-	],
-	"registryDependencies": [
-		"https://mapcn-svelte.dev/r/map.json",
-		"sidebar",
-		"separator"
-	],
+	"dependencies": ["maplibre-gl"],
+	"devDependencies": ["@lucide/svelte@^0.577.0"],
+	"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "sidebar", "separator"],
 	"meta": {
 		"iframeHeight": "800px"
 	},

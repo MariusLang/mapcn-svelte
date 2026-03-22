@@ -9,7 +9,7 @@
 
 	const { title, rows }: Props = $props();
 
-	const maxRowValue = rows.length > 0 ? Math.max(...rows.map((row) => row.value)) : 0;
+	const maxRowValue = $derived(rows.length > 0 ? Math.max(...rows.map((row) => row.value)) : 0);
 </script>
 
 <Card.Root>
