@@ -34,19 +34,19 @@
 				points={false}
 				labels={false}
 				legend={false}
-				padding={{ top: 4, bottom: 0, left: 4, right: 4 }}
+				padding={{ top: 4, bottom: 0 }}
 				props={{
 					area: {
 						curve: curveNatural,
-						line: { stroke: "var(--color-users)", "stroke-width": 1.5 },
+						line: { stroke: "var(--color-blue-500)", "stroke-width": 1.5 },
 					},
 				}}
 			>
 				{#snippet marks({ getAreaProps, visibleSeries })}
 					<defs>
 						<linearGradient id="sparkline-gradient" x1="0" y1="0" x2="0" y2="1">
-							<stop offset="0%" stop-color="var(--color-users)" stop-opacity="0.4" />
-							<stop offset="100%" stop-color="var(--color-users)" stop-opacity="0" />
+							<stop offset="0%" stop-color="var(--color-blue-500)" stop-opacity="0.4" />
+							<stop offset="100%" stop-color="var(--color-blue-500)" stop-opacity="0" />
 						</linearGradient>
 					</defs>
 					{#each visibleSeries as s, i (s.key)}
@@ -82,7 +82,7 @@
 					tooltip={false}
 					legend={false}
 					cRange={deviceCategoryData.map((d) => d.fill)}
-					props={{ arc: { stroke: "var(--card)", "stroke-width": 2 } }}
+					props={{ arc: { stroke: "none" } }}
 				/>
 			</Chart.Container>
 			<div class="mt-3 grid grid-cols-3 gap-2">
@@ -91,13 +91,11 @@
 						<p
 							class="text-muted-foreground flex items-center justify-center gap-1.5 text-[10px] tracking-wide uppercase"
 						>
-							<span
-								class="size-2 rounded-full"
-								style="background-color: {device.fill}"
+							<span class="size-2 shrink-0 rounded-full" style="background-color: {device.fill}"
 							></span>
 							{device.name}
 						</p>
-						<p class="text-foreground mt-1 font-medium leading-none tabular-nums">
+						<p class="text-foreground mt-1 leading-none font-medium tabular-nums">
 							{device.value}%
 						</p>
 					</div>

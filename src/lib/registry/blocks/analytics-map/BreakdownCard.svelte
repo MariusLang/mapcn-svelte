@@ -17,6 +17,12 @@
 		<Card.Title class="text-sm font-medium">{title}</Card.Title>
 	</Card.Header>
 	<Card.Content class="space-y-2">
+		<div
+			class="text-muted-foreground mb-2 flex items-center justify-between text-[11px] tracking-wider uppercase"
+		>
+			<span>{title}</span>
+			<span>Visitors</span>
+		</div>
 		{#each rows as row}
 			{@const pct = total > 0 ? Math.round((row.value / total) * 100) : 0}
 			<div class="space-y-1">
