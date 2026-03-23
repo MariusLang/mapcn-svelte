@@ -120,9 +120,9 @@
 	* {
 		@apply border-border outline-ring/50;
 	}
-	html {
+	/*html {
 		@apply overscroll-y-none;
-	}
+	}*/
 	body {
 		@apply bg-background text-foreground font-sans antialiased;
 		font-feature-settings:
