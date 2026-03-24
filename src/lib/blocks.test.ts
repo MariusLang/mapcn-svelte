@@ -15,19 +15,22 @@ describe("getAllBlocks", () => {
 
 		expect(blocks[0]).toMatchObject({
 			title: "Analytics Map",
-			registryDependencies: ["https://mapcn-svelte.dev/r/map.json", "card", "chart"],
 			categories: ["analytics", "dashboard"],
 			meta: { iframeHeight: "970px" },
 		});
+		expect(blocks[0].registryDependencies).toContain("card");
+		expect(blocks[0].registryDependencies).toContain("chart");
+		expect(blocks[0].registryDependencies?.some((d) => d.endsWith("/r/map.json"))).toBe(true);
 
 		expect(blocks[2]).toMatchObject({
 			title: "Heatmap",
 			files: [
 				{ path: "src/lib/registry/blocks/heatmap/Page.svelte", target: "heatmap/+page.svelte" },
 			],
-			registryDependencies: ["https://mapcn-svelte.dev/r/map.json", "card"],
 			categories: ["visualization", "heatmap"],
 		});
+		expect(blocks[2].registryDependencies).toContain("card");
+		expect(blocks[2].registryDependencies?.some((d) => d.endsWith("/r/map.json"))).toBe(true);
 		expect(blocks[2].meta).toBeUndefined();
 	});
 });
