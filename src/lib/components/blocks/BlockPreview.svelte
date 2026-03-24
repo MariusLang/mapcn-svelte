@@ -25,9 +25,7 @@
 	let copiedType: "cli" | null = $state(null);
 
 	async function copyCli() {
-		await navigator.clipboard.writeText(
-			`npx shadcn-svelte add ${siteUrl}/r/${block.name}.json`
-		);
+		await navigator.clipboard.writeText(`npx shadcn-svelte add ${siteUrl}/r/${block.name}.json`);
 		copiedType = "cli";
 		setTimeout(() => (copiedType = null), 2000);
 	}
