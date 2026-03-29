@@ -34,7 +34,7 @@
 		"@types/d3-shape": "^3.1.8",
 		"@types/node": "^25.5.0",
 		"@vitest/coverage-v8": "^4.1.2",
-		"bits-ui": "^2.16.3",
+		"bits-ui": "^2.16.4",
 		"clsx": "^2.1.1",
 		"eslint": "^10.1.0",
 		"eslint-config-prettier": "^10.1.8",
