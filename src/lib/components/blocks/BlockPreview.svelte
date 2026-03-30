@@ -20,10 +20,12 @@
 
 	const { block, tree, highlightedFiles, preview }: Props = $props();
 
+	const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://mapcn-svelte.dev";
+
 	let copiedType: "cli" | null = $state(null);
 
 	async function copyCli() {
-		await navigator.clipboard.writeText(`npx shadcn-svelte@latest add @mapcn-svelte/${block.name}`);
+		await navigator.clipboard.writeText(`npx shadcn-svelte add ${siteUrl}/r/${block.name}.json`);
 		copiedType = "cli";
 		setTimeout(() => (copiedType = null), 2000);
 	}
@@ -67,7 +69,7 @@
 					{:else}
 						<Terminal />
 					{/if}
-					npx shadcn-svelte add @mapcn-svelte/{block.name}
+					npx shadcn-svelte add {siteUrl}/r/{block.name}.json
 				</Button>
 			</div>
 		</div>

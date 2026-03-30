@@ -17,8 +17,13 @@ export const load: PageLoad = async ({ params }) => {
 	}
 
 	const module = await loader();
+	const title = params.name
+		.split("-")
+		.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+		.join(" ");
+
 	return {
 		component: module.default,
-		name: params.name,
+		name: title,
 	};
 };
