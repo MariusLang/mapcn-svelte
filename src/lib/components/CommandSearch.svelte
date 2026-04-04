@@ -52,7 +52,7 @@
 	title="Search Documentation"
 	description="Search for documentation pages and components"
 >
-	<Command.Input placeholder="Type to search..." />
+	<Command.Input placeholder="Search..." />
 	<Command.List>
 		<Command.Empty>No results found</Command.Empty>
 		{#each siteNavigation as group}

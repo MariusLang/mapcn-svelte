@@ -94,22 +94,20 @@
 			This example shows how to create custom controls that manipulate the map's pitch and bearing,
 			and listen to map events to display real-time values.
 		</p>
+		<ComponentPreview files={advancedUsageFiles}>
+			<AdvancedUsageExample />
+		</ComponentPreview>
 	</DocsSection>
-
-	<ComponentPreview files={advancedUsageFiles}>
-		<AdvancedUsageExample />
-	</ComponentPreview>
 
 	<DocsSection title="Example: Custom GeoJSON Layer">
 		<p>
 			Add custom GeoJSON data as layers with fill and outline styles. This example shows NYC parks
 			with hover interactions.
 		</p>
+		<ComponentPreview files={customLayerFiles}>
+			<CustomLayerExample />
+		</ComponentPreview>
 	</DocsSection>
-
-	<ComponentPreview files={customLayerFiles}>
-		<CustomLayerExample />
-	</ComponentPreview>
 
 	<DocsSection title="Example: Markers via Layers">
 		<p>
@@ -117,11 +115,10 @@
 			<DocsCode>MapMarker</DocsCode> components. This approach renders markers on the WebGL canvas, providing
 			significantly better performance.
 		</p>
+		<ComponentPreview code={layerMarkersSource} highlightedCode={layerMarkersHighlighted}>
+			<LayerMarkersExample />
+		</ComponentPreview>
 	</DocsSection>
-
-	<ComponentPreview code={layerMarkersSource} highlightedCode={layerMarkersHighlighted}>
-		<LayerMarkersExample />
-	</ComponentPreview>
 
 	<DocsSection title="Extend to Build">
 		<p>You can extend this to build custom features like:</p>

@@ -25,9 +25,8 @@
 			<DocsCode>MarkerPopup</DocsCode>, standalone popups are not attached to markers and can be
 			controlled programmatically.
 		</p>
+		<ComponentPreview code={popupSource} highlightedCode={popupHighlighted}>
+			<StandalonePopupExample />
+		</ComponentPreview>
 	</DocsSection>
-
-	<ComponentPreview code={popupSource} highlightedCode={popupHighlighted}>
-		<StandalonePopupExample />
-	</ComponentPreview>
 </DocsLayout>

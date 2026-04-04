@@ -30,9 +30,8 @@
 
 	<DocsSection title="Basic Example">
 		<p>Click on clusters to zoom in. Click individual points to see details in a popup.</p>
+		<ComponentPreview code={clusterSource} highlightedCode={clusterHighlighted}>
+			<ClusterExample />
+		</ComponentPreview>
 	</DocsSection>
-
-	<ComponentPreview code={clusterSource} highlightedCode={clusterHighlighted}>
-		<ClusterExample />
-	</ComponentPreview>
 </DocsLayout>

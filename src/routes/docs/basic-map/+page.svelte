@@ -31,23 +31,20 @@
 			<DocsCode>Map</DocsCode>
 			component handles MapLibre GL setup, theming, and provides context for child components.
 		</p>
+		<ComponentPreview code={basicMapSource} highlightedCode={basicMapHighlighted}>
+			<BasicMapExample />
+		</ComponentPreview>
 	</DocsSection>
-
-	<ComponentPreview code={basicMapSource} highlightedCode={basicMapHighlighted}>
-		<BasicMapExample />
-	</ComponentPreview>
 
 	<DocsSection title="Controlled Mode">
 		<p>
 			Monitor the map's viewport state in real-time. This is useful when you need to sync the map
-			state with your application or respond to viewport changes. The example below shows live
-			coordinates, zoom, bearing, and pitch as you interact with the map.
+			state with your application or respond to viewport changes.
 		</p>
+		<ComponentPreview files={controlledMapFiles}>
+			<ControlledMapExample />
+		</ComponentPreview>
 	</DocsSection>
-
-	<ComponentPreview files={controlledMapFiles}>
-		<ControlledMapExample />
-	</ComponentPreview>
 
 	<DocsSection title="Custom Styles">
 		<p>
@@ -57,9 +54,8 @@
 			<DocsLink href="https://openfreemap.org" external>OpenFreeMap</DocsLink>, an open-source
 			project, the data comes from OpenStreetMap.
 		</p>
+		<ComponentPreview files={customStyleFiles}>
+			<CustomStyleExample />
+		</ComponentPreview>
 	</DocsSection>
-
-	<ComponentPreview files={customStyleFiles}>
-		<CustomStyleExample />
-	</ComponentPreview>
 </DocsLayout>
