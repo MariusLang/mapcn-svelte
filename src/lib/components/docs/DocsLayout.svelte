@@ -61,13 +61,13 @@
 </script>
 
 <div class="flex gap-8">
-	<div class="mx-auto max-w-[52rem] min-w-0 flex-1 pt-12 pb-20">
+	<div class="mx-auto flex max-w-[52rem] min-w-0 flex-1 flex-col pt-12 pb-20">
 		<div class="space-y-3">
 			<h1 class="text-foreground text-3xl font-semibold tracking-tight">{title}</h1>
 			<p class="text-muted-foreground leading-relaxed">{description}</p>
 		</div>
 
-		<div class="mt-12 space-y-12">
+		<div class="mt-12 mb-12 space-y-12">
 			{@render children?.()}
 		</div>
 

@@ -202,6 +202,22 @@
 	animation-delay: calc(var(--stagger) * var(--delay));
 }
 
+/* Shiki line numbers */
+.shiki code {
+	counter-reset: line;
+}
+
+.shiki code .line::before {
+	counter-increment: line;
+	content: counter(line);
+	display: inline-block;
+	width: 1.5rem;
+	margin-right: 1.5rem;
+	text-align: right;
+	color: oklch(0.556 0 0);
+	user-select: none;
+}
+
 /* Shiki dual theme support for code blocks */
 html .shiki,
 html .shiki span {
