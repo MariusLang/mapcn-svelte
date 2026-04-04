@@ -17,10 +17,7 @@
 	];
 </script>
 
-<ExampleCard
-	class="aspect-square sm:col-span-2 sm:aspect-video lg:aspect-auto"
-	stagger={4}
->
+<ExampleCard class="aspect-square sm:col-span-2 sm:aspect-video lg:aspect-auto" stagger={4}>
 	<!-- Stats Panel -->
 	<div
 		class="border-border/50 bg-background/95 absolute top-3 left-3 z-10 rounded-lg border p-3 shadow-lg backdrop-blur-md"
