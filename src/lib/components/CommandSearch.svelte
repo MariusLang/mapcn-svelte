@@ -2,7 +2,7 @@
 	import { ArrowDown, ArrowUp, CornerDownLeft, SearchIcon } from "@lucide/svelte";
 	import * as Command from "$lib/registry/ui/command/index.js";
 	import { Kbd } from "$lib/registry/ui/kbd/index.js";
-	import { docsNavigation, siteNavigation } from "$lib/docs-navigation";
+	import { siteNavigation } from "$lib/docs-navigation";
 	import Button from "$lib/registry/ui/button/button.svelte";
 	import { cn } from "$lib/utils";
 
