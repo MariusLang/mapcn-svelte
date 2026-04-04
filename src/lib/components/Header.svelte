@@ -36,7 +36,6 @@
 
 		<div class="ml-auto flex items-center gap-2">
 			<CommandSearch />
-			<Separator orientation="vertical" class="hidden md:block" />
 			<GitHubButton />
 			<ThemeToggle />
 		</div>
