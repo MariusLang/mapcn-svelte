@@ -2,8 +2,8 @@ import { docsExampleLoader } from "$lib/docs-example-loader";
 
 export const load = async () => {
 	const [advancedUsageFiles, customLayerFiles, layerMarkersExample] = await Promise.all([
-		docsExampleLoader.namedFiles(["AdvancedUsageExample", "MapController"]),
-		docsExampleLoader.namedFiles(["CustomLayerExample", "CustomLayerContent"]),
+		docsExampleLoader.namedFiles(["AdvancedUsageExample"]),
+		docsExampleLoader.namedFiles(["CustomLayerExample"]),
 		docsExampleLoader.single("LayerMarkersExample"),
 	]);
 
