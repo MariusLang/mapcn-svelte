@@ -4,7 +4,7 @@
 	import ExampleCard from "$lib/components/home/ExampleCard.svelte";
 </script>
 
-<ExampleCard label="EV Charging" class="aspect-square" delay="delay-700">
+<ExampleCard label="EV Charging" class="aspect-square" stagger={7}>
 	<Map center={[-122.425, 37.777]} zoom={11.5}>
 		<MapMarker longitude={-122.4194} latitude={37.7749}>
 			<MarkerContent>
@@ -19,7 +19,7 @@
 						<span class="size-1.5 rounded-full bg-emerald-500"></span>
 						<span class="text-emerald-500">Available</span>
 					</div>
-					<div class="text-muted-foreground">150 kW - $0.35/kWh</div>
+					<div class="text-background/60 text-[11px]">150 kW - $0.35/kWh</div>
 				</div>
 			</MarkerTooltip>
 		</MapMarker>
@@ -37,7 +37,7 @@
 						<span class="size-1.5 rounded-full bg-emerald-500"></span>
 						<span class="text-emerald-500">2 Available</span>
 					</div>
-					<div class="text-muted-foreground">50 kW - $0.28/kWh</div>
+					<div class="text-background/60 text-[11px]">50 kW - $0.28/kWh</div>
 				</div>
 			</MarkerTooltip>
 		</MapMarker>
@@ -55,7 +55,7 @@
 						<span class="size-1.5 rounded-full bg-amber-500"></span>
 						<span class="text-amber-500">In Use</span>
 					</div>
-					<div class="text-muted-foreground">~15 min remaining</div>
+					<div class="text-background/60 text-[11px]">~15 min remaining</div>
 				</div>
 			</MarkerTooltip>
 		</MapMarker>

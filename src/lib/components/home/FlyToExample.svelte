@@ -12,7 +12,7 @@
 	};
 </script>
 
-<ExampleCard label="Fly To" class="aspect-square" delay="delay-600">
+<ExampleCard label="Fly To" class="aspect-square" stagger={6}>
 	<Map center={destination.startCenter} zoom={0.5} projection={{ type: "globe" }}>
 		<FlyToControls {destination} />
 

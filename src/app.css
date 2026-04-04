@@ -197,6 +197,10 @@
 	animation: scale-in 0.5s ease-out both;
 }
 
+.animate-stagger {
+	animation-delay: calc(var(--stagger, 5) * 100ms);
+}
+
 .delay-100 {
 	animation-delay: 100ms;
 }
