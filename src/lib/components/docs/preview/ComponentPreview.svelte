@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { cn } from "$lib/utils";
 	import CopyButton from "$lib/components/CopyButton.svelte";
+	import { Button } from "$lib/registry/ui/button/index.js";
 	import * as Select from "$lib/registry/ui/select";
 
 	interface CodeFile {
@@ -31,81 +32,74 @@
 				children?: import("svelte").Snippet;
 		  } = $props();
 
-	let activeTab = $state<"preview" | "code">("preview");
+	let codeExpanded = $state(false);
 
-	// Determine which files to use
 	const allFiles = $derived(
 		files ? files : [{ name: "index.svelte", code: code!, highlightedCode: highlightedCode! }]
 	);
 
-	// Use string to satisfy Select component types
 	let selectedFileIndex = $state("0");
 
-	// Get currently selected file
 	let currentFile = $derived(allFiles[Number(selectedFileIndex)] || allFiles[0]);
 </script>
 
-<div class="w-full overflow-hidden rounded-lg border">
-	<div class="bg-muted/30 flex h-12 items-center justify-between border-b px-2">
-		<div class="flex items-center gap-2">
-			<button
-				onclick={() => (activeTab = "preview")}
-				class={cn(
-					"rounded px-2 py-1 text-xs font-medium whitespace-nowrap transition-colors",
-					activeTab === "preview"
-						? "bg-muted text-foreground dark:bg-muted/80"
-						: "text-muted-foreground hover:bg-muted hover:text-foreground dark:hover:bg-muted/80"
-				)}
-			>
-				Preview
-			</button>
+<div class="space-y-4">
+	<!-- Preview -->
+	<div class={cn("h-[420px] w-full overflow-hidden rounded-lg border", className)}>
+		{@render children?.()}
+	</div>
 
-			<button
-				onclick={() => (activeTab = "code")}
-				class={cn(
-					"rounded px-3 py-1 text-xs font-medium whitespace-nowrap transition-colors",
-					activeTab === "code"
-						? "bg-muted text-foreground dark:bg-muted/80"
-						: "text-muted-foreground hover:bg-muted hover:text-foreground dark:hover:bg-muted/80"
-				)}
-			>
-				Code
-			</button>
-		</div>
-
-		<div class="flex items-center gap-2">
-			{#if activeTab === "code" && allFiles.length > 1}
+	<!-- Code block -->
+	<div class="relative w-full overflow-hidden rounded-lg border">
+		{#if allFiles.length > 1}
+			<div class="bg-muted/40 flex h-12 items-center justify-between border-b ps-1.5">
 				<Select.Root type="single" bind:value={selectedFileIndex}>
-					<Select.Trigger class="ms-2 w-auto max-w-40 text-xs sm:max-w-full">
+					<Select.Trigger class="w-auto max-w-52 text-xs sm:max-w-full">
 						<span class="truncate">{currentFile.name}</span>
 					</Select.Trigger>
 					<Select.Content>
-						{#each allFiles as file, i}
-							<Select.Item value={i.toString()} label={file.name}>
-								<span class="">{file.name}</span>
-							</Select.Item>
-						{/each}
+						<Select.Group>
+							{#each allFiles as file, i}
+								<Select.Item value={i.toString()} label={file.name}>
+									<span>{file.name}</span>
+								</Select.Item>
+							{/each}
+						</Select.Group>
 					</Select.Content>
 				</Select.Root>
-			{/if}
-
-			{#if allFiles.length === 1 || activeTab === "code"}
 				<CopyButton command={currentFile.code} />
-			{/if}
-		</div>
-	</div>
-
-	<div class={cn("h-[420px] overflow-hidden", className)}>
-		{#if activeTab === "preview"}
-			<div class="h-full">
-				{@render children?.()}
 			</div>
 		{:else}
-			<div
-				class="bg-muted/40 h-full overflow-auto p-4 text-sm [&_code]:bg-transparent! [&_pre]:bg-transparent!"
-			>
-				{@html currentFile.highlightedCode}
+			<div class="absolute top-2 right-2 z-10">
+				<CopyButton command={currentFile.code} />
 			</div>
 		{/if}
+
+		<div
+			class={cn(
+				"bg-muted/40 overflow-hidden p-4 text-sm transition-[max-height] [&_code]:bg-transparent! [&_pre]:bg-transparent!",
+				codeExpanded ? "max-h-[420px] overflow-auto" : "max-h-44"
+			)}
+		>
+			{@html currentFile.highlightedCode}
+		</div>
+
+		<div
+			class={cn(
+				"absolute inset-x-0 bottom-0 flex w-full items-center justify-center",
+				!codeExpanded && "from-background to-background/0 bg-linear-to-t pt-12 pb-6"
+			)}
+		>
+			{#if !codeExpanded}
+				<Button
+					variant="outline"
+					size="sm"
+					onclick={() => (codeExpanded = true)}
+					class="bg-background hover:bg-muted dark:bg-background dark:hover:bg-muted"
+				>
+					View Code
+				</Button>
+			{/if}
+		</div>
 	</div>
 </div>
