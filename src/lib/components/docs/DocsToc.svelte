@@ -59,7 +59,7 @@
 
 {#if items?.length}
 	<nav aria-label="On this page" class={cn("flex flex-col gap-0.5", className)}>
-		<p class="text-foreground mb-2 text-[13px] font-medium">On This Page</p>
+		<p class="text-muted-foreground mb-2 text-[13px] font-medium">On This Page</p>
 		{#each items as item}
 			{@const isActive = item.slug === activeId}
 			<a
