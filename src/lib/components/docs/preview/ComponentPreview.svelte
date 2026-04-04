@@ -52,9 +52,9 @@
 	<!-- Code block -->
 	<div class="relative w-full overflow-hidden rounded-lg border">
 		{#if allFiles.length > 1}
-			<div class="bg-muted/40 flex h-12 items-center justify-between border-b ps-1.5">
+			<div class="bg-muted/40 flex h-12 items-center justify-between border-b ps-1.5 pe-2">
 				<Select.Root type="single" bind:value={selectedFileIndex}>
-					<Select.Trigger class="w-auto max-w-52 text-xs sm:max-w-full">
+					<Select.Trigger class="w-auto max-w-72 min-w-64 text-xs sm:max-w-full">
 						<span class="truncate">{currentFile.name}</span>
 					</Select.Trigger>
 					<Select.Content>
