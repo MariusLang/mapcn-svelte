@@ -17,7 +17,7 @@
 	});
 </script>
 
-<div class="relative h-[400px] w-full">
+<div class="relative h-[420px] w-full">
 	<Map center={viewport.center} zoom={viewport.zoom}>
 		<ViewportTracker bind:viewport />
 		<div

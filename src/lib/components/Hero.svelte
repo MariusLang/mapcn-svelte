@@ -10,7 +10,7 @@
 <div class="relative">
 	<div class="absolute inset-x-0 -inset-y-10 -z-10 overflow-hidden">
 		<div
-			class="absolute inset-0 opacity-[0.4] dark:opacity-[0.15]"
+			class="absolute inset-0 opacity-[0.16] dark:opacity-[0.12]"
 			style="background-image: radial-gradient(circle, currentColor 1px, transparent 1px); background-size: 24px 24px;"
 		></div>
 		<div class="absolute -top-40 -right-40 size-96 rounded-full bg-emerald-500/10 blur-3xl"></div>
@@ -22,7 +22,8 @@
 
 	<div class="container flex max-w-6xl flex-col items-center gap-4 text-center">
 		<h1
-			class="animate-fade-up max-w-4xl text-4xl font-semibold tracking-tight delay-100 sm:text-5xl md:text-6xl"
+			class="animate-fade-up animate-stagger max-w-4xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"
+			style="--stagger: 1"
 		>
 			<span
 				class="from-foreground via-foreground to-foreground/65 bg-linear-to-b bg-clip-text text-transparent"
@@ -32,14 +33,18 @@
 		</h1>
 
 		<p
-			class="text-muted-foreground animate-fade-up max-w-2xl delay-200 sm:text-lg sm:leading-relaxed md:text-xl md:leading-relaxed"
+			class="text-muted-foreground animate-fade-up animate-stagger max-w-2xl sm:text-lg sm:leading-relaxed md:text-xl md:leading-relaxed"
+			style="--stagger: 2"
 		>
 			Ready to use, customizable map components for Svelte.
 			<br class="hidden sm:block" />
 			Built on MapLibre. Styled with Tailwind.
 		</p>
 
-		<div class="animate-fade-up mt-8 hidden w-full max-w-3xl delay-300 lg:block">
+		<div
+			class="animate-fade-up animate-stagger mt-8 hidden w-full max-w-3xl lg:block"
+			style="--stagger: 3"
+		>
 			<div class="bg-card border-border overflow-hidden rounded-lg border shadow-sm">
 				<div class="border-border/50 flex items-center gap-1.5 border-b px-3 py-2">
 					<span class="size-2.5 rounded-full bg-red-500/40"></span>
@@ -57,7 +62,10 @@
 			</div>
 		</div>
 
-		<div class="animate-fade-up mt-3 flex flex-wrap items-center justify-center gap-3 delay-400">
+		<div
+			class="animate-fade-up animate-stagger mt-3 flex flex-wrap items-center justify-center gap-3"
+			style="--stagger: 4"
+		>
 			<Button size="lg" href="/docs">Get Started</Button>
 			<Button size="lg" variant="outline" href="/docs/basic-map">View Components</Button>
 		</div>

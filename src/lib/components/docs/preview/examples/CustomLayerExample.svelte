@@ -41,7 +41,7 @@
 	};
 </script>
 
-<div class="h-[400px] w-full">
+<div class="h-[420px] w-full">
 	<Map center={[-73.97, 40.78]} zoom={11.8}>
 		<MapControls />
 		<CustomLayerContent {geojsonData} />

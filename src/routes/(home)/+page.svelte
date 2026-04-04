@@ -17,7 +17,7 @@
 			<Hero />
 		</section>
 
-		<section class="container-wide px-6">
+		<section class="animate-fade-in animate-stagger container-wide px-6 pt-4" style="--stagger: 4">
 			<ExamplesGrid />
 		</section>
 	</main>

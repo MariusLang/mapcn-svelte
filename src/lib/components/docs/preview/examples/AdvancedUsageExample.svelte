@@ -3,7 +3,7 @@
 	import MapController from "./MapController.svelte";
 </script>
 
-<div class="relative h-[400px] w-full">
+<div class="relative h-[420px] w-full">
 	<Map center={[-73.9857, 40.7484]} zoom={15}>
 		<MapController />
 	</Map>

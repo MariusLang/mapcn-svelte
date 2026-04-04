@@ -95,14 +95,14 @@
 		</div>
 	</div>
 
-	<div class={cn("h-100 overflow-hidden", className)}>
+	<div class={cn("h-[420px] overflow-hidden", className)}>
 		{#if activeTab === "preview"}
 			<div class="h-full">
 				{@render children?.()}
 			</div>
 		{:else}
 			<div
-				class="bg-muted/20 h-full overflow-auto p-4 text-sm [&_code]:bg-transparent! [&_pre]:bg-transparent!"
+				class="bg-muted/40 h-full overflow-auto p-4 text-sm [&_code]:bg-transparent! [&_pre]:bg-transparent!"
 			>
 				{@html currentFile.highlightedCode}
 			</div>

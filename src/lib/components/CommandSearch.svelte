@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ArrowDown, ArrowUp, CornerDownLeft, SearchIcon } from "@lucide/svelte";
 	import * as Command from "$lib/registry/ui/command/index.js";
-	import { Kbd, KbdGroup } from "$lib/registry/ui/kbd/index.js";
+	import { Kbd } from "$lib/registry/ui/kbd/index.js";
 	import { docsNavigation } from "$lib/docs-navigation";
 	import Button from "$lib/registry/ui/button/button.svelte";
 	import { cn } from "$lib/utils";
@@ -44,10 +44,7 @@
 >
 	<SearchIcon class="size-3.5 shrink-0" />
 	<span>Search...</span>
-	<KbdGroup class="ml-auto">
-		<Kbd>⌘</Kbd>
-		<Kbd>K</Kbd>
-	</KbdGroup>
+	<Kbd class="ml-auto">⌘K</Kbd>
 </Button>
 
 <Command.Dialog
@@ -57,7 +54,7 @@
 >
 	<Command.Input placeholder="Type to search..." />
 	<Command.List>
-		<Command.Empty>No results found.</Command.Empty>
+		<Command.Empty>No results found</Command.Empty>
 		{#each docsNavigation as group}
 			<Command.Group heading={group.title}>
 				{#each group.items as item}

@@ -193,7 +193,7 @@
 								<p class="font-medium">
 									Order {formatDuration(routeData?.duration)} away
 								</p>
-								<p class="text-muted-foreground">
+								<p class="text-background/70">
 									Route {formatDistance(routeData?.distance)}
 								</p>
 							</div>
@@ -205,18 +205,14 @@
 					<MarkerContent>
 						<div class="size-4 rounded-full border-2 border-white bg-emerald-500 shadow-sm"></div>
 					</MarkerContent>
-					<MarkerTooltip>
-						<p class="text-xs font-medium">Origin</p>
-					</MarkerTooltip>
+					<MarkerTooltip>Origin</MarkerTooltip>
 				</MapMarker>
 
 				<MapMarker longitude={dropoff.lng} latitude={dropoff.lat}>
 					<MarkerContent>
 						<div class="size-4 rounded-full border-2 border-white bg-rose-500 shadow-sm"></div>
 					</MarkerContent>
-					<MarkerTooltip>
-						<p class="text-xs font-medium">Destination</p>
-					</MarkerTooltip>
+					<MarkerTooltip>Destination</MarkerTooltip>
 				</MapMarker>
 			</Map>
 		</div>

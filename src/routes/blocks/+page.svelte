@@ -22,7 +22,7 @@
 <div class="relative">
 	<div class="pointer-events-none absolute inset-x-0 -inset-y-10 overflow-hidden">
 		<div
-			class="absolute inset-0 opacity-[0.20] dark:opacity-[0.12]"
+			class="absolute inset-0 opacity-[0.16] dark:opacity-[0.12]"
 			style="background-image: radial-gradient(circle, currentColor 1px, transparent 1px); background-size: 24px 24px;"
 		></div>
 		<div
@@ -33,7 +33,8 @@
 		class="container mx-auto flex w-full max-w-6xl flex-col items-start gap-4 py-16 text-left md:py-24"
 	>
 		<h1
-			class="animate-fade-up max-w-4xl text-4xl font-semibold tracking-tight delay-100 sm:text-5xl md:text-5xl"
+			class="animate-fade-up animate-stagger max-w-4xl text-4xl font-bold tracking-tight sm:text-5xl md:text-5xl"
+			style="--stagger: 1"
 		>
 			<span
 				class="from-foreground via-foreground to-foreground/65 bg-gradient-to-b bg-clip-text text-transparent"
@@ -42,12 +43,16 @@
 			</span>
 		</h1>
 		<p
-			class="text-muted-foreground animate-fade-up max-w-2xl leading-relaxed delay-200 sm:text-lg md:text-xl"
+			class="text-muted-foreground animate-fade-up animate-stagger max-w-2xl leading-relaxed sm:text-lg md:text-xl"
+			style="--stagger: 2"
 		>
 			Pre-built, ready-to-use map blocks. Browse, preview, and copy them into your app with one
 			command.
 		</p>
-		<div class="animate-fade-up mt-3 flex flex-wrap items-center gap-3 delay-300">
+		<div
+			class="animate-fade-up animate-stagger mt-3 flex flex-wrap items-center gap-3"
+			style="--stagger: 3"
+		>
 			<Button href="#blocks">Browse Blocks</Button>
 			<Button variant="outline" href="/docs">View Documentation</Button>
 		</div>
@@ -55,7 +60,11 @@
 </div>
 
 <!-- Blocks list -->
-<section class="animate-fade-up container mb-20 scroll-mt-20 space-y-20 delay-400" id="blocks">
+<section
+	class="animate-fade-up animate-stagger container mb-20 scroll-mt-20 space-y-20"
+	id="blocks"
+	style="--stagger: 4"
+>
 	{#each data.blocksWithData as { block, tree, highlightedFiles }}
 		<BlockDisplay {block} {tree} {highlightedFiles} />
 	{/each}

@@ -17,7 +17,7 @@
 	);
 </script>
 
-<div class="relative h-[400px] w-full">
+<div class="relative h-[420px] w-full">
 	<Map center={[-0.1276, 51.5074]} zoom={15} styles={stylesConfig}>
 		<PitchController {style} />
 		<div class="absolute top-2 right-2 z-10">

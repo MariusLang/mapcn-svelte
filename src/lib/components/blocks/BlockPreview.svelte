@@ -1,8 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 	import Check from "@lucide/svelte/icons/check";
-	import Code from "@lucide/svelte/icons/code";
-	import Eye from "@lucide/svelte/icons/eye";
 	import Fullscreen from "@lucide/svelte/icons/fullscreen";
 	import Terminal from "@lucide/svelte/icons/terminal";
 	import * as Tabs from "$lib/registry/ui/tabs/index.js";
@@ -42,14 +40,8 @@
 	<Tabs.Tabs value="preview" class="w-full">
 		<div class="flex items-center justify-between">
 			<Tabs.TabsList class="h-8!">
-				<Tabs.TabsTrigger value="preview" class="text-xs">
-					<Eye class="size-3.5" />
-					Preview
-				</Tabs.TabsTrigger>
-				<Tabs.TabsTrigger value="code" class="text-xs">
-					<Code class="size-3.5" />
-					Code
-				</Tabs.TabsTrigger>
+				<Tabs.TabsTrigger value="preview" class="text-xs">Preview</Tabs.TabsTrigger>
+				<Tabs.TabsTrigger value="code" class="text-xs">Code</Tabs.TabsTrigger>
 			</Tabs.TabsList>
 
 			<div class="hidden items-center gap-3 md:flex">
@@ -74,11 +66,11 @@
 			</div>
 		</div>
 
-		<Tabs.TabsContent value="preview" class="mt-2">
+		<Tabs.TabsContent value="preview" class="mt-3">
 			{@render preview()}
 		</Tabs.TabsContent>
 
-		<Tabs.TabsContent value="code" class="mt-2">
+		<Tabs.TabsContent value="code" class="mt-3">
 			<BlockViewerCode {tree} {highlightedFiles} />
 		</Tabs.TabsContent>
 	</Tabs.Tabs>

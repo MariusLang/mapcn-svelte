@@ -58,28 +58,20 @@
 </script>
 
 {#if items?.length}
-	<div class={cn("flex flex-col gap-1", className)}>
+	<nav aria-label="On this page" class={cn("flex flex-col gap-0.5", className)}>
 		<p class="text-foreground mb-2 text-[13px] font-medium">On This Page</p>
-		<div class="relative">
-			<div class="bg-border absolute top-1 bottom-1 left-0 w-px"></div>
-			<div class="flex flex-col gap-1">
-				{#each items as item}
-					{@const isActive = item.slug === activeId}
-					<a
-						href={`#${item.slug}`}
-						onclick={(e) => scrollTo(item.slug, e)}
-						class={cn(
-							"relative py-1 pl-3 text-[13px] no-underline transition-colors",
-							isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-						)}
-					>
-						{#if isActive}
-							<div class="bg-foreground absolute top-1 bottom-1 left-0 w-px rounded-full"></div>
-						{/if}
-						{item.title}
-					</a>
-				{/each}
-			</div>
-		</div>
-	</div>
+		{#each items as item}
+			{@const isActive = item.slug === activeId}
+			<a
+				href={`#${item.slug}`}
+				onclick={(e) => scrollTo(item.slug, e)}
+				class={cn(
+					"py-1 text-[13px] no-underline transition-colors",
+					isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+				)}
+			>
+				{item.title}
+			</a>
+		{/each}
+	</nav>
 {/if}

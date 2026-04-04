@@ -153,7 +153,6 @@
 	@apply mx-auto max-w-[1640px] px-6;
 }
 
-/*  animations for the home page */
 @keyframes fade-up {
 	from {
 		opacity: 0;
@@ -198,35 +197,9 @@
 }
 
 .animate-stagger {
-	animation-delay: calc(var(--stagger, 5) * 100ms);
-}
-
-.delay-100 {
-	animation-delay: 100ms;
-}
-.delay-200 {
-	animation-delay: 200ms;
-}
-.delay-300 {
-	animation-delay: 300ms;
-}
-.delay-400 {
-	animation-delay: 400ms;
-}
-.delay-500 {
-	animation-delay: 500ms;
-}
-.delay-600 {
-	animation-delay: 600ms;
-}
-.delay-700 {
-	animation-delay: 700ms;
-}
-.delay-800 {
-	animation-delay: 800ms;
-}
-.delay-900 {
-	animation-delay: 900ms;
+	--stagger: 0;
+	--delay: 100ms;
+	animation-delay: calc(var(--stagger) * var(--delay));
 }
 
 /* Shiki dual theme support for code blocks */

@@ -32,7 +32,6 @@
 			<CommandSearch />
 			<Separator orientation="vertical" class="ml-2 hidden md:block" />
 			<GitHubButton />
-			<Separator orientation="vertical" />
 			<ThemeToggle />
 		</div>
 	</nav>

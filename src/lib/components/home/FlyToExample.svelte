@@ -26,7 +26,7 @@
 			<MarkerTooltip>
 				<div class="text-center">
 					<div class="font-medium">{destination.name}</div>
-					<div class="text-muted-foreground text-[10px]">
+					<div class="text-background/70 text-[10px]">
 						{destination.description}
 					</div>
 				</div>

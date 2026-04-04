@@ -133,7 +133,7 @@
 	});
 </script>
 
-<div class="h-[400px] w-full">
+<div class="h-[420px] w-full">
 	<Map center={[-73.98, 40.75]} zoom={11}>
 		<!-- Call setup function - this code runs in Map's context where map context is available -->
 		{setupMapLayers()}

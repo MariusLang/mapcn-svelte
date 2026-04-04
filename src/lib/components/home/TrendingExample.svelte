@@ -20,12 +20,10 @@
 				</div>
 			</MarkerContent>
 			<MarkerTooltip>
-				<div class="text-center">
-					<div class="font-medium">Times Square</div>
-					<div class="text-muted-foreground flex items-center justify-center gap-1">
-						<TrendingUp class="size-3 text-green-500" />
-						<span class="text-xs text-green-500">2.4k visitors</span>
-					</div>
+				<p class="font-medium">Times Square</p>
+				<div class="flex items-center gap-1">
+					<TrendingUp class="size-3 text-green-500" />
+					<span class="text-xs text-green-500">2.4k visitors</span>
 				</div>
 			</MarkerTooltip>
 		</MapMarker>
@@ -41,12 +39,10 @@
 				</div>
 			</MarkerContent>
 			<MarkerTooltip>
-				<div class="text-center">
-					<div class="font-medium">Central Park</div>
-					<div class="text-muted-foreground flex items-center justify-center gap-1">
-						<TrendingUp class="size-3 text-green-500" />
-						<span class="text-xs text-green-500">1.8k visitors</span>
-					</div>
+				<p class="font-medium">Central Park</p>
+				<div class="flex items-center gap-1">
+					<TrendingUp class="size-3 text-green-500" />
+					<span class="text-xs text-green-500">1.8k visitors</span>
 				</div>
 			</MarkerTooltip>
 		</MapMarker>
@@ -62,12 +58,10 @@
 				</div>
 			</MarkerContent>
 			<MarkerTooltip>
-				<div class="text-center">
-					<div class="font-medium">Statue of Liberty</div>
-					<div class="text-muted-foreground flex items-center justify-center gap-1">
-						<TrendingUp class="size-3 text-green-500" />
-						<span class="text-xs text-green-500">890 visitors</span>
-					</div>
+				<p class="font-medium">Statue of Liberty</p>
+				<div class="flex items-center gap-1">
+					<TrendingUp class="size-3 text-green-500" />
+					<span class="text-xs text-green-500">890 visitors</span>
 				</div>
 			</MarkerTooltip>
 		</MapMarker>

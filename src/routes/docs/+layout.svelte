@@ -6,11 +6,14 @@
 	let { children } = $props();
 </script>
 
-<SidebarProvider style="--sidebar-width: 13rem; --sidebar-width-mobile: 24rem;">
+<SidebarProvider
+	class="container min-h-min px-0"
+	style="--sidebar-width: 13rem; --sidebar-width-mobile: 24rem;"
+>
 	<div class="flex min-h-screen w-full flex-col">
 		<Header />
 
-		<div class="container flex flex-1">
+		<div class="flex flex-1">
 			<DocSidebar />
 			<main class="w-full flex-1">
 				{@render children()}
