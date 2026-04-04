@@ -44,7 +44,7 @@
 >
 	<SearchIcon class="size-3.5 shrink-0" />
 	<span>Search...</span>
-	<Kbd class="ml-auto">⌘K</Kbd>
+	<Kbd class="ml-auto bg-transparent">⌘K</Kbd>
 </Button>
 
 <Command.Dialog
