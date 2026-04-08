@@ -49,6 +49,11 @@
 		zoom?: number;
 		options?: Omit<MapLibreGL.MapOptions, "container" | "style">;
 		/**
+		 * Bindable reference to the underlying MapLibre map instance.
+		 * Useful for calling map methods imperatively from the parent.
+		 */
+		map?: MapLibreGL.Map | null;
+		/**
 		 * Controlled viewport. When provided with onViewportChange,
 		 * the map becomes controlled and viewport is driven by this prop.
 		 */
@@ -59,6 +64,11 @@
 		 * to enable controlled mode where the map viewport is driven by your state.
 		 */
 		onviewportchange?: (viewport: MapViewport) => void;
+		/**
+		 * Callback fired after each style load completes (initial load and subsequent style changes).
+		 * Runs after any viewport restoration, so it's safe to call map methods here.
+		 */
+		onstyleloaded?: () => void;
 	}
 
 	const defaultStyles = {
@@ -74,12 +84,13 @@
 		center = [13.405, 52.52],
 		zoom = 0,
 		options = {},
+		map = $bindable(null),
 		viewport,
 		onviewportchange,
+		onstyleloaded,
 	}: Props = $props();
 
 	let mapContainer: HTMLDivElement;
-	let map: MapLibreGL.Map | null = $state(null);
 	let isMounted = $state(false);
 	let isLoaded = $state(false);
 	let isStyleLoaded = $state(false);
@@ -202,6 +213,7 @@
 				if (projection) {
 					mapInstance.setProjection(projection);
 				}
+				onstyleloaded?.();
 			}, 100);
 		};
 

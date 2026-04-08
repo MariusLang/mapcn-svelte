@@ -71,7 +71,7 @@
 	</DocsSection>
 
 	<DocsNote>
-		<strong>Note:</strong> The map uses free CARTO basemap tiles by default. No API key required. Tiles
-		automatically switch between light and dark themes.
+		<strong>Note:</strong> The map uses free CARTO basemap tiles by default. Tiles automatically switch
+		between light and dark themes.
 	</DocsNote>
 </DocsLayout>

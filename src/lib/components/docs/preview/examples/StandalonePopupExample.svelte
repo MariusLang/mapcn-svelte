@@ -5,7 +5,7 @@
 	let showPopup = $state(true);
 </script>
 
-<div class="relative h-[400px] w-full">
+<div class="relative h-[420px] w-full">
 	<Map center={[-74.006, 40.7128]} zoom={13}>
 		{#if showPopup}
 			<MapPopup

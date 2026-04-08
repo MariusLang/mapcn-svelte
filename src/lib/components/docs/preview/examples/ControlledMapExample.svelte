@@ -1,13 +1,6 @@
 <script lang="ts">
 	import { Map } from "$lib/components/ui/map";
-	import ViewportTracker from "./ControlledMapViewportTracker.svelte";
-
-	interface MapViewport {
-		center: [number, number];
-		zoom: number;
-		bearing: number;
-		pitch: number;
-	}
+	import type { MapViewport } from "$lib/components/ui/map";
 
 	let viewport = $state<MapViewport>({
 		center: [-74.006, 40.7128],
@@ -17,9 +10,8 @@
 	});
 </script>
 
-<div class="relative h-[400px] w-full">
-	<Map center={viewport.center} zoom={viewport.zoom}>
-		<ViewportTracker bind:viewport />
+<div class="relative h-[420px] w-full">
+	<Map center={viewport.center} zoom={viewport.zoom} onviewportchange={(v) => (viewport = v)}>
 		<div
 			role="status"
 			aria-live="polite"

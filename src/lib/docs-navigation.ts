@@ -39,6 +39,7 @@ export const docsNavigation: NavGroup[] = [
 export const fullNavItems: NavItem[] = docsNavigation.flatMap((group) => group.items);
 
 export const mainNavItems: NavItem[] = [
+	{ title: "Home", href: "/", icon: CornerDownRight },
 	{ title: "Docs", href: "/docs", icon: CornerDownRight },
 	{ title: "Components", href: "/docs/basic-map", icon: CornerDownRight },
 	{ title: "Blocks", href: "/blocks", icon: CornerDownRight },

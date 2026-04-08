@@ -153,7 +153,6 @@
 	@apply mx-auto max-w-[1640px] px-6;
 }
 
-/*  animations for the home page */
 @keyframes fade-up {
 	from {
 		opacity: 0;
@@ -197,32 +196,26 @@
 	animation: scale-in 0.5s ease-out both;
 }
 
-.delay-100 {
-	animation-delay: 100ms;
+.animate-stagger {
+	--stagger: 0;
+	--delay: 100ms;
+	animation-delay: calc(var(--stagger) * var(--delay));
 }
-.delay-200 {
-	animation-delay: 200ms;
+
+/* Shiki line numbers */
+.shiki code {
+	counter-reset: line;
 }
-.delay-300 {
-	animation-delay: 300ms;
-}
-.delay-400 {
-	animation-delay: 400ms;
-}
-.delay-500 {
-	animation-delay: 500ms;
-}
-.delay-600 {
-	animation-delay: 600ms;
-}
-.delay-700 {
-	animation-delay: 700ms;
-}
-.delay-800 {
-	animation-delay: 800ms;
-}
-.delay-900 {
-	animation-delay: 900ms;
+
+.shiki code .line::before {
+	counter-increment: line;
+	content: counter(line);
+	display: inline-block;
+	width: 1.5rem;
+	margin-right: 1.5rem;
+	text-align: right;
+	color: oklch(0.556 0 0);
+	user-select: none;
 }
 
 /* Shiki dual theme support for code blocks */

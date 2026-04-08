@@ -16,23 +16,27 @@
 	const { class: className }: Props = $props();
 </script>
 
-<header class={cn("bg-background sticky top-0 z-50 h-14 w-full", className)}>
-	<nav class="container flex size-full items-center">
+<header
+	class={cn(
+		"bg-background/85 supports-backdrop-filter:bg-background/70 sticky top-0 z-50 h-14 w-full backdrop-blur",
+		className
+	)}
+>
+	<nav class="container flex size-full items-center gap-2 **:data-[slot=separator]:h-4!">
 		<MobileNav />
-		<Logo class="mr-3 hidden shrink-0 lg:flex" />
-		<nav class="hidden items-center lg:flex">
+		<Logo class="hidden shrink-0 lg:flex" />
+		<Separator orientation="vertical" class="hidden lg:block" />
+		<nav class="hidden items-center gap-0.5 lg:flex">
 			{#each mainNavItems as item}
-				<Button variant="ghost" size="sm" href={item.href}>
+				<Button variant="ghost" size="sm" href={item.href} class="px-2.5">
 					{item.title}
 				</Button>
 			{/each}
 		</nav>
 
-		<div class="ml-auto flex h-4.5 items-center gap-2">
+		<div class="ml-auto flex items-center gap-2">
 			<CommandSearch />
-			<Separator orientation="vertical" class="ml-2 hidden md:block" />
 			<GitHubButton />
-			<Separator orientation="vertical" />
 			<ThemeToggle />
 		</div>
 	</nav>

@@ -34,11 +34,10 @@
 
 	<DocsSection title="Basic Route">
 		<p>Draw a route with numbered stop markers along the path.</p>
+		<ComponentPreview code={routeSource} highlightedCode={routeHighlighted}>
+			<RouteExample />
+		</ComponentPreview>
 	</DocsSection>
-
-	<ComponentPreview code={routeSource} highlightedCode={routeHighlighted}>
-		<RouteExample />
-	</ComponentPreview>
 
 	<DocsSection title="Route Planning">
 		<p>
@@ -47,9 +46,8 @@
 				OSRM API
 			</DocsLink>. Click on a route or use the buttons to switch.
 		</p>
+		<ComponentPreview code={osrmRouteSource} highlightedCode={osrmRouteHighlighted} class="h-125">
+			<OsrmRouteExample />
+		</ComponentPreview>
 	</DocsSection>
-
-	<ComponentPreview code={osrmRouteSource} highlightedCode={osrmRouteHighlighted} class="h-125">
-		<OsrmRouteExample />
-	</ComponentPreview>
 </DocsLayout>

@@ -4,19 +4,19 @@
 	interface Props {
 		label?: string;
 		class?: string;
-		delay?: string;
+		stagger?: number;
 		children?: import("svelte").Snippet;
 	}
 
-	const { label, class: className, delay = "delay-500", children }: Props = $props();
+	const { label, class: className, stagger = 5, children }: Props = $props();
 </script>
 
 <div
 	class={cn(
-		"bg-card border-border/50 animate-scale-in relative overflow-hidden rounded-xl border shadow-sm",
-		delay,
+		"bg-card border-border/50 animate-scale-in animate-stagger relative overflow-hidden rounded-xl border shadow-sm",
 		className
 	)}
+	style="--stagger: {stagger}"
 >
 	{#if label}
 		<div

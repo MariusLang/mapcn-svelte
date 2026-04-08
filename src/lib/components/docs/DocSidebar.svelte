@@ -10,12 +10,12 @@
 
 <Sidebar.Root
 	collapsible="none"
-	class="sticky top-16 z-30 hidden h-[calc(100svh-4rem)] overscroll-none bg-transparent lg:flex"
+	class="sticky top-14 z-30 hidden h-[calc(100svh-3.5rem)] overscroll-none bg-transparent lg:flex"
 >
 	<Sidebar.Content class="no-scrollbar overflow-x-hidden pt-6">
 		{#each navigation as group}
 			<Sidebar.Group>
-				<Sidebar.GroupLabel class="text-foreground">
+				<Sidebar.GroupLabel>
 					{group.title}
 				</Sidebar.GroupLabel>
 				<Sidebar.GroupContent>
@@ -24,7 +24,7 @@
 							<Sidebar.MenuItem>
 								<Sidebar.MenuButton
 									isActive={pathname === item.href}
-									class="text-muted-foreground font-medium"
+									class="font-medium"
 									onclick={() => {
 										goto(item.href);
 									}}

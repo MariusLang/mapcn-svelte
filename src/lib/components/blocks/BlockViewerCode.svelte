@@ -57,10 +57,10 @@
 
 	<!-- Code panel -->
 	<div class="flex min-w-0 flex-1 flex-col">
-		<div class="flex h-12 shrink-0 items-center gap-2 border-b px-4 text-sm">
+		<div class="bg-muted/40 flex h-12 shrink-0 items-center gap-2 border-b px-4 text-sm">
 			<span class="text-muted-foreground truncate">{currentFile?.target ?? ""}</span>
 			<div class="ml-auto">
-				<Button variant="ghost" size="icon" class="size-7" onclick={copyCode}>
+				<Button variant="ghost" size="icon-sm" onclick={copyCode}>
 					{#if copied}
 						<Check class="size-4" />
 					{:else}
@@ -72,7 +72,7 @@
 		{#if currentFile}
 			{#key currentFile.path}
 				<div
-					class="flex-1 overflow-y-auto p-4 text-sm [&_code]:bg-transparent! [&_pre]:bg-transparent!"
+					class="bg-muted/40 flex-1 overflow-y-auto p-4 text-sm [&_code]:bg-transparent! [&_pre]:bg-transparent!"
 				>
 					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 					{@html currentFile.highlightedContent}

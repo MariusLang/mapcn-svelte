@@ -12,7 +12,7 @@
 	};
 </script>
 
-<ExampleCard label="Fly To" class="aspect-square" delay="delay-600">
+<ExampleCard label="Fly To" class="aspect-square" stagger={6}>
 	<Map center={destination.startCenter} zoom={0.5} projection={{ type: "globe" }}>
 		<FlyToControls {destination} />
 
@@ -26,7 +26,7 @@
 			<MarkerTooltip>
 				<div class="text-center">
 					<div class="font-medium">{destination.name}</div>
-					<div class="text-muted-foreground text-[10px]">
+					<div class="text-background/70 text-[10px]">
 						{destination.description}
 					</div>
 				</div>

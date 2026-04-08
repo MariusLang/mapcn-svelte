@@ -27,7 +27,7 @@
 	const end = trailCoordinates[trailCoordinates.length - 1];
 </script>
 
-<ExampleCard label="" class="aspect-square" delay="delay-500">
+<ExampleCard class="aspect-square" stagger={5}>
 	<div
 		class="bg-background/95 border-border/50 absolute top-3 left-3 z-10 rounded-lg border p-3 shadow-lg backdrop-blur-md"
 	>

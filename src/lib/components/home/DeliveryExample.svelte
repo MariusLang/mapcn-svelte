@@ -39,7 +39,7 @@
 <ExampleCard
 	label="Delivery"
 	class="aspect-square sm:col-span-2 sm:aspect-video lg:aspect-auto"
-	delay="delay-900"
+	stagger={9}
 >
 	<Map center={[-0.105, 51.511]} zoom={12.4}>
 		{#if route.length > 0}

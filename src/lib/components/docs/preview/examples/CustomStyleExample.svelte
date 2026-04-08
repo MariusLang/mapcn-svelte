@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Map } from "$lib/components/ui/map";
-	import PitchController from "./CustomStylePitchController.svelte";
+	import MapLibreGL from "maplibre-gl";
 
 	const styles = {
 		default: undefined,
@@ -15,11 +15,22 @@
 	let stylesConfig = $derived(
 		selectedStyle ? { light: selectedStyle, dark: selectedStyle } : undefined
 	);
+
+	let mapInstance = $state<MapLibreGL.Map | null>(null);
+
+	function handleStyleLoaded() {
+		mapInstance?.easeTo({ pitch: style === "openstreetmap3d" ? 60 : 0, duration: 500 });
+	}
 </script>
 
-<div class="relative h-[400px] w-full">
-	<Map center={[-0.1276, 51.5074]} zoom={15} styles={stylesConfig}>
-		<PitchController {style} />
+<div class="relative h-[420px] w-full">
+	<Map
+		center={[-0.1276, 51.5074]}
+		zoom={15}
+		styles={stylesConfig}
+		bind:map={mapInstance}
+		onstyleloaded={handleStyleLoaded}
+	>
 		<div class="absolute top-2 right-2 z-10">
 			<select
 				bind:value={style}

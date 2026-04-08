@@ -20,15 +20,15 @@
 	});
 </script>
 
-<div class="w-full overflow-hidden rounded-lg border">
+<div class="relative w-full overflow-hidden rounded-lg border">
 	{#if showCopyButton}
-		<div class="bg-muted/30 flex h-10 items-center justify-end border-b px-2">
+		<div class="absolute top-2 right-2 z-10">
 			<CopyButton command={code} />
 		</div>
 	{/if}
 
 	<div
-		class="bg-muted/20 overflow-auto p-4 text-sm [&_code]:bg-transparent! [&_pre]:bg-transparent!"
+		class="bg-muted/40 overflow-auto p-4 text-sm [&_code]:bg-transparent! [&_pre]:bg-transparent!"
 	>
 		{#if highlightedCode}
 			{@html highlightedCode}

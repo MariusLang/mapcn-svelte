@@ -12,7 +12,7 @@
 	}
 </script>
 
-<div class="h-100 w-full">
+<div class="h-[420px] w-full">
 	<Map center={[-73.98, 40.75]} zoom={12}>
 		<MapMarker
 			longitude={markerPosition.lng}

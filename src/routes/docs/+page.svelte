@@ -49,7 +49,7 @@
 </svelte:head>
 <DocsLayout
 	title="Introduction"
-	description="Beautiful, accessible map components."
+	description="Copy-paste map components for Svelte."
 	pathname="/docs"
 >
 	<DocsSection>
@@ -65,7 +65,7 @@
 		</p>
 	</DocsSection>
 
-	<DocsSection title="Why mapcn-svelte?">
+	<DocsSection title="Philosophy">
 		<p>
 			There&apos;s no proper copy-paste, easy-to-use map integration for Svelte. Most solutions
 			require complex configurations, API keys, or heavy wrapper libraries. mapcn solves this:
@@ -94,24 +94,6 @@
 		</ul>
 	</DocsSection>
 
-	<DocsSection title="Why MapLibre Directly?">
-		<p>
-			mapcn-svelte uses
-			<DocsLink href="https://maplibre.org" external>MapLibre</DocsLink>
-			directly instead of wrapper libraries like
-			<DocsLink href="https://github.com/MIERUNE/svelte-maplibre-gl" external
-				>svelte-maplibre-gl</DocsLink
-			>
-			. This keeps components close to the underlying API — when you copy a mapcn-svelte component, you
-			fully own the map instance without extra framework dependencies.
-		</p>
-		<p>
-			UI elements like markers, popups, and tooltips are rendered via Svelte portals, giving you
-			complete styling freedom. You can drop down to raw MapLibre APIs anytime without
-			&quot;escaping&quot; a wrapper.
-		</p>
-	</DocsSection>
-
 	<DocsSection title="Any Map Style">
 		<p>
 			mapcn-svelte works with any
@@ -122,16 +104,16 @@
 		</p>
 		<ul>
 			<li>
-				<DocsLink href="https://www.maptiler.com" external>MapTiler</DocsLink>
-				- Beautiful vector tiles with extensive customization options
+				<DocsLink href="https://www.openstreetmap.org" external>OpenStreetMap</DocsLink>
+				- Community-driven, open-source map data
 			</li>
 			<li>
 				<DocsLink href="https://carto.com/basemaps" external>Carto</DocsLink>
 				- Clean, minimal basemaps perfect for data visualization
 			</li>
 			<li>
-				<DocsLink href="https://www.openstreetmap.org" external>OpenStreetMap</DocsLink>
-				- Community-driven, open-source map data
+				<DocsLink href="https://www.maptiler.com" external>MapTiler</DocsLink>
+				- Beautiful vector tiles with extensive customization options
 			</li>
 			<li>
 				<DocsLink href="https://stadiamaps.com" external>Stadia Maps</DocsLink>

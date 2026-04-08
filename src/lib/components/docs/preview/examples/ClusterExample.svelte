@@ -16,7 +16,7 @@
 	} | null = $state(null);
 </script>
 
-<div class="h-100 w-full">
+<div class="h-[420px] w-full">
 	<Map center={[-103.59, 40.66]} zoom={3.4}>
 		<MapClusterLayer
 			data="https://maplibre.org/maplibre-gl-js/docs/assets/earthquakes.geojson"

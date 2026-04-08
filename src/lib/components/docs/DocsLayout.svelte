@@ -61,18 +61,18 @@
 </script>
 
 <div class="flex gap-8">
-	<div class="mx-auto max-w-3xl min-w-0 flex-1 pt-12 pb-20">
+	<div class="mx-auto flex max-w-[52rem] min-w-0 flex-1 flex-col pt-10 pb-20 lg:px-4">
 		<div class="space-y-3">
 			<h1 class="text-foreground text-3xl font-semibold tracking-tight">{title}</h1>
 			<p class="text-muted-foreground leading-relaxed">{description}</p>
 		</div>
 
-		<div class="mt-12 space-y-12">
+		<div class="mt-12 mb-12 space-y-12">
 			{@render children?.()}
 		</div>
 
 		{#if neighbors.previous || neighbors.next}
-			<div class="mt-16 flex items-center justify-between gap-4">
+			<div class="mt-auto flex items-center justify-between gap-4">
 				{#if neighbors.previous}
 					<Button
 						variant="ghost"
@@ -97,9 +97,9 @@
 		{/if}
 	</div>
 
-	<aside class="hidden w-44 shrink-0 xl:block">
-		<nav class="sticky top-24">
+	<aside class="hidden w-42 shrink-0 xl:block">
+		<div class="sticky top-24 max-h-[calc(100svh-7rem)] overflow-y-auto pr-1">
 			<DocsToc items={toc ?? registeredToc} />
-		</nav>
+		</div>
 	</aside>
 </div>
