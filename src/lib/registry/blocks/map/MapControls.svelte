@@ -134,7 +134,7 @@
 					onclick={handleZoomIn}
 					aria-label="Zoom in"
 					type="button"
-					class="hover:bg-accent dark:hover:bg-accent/40 flex size-8 items-center justify-center transition-colors"
+					class="flex size-8 items-center justify-center transition-all first:rounded-t-md last:rounded-b-md hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
 				>
 					<Plus class="size-4" />
 				</button>
@@ -142,7 +142,7 @@
 					onclick={handleZoomOut}
 					aria-label="Zoom out"
 					type="button"
-					class="hover:bg-accent dark:hover:bg-accent/40 flex size-8 items-center justify-center transition-colors"
+					class="flex size-8 items-center justify-center transition-all first:rounded-t-md last:rounded-b-md hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
 				>
 					<Minus class="size-4" />
 				</button>
@@ -182,11 +182,8 @@
 					onclick={handleLocate}
 					aria-label="Find my location"
 					type="button"
-					class={cn(
-						"hover:bg-accent dark:hover:bg-accent/40 flex size-8 items-center justify-center transition-colors",
-						waitingForLocation && "pointer-events-none cursor-not-allowed opacity-50"
-					)}
-					disabled={waitingForLocation}
+					class="flex size-8 items-center justify-center transition-all first:rounded-t-md last:rounded-b-md hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
+				disabled={waitingForLocation}
 				>
 					{#if waitingForLocation}
 						<Loader2 class="size-4 animate-spin" />
@@ -205,7 +202,7 @@
 					onclick={handleFullscreen}
 					aria-label="Toggle fullscreen"
 					type="button"
-					class="hover:bg-accent dark:hover:bg-accent/40 flex size-8 items-center justify-center transition-colors"
+					class="flex size-8 items-center justify-center transition-all first:rounded-t-md last:rounded-b-md hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
 				>
 					<Maximize class="size-4" />
 				</button>

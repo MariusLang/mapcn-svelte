@@ -28,7 +28,7 @@
 				y="users"
 				axis={false}
 				grid={false}
-				tooltip={false}
+				tooltipContext={false}
 				highlight={false}
 				rule={false}
 				points={false}
@@ -42,15 +42,15 @@
 					},
 				}}
 			>
-				{#snippet marks({ getAreaProps, visibleSeries })}
+				{#snippet marks({ context })}
 					<defs>
 						<linearGradient id="sparkline-gradient" x1="0" y1="0" x2="0" y2="1">
 							<stop offset="0%" stop-color="var(--color-blue-500)" stop-opacity="0.4" />
 							<stop offset="100%" stop-color="var(--color-blue-500)" stop-opacity="0" />
 						</linearGradient>
 					</defs>
-					{#each visibleSeries as s, i (s.key)}
-						<Area {...getAreaProps(s, i)} fill="url(#sparkline-gradient)" fillOpacity={1} />
+					{#each context.series.visibleSeries as s (s.key)}
+						<Area seriesKey={s.key} fill="url(#sparkline-gradient)" fillOpacity={1} line={{ stroke: "var(--color-blue-500)", "stroke-width": 1.5 }} />
 					{/each}
 				{/snippet}
 			</AreaChart>
@@ -79,7 +79,7 @@
 					c="name"
 					innerRadius={32}
 					outerRadius={52}
-					tooltip={false}
+					tooltipContext={false}
 					legend={false}
 					cRange={deviceCategoryData.map((d) => d.fill)}
 					props={{ arc: { stroke: "none" } }}
