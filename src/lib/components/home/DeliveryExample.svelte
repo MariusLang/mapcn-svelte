@@ -36,10 +36,7 @@
 	});
 </script>
 
-<ExampleCard
-	class="aspect-square sm:col-span-2 sm:aspect-video lg:aspect-auto"
-	stagger={9}
->
+<ExampleCard class="aspect-square sm:col-span-2 sm:aspect-video lg:aspect-auto" stagger={9}>
 	<Map center={[-0.105, 51.511]} zoom={12.4}>
 		{#if route.length > 0}
 			<MapRoute coordinates={route} width={4} color="#4285F4" />

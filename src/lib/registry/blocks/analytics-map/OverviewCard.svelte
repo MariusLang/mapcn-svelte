@@ -50,7 +50,12 @@
 						</linearGradient>
 					</defs>
 					{#each context.series.visibleSeries as s (s.key)}
-						<Area seriesKey={s.key} fill="url(#sparkline-gradient)" fillOpacity={1} line={{ stroke: "var(--color-blue-500)", "stroke-width": 1.5 }} />
+						<Area
+							seriesKey={s.key}
+							fill="url(#sparkline-gradient)"
+							fillOpacity={1}
+							line={{ stroke: "var(--color-blue-500)", "stroke-width": 1.5 }}
+						/>
 					{/each}
 				{/snippet}
 			</AreaChart>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ExpressionSpecification } from "maplibre-gl";
+	import { SvelteSet } from "svelte/reactivity";
 	import {
 		Map,
 		MapArc,
@@ -89,7 +90,7 @@
 
 	const endpoints = $derived.by(() => {
 		const points: { name: string; coords: [number, number] }[] = [];
-		const seen = new Set<string>();
+		const seen = new SvelteSet<string>();
 		for (const lane of lanes) {
 			if (!seen.has(lane.origin)) {
 				seen.add(lane.origin);

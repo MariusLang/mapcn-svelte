@@ -92,7 +92,7 @@
 		from: [number, number],
 		to: [number, number],
 		curvature: number,
-		samples: number,
+		samples: number
 	): [number, number][] {
 		const [x0, y0] = from;
 		const [x2, y2] = to;
@@ -124,7 +124,7 @@
 
 	function mergeArcPaint(
 		base: NonNullable<MapLibreGL.LineLayerSpecification["paint"]>,
-		hover: NonNullable<MapLibreGL.LineLayerSpecification["paint"]> | undefined,
+		hover: NonNullable<MapLibreGL.LineLayerSpecification["paint"]> | undefined
 	): NonNullable<MapLibreGL.LineLayerSpecification["paint"]> {
 		if (!hover) return base;
 		const merged: Record<string, unknown> = { ...base };
@@ -191,7 +191,7 @@
 					layout: mergedLayout,
 					paint: mergedPaint,
 				},
-				beforeId,
+				beforeId
 			);
 
 			if (interactive) {
@@ -203,7 +203,7 @@
 						layout: mergedLayout,
 						paint: { "line-color": "transparent", "line-width": hitWidth() },
 					},
-					beforeId,
+					beforeId
 				);
 			}
 		}

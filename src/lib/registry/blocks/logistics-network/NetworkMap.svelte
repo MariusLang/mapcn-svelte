@@ -28,9 +28,7 @@
 					from: [fromHub.lng, fromHub.lat] as [number, number],
 					to: [toHub.lng, toHub.lat] as [number, number],
 					color:
-						route.status === "delayed"
-							? statusConfig.delayed.color
-							: modeConfig[route.mode].color,
+						route.status === "delayed" ? statusConfig.delayed.color : modeConfig[route.mode].color,
 				},
 			];
 		});

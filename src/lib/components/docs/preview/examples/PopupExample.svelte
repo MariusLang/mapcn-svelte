@@ -69,7 +69,9 @@
 
 					<div class="space-y-2 p-3">
 						<div>
-							<p class="text-muted-foreground pb-0.5 text-[11px] font-medium tracking-wide uppercase">
+							<p
+								class="text-muted-foreground pb-0.5 text-[11px] font-medium tracking-wide uppercase"
+							>
 								{place.category}
 							</p>
 							<h3 class="text-foreground leading-tight font-semibold">
