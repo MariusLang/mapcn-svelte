@@ -157,7 +157,7 @@
 					onclick={handleResetBearing}
 					aria-label="Reset bearing to north"
 					type="button"
-					class="hover:bg-accent flex size-8 items-center justify-center transition-colors"
+					class="flex size-8 items-center justify-center transition-all hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
 				>
 					<svg
 						bind:this={compassElement}

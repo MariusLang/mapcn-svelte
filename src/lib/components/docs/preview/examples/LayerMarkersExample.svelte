@@ -148,7 +148,7 @@
 				offset={10}
 				closeButton
 			>
-				<div class="min-w-[140px]">
+				<div class="min-w-24">
 					<p class="font-medium">{selectedPoint.name}</p>
 					<p class="text-muted-foreground text-sm">{selectedPoint.category}</p>
 				</div>

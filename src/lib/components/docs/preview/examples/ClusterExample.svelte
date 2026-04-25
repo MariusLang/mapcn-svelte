@@ -42,11 +42,20 @@
 				closeOnClick={false}
 				focusAfterOpen={false}
 				closeButton
+				class="w-34"
 			>
-				<div class="space-y-1 p-1">
-					<p class="text-sm">Magnitude: {selectedPoint.properties.mag}</p>
-					<p class="text-sm">
-						Tsunami: {selectedPoint.properties.tsunami === 1 ? "Yes" : "No"}
+				<div class="text-[13px]">
+					<p class="text-muted-foreground">
+						Magnitude:
+						<span class="text-foreground font-medium">
+							{selectedPoint.properties.mag}
+						</span>
+					</p>
+					<p class="text-muted-foreground">
+						Tsunami:
+						<span class="text-foreground font-medium">
+							{selectedPoint.properties.tsunami === 1 ? "Yes" : "No"}
+						</span>
 					</p>
 				</div>
 			</MapPopup>
