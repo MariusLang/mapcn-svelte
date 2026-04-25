@@ -5,7 +5,7 @@
 	import ExampleCard from "$lib/components/home/ExampleCard.svelte";
 </script>
 
-<ExampleCard label="Trending" class="aspect-square" stagger={8}>
+<ExampleCard class="aspect-square" stagger={8}>
 	<Map center={[-73.99, 40.735]} zoom={10}>
 		<MapMarker longitude={-73.9857} latitude={40.7484}>
 			<MarkerContent>

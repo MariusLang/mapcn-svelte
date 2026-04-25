@@ -69,9 +69,11 @@
 
 					<div class="space-y-2 p-3">
 						<div>
-							<span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+							<p
+								class="text-muted-foreground pb-0.5 text-[11px] font-medium tracking-wide uppercase"
+							>
 								{place.category}
-							</span>
+							</p>
 							<h3 class="text-foreground leading-tight font-semibold">
 								{place.name}
 							</h3>
@@ -95,12 +97,12 @@
 						</div>
 
 						<div class="flex gap-2 pt-1">
-							<Button size="sm" class="h-8 flex-1">
-								<Navigation class="mr-1.5 size-3.5" />
+							<Button size="sm" class="flex-1">
+								<Navigation class="size-3.5" />
 								Directions
 							</Button>
 
-							<Button size="sm" variant="outline" class="h-8">
+							<Button size="icon-sm" variant="outline">
 								<ExternalLink class="size-3.5" />
 							</Button>
 						</div>

@@ -30,6 +30,7 @@ export const docsNavigation: NavGroup[] = [
 			{ title: "Markers", href: "/docs/markers", icon: Layers2 },
 			{ title: "Popups", href: "/docs/popups", icon: Layers2 },
 			{ title: "Routes", href: "/docs/routes", icon: Layers2 },
+			{ title: "Arcs", href: "/docs/arcs", icon: Layers2 },
 			{ title: "Clusters", href: "/docs/clusters", icon: Layers2 },
 			{ title: "Advanced", href: "/docs/advanced-usage", icon: Layers2 },
 		],
@@ -39,7 +40,6 @@ export const docsNavigation: NavGroup[] = [
 export const fullNavItems: NavItem[] = docsNavigation.flatMap((group) => group.items);
 
 export const mainNavItems: NavItem[] = [
-	{ title: "Home", href: "/", icon: CornerDownRight },
 	{ title: "Docs", href: "/docs", icon: CornerDownRight },
 	{ title: "Components", href: "/docs/basic-map", icon: CornerDownRight },
 	{ title: "Blocks", href: "/blocks", icon: CornerDownRight },

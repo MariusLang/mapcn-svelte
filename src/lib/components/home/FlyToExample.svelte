@@ -12,8 +12,8 @@
 	};
 </script>
 
-<ExampleCard label="Fly To" class="aspect-square" stagger={6}>
-	<Map center={destination.startCenter} zoom={0.5} projection={{ type: "globe" }}>
+<ExampleCard class="aspect-square" stagger={6}>
+	<Map center={destination.startCenter} zoom={0.6} projection={{ type: "globe" }}>
 		<FlyToControls {destination} />
 
 		<MapMarker longitude={destination.center[0]} latitude={destination.center[1]}>

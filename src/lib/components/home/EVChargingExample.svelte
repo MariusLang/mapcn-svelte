@@ -4,7 +4,7 @@
 	import ExampleCard from "$lib/components/home/ExampleCard.svelte";
 </script>
 
-<ExampleCard label="EV Charging" class="aspect-square" stagger={7}>
+<ExampleCard class="aspect-square" stagger={7}>
 	<Map center={[-122.425, 37.777]} zoom={11.5}>
 		<MapMarker longitude={-122.4194} latitude={37.7749}>
 			<MarkerContent>

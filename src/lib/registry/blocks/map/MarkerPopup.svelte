@@ -127,7 +127,8 @@
 <div bind:this={wrapperElement} style="display: contents;">
 	<div
 		class={cn(
-			"animate-in fade-in-0 zoom-in-95 bg-popover text-popover-foreground relative rounded-md border p-3 shadow-md",
+			"bg-popover text-popover-foreground relative max-w-62 rounded-md border p-3 shadow-md",
+			"animate-in fade-in-0 zoom-in-95 duration-200 ease-out",
 			className
 		)}
 	>
@@ -135,11 +136,10 @@
 			<button
 				type="button"
 				onclick={handleClose}
-				class="ring-offset-background focus:ring-ring absolute top-1 right-1 z-10 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none"
 				aria-label="Close popup"
+				class="focus-visible:ring-ring hover:bg-muted text-foreground absolute top-0.5 right-0.5 z-10 inline-flex size-5 cursor-pointer items-center justify-center rounded-sm transition-colors focus:outline-none focus-visible:ring-2"
 			>
-				<X class="h-4 w-4" />
-				<span class="sr-only">Close</span>
+				<X class="size-3.5" />
 			</button>
 		{/if}
 		{@render children?.()}
