@@ -18,7 +18,7 @@
 			longitude={markerPosition.lng}
 			latitude={markerPosition.lat}
 			draggable
-			ondragend={handleDragEnd}
+			ondrag={handleDragEnd}
 		>
 			<MarkerContent>
 				<div class="cursor-move">
@@ -29,7 +29,7 @@
 			<MarkerPopup>
 				<div class="space-y-1">
 					<p class="text-foreground font-medium">Coordinates</p>
-					<p class="text-muted-foreground text-xs">
+					<p class="text-muted-foreground text-xs tabular-nums">
 						{markerPosition.lat.toFixed(4)},{markerPosition.lng.toFixed(4)}
 					</p>
 				</div>

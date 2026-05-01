@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Map from "$lib/registry/blocks/map/Map.svelte";
+	import MapArc from "$lib/registry/blocks/map/MapArc.svelte";
 	import MapControls from "$lib/registry/blocks/map/MapControls.svelte";
 	import MapMarker from "$lib/registry/blocks/map/MapMarker.svelte";
 	import MarkerContent from "$lib/registry/blocks/map/MarkerContent.svelte";
@@ -7,7 +8,6 @@
 	import { SidebarTrigger } from "$lib/registry/ui/sidebar/index.js";
 	import { Separator } from "$lib/registry/ui/separator/index.js";
 	import { modeConfig, regionLabels, statusConfig, type Hub, type Route } from "./data.js";
-	import MapArcs from "./MapArcs.svelte";
 
 	interface Props {
 		hubs: Hub[];
@@ -15,6 +15,24 @@
 	}
 
 	const { hubs, routes }: Props = $props();
+
+	const arcs = $derived.by(() => {
+		const hubById = Object.fromEntries(hubs.map((h) => [h.id, h]));
+		return routes.flatMap((route) => {
+			const fromHub = hubById[route.from];
+			const toHub = hubById[route.to];
+			if (!fromHub || !toHub) return [];
+			return [
+				{
+					id: `${route.from}-${route.to}`,
+					from: [fromHub.lng, fromHub.lat] as [number, number],
+					to: [toHub.lng, toHub.lat] as [number, number],
+					color:
+						route.status === "delayed" ? statusConfig.delayed.color : modeConfig[route.mode].color,
+				},
+			];
+		});
+	});
 </script>
 
 <div class="relative h-full">
@@ -56,7 +74,16 @@
 
 	<Map center={[-98, 39]} zoom={4} projection={{ type: "globe" }}>
 		<MapControls />
-		<MapArcs {routes} />
+		<MapArc
+			data={arcs}
+			curvature={0.3}
+			paint={{
+				"line-color": ["get", "color"],
+				"line-width": 2,
+				"line-opacity": 0.65,
+			}}
+			interactive={false}
+		/>
 
 		{#each hubs as hub (hub.id)}
 			<MapMarker longitude={hub.lng} latitude={hub.lat}>

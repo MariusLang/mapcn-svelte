@@ -9,3 +9,5 @@ export { default as MapControls } from "./MapControls.svelte";
 export { default as MapPopup } from "./MapPopup.svelte";
 export { default as MapRoute } from "./MapRoute.svelte";
 export { default as MapClusterLayer } from "./MapClusterLayer.svelte";
+export { default as MapArc } from "./MapArc.svelte";
+export type { MapArcDatum, MapArcEvent, MapArcProps } from "./MapArc.svelte";

@@ -26,7 +26,7 @@
 	};
 </script>
 
-<footer class={cn("mt-24 border-t md:mt-32", className)}>
+<footer class={cn("mt-30 border-t", className)}>
 	<div class="container py-12 md:py-16">
 		<div class="grid grid-cols-2 gap-8 md:grid-cols-4">
 			<div class="col-span-2 md:col-span-1">
