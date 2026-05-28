@@ -67,6 +67,11 @@
 					"target": "map/MapArc.svelte"
 				},
 				{
+					"path": "src/lib/registry/blocks/map/theme.ts",
+					"type": "registry:ui",
+					"target": "map/theme.ts"
+				},
+				{
 					"path": "src/lib/registry/blocks/map/index.ts",
 					"type": "registry:ui",
 					"target": "map/index.ts"
@@ -171,6 +176,11 @@
 					"path": "src/lib/registry/blocks/heatmap/Page.svelte",
 					"type": "registry:page",
 					"target": "heatmap/+page.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/heatmap/GlobeHeatmapLayers.svelte",
+					"type": "registry:component",
+					"target": "heatmap/GlobeHeatmapLayers.svelte"
 				}
 			],
 			"categories": ["visualization", "heatmap"]
