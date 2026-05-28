@@ -26,6 +26,10 @@ describe("getAllBlocks", () => {
 			title: "Heatmap",
 			files: [
 				{ path: "src/lib/registry/blocks/heatmap/Page.svelte", target: "heatmap/+page.svelte" },
+				{
+					path: "src/lib/registry/blocks/heatmap/GlobeHeatmapLayers.svelte",
+					target: "heatmap/GlobeHeatmapLayers.svelte",
+				},
 			],
 			categories: ["visualization", "heatmap"],
 		});
