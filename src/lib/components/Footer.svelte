@@ -28,10 +28,10 @@
 
 <footer class={cn("mt-30 border-t", className)}>
 	<div class="container py-12 md:py-16">
-		<div class="grid grid-cols-2 gap-8 md:grid-cols-4">
-			<div class="col-span-2 md:col-span-1">
+		<div class="grid grid-cols-2 gap-8 md:grid-cols-5">
+			<div class="col-span-2 md:col-span-2">
 				<Logo class="w-fit" />
-				<p class="text-muted-foreground mt-3 max-w-xs text-sm leading-relaxed">
+				<p class="text-muted-foreground mt-2 max-w-xs text-sm leading-relaxed">
 					Free & open-source, ready-to-use, customizable map components for Svelte.
 				</p>
 				<p class="text-muted-foreground mt-3 text-sm">

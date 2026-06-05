@@ -27,7 +27,10 @@
 		id?: string;
 		/**
 		 * How far each arc bows away from a straight line. `0` renders straight lines;
-		 * higher values bend further. Negative values bend to the opposite side. (default: 0.2)
+		 * higher values bend further. Negative values bend to the opposite side. Arcs are
+		 * computed as a quadratic Bezier in lng/lat space; the destination longitude is
+		 * unwrapped relative to the origin so arcs cross the antimeridian via the shorter
+		 * great-circle direction. (default: 0.2)
 		 */
 		curvature?: number;
 		/** Number of samples used to render each curve. Higher = smoother. (default: 64) */
@@ -95,12 +98,15 @@
 		samples: number
 	): [number, number][] {
 		const [x0, y0] = from;
-		const [x2, y2] = to;
+		const [xTo, y2] = to;
+		// Unwrap destination longitude so antimeridian arcs use the short path.
+		const rawDx = xTo - x0;
+		const x2 = rawDx > 180 ? xTo - 360 : rawDx < -180 ? xTo + 360 : xTo;
 		const dx = x2 - x0;
 		const dy = y2 - y0;
 		const distance = Math.hypot(dx, dy);
 
-		if (distance === 0 || curvature === 0) return [from, to];
+		if (distance === 0 || curvature === 0) return [from, [x2, y2]];
 
 		const mx = (x0 + x2) / 2;
 		const my = (y0 + y2) / 2;

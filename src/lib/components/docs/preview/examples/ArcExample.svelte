@@ -14,11 +14,21 @@
 		{ name: "Sydney", lng: 151.2093, lat: -33.8688 },
 	];
 
-	const arcs = destinations.map((dest) => ({
-		id: dest.name,
-		from: [hub.lng, hub.lat] as [number, number],
-		to: [dest.lng, dest.lat] as [number, number],
-	}));
+	const sanFrancisco = { name: "San Francisco", lng: -122.4194, lat: 37.7749 };
+	const tokyo = destinations.find((dest) => dest.name === "Tokyo")!;
+
+	const arcs = [
+		...destinations.map((dest) => ({
+			id: dest.name,
+			from: [hub.lng, hub.lat] as [number, number],
+			to: [dest.lng, dest.lat] as [number, number],
+		})),
+		{
+			id: "tokyo-sf",
+			from: [tokyo.lng, tokyo.lat] as [number, number],
+			to: [sanFrancisco.lng, sanFrancisco.lat] as [number, number],
+		},
+	];
 </script>
 
 <div class="h-[420px] w-full">
@@ -44,7 +54,7 @@
 			</MarkerContent>
 		</MapMarker>
 
-		{#each destinations as dest (dest.name)}
+		{#each [...destinations, sanFrancisco] as dest (dest.name)}
 			<MapMarker longitude={dest.lng} latitude={dest.lat}>
 				<MarkerContent>
 					<div class="size-2 rounded-full border-2 border-white bg-emerald-500 shadow"></div>
