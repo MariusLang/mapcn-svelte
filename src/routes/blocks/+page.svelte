@@ -43,7 +43,7 @@
 			</span>
 		</h1>
 		<p
-			class="text-muted-foreground animate-fade-up animate-stagger max-w-2xl leading-relaxed sm:text-lg md:text-xl"
+			class="text-foreground/80 animate-fade-up animate-stagger max-w-2xl leading-relaxed sm:text-lg md:text-xl"
 			style="--stagger: 2"
 		>
 			Pre-built, ready-to-use map blocks. Browse, preview, and copy them into your app with one

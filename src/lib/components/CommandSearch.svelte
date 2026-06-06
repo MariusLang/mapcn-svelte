@@ -38,7 +38,7 @@
 	onclick={() => (open = true)}
 	aria-label="Jump to pages, components, and docs"
 	class={cn(
-		"group dark:border-border/60 border-border/80 text-muted-foreground hidden w-[200px] items-center text-sm md:flex",
+		"group bg-muted dark:bg-muted/50 text-muted-foreground hover:bg-muted/60 dark:hover:bg-muted/60 hover:text-foreground hidden w-[200px] items-center text-sm md:flex",
 		className
 	)}
 >

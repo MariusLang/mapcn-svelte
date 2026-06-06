@@ -33,7 +33,7 @@
 		</h1>
 
 		<p
-			class="text-muted-foreground animate-fade-up animate-stagger max-w-2xl sm:text-lg sm:leading-relaxed md:text-xl md:leading-relaxed"
+			class="text-foreground/80 animate-fade-up animate-stagger max-w-2xl sm:text-lg sm:leading-relaxed md:text-xl md:leading-relaxed"
 			style="--stagger: 2"
 		>
 			Ready to use, customizable map components for Svelte.
@@ -66,8 +66,8 @@
 			class="animate-fade-up animate-stagger mt-3 flex flex-wrap items-center justify-center gap-3"
 			style="--stagger: 4"
 		>
-			<Button size="lg" href="/docs">Get Started</Button>
-			<Button size="lg" variant="outline" href="/docs/basic-map">View Components</Button>
+			<Button href="/docs">Get Started</Button>
+			<Button variant="outline" href="/docs/basic-map">View Components</Button>
 		</div>
 	</div>
 </div>
