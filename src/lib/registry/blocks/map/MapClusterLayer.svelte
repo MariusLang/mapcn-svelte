@@ -24,12 +24,15 @@
 		onclusterclick?: (clusterId: number, coordinates: [number, number], pointCount: number) => void;
 	}
 
+	const DEFAULT_CLUSTER_COLORS: [string, string, string] = ["#22c55e", "#eab308", "#ef4444"];
+	const DEFAULT_CLUSTER_THRESHOLDS: [number, number] = [100, 750];
+
 	let {
 		data,
 		clusterMaxZoom = 14,
 		clusterRadius = 50,
-		clusterColors = ["#22c55e", "#eab308", "#ef4444"],
-		clusterThresholds = [100, 750],
+		clusterColors = DEFAULT_CLUSTER_COLORS,
+		clusterThresholds = DEFAULT_CLUSTER_THRESHOLDS,
 		pointColor = "#3b82f6",
 		onpointclick,
 		onclusterclick,

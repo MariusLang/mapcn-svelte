@@ -139,9 +139,7 @@
 		map.setPaintProperty(layerId, "line-width", width);
 		map.setPaintProperty(layerId, "line-opacity", opacity);
 
-		if (dashArray) {
-			map.setPaintProperty(layerId, "line-dasharray", dashArray);
-		}
+		map.setPaintProperty(layerId, "line-dasharray", dashArray);
 
 		// Move selected routes to top (when opacity is 1, it's selected)
 		if (opacity === 1) {

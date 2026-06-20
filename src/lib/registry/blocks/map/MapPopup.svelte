@@ -124,15 +124,22 @@
 
 	// Update position when coordinates change
 	$effect(() => {
+		if (!popup) return;
 		if (
-			popup &&
-			typeof longitude === "number" &&
-			typeof latitude === "number" &&
-			!Number.isNaN(longitude) &&
-			!Number.isNaN(latitude)
+			typeof longitude !== "number" ||
+			typeof latitude !== "number" ||
+			Number.isNaN(longitude) ||
+			Number.isNaN(latitude)
 		) {
+			return;
+		}
+
+		const current = popup.getLngLat();
+		if (!current || current.lng !== longitude || current.lat !== latitude) {
 			popup.setLngLat([longitude, latitude]);
 		}
+		popup.setOffset(offset ?? 16);
+		popup.setMaxWidth(maxWidth ?? "none");
 	});
 
 	function handleClose() {
@@ -154,7 +161,7 @@
 				type="button"
 				onclick={handleClose}
 				aria-label="Close popup"
-				class="focus-visible:ring-ring hover:bg-muted text-foreground absolute top-0.5 right-0.5 z-10 inline-flex size-5 cursor-pointer items-center justify-center rounded-sm transition-colors focus:outline-none focus-visible:ring-2"
+				class="focus-visible:ring-ring hover:bg-muted text-foreground absolute top-1 right-1 z-10 inline-flex size-5 cursor-pointer items-center justify-center rounded-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-inset"
 			>
 				<X class="size-3.5" />
 			</button>

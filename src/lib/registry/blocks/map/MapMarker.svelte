@@ -175,9 +175,32 @@
 		}
 	});
 
-	// Update draggable when prop changes
+	// Update marker options when props change
 	$effect(() => {
-		marker?.setDraggable(draggable);
+		if (!marker) return;
+
+		if (marker.isDraggable() !== draggable) {
+			marker.setDraggable(draggable);
+		}
+
+		const currentOffset = marker.getOffset();
+		const nextOffset = offset ?? [0, 0];
+		const [nextOffsetX, nextOffsetY] = Array.isArray(nextOffset)
+			? nextOffset
+			: [nextOffset.x, nextOffset.y];
+		if (currentOffset.x !== nextOffsetX || currentOffset.y !== nextOffsetY) {
+			marker.setOffset(nextOffset);
+		}
+
+		if (marker.getRotation() !== (rotation ?? 0)) {
+			marker.setRotation(rotation ?? 0);
+		}
+		if (marker.getRotationAlignment() !== (rotationAlignment ?? "auto")) {
+			marker.setRotationAlignment(rotationAlignment ?? "auto");
+		}
+		if (marker.getPitchAlignment() !== (pitchAlignment ?? "auto")) {
+			marker.setPitchAlignment(pitchAlignment ?? "auto");
+		}
 	});
 </script>
 

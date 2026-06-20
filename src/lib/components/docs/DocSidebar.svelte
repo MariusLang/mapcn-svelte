@@ -12,7 +12,7 @@
 	collapsible="none"
 	class="sticky top-14 z-30 hidden h-[calc(100svh-3.5rem)] overscroll-none bg-transparent lg:flex"
 >
-	<Sidebar.Content class="no-scrollbar overflow-x-hidden pt-6">
+	<Sidebar.Content class="no-scrollbar overflow-x-hidden pt-10">
 		{#each navigation as group}
 			<Sidebar.Group>
 				<Sidebar.GroupLabel>

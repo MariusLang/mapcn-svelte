@@ -4,6 +4,8 @@
 	import { Button } from "$lib/registry/ui/button/index.js";
 	import * as Select from "$lib/registry/ui/select";
 
+	let codeId = $props.id();
+
 	interface CodeFile {
 		name: string;
 		code: string;
@@ -76,9 +78,10 @@
 		{/if}
 
 		<div
+			id={codeId}
 			class={cn(
-				"bg-muted/40 overflow-hidden p-4 text-sm transition-[max-height] [&_code]:bg-transparent! [&_pre]:bg-transparent!",
-				codeExpanded ? "max-h-[420px] overflow-auto" : "max-h-44"
+				"bg-muted/40 p-4 text-sm [&_code]:bg-transparent! [&_pre]:bg-transparent!",
+				codeExpanded ? "max-h-[420px] overflow-auto" : "max-h-44 overflow-hidden"
 			)}
 		>
 			{@html currentFile.highlightedCode}
@@ -95,6 +98,8 @@
 					variant="outline"
 					size="sm"
 					onclick={() => (codeExpanded = true)}
+					aria-expanded={codeExpanded}
+					aria-controls={codeId}
 					class="bg-background hover:bg-muted dark:bg-background dark:hover:bg-muted"
 				>
 					View Code

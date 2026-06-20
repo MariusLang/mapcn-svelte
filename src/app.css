@@ -156,7 +156,7 @@
 @keyframes fade-up {
 	from {
 		opacity: 0;
-		transform: translateY(20px);
+		transform: translateY(12px);
 	}
 	to {
 		opacity: 1;
@@ -185,21 +185,33 @@
 }
 
 .animate-fade-up {
-	animation: fade-up 0.5s ease-out both;
+	animation: fade-up 0.45s ease-out both;
 }
 
 .animate-fade-in {
-	animation: fade-in 0.5s ease-out both;
+	animation: fade-in 0.4s ease-out both;
 }
 
 .animate-scale-in {
-	animation: scale-in 0.5s ease-out both;
+	animation: scale-in 0.45s ease-out both;
 }
 
 .animate-stagger {
 	--stagger: 0;
-	--delay: 100ms;
+	--delay: 85ms;
 	animation-delay: calc(var(--stagger) * var(--delay));
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.animate-fade-up,
+	.animate-fade-in,
+	.animate-scale-in {
+		animation: none;
+	}
+
+	.animate-stagger {
+		animation-delay: 0ms;
+	}
 }
 
 /* Shiki line numbers */

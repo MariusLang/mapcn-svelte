@@ -301,6 +301,14 @@
 	});
 
 	$effect(() => {
+		if (!map || !isReady || !projection) {
+			return;
+		}
+
+		map.setProjection(projection);
+	});
+
+	$effect(() => {
 		if (!map || !isReady || isInteracting || initialCenterZoomApplied || isControlled) {
 			return;
 		}

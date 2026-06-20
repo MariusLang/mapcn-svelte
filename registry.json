@@ -183,7 +183,10 @@
 					"target": "heatmap/GlobeHeatmapLayers.svelte"
 				}
 			],
-			"categories": ["visualization", "heatmap"]
+			"categories": ["visualization", "heatmap"],
+			"meta": {
+				"iframeHeight": "800px"
+			}
 		},
 		{
 			"name": "delivery-tracker",

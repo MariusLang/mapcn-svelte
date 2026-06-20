@@ -32,10 +32,10 @@ describe("getAllBlocks", () => {
 				},
 			],
 			categories: ["visualization", "heatmap"],
+			meta: { iframeHeight: "800px" },
 		});
 		expect(blocks[2].registryDependencies).toContain("card");
 		expect(blocks[2].registryDependencies?.some((d) => d.endsWith("/r/map.json"))).toBe(true);
-		expect(blocks[2].meta).toBeUndefined();
 	});
 });
 
