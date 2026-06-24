@@ -152,7 +152,7 @@
 
 	setContext("map", {
 		getMap: () => map,
-		isLoaded: () => hasInitiallyLoaded,
+		isLoaded: () => isReady,
 		isStyleReady: () => isReady,
 		resolvedTheme: () => resolvedTheme,
 	});
@@ -167,15 +167,13 @@
 	onMount(() => {
 		isMounted = true;
 
-		// Subscribe to theme store for instant updates
 		const themeUnsubscribe = theme.subscribe((value) => {
 			tailwindTheme = value;
 		});
 
-		// Clean up theme subscription
-		onDestroy(() => {
-			themeUnsubscribe();
-		});
+		let observer: MutationObserver | undefined;
+		let mediaQuery: MediaQueryList | undefined;
+		let handleSystemChange: ((e: MediaQueryListEvent) => void) | undefined;
 
 		if (browser) {
 			// Also watch for document class changes (e.g., external theme togglers)
@@ -187,26 +185,21 @@
 
 			updateTheme();
 
-			const observer = new MutationObserver(updateTheme);
+			observer = new MutationObserver(updateTheme);
 			observer.observe(document.documentElement, {
 				attributes: true,
 				attributeFilter: ["class"],
 			});
 
 			// Also watch for system preference changes
-			const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-			const handleSystemChange = (e: MediaQueryListEvent) => {
+			mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+			handleSystemChange = (e: MediaQueryListEvent) => {
 				// Only use system preference if no document class is set
 				if (!getDocumentTheme()) {
 					tailwindTheme = e.matches ? "dark" : "light";
 				}
 			};
 			mediaQuery.addEventListener("change", handleSystemChange);
-
-			onDestroy(() => {
-				observer.disconnect();
-				mediaQuery.removeEventListener("change", handleSystemChange);
-			});
 		}
 
 		const mapInstance = new MapLibreGL.Map({
@@ -268,6 +261,22 @@
 		mapInstance.on("pitchend", () => (isInteracting = false));
 
 		map = mapInstance;
+
+		return () => {
+			themeUnsubscribe();
+			observer?.disconnect();
+			if (mediaQuery && handleSystemChange) {
+				mediaQuery.removeEventListener("change", handleSystemChange);
+			}
+			clearStyleTimeout();
+			mapInstance.off("load", loadHandler);
+			mapInstance.off("styledata", styleDataHandler);
+			mapInstance.off("move", handleMove);
+			mapInstance.remove();
+			map = null;
+			isLoaded = false;
+			isStyleLoaded = false;
+		};
 	});
 
 	// Sync controlled viewport to map
@@ -352,15 +361,14 @@
 	});
 
 	onDestroy(() => {
-		map?.remove();
-		map = null;
+		clearStyleTimeout();
 		isLoaded = false;
 		isStyleLoaded = false;
 	});
 </script>
 
 <div bind:this={mapContainer} class="relative h-full w-full">
-	{#if !isReady || loading}
+	{#if !isLoaded || loading}
 		<div
 			class="bg-background/50 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-xs"
 		>
@@ -375,7 +383,7 @@
 			</div>
 		</div>
 	{/if}
-	{#if hasInitiallyLoaded}
+	{#if map}
 		{@render children?.()}
 	{/if}
 </div>

@@ -25,7 +25,7 @@
 			<span class="text-muted-foreground ml-auto font-mono text-[10px] uppercase">{node.id}</span>
 		</div>
 		<div class="text-muted-foreground mt-1.5 flex items-center justify-between gap-3 text-[10px]">
-			<span>{node.status === "down" ? "-" : `${node.latency} ms`}</span>
+			<span>{node.status === "down" ? "—" : `${node.latency} ms`}</span>
 			<span class="tabular-nums">{node.uptime.toFixed(2)}%</span>
 		</div>
 	</MarkerTooltip>

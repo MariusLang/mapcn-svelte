@@ -95,6 +95,7 @@
 			pitchWithRotate: false,
 			attributionControl: false,
 		}}
+		loading={!countries}
 	>
 		{#if countries}
 			<MapGeoJSON

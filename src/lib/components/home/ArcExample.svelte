@@ -1,58 +1,49 @@
 <script lang="ts">
-	import { Map, MapArc, MapMarker, MarkerContent, MarkerTooltip } from "$lib/components/ui/map";
-	import RadioTower from "@lucide/svelte/icons/radio-tower";
+	import { Map, MapArc, MapMarker, MarkerContent, MarkerLabel } from "$lib/components/ui/map";
 	import ExampleCard from "$lib/components/home/ExampleCard.svelte";
 
-	const arcs = [
-		{
-			id: "ny-london",
-			from: [-74.006, 40.7128] as [number, number],
-			to: [-0.1276, 51.5074] as [number, number],
-		},
-		{
-			id: "ny-paris",
-			from: [-74.006, 40.7128] as [number, number],
-			to: [2.3522, 48.8566] as [number, number],
-		},
-		{
-			id: "ny-berlin",
-			from: [-74.006, 40.7128] as [number, number],
-			to: [13.405, 52.52] as [number, number],
-		},
+	const hub = { name: "London", lng: -0.1276, lat: 51.5074 };
+
+	const destinations = [
+		{ name: "New York", lng: -74.006, lat: 40.7128 },
+		{ name: "São Paulo", lng: -46.6333, lat: -23.5505 },
+		{ name: "Cape Town", lng: 18.4241, lat: -33.9249 },
+		{ name: "Mumbai", lng: 72.8777, lat: 19.076 },
+		{ name: "Tokyo", lng: 139.6917, lat: 35.6895 },
 	];
 
-	const hubs = [
-		{ name: "New York", lng: -74.006, lat: 40.7128 },
-		{ name: "London", lng: -0.1276, lat: 51.5074 },
-		{ name: "Paris", lng: 2.3522, lat: 48.8566 },
-		{ name: "Berlin", lng: 13.405, lat: 52.52 },
-	];
+	const arcs = destinations.map((dest) => ({
+		id: dest.name,
+		from: [hub.lng, hub.lat] as [number, number],
+		to: [dest.lng, dest.lat] as [number, number],
+	}));
 </script>
 
-<ExampleCard class="aspect-square" stagger={7}>
-	<div
-		class="bg-background/95 border-border/50 absolute top-3 left-3 z-10 rounded-lg border p-3 shadow-lg backdrop-blur-md"
-	>
-		<div class="flex items-center gap-1.5">
-			<RadioTower class="size-3.5 text-blue-500" />
-			<span class="text-xs font-medium">Network arcs</span>
-		</div>
-	</div>
-
-	<Map center={[-28, 48]} zoom={1.8} options={{ renderWorldCopies: false }}>
+<ExampleCard class="aspect-square" stagger={8}>
+	<Map center={[-0.1276, 41.5074]} zoom={1} projection={{ type: "globe" }}>
 		<MapArc
 			data={arcs}
-			curvature={0.18}
-			paint={{ "line-color": "#3b82f6", "line-width": 2, "line-opacity": 0.75 }}
-			hoverPaint={{ "line-color": "#60a5fa", "line-width": 3 }}
+			paint={{
+				"line-color": "#3b82f6",
+				"line-opacity": 0.9,
+				"line-dasharray": [2, 2],
+			}}
+			interactive={false}
 		/>
 
-		{#each hubs as hub (hub.name)}
-			<MapMarker longitude={hub.lng} latitude={hub.lat}>
+		<MapMarker longitude={hub.lng} latitude={hub.lat}>
+			<MarkerContent>
+				<div class="size-3 rounded-full border-2 border-white bg-blue-500"></div>
+				<MarkerLabel position="top">{hub.name}</MarkerLabel>
+			</MarkerContent>
+		</MapMarker>
+
+		{#each destinations as dest (dest.name)}
+			<MapMarker longitude={dest.lng} latitude={dest.lat}>
 				<MarkerContent>
-					<div class="size-2.5 rounded-full border border-white bg-blue-500 shadow-sm"></div>
+					<div class="size-2 rounded-full border-2 border-white bg-blue-500"></div>
+					<MarkerLabel position="top">{dest.name}</MarkerLabel>
 				</MarkerContent>
-				<MarkerTooltip>{hub.name}</MarkerTooltip>
 			</MapMarker>
 		{/each}
 	</Map>

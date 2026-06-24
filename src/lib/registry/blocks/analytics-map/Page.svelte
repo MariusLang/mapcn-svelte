@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Map from "$lib/registry/blocks/map/Map.svelte";
 	import MapControls from "$lib/registry/blocks/map/MapControls.svelte";
+	import MapGeoJSON from "$lib/registry/blocks/map/MapGeoJSON.svelte";
 	import MapMarker from "$lib/registry/blocks/map/MapMarker.svelte";
 	import MarkerContent from "$lib/registry/blocks/map/MarkerContent.svelte";
 	import MarkerTooltip from "$lib/registry/blocks/map/MarkerTooltip.svelte";
@@ -15,22 +16,30 @@
 	} from "./data.js";
 
 	const MAP_HEIGHT = "38rem";
+	const WORLD_GEOJSON =
+		"https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@v5.1.2/geojson/ne_110m_admin_0_countries.geojson";
 </script>
 
 <div class="bg-background relative min-h-screen" style="--map-height: {MAP_HEIGHT}">
-	<div class="relative" style="height: var(--map-height)">
-		<Map center={[-2, 16]} zoom={1.5} options={{ scrollZoom: false, renderWorldCopies: true }}>
-			<MapControls showFullscreen />
+	<div class="bg-card relative" style="height: var(--map-height)">
+		<Map
+			center={[-2, 16]}
+			zoom={1.5}
+			options={{ scrollZoom: false, renderWorldCopies: true, maxZoom: 4, minZoom: 1.5 }}
+			blank
+		>
+			<MapGeoJSON data={WORLD_GEOJSON} />
+			<MapControls class="bottom-2" />
 			{#each locations as location (location.city)}
 				<MapMarker longitude={location.lng} latitude={location.lat}>
 					<MarkerContent>
 						<div
-							class="rounded-full bg-blue-500/70"
+							class="bg-muted-foreground/80 rounded-full"
 							style="width: {location.size * 3}px; height: {location.size * 3}px"
 						></div>
 					</MarkerContent>
-					<MarkerTooltip offset={20} class="bg-background text-foreground border">
-						<p class="text-muted-foreground font-medium">{location.city}</p>
+					<MarkerTooltip offset={20} class="bg-popover text-muted-foreground border">
+						<p class="text-foreground font-medium">{location.city}</p>
 						<p class="mt-0.5">{location.size} active users</p>
 					</MarkerTooltip>
 				</MapMarker>

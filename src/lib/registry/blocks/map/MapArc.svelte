@@ -54,6 +54,7 @@
 
 <script lang="ts" generics="T extends MapArcDatum = MapArcDatum">
 	import { useMap } from "$lib/hooks/use-map.svelte.js";
+	import { untrack } from "svelte";
 
 	let {
 		data,
@@ -181,11 +182,17 @@
 		const currentSourceId = sourceId;
 		const currentLayerId = layerId;
 		const currentHitLayerId = hitLayerId;
+		const initialGeoJSON = untrack(() => geoJSON);
+		const initialLayout = untrack(() => mergedLayout);
+		const initialPaint = untrack(() => mergedPaint);
+		const initialHitWidth = untrack(() => hitWidth());
+		const initialInteractive = untrack(() => interactive);
+		const initialBeforeId = untrack(() => beforeId);
 
 		if (!map.getSource(currentSourceId)) {
 			map.addSource(currentSourceId, {
 				type: "geojson",
-				data: geoJSON,
+				data: initialGeoJSON,
 				promoteId: "_arc_id",
 			});
 
@@ -194,27 +201,32 @@
 					id: currentLayerId,
 					type: "line",
 					source: currentSourceId,
-					layout: mergedLayout,
-					paint: mergedPaint,
+					layout: initialLayout,
+					paint: initialPaint,
 				},
-				beforeId
+				initialBeforeId
 			);
 
-			if (interactive) {
+			if (initialInteractive) {
 				map.addLayer(
 					{
 						id: currentHitLayerId,
 						type: "line",
 						source: currentSourceId,
-						layout: mergedLayout,
-						paint: { "line-color": "transparent", "line-width": hitWidth() },
+						layout: initialLayout,
+						paint: { "line-color": "transparent", "line-width": initialHitWidth },
 					},
-					beforeId
+					initialBeforeId
 				);
 			}
 		}
 
 		return () => {
+			if (hoveredArcId !== null && map.getSource(currentSourceId)) {
+				map.setFeatureState({ source: currentSourceId, id: hoveredArcId }, { hover: false });
+				hoveredArcId = null;
+			}
+			map.getCanvas().style.cursor = "";
 			try {
 				if (map.getLayer(currentHitLayerId)) map.removeLayer(currentHitLayerId);
 				if (map.getLayer(currentLayerId)) map.removeLayer(currentLayerId);
@@ -305,6 +317,7 @@
 			map.off("click", targetLayer, handleClick);
 			map.off("mousemove", targetLayer, handleMouseMove);
 			map.off("mouseleave", targetLayer, handleMouseLeave);
+			handleMouseLeave();
 		};
 	});
 </script>

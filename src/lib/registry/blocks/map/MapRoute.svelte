@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getContext } from "svelte";
+	import { getContext, untrack } from "svelte";
 	import MapLibreGL from "maplibre-gl";
 
 	interface Props {
@@ -51,11 +51,13 @@
 		const map = mapCtx.getMap();
 		const loaded = mapCtx.isStyleReady();
 
-		if (!loaded || !map || coordinates.length < 2) return;
+		const initialCoordinates = untrack(() => coordinates);
+		const initialColor = untrack(() => color);
+		const initialWidth = untrack(() => width);
+		const initialOpacity = untrack(() => opacity);
+		const initialDashArray = untrack(() => dashArray);
 
-		// Remove existing layer and source if they exist
-		if (map.getLayer(layerId)) map.removeLayer(layerId);
-		if (map.getSource(sourceId)) map.removeSource(sourceId);
+		if (!loaded || !map || initialCoordinates.length < 2) return;
 
 		// Add source
 		map.addSource(sourceId, {
@@ -65,25 +67,23 @@
 				properties: {},
 				geometry: {
 					type: "LineString",
-					coordinates,
+					coordinates: initialCoordinates,
 				},
 			},
 		});
 
-		// Build paint options with transition definitions
-		// Use default values here - they'll be updated by the paint property effect
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const paint: any = {
-			"line-color": "#94a3b8", // Start with gray (unselected color)
-			"line-width": 5, // Start with unselected width
-			"line-opacity": 0.6, // Start with unselected opacity
+			"line-color": initialColor,
+			"line-width": initialWidth,
+			"line-opacity": initialOpacity,
 			"line-color-transition": { duration: 300, delay: 0 },
 			"line-width-transition": { duration: 300, delay: 0 },
 			"line-opacity-transition": { duration: 300, delay: 0 },
 		};
 
-		if (dashArray) {
-			paint["line-dasharray"] = dashArray;
+		if (initialDashArray) {
+			paint["line-dasharray"] = initialDashArray;
 		}
 
 		// Add layer
@@ -178,6 +178,7 @@
 			map.off("click", layerId, handleClick);
 			map.off("mouseenter", layerId, handleMouseEnter);
 			map.off("mouseleave", layerId, handleMouseLeave);
+			map.getCanvas().style.cursor = "";
 		};
 	});
 </script>

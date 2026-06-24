@@ -94,30 +94,39 @@
 		markerElement = container;
 
 		// Build marker options
+		const initialDraggable = untrack(() => draggable);
+		const initialAnchor = untrack(() => anchor);
+		const initialOffset = untrack(() => offset);
+		const initialRotation = untrack(() => rotation);
+		const initialPitchAlignment = untrack(() => pitchAlignment);
+		const initialRotationAlignment = untrack(() => rotationAlignment);
 		const markerOptions: MarkerOptions = {
 			element: container,
-			draggable,
-			anchor,
+			draggable: initialDraggable,
+			anchor: initialAnchor,
 		};
 
-		if (offset !== undefined) markerOptions.offset = offset;
-		if (rotation !== undefined) markerOptions.rotation = rotation;
-		if (pitchAlignment !== undefined) markerOptions.pitchAlignment = pitchAlignment;
-		if (rotationAlignment !== undefined) markerOptions.rotationAlignment = rotationAlignment;
+		if (initialOffset !== undefined) markerOptions.offset = initialOffset;
+		if (initialRotation !== undefined) markerOptions.rotation = initialRotation;
+		if (initialPitchAlignment !== undefined) markerOptions.pitchAlignment = initialPitchAlignment;
+		if (initialRotationAlignment !== undefined) {
+			markerOptions.rotationAlignment = initialRotationAlignment;
+		}
 
 		// Create and add marker
 		const markerInstance = new MapLibreGL.Marker(markerOptions).setLngLat([lng, lat]).addTo(map);
 
 		marker = markerInstance;
 
-		// Mouse event listeners on the container
-		if (onclick) container.addEventListener("click", onclick);
-		if (onmouseenter) container.addEventListener("mouseenter", onmouseenter);
-		if (onmouseleave) {
-			container.addEventListener("mouseleave", (e) => {
-				if (!isDragging) onmouseleave(e);
-			});
-		}
+		const handleClick = (e: MouseEvent) => onclick?.(e);
+		const handleMouseEnter = (e: MouseEvent) => onmouseenter?.(e);
+		const handleMouseLeave = (e: MouseEvent) => {
+			if (!isDragging) onmouseleave?.(e);
+		};
+
+		container.addEventListener("click", handleClick);
+		container.addEventListener("mouseenter", handleMouseEnter);
+		container.addEventListener("mouseleave", handleMouseLeave);
 
 		// Drag event handlers
 		const handleDragStart = () => {
@@ -135,25 +144,21 @@
 			ondragend?.({ lng: lngLat.lng, lat: lngLat.lat });
 		};
 
-		if (draggable) {
-			markerInstance.on("dragstart", handleDragStart);
-			markerInstance.on("drag", handleDrag);
-			markerInstance.on("dragend", handleDragEnd);
-		}
+		markerInstance.on("dragstart", handleDragStart);
+		markerInstance.on("drag", handleDrag);
+		markerInstance.on("dragend", handleDragEnd);
 
 		isReady = true;
 
 		// Cleanup
 		return () => {
-			if (onclick) container.removeEventListener("click", onclick);
-			if (onmouseenter) container.removeEventListener("mouseenter", onmouseenter);
-			if (onmouseleave) container.removeEventListener("mouseleave", onmouseleave);
+			container.removeEventListener("click", handleClick);
+			container.removeEventListener("mouseenter", handleMouseEnter);
+			container.removeEventListener("mouseleave", handleMouseLeave);
 
-			if (draggable) {
-				markerInstance.off("dragstart", handleDragStart);
-				markerInstance.off("drag", handleDrag);
-				markerInstance.off("dragend", handleDragEnd);
-			}
+			markerInstance.off("dragstart", handleDragStart);
+			markerInstance.off("drag", handleDrag);
+			markerInstance.off("dragend", handleDragEnd);
 
 			markerInstance.remove();
 			marker = null;

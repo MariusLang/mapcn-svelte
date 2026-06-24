@@ -301,6 +301,11 @@
 					"path": "src/lib/registry/blocks/store-locator/LocatorMap.svelte",
 					"type": "registry:component",
 					"target": "store-locator/LocatorMap.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/store-locator/FlyToSelected.svelte",
+					"type": "registry:component",
+					"target": "store-locator/FlyToSelected.svelte"
 				}
 			],
 			"categories": ["store-locator", "locator"],

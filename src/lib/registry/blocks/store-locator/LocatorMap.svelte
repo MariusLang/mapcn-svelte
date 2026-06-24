@@ -12,6 +12,7 @@
 	} from "$lib/registry/blocks/map";
 	import * as Sidebar from "$lib/registry/ui/sidebar";
 	import { cn } from "$lib/utils";
+	import FlyToSelected from "./FlyToSelected.svelte";
 	import type { Store } from "./data";
 
 	let {
@@ -36,6 +37,7 @@
 
 	<Map {center} zoom={12} options={{ minZoom: 10, maxZoom: 17 }}>
 		<MapControls showFullscreen />
+		<FlyToSelected store={selected} />
 
 		{#each stores as store (store.id)}
 			<MapMarker longitude={store.lng} latitude={store.lat} onclick={() => onselect(store.id)}>

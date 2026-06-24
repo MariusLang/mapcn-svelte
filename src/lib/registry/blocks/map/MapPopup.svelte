@@ -144,7 +144,6 @@
 
 	function handleClose() {
 		popup?.remove();
-		onclose?.();
 	}
 </script>
 

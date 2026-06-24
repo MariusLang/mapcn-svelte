@@ -36,6 +36,7 @@
 
 <script lang="ts" generics="P extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJsonProperties">
 	import { useMap } from "$lib/hooks/use-map.svelte.js";
+	import { untrack } from "svelte";
 
 	let {
 		data,
@@ -109,10 +110,13 @@
 	$effect(() => {
 		if (!isLoaded || !map) return;
 
+		const initialData = untrack(() => data);
+		const initialPromoteId = untrack(() => promoteId);
+
 		map.addSource(sourceId, {
 			type: "geojson",
-			data,
-			...(promoteId ? { promoteId } : {}),
+			data: initialData,
+			...(initialPromoteId ? { promoteId: initialPromoteId } : {}),
 		});
 
 		return () => {

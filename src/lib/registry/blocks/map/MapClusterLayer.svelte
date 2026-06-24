@@ -1,5 +1,5 @@
 <script lang="ts" generics="P extends GeoJSON.GeoJsonProperties">
-	import { getContext } from "svelte";
+	import { getContext, untrack } from "svelte";
 	import MapLibreGL from "maplibre-gl";
 
 	interface Props {
@@ -55,24 +55,20 @@
 		const loaded = mapCtx.isStyleReady();
 
 		if (!loaded || !map) return;
-
-		// Remove existing layers and source if they exist
-		try {
-			if (map.getLayer(clusterCountLayerId)) map.removeLayer(clusterCountLayerId);
-			if (map.getLayer(unclusteredLayerId)) map.removeLayer(unclusteredLayerId);
-			if (map.getLayer(clusterLayerId)) map.removeLayer(clusterLayerId);
-			if (map.getSource(sourceId)) map.removeSource(sourceId);
-		} catch {
-			// ignore
-		}
+		const initialData = untrack(() => data);
+		const initialClusterMaxZoom = untrack(() => clusterMaxZoom);
+		const initialClusterRadius = untrack(() => clusterRadius);
+		const initialClusterColors = untrack(() => clusterColors);
+		const initialClusterThresholds = untrack(() => clusterThresholds);
+		const initialPointColor = untrack(() => pointColor);
 
 		// Add clustered GeoJSON source
 		map.addSource(sourceId, {
 			type: "geojson",
-			data,
+			data: initialData,
 			cluster: true,
-			clusterMaxZoom,
-			clusterRadius,
+			clusterMaxZoom: initialClusterMaxZoom,
+			clusterRadius: initialClusterRadius,
 		});
 
 		// Add cluster circles layer
@@ -85,19 +81,19 @@
 				"circle-color": [
 					"step",
 					["get", "point_count"],
-					clusterColors[0],
-					clusterThresholds[0],
-					clusterColors[1],
-					clusterThresholds[1],
-					clusterColors[2],
+					initialClusterColors[0],
+					initialClusterThresholds[0],
+					initialClusterColors[1],
+					initialClusterThresholds[1],
+					initialClusterColors[2],
 				],
 				"circle-radius": [
 					"step",
 					["get", "point_count"],
 					20,
-					clusterThresholds[0],
+					initialClusterThresholds[0],
 					30,
-					clusterThresholds[1],
+					initialClusterThresholds[1],
 					40,
 				],
 				"circle-stroke-width": 1,
@@ -129,7 +125,7 @@
 			source: sourceId,
 			filter: ["!", ["has", "point_count"]],
 			paint: {
-				"circle-color": pointColor,
+				"circle-color": initialPointColor,
 				"circle-radius": 5,
 				"circle-stroke-width": 2,
 				"circle-stroke-color": "#fff",

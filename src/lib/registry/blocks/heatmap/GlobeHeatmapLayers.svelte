@@ -14,9 +14,10 @@
 		[1, HEATMAP_GRADIENT_COLORS[4]],
 	];
 
-	const sourceId = "heatmap-earthquake-source";
-	const heatLayerId = "heatmap-earthquake-layer";
-	const pointLayerId = "heatmap-earthquake-point";
+	const id = Math.random().toString(36).slice(2);
+	const sourceId = `heatmap-source-${id}`;
+	const heatLayerId = `heatmap-layer-${id}`;
+	const pointLayerId = `heatmap-point-layer-${id}`;
 
 	const { map, isLoaded } = useMap();
 

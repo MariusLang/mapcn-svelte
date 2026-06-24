@@ -46,7 +46,7 @@
 				<div class="flex shrink-0 flex-col items-end">
 					<span class="text-muted-foreground font-mono text-[10px] uppercase">{node.id}</span>
 					<span class="text-foreground font-mono text-[10px] tabular-nums">
-						{node.status === "down" ? "-" : `${node.latency}ms`}
+						{node.status === "down" ? "—" : `${node.latency}ms`}
 					</span>
 				</div>
 			</li>
