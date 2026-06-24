@@ -19,9 +19,11 @@
 	const heatLayerId = `heatmap-layer-${id}`;
 	const pointLayerId = `heatmap-point-layer-${id}`;
 
-	const { map, isLoaded } = useMap();
+	const mapCtx = useMap();
 
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!map || !isLoaded) return;
 
 		if (!map.getSource(sourceId)) {

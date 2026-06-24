@@ -90,7 +90,7 @@
 	const layerId = $derived(`arc-layer-${id}`);
 	const hitLayerId = $derived(`arc-hit-layer-${id}`);
 
-	const { map, isLoaded } = useMap();
+	const mapCtx = useMap();
 
 	function buildArcCoordinates(
 		from: [number, number],
@@ -177,6 +177,8 @@
 	}
 
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!map || !isLoaded) return;
 
 		const currentSourceId = sourceId;
@@ -239,6 +241,8 @@
 
 	// Update GeoJSON data reactively
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!map || !isLoaded) return;
 		const source = map.getSource(sourceId) as MapLibreGL.GeoJSONSource | undefined;
 		if (source) source.setData(geoJSON);
@@ -246,6 +250,8 @@
 
 	// Update paint reactively
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!map || !isLoaded) return;
 		if (map.getLayer(layerId)) {
 			for (const [key, value] of Object.entries(mergedPaint)) {
@@ -257,6 +263,8 @@
 
 	// Wire up interaction events
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!map || !isLoaded || !interactive) return;
 
 		const targetLayer = hitLayerId;

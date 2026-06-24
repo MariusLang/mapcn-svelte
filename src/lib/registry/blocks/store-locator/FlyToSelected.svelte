@@ -4,9 +4,10 @@
 
 	let { store }: { store?: Store } = $props();
 
-	const { map } = useMap();
+	const mapCtx = useMap();
 
 	$effect(() => {
+		const map = mapCtx.map;
 		if (!map || !store) return;
 		map.flyTo({
 			center: [store.lng, store.lat],

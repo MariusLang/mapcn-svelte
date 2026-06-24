@@ -62,8 +62,8 @@
 	const fillLayerId = $derived(`geojson-fill-${id}`);
 	const lineLayerId = $derived(`geojson-line-${id}`);
 
-	const { map, isLoaded, resolvedTheme } = useMap();
-	const defaults = $derived(GEOJSON_DEFAULT_COLORS[resolvedTheme]);
+	const mapCtx = useMap();
+	const defaults = $derived(GEOJSON_DEFAULT_COLORS[mapCtx.resolvedTheme]);
 	const showFill = $derived(fillPaint !== false);
 	const showLine = $derived(linePaint !== false);
 
@@ -96,6 +96,7 @@
 	let hoveredId: string | number | null = null;
 
 	function setHover(next: string | number | null) {
+		const map = mapCtx.map;
 		if (!map || next === hoveredId) return;
 		const sourceExists = !!map.getSource(sourceId);
 		if (hoveredId != null && sourceExists) {
@@ -108,6 +109,8 @@
 	}
 
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!isLoaded || !map) return;
 
 		const initialData = untrack(() => data);
@@ -131,12 +134,16 @@
 	});
 
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!isLoaded || !map) return;
 		const source = map.getSource(sourceId) as MapLibreGL.GeoJSONSource | undefined;
 		source?.setData(data as GeoJSON.GeoJSON | string);
 	});
 
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!isLoaded || !map) return;
 		if (!map.getSource(sourceId)) return;
 
@@ -183,6 +190,8 @@
 	});
 
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!isLoaded || !map || !interactive || !showFill) return;
 
 		const handleMouseMove = (e: MapLibreGL.MapLayerMouseEvent) => {
