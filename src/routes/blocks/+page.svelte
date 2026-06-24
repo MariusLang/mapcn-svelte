@@ -3,7 +3,6 @@
 	import BlockDisplay from "$lib/components/blocks/BlockDisplay.svelte";
 	import Footer from "$lib/components/Footer.svelte";
 	import Header from "$lib/components/Header.svelte";
-	import { Button } from "$lib/registry/ui/button/index";
 
 	const { data }: { data: PageData } = $props();
 </script>
@@ -39,7 +38,7 @@
 			<span
 				class="from-foreground via-foreground to-foreground/65 bg-gradient-to-b bg-clip-text text-transparent"
 			>
-				Map blocks for your application
+				Map Blocks
 			</span>
 		</h1>
 		<p
@@ -49,13 +48,6 @@
 			Pre-built, ready-to-use map blocks. Browse, preview, and copy them into your app with one
 			command.
 		</p>
-		<div
-			class="animate-fade-up animate-stagger mt-3 flex flex-wrap items-center gap-3"
-			style="--stagger: 3"
-		>
-			<Button href="#blocks">Browse Blocks</Button>
-			<Button variant="outline" href="/docs">View Documentation</Button>
-		</div>
 	</section>
 </div>
 
@@ -63,7 +55,7 @@
 <section
 	class="animate-fade-up animate-stagger container mb-20 scroll-mt-20 space-y-20"
 	id="blocks"
-	style="--stagger: 4"
+	style="--stagger: 3"
 >
 	{#each data.blocksWithData as { block, tree, highlightedFiles }}
 		<BlockDisplay {block} {tree} {highlightedFiles} />

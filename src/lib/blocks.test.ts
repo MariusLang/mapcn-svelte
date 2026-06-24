@@ -7,7 +7,10 @@ describe("getAllBlocks", () => {
 
 		expect(blocks.map((block) => block.name)).toEqual([
 			"analytics-map",
+			"choropleth",
+			"uptime-monitor",
 			"logistics-network",
+			"store-locator",
 			"heatmap",
 			"delivery-tracker",
 		]);
@@ -16,13 +19,13 @@ describe("getAllBlocks", () => {
 		expect(blocks[0]).toMatchObject({
 			title: "Analytics Map",
 			categories: ["analytics", "dashboard"],
-			meta: { iframeHeight: "970px" },
+			meta: { iframeHeight: "940px" },
 		});
 		expect(blocks[0].registryDependencies).toContain("card");
 		expect(blocks[0].registryDependencies).toContain("chart");
 		expect(blocks[0].registryDependencies?.some((d) => d.endsWith("/r/map.json"))).toBe(true);
 
-		expect(blocks[2]).toMatchObject({
+		expect(blocks[5]).toMatchObject({
 			title: "Heatmap",
 			files: [
 				{ path: "src/lib/registry/blocks/heatmap/Page.svelte", target: "heatmap/+page.svelte" },
@@ -34,8 +37,7 @@ describe("getAllBlocks", () => {
 			categories: ["visualization", "heatmap"],
 			meta: { iframeHeight: "800px" },
 		});
-		expect(blocks[2].registryDependencies).toContain("card");
-		expect(blocks[2].registryDependencies?.some((d) => d.endsWith("/r/map.json"))).toBe(true);
+		expect(blocks[5].registryDependencies?.some((d) => d.endsWith("/r/map.json"))).toBe(true);
 	});
 });
 

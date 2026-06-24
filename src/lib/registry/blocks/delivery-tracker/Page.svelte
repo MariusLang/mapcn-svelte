@@ -49,6 +49,7 @@
 	}
 
 	let routeData: OsrmRouteData | null = $state(null);
+	let loading = $state(true);
 
 	const progressCoordinates = $derived.by(() => {
 		const progressCount = Math.max(
@@ -62,6 +63,7 @@
 
 	$effect(() => {
 		async function fetchRoute() {
+			loading = true;
 			try {
 				const response = await fetch(
 					`https://router.project-osrm.org/route/v1/driving/${pickup.lng},${pickup.lat};${dropoff.lng},${dropoff.lat}?overview=full&geometries=geojson`
@@ -78,7 +80,7 @@
 			} catch (error) {
 				console.error("Failed to fetch route:", error);
 			} finally {
-				// route fetch complete
+				loading = false;
 			}
 		}
 		fetchRoute();
@@ -87,7 +89,7 @@
 
 <div class="p-8">
 	<div
-		class="bg-sidebar mx-auto grid max-w-7xl overflow-hidden rounded-lg border md:h-[600px] md:grid-cols-[1.05fr_1fr]"
+		class="bg-sidebar mx-auto grid max-w-7xl rounded-xl border md:h-[600px] md:grid-cols-[1.05fr_1fr]"
 	>
 		<!-- Left panel -->
 		<div class="flex flex-col p-5 md:p-6">
@@ -153,15 +155,7 @@
 
 		<!-- Map panel -->
 		<div class="relative h-[400px] overflow-hidden rounded-xl shadow-sm md:h-full">
-			<Map
-				center={[-122.435, 37.696]}
-				zoom={12}
-				options={{ minZoom: 10, maxZoom: 16 }}
-				styles={{
-					light: "https://tiles.openfreemap.org/styles/bright",
-					dark: "https://tiles.openfreemap.org/styles/dark",
-				}}
-			>
+			<Map {loading} center={[-122.435, 37.696]} zoom={12} options={{ minZoom: 10, maxZoom: 16 }}>
 				<MapRoute
 					id="delivery-full-route"
 					coordinates={routeData?.coordinates ?? []}

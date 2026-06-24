@@ -5,12 +5,15 @@
 	import DocsLink from "$lib/components/docs/DocsLink.svelte";
 	import { ComponentPreview } from "$lib/components/docs/preview";
 	import BasicMapExample from "$lib/components/docs/preview/examples/BasicMapExample.svelte";
+	import BlankMapExample from "$lib/components/docs/preview/examples/BlankMapExample.svelte";
 	import ControlledMapExample from "$lib/components/docs/preview/examples/ControlledMapExample.svelte";
 	import CustomStyleExample from "$lib/components/docs/preview/examples/CustomStyleExample.svelte";
 	import { page } from "$app/state";
 
 	const basicMapSource = $derived(page.data.basicMapSource);
 	const basicMapHighlighted = $derived(page.data.basicMapHighlighted);
+	const blankMapSource = $derived(page.data.blankMapSource);
+	const blankMapHighlighted = $derived(page.data.blankMapHighlighted);
 
 	const controlledMapFiles = $derived(page.data.controlledMapFiles);
 	const customStyleFiles = $derived(page.data.customStyleFiles);
@@ -33,6 +36,16 @@
 		</p>
 		<ComponentPreview code={basicMapSource} highlightedCode={basicMapHighlighted}>
 			<BasicMapExample />
+		</ComponentPreview>
+	</DocsSection>
+
+	<DocsSection title="Blank Basemap">
+		<p>
+			Use the <DocsCode>blank</DocsCode> prop when you want a transparent canvas for custom data layers
+			like GeoJSON, arcs, or dot maps.
+		</p>
+		<ComponentPreview code={blankMapSource} highlightedCode={blankMapHighlighted}>
+			<BlankMapExample />
 		</ComponentPreview>
 	</DocsSection>
 

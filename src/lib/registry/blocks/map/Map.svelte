@@ -6,6 +6,18 @@
 	import { theme } from "$lib/theme";
 	import { resolveMapTheme } from "./theme";
 
+	const blankMapStyle: MapLibreGL.StyleSpecification = {
+		version: 8,
+		sources: {},
+		layers: [
+			{
+				id: "background",
+				type: "background",
+				paint: { "background-color": "rgba(0, 0, 0, 0)" },
+			},
+		],
+	};
+
 	// Check document class for theme (works with next-themes, etc.)
 	function getDocumentTheme(): "light" | "dark" | null {
 		if (typeof document === "undefined") return null;
@@ -42,6 +54,12 @@
 			light?: MapStyleOption;
 			dark?: MapStyleOption;
 		};
+		/**
+		 * Use a transparent, tile-less basemap instead of the default Carto style.
+		 * Useful for visualizations where child layers provide all geography.
+		 * Ignored when an explicit `styles` prop is provided.
+		 */
+		blank?: boolean;
 		theme?: "light" | "dark";
 		/** Map projection type. Use `{ type: "globe" }` for 3D globe view. */
 		projection?: MapLibreGL.ProjectionSpecification;
@@ -69,6 +87,8 @@
 		 * Runs after any viewport restoration, so it's safe to call map methods here.
 		 */
 		onstyleloaded?: () => void;
+		/** Show a loading indicator on top of the map. */
+		loading?: boolean;
 	}
 
 	const defaultStyles = {
@@ -79,6 +99,7 @@
 	let {
 		children,
 		styles,
+		blank = false,
 		theme: explicitTheme,
 		projection,
 		center = [13.405, 52.52],
@@ -88,6 +109,7 @@
 		viewport,
 		onviewportchange,
 		onstyleloaded,
+		loading = false,
 	}: Props = $props();
 
 	let mapContainer: HTMLDivElement;
@@ -114,8 +136,12 @@
 	}
 
 	const mapStyles = $derived({
-		dark: styles?.dark ?? defaultStyles.dark,
-		light: styles?.light ?? defaultStyles.light,
+		dark: styles ? (styles.dark ?? defaultStyles.dark) : blank ? blankMapStyle : defaultStyles.dark,
+		light: styles
+			? (styles.light ?? defaultStyles.light)
+			: blank
+				? blankMapStyle
+				: defaultStyles.light,
 	});
 
 	const resolvedTheme = $derived(resolveMapTheme({ explicitTheme, ambientTheme: tailwindTheme }));
@@ -128,6 +154,7 @@
 		getMap: () => map,
 		isLoaded: () => hasInitiallyLoaded,
 		isStyleReady: () => isReady,
+		resolvedTheme: () => resolvedTheme,
 	});
 
 	function clearStyleTimeout() {
@@ -333,8 +360,10 @@
 </script>
 
 <div bind:this={mapContainer} class="relative h-full w-full">
-	{#if !isReady}
-		<div class="absolute inset-0 flex items-center justify-center">
+	{#if !isReady || loading}
+		<div
+			class="bg-background/50 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-xs"
+		>
 			<div class="flex gap-1">
 				<span class="bg-muted-foreground/60 size-1.5 animate-pulse rounded-full"></span>
 				<span
