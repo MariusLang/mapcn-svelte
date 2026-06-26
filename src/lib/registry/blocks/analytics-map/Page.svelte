@@ -28,13 +28,13 @@
 			options={{ scrollZoom: false, renderWorldCopies: true, maxZoom: 4, minZoom: 1.5 }}
 			blank
 		>
-			<MapGeoJSON data={WORLD_GEOJSON} />
+			<MapGeoJSON data={WORLD_GEOJSON} linePaint={false} />
 			<MapControls class="bottom-2" />
 			{#each locations as location (location.city)}
 				<MapMarker longitude={location.lng} latitude={location.lat}>
-					<MarkerContent>
+					<MarkerContent class="group">
 						<div
-							class="bg-muted-foreground/80 rounded-full"
+							class="bg-muted-foreground/80 group-hover:bg-muted-foreground/90 rounded-full transition-[transform,background-color] group-hover:scale-110"
 							style="width: {location.size * 3}px; height: {location.size * 3}px"
 						></div>
 					</MarkerContent>

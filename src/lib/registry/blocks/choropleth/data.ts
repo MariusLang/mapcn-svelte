@@ -1,15 +1,29 @@
 export const visitorsByCountry: Record<string, number> = {
+	// High
 	Germany: 15,
 	"United States": 14,
+	China: 10,
 	"United Kingdom": 12,
-	India: 9,
+	India: 12,
+	Japan: 12,
+	Canada: 10,
+	// Mid
 	France: 9,
-	Australia: 8,
+	Brazil: 9,
 	Netherlands: 8,
-	Spain: 7,
+	"Russian Federation": 8,
+	Australia: 7,
+	Indonesia: 7,
 	Italy: 6,
 	Sweden: 6,
+	"South Africa": 6,
+	Mexico: 5,
+	// Low
 	Poland: 4,
+	Argentina: 4,
+	Spain: 3,
+	Egypt: 3,
+	Greece: 2,
 };
 
 export const MAX_VISITORS = 15;
@@ -33,12 +47,12 @@ export const mapConfig = {
 	colors: {
 		light: {
 			base: "#eef0f3",
-			ramp: ["#d4d4d4", "#a3a3a3", "#525252", "#262626"],
+			ramp: ["#d4d4d4", "#9e9e9e", "#6b6b6b", "#3d3d3d"],
 			hover: "#0a0a0a",
 		},
 		dark: {
-			base: "#2e2e2e",
-			ramp: ["#404040", "#7d7d7d", "#b8b8b8", "#ededed"],
+			base: "#2a2a2a",
+			ramp: ["#3d3d3d", "#6b6b6b", "#9e9e9e", "#d4d4d4"],
 			hover: "#ffffff",
 		},
 	} satisfies Record<Theme, ChoroplethColors>,

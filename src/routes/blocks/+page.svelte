@@ -29,7 +29,7 @@
 		></div>
 	</div>
 	<section
-		class="container mx-auto flex w-full max-w-6xl flex-col items-start gap-4 py-16 text-left md:py-24"
+		class="container mx-auto flex w-full max-w-6xl flex-col items-start gap-4 py-14 text-left md:py-18"
 	>
 		<h1
 			class="animate-fade-up animate-stagger max-w-4xl text-4xl font-bold tracking-tight sm:text-5xl md:text-5xl"
@@ -38,7 +38,7 @@
 			<span
 				class="from-foreground via-foreground to-foreground/65 bg-gradient-to-b bg-clip-text text-transparent"
 			>
-				Map Blocks
+				Blocks
 			</span>
 		</h1>
 		<p
@@ -55,7 +55,7 @@
 <section
 	class="animate-fade-up animate-stagger container mb-20 scroll-mt-20 space-y-20"
 	id="blocks"
-	style="--stagger: 3"
+	style="--stagger: 3.5"
 >
 	{#each data.blocksWithData as { block, tree, highlightedFiles }}
 		<BlockDisplay {block} {tree} {highlightedFiles} />
