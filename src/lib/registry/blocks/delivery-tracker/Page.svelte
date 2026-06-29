@@ -33,13 +33,13 @@
 	const pickup = { lng: -122.466, lat: 37.716 };
 	const dropoff = { lng: -122.399, lat: 37.683 };
 
-	function formatDistance(meters?: number) {
+	function formatDistance(meters: number | undefined) {
 		if (!meters) return "--";
 		if (meters < 1000) return `${Math.round(meters)} m`;
 		return `${(meters / 1000).toFixed(1)} km`;
 	}
 
-	function formatDuration(seconds?: number) {
+	function formatDuration(seconds: number | undefined) {
 		if (!seconds) return "--";
 		const minutes = Math.round(seconds / 60);
 		if (minutes < 60) return `${minutes} min`;

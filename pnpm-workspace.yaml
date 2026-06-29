@@ -1,1 +1,7 @@
+allowBuilds:
+  esbuild: true
 minimumReleaseAge: 10080 # 7 days in minutes
+onlyBuiltDependencies:
+  - esbuild
+overrides:
+  cookie@<0.7.0: ">=0.7.0"
