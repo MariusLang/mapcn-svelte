@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Map from "$lib/registry/blocks/map/Map.svelte";
+	import { Map } from "$lib/components/ui/map";
 	import * as Card from "$lib/registry/ui/card/index.js";
 	import GlobeHeatmapLayers from "./GlobeHeatmapLayers.svelte";
 

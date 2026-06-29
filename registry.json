@@ -2,6 +2,9 @@
 	"$schema": "../sites/docs/static/schema/registry.json",
 	"name": "mapcn-svelte",
 	"homepage": "https://github.com/MariusLang/mapcn-svelte",
+	"aliases": {
+		"components": "$lib/components"
+	},
 	"items": [
 		{
 			"name": "map",

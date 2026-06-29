@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { useMap } from "$lib/registry/blocks/map/use-map.svelte.js";
+	import { useMap } from "$lib/components/ui/map";
 
 	const EARTHQUAKE_GEOJSON_URL =
 		"https://maplibre.org/maplibre-gl-js/docs/assets/earthquakes.geojson";

@@ -1,8 +1,5 @@
 <script lang="ts">
-	import { Map } from "$lib/components/ui/map";
-	import MapControls from "$lib/registry/blocks/map/MapControls.svelte";
-	import MapClusterLayer from "$lib/registry/blocks/map/MapClusterLayer.svelte";
-	import MapPopup from "$lib/registry/blocks/map/MapPopup.svelte";
+	import { Map, MapClusterLayer, MapControls, MapPopup } from "$lib/components/ui/map";
 
 	interface EarthquakeProperties {
 		mag: number;

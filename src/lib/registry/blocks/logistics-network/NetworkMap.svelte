@@ -1,10 +1,12 @@
 <script lang="ts">
-	import Map from "$lib/registry/blocks/map/Map.svelte";
-	import MapArc from "$lib/registry/blocks/map/MapArc.svelte";
-	import MapControls from "$lib/registry/blocks/map/MapControls.svelte";
-	import MapMarker from "$lib/registry/blocks/map/MapMarker.svelte";
-	import MarkerContent from "$lib/registry/blocks/map/MarkerContent.svelte";
-	import MarkerTooltip from "$lib/registry/blocks/map/MarkerTooltip.svelte";
+	import {
+		Map,
+		MapArc,
+		MapControls,
+		MapMarker,
+		MarkerContent,
+		MarkerTooltip,
+	} from "$lib/components/ui/map";
 	import { SidebarTrigger } from "$lib/registry/ui/sidebar/index.js";
 	import { Separator } from "$lib/registry/ui/separator/index.js";
 	import { modeConfig, regionLabels, statusConfig, type Hub, type Route } from "./data.js";

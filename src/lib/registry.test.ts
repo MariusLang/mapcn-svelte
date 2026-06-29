@@ -119,9 +119,10 @@ function resolveLocalImport(fromDir: string, spec: string): string | null {
 	if (spec.startsWith("$lib/registry/ui/")) return null;
 	if (spec === "$lib/utils.js" || spec === "$lib/utils") return null;
 
+	const registrySpec = spec.replace("$lib/components/ui/map", "$lib/registry/blocks/map");
 	const base = spec.startsWith("$lib/")
-		? path.resolve(repoRoot, "src/lib", spec.slice("$lib/".length))
-		: path.resolve(fromDir, spec);
+		? path.resolve(repoRoot, "src/lib", registrySpec.slice("$lib/".length))
+		: path.resolve(fromDir, registrySpec);
 	const candidates: string[] = [];
 
 	if (spec.endsWith(".svelte") || spec.endsWith(".ts")) {
