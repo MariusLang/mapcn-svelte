@@ -53,7 +53,7 @@
 </script>
 
 <script lang="ts" generics="T extends MapArcDatum = MapArcDatum">
-	import { useMap } from "$lib/hooks/use-map.svelte.js";
+	import { useMap } from "./use-map.svelte.js";
 
 	let {
 		data,

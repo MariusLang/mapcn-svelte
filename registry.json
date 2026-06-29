@@ -72,6 +72,11 @@
 					"target": "map/theme.ts"
 				},
 				{
+					"path": "src/lib/registry/blocks/map/use-map.svelte.ts",
+					"type": "registry:ui",
+					"target": "map/use-map.svelte.ts"
+				},
+				{
 					"path": "src/lib/registry/blocks/map/index.ts",
 					"type": "registry:ui",
 					"target": "map/index.ts"

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { useMap } from "$lib/hooks/use-map.svelte.js";
+	import { useMap } from "$lib/registry/blocks/map/use-map.svelte.js";
 	import type MapLibreGL from "maplibre-gl";
 	import { hubs, modeConfig, statusConfig, type Route } from "./data.js";
 
