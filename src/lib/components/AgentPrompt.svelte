@@ -2,18 +2,21 @@
 	import Check from "@lucide/svelte/icons/check";
 	import { Button } from "$lib/registry/ui/button/index";
 	import { mapInstallAgentPrompt } from "$lib/llm-prompts";
+	import { trackEvent } from "$lib/events";
 
 	let copied = $state(false);
 
-	function copyPrompt() {
-		copied = true;
-		setTimeout(() => {
-			copied = false;
-		}, 2500);
-
-		navigator.clipboard
-			.writeText(mapInstallAgentPrompt)
-			.catch((error) => console.error("Failed to copy prompt:", error));
+	async function copyPrompt() {
+		try {
+			await navigator.clipboard.writeText(mapInstallAgentPrompt);
+			copied = true;
+			setTimeout(() => {
+				copied = false;
+			}, 2500);
+			trackEvent({ name: "copy_agent_prompt" });
+		} catch (error) {
+			console.error("Failed to copy prompt:", error);
+		}
 	}
 </script>
 

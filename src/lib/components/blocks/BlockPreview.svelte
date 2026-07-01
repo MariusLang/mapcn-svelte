@@ -8,6 +8,7 @@
 	import { Separator } from "$lib/registry/ui/separator/index.js";
 	import BlockViewerCode, { type HighlightedFile } from "./BlockViewerCode.svelte";
 	import type { FileTree, RegistryBlockItem } from "$lib/blocks.js";
+	import { trackEvent } from "$lib/events";
 
 	interface Props {
 		block: RegistryBlockItem;
@@ -26,6 +27,7 @@
 		await navigator.clipboard.writeText(`npx shadcn-svelte add ${siteUrl}/r/${block.name}.json`);
 		copiedType = "cli";
 		setTimeout(() => (copiedType = null), 2000);
+		trackEvent({ name: "copy_block_cli", properties: { block: block.name } });
 	}
 </script>
 

@@ -20,7 +20,6 @@
 					scrollZoom: false,
 					dragRotate: false,
 					pitchWithRotate: false,
-					attributionControl: false,
 				}}
 			>
 				<MapGeoJSON data={WORLD_GEOJSON} linePaint={false} />

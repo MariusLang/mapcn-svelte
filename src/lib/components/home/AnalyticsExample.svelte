@@ -25,36 +25,25 @@
 		<div class="text-muted-foreground mb-1 text-[10px] tracking-wider uppercase">Active Users</div>
 		<div class="text-2xl leading-tight font-bold">2,847</div>
 		<div class="mt-1 flex items-center gap-1">
-			<TrendingUp class="size-3 text-emerald-500" />
-			<span class="text-xs text-emerald-500">+12.5%</span>
+			<TrendingUp class="size-3" />
+			<span class="text-foreground text-xs">+12.5%</span>
 			<span class="text-muted-foreground text-xs">vs last hour</span>
 		</div>
 	</div>
 
-	<Map center={[0, 30]}>
+	<Map center={[0, 30]} options={{ scrollZoom: false, dragRotate: false, pitchWithRotate: false }}>
 		{#each analyticsData as loc (loc.city)}
 			<MapMarker longitude={loc.lng} latitude={loc.lat}>
 				<MarkerContent>
-					<div class="relative flex items-center justify-center">
-						<div
-							class="absolute rounded-full bg-emerald-500/20"
-							style="width: {loc.size * 2.5}px; height: {loc.size * 2.5}px;"
-						></div>
-						<div
-							class="absolute animate-ping rounded-full bg-emerald-500/40"
-							style="width: {loc.size * 1.5}px; height: {loc.size * 1.5}px; animation-duration: 2s;"
-						></div>
-						<div
-							class="relative rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/50"
-							style="width: {loc.size}px; height: {loc.size}px;"
-						></div>
-					</div>
+					<div
+						class="rounded-full bg-blue-500/80 shadow-sm"
+						style="width: {loc.size * 1.8}px; height: {loc.size * 1.8}px;"
+					></div>
 				</MarkerContent>
 				<MarkerTooltip>
 					<div class="text-center">
 						<div class="font-medium">{loc.city}</div>
-						<div class="font-bold text-emerald-500">{loc.users}</div>
-						<div class="text-background/70 text-[10px]">active users</div>
+						<div class="text-background/80">{loc.users} users</div>
 					</div>
 				</MarkerTooltip>
 			</MapMarker>

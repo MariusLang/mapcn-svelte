@@ -38,9 +38,9 @@
 							style="width: {location.size * 3}px; height: {location.size * 3}px"
 						></div>
 					</MarkerContent>
-					<MarkerTooltip offset={20} class="bg-popover text-muted-foreground border">
-						<p class="text-foreground font-medium">{location.city}</p>
-						<p class="mt-0.5">{location.size} active users</p>
+					<MarkerTooltip offset={20} class="bg-popover text-popover-foreground border">
+						<p class="font-medium">{location.city}</p>
+						<p class="text-muted-foreground mt-0.5">{location.size} active users</p>
 					</MarkerTooltip>
 				</MapMarker>
 			{/each}

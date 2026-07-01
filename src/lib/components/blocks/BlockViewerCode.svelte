@@ -5,6 +5,7 @@
 	import { Button } from "$lib/registry/ui/button/index.js";
 	import type { FileTree } from "$lib/blocks.js";
 	import TreeNode from "./TreeNode.svelte";
+	import { trackEvent } from "$lib/events";
 
 	export interface HighlightedFile {
 		path: string;
@@ -31,6 +32,10 @@
 		await navigator.clipboard.writeText(currentFile.content);
 		copied = true;
 		setTimeout(() => (copied = false), 2000);
+		trackEvent({
+			name: "copy_block_code",
+			properties: { file: currentFile.target },
+		});
 	}
 </script>
 

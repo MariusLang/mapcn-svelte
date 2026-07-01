@@ -13,14 +13,18 @@
 </script>
 
 <ExampleCard class="aspect-square" stagger={6}>
-	<Map center={destination.startCenter} zoom={0.6} projection={{ type: "globe" }}>
+	<Map
+		center={destination.startCenter}
+		zoom={5.5}
+		projection={{ type: "globe" }}
+		options={{ scrollZoom: false, dragRotate: false, pitchWithRotate: false }}
+	>
 		<FlyToControls {destination} />
 
 		<MapMarker longitude={destination.center[0]} latitude={destination.center[1]}>
 			<MarkerContent>
-				<div class="relative flex items-center justify-center">
-					<div class="absolute size-6 animate-ping rounded-full bg-cyan-500/20"></div>
-					<div class="shadow-l size-4 rounded-full border-2 border-white bg-cyan-500"></div>
+				<div class="flex items-center justify-center">
+					<div class="size-3.5 rounded-full border-2 border-white bg-blue-500 shadow-lg"></div>
 				</div>
 			</MarkerContent>
 			<MarkerTooltip>

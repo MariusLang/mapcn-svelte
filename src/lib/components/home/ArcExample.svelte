@@ -20,7 +20,12 @@
 </script>
 
 <ExampleCard class="aspect-square" stagger={8}>
-	<Map center={[-0.1276, 41.5074]} zoom={1} projection={{ type: "globe" }}>
+	<Map
+		center={[-0.1276, 41.5074]}
+		zoom={1}
+		projection={{ type: "globe" }}
+		options={{ scrollZoom: false }}
+	>
 		<MapArc
 			data={arcs}
 			paint={{

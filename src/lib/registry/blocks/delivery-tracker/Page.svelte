@@ -11,6 +11,7 @@
 	import Utensils from "@lucide/svelte/icons/utensils";
 	import Truck from "@lucide/svelte/icons/truck";
 	import UserRound from "@lucide/svelte/icons/user-round";
+	import { theme } from "$lib/theme";
 
 	interface DeliveryMeal {
 		name: string;
@@ -30,8 +31,8 @@
 		{ name: "Roasted Veggie Wrap", price: "$29.00", quantity: 1 },
 	];
 
-	const pickup = { lng: -122.466, lat: 37.716 };
-	const dropoff = { lng: -122.399, lat: 37.683 };
+	const pickup = { lng: -122.4185, lat: 37.7645 };
+	const dropoff = { lng: -122.434, lat: 37.7475 };
 
 	function formatDistance(meters: number | undefined) {
 		if (!meters) return "--";
@@ -50,6 +51,8 @@
 
 	let routeData: OsrmRouteData | null = $state(null);
 	let loading = $state(true);
+	let currentTheme = $state<"light" | "dark">("light");
+	const remainingRouteColor = $derived(currentTheme === "dark" ? "#9ca3af" : "#6b7280");
 
 	const progressCoordinates = $derived.by(() => {
 		const progressCount = Math.max(
@@ -60,6 +63,13 @@
 	});
 
 	const courierPosition = $derived(progressCoordinates[progressCoordinates.length - 1]);
+
+	$effect(() => {
+		const unsubscribe = theme.subscribe((value) => {
+			currentTheme = value;
+		});
+		return unsubscribe;
+	});
 
 	$effect(() => {
 		async function fetchRoute() {
@@ -155,13 +165,18 @@
 
 		<!-- Map panel -->
 		<div class="relative h-[400px] overflow-hidden rounded-xl shadow-sm md:h-full">
-			<Map {loading} center={[-122.435, 37.696]} zoom={12} options={{ minZoom: 10, maxZoom: 16 }}>
+			<Map
+				{loading}
+				center={[-122.4263, 37.756]}
+				zoom={13.6}
+				options={{ minZoom: 10, maxZoom: 16 }}
+			>
 				<MapRoute
 					id="delivery-full-route"
 					coordinates={routeData?.coordinates ?? []}
-					color="#5b6572"
+					color={remainingRouteColor}
 					width={5.2}
-					opacity={0.3}
+					opacity={0.5}
 					interactive={false}
 				/>
 				<MapRoute
@@ -177,7 +192,7 @@
 					<MapMarker longitude={courierPosition[0]} latitude={courierPosition[1]} offset={[0, 10]}>
 						<MarkerContent>
 							<div
-								class="relative grid size-9 place-items-center rounded-full bg-emerald-500 dark:bg-emerald-600"
+								class="relative grid size-9 place-items-center rounded-full border-2 border-white bg-blue-500 shadow-md dark:bg-blue-600"
 							>
 								<Truck class="size-4 text-white" />
 							</div>

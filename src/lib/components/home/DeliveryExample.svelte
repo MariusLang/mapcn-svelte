@@ -37,7 +37,11 @@
 </script>
 
 <ExampleCard class="aspect-square sm:col-span-2 sm:aspect-video lg:aspect-auto" stagger={9}>
-	<Map center={[-0.105, 51.511]} zoom={12.4}>
+	<Map
+		center={[-0.105, 51.511]}
+		zoom={12.6}
+		options={{ scrollZoom: false, dragRotate: false, pitchWithRotate: false }}
+	>
 		{#if route.length > 0}
 			<MapRoute coordinates={route} width={4} color="#4285F4" />
 		{/if}
@@ -62,7 +66,7 @@
 
 		<MapMarker longitude={home.lng} latitude={home.lat}>
 			<MarkerContent>
-				<div class="size-3.5 rounded-full border-2 border-white bg-blue-500 shadow-lg"></div>
+				<div class="size-3.5 rounded-full border-2 border-white bg-red-500 shadow-lg"></div>
 				<MarkerLabel>Home</MarkerLabel>
 			</MarkerContent>
 		</MapMarker>
