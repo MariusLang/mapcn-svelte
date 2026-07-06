@@ -22,7 +22,6 @@ describe("getAllBlocks", () => {
 			meta: { iframeHeight: "940px" },
 		});
 		expect(blocks[0].registryDependencies).toContain("card");
-		expect(blocks[0].registryDependencies).toContain("chart");
 		expect(blocks[0].registryDependencies?.some((d) => d.endsWith("/r/map.json"))).toBe(true);
 
 		expect(blocks[5]).toMatchObject({

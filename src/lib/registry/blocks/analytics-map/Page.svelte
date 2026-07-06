@@ -24,8 +24,15 @@
 	<div class="bg-card relative" style="height: var(--map-height)">
 		<Map
 			center={[-2, 16]}
-			zoom={1.5}
-			options={{ scrollZoom: false, renderWorldCopies: true, maxZoom: 4, minZoom: 1.5 }}
+			zoom={1.4}
+			options={{
+				scrollZoom: false,
+				dragRotate: false,
+				pitchWithRotate: false,
+				renderWorldCopies: true,
+				maxZoom: 4,
+				minZoom: 1.4,
+			}}
 			blank
 		>
 			<MapGeoJSON data={WORLD_GEOJSON} linePaint={false} />
@@ -34,7 +41,7 @@
 				<MapMarker longitude={location.lng} latitude={location.lat}>
 					<MarkerContent class="group">
 						<div
-							class="bg-muted-foreground/80 group-hover:bg-muted-foreground/90 rounded-full transition-[transform,background-color] group-hover:scale-110"
+							class="bg-chart-2/80 group-hover:bg-chart-2/90 rounded-full transition-[transform,background-color] group-hover:scale-110"
 							style="width: {location.size * 3}px; height: {location.size * 3}px"
 						></div>
 					</MarkerContent>
@@ -46,7 +53,7 @@
 			{/each}
 		</Map>
 		<div
-			class="via-background/30 to-background pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent"
+			class="via-background/30 to-background pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent"
 			aria-hidden="true"
 		></div>
 		<OverviewCard />

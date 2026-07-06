@@ -56,15 +56,15 @@
 		>
 			<defs>
 				<linearGradient id="sparkline-gradient" x1="0" y1="0" x2="0" y2="1">
-					<stop offset="0%" stop-color="var(--color-neutral-500)" stop-opacity="0.35" />
-					<stop offset="100%" stop-color="var(--color-neutral-500)" stop-opacity="0" />
+					<stop offset="0%" stop-color="var(--chart-2)" stop-opacity="0.35" />
+					<stop offset="100%" stop-color="var(--chart-2)" stop-opacity="0" />
 				</linearGradient>
 			</defs>
 			<path d={sparklineAreaPath} fill="url(#sparkline-gradient)" />
 			<path
 				d={sparklinePath}
 				fill="none"
-				stroke="var(--color-neutral-500)"
+				stroke="var(--chart-2)"
 				stroke-linecap="round"
 				stroke-linejoin="round"
 				stroke-width="1.5"

@@ -1,6 +1,7 @@
 <script lang="ts" generics="P extends GeoJSON.GeoJsonProperties">
 	import { getContext, untrack } from "svelte";
 	import MapLibreGL from "maplibre-gl";
+	import type * as GeoJSON from "geojson";
 
 	interface Props {
 		/** GeoJSON FeatureCollection data or URL to fetch GeoJSON from */

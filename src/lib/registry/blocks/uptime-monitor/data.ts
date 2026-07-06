@@ -31,8 +31,8 @@ export const WORLD_GEOJSON =
 
 export const mapView = {
 	center: [5, 28] as [number, number],
-	zoom: 0.5,
-	minZoom: 0.5,
+	zoom: 0.45,
+	minZoom: 0.45,
 	maxZoom: 2,
 };
 
@@ -69,7 +69,7 @@ export const edgeNodes: EdgeNode[] = [
 	},
 	{
 		id: "gru",
-		city: "Sao Paulo",
+		city: "São Paulo",
 		region: "South America",
 		lng: -46.6333,
 		lat: -23.5505,

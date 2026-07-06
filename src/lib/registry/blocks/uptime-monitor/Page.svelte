@@ -6,7 +6,7 @@
 </script>
 
 <div class="flex min-h-screen items-center justify-center p-4">
-	<div class="bg-card flex h-[520px] w-full max-w-4xl overflow-hidden rounded-xl border shadow-sm">
+	<div class="bg-card flex h-[500px] w-full max-w-4xl overflow-hidden rounded-xl border shadow-sm">
 		<StatusSidebar nodes={edgeNodes} />
 
 		<div class="relative min-w-0 flex-1">

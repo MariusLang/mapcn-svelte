@@ -50,6 +50,7 @@
 	$effect(() => {
 		const map = mapCtx.getMap();
 		const loaded = mapCtx.isStyleReady();
+		const coordinateCount = coordinates.length;
 
 		const initialCoordinates = untrack(() => coordinates);
 		const initialColor = untrack(() => color);
@@ -57,7 +58,7 @@
 		const initialOpacity = untrack(() => opacity);
 		const initialDashArray = untrack(() => dashArray);
 
-		if (!loaded || !map || initialCoordinates.length < 2) return;
+		if (!loaded || !map || coordinateCount < 2) return;
 
 		// Add source
 		map.addSource(sourceId, {

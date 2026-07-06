@@ -1,5 +1,6 @@
 <script lang="ts" module>
 	import type MapLibreGL from "maplibre-gl";
+	import type * as GeoJSON from "geojson";
 
 	export type MapGeoJSONData<P extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJsonProperties> =
 		| GeoJSON.FeatureCollection<GeoJSON.Geometry, P>

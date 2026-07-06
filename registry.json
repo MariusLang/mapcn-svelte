@@ -9,6 +9,7 @@
 			"title": "Map",
 			"description": "A MapLibre-powered map component with markers, popups, tooltips, routes, and controls.",
 			"dependencies": ["maplibre-gl"],
+			"devDependencies": ["@types/geojson"],
 			"registryDependencies": [],
 			"files": [
 				{
@@ -143,8 +144,8 @@
 			"type": "registry:block",
 			"title": "Analytics Map",
 			"description": "Real-time analytics overview with a world map, breakdown cards, and device stats.",
-			"dependencies": ["maplibre-gl", "layerchart"],
-			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card", "chart"],
+			"dependencies": ["maplibre-gl"],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card"],
 			"files": [
 				{
 					"path": "src/lib/registry/blocks/analytics-map/Page.svelte",
@@ -349,6 +350,11 @@
 					"path": "src/lib/registry/blocks/delivery-tracker/Page.svelte",
 					"type": "registry:page",
 					"target": "delivery/+page.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/delivery-tracker/data.ts",
+					"type": "registry:component",
+					"target": "delivery/data.ts"
 				}
 			],
 			"categories": ["tracking", "delivery"],

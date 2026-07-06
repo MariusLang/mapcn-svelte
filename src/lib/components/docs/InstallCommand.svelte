@@ -44,9 +44,9 @@
 	}
 </script>
 
-<div class="relative w-full overflow-hidden rounded-lg border">
+<div class="bg-surface relative w-full overflow-hidden rounded-lg">
 	<Tabs.Tabs bind:value={active} class="gap-0">
-		<div class="bg-muted/40 flex items-center justify-between border-b pr-2 pl-2">
+		<div class="flex items-center justify-between pr-2 pl-2">
 			<Tabs.TabsList variant="line" class="h-9 bg-transparent">
 				{#each tabs as tab (tab.manager)}
 					<Tabs.TabsTrigger value={tab.manager} class="font-mono text-xs">
@@ -71,9 +71,8 @@
 
 		{#each tabs as tab (tab.manager)}
 			<Tabs.TabsContent value={tab.manager}>
-				<pre class="bg-muted/40 overflow-x-auto p-4 text-sm"><code
-						class="font-mono"
-						data-language="bash">{tab.command}</code
+				<pre class="overflow-x-auto p-4 text-sm"><code class="font-mono" data-language="bash"
+						>{tab.command}</code
 					></pre>
 			</Tabs.TabsContent>
 		{/each}

@@ -1,38 +1,27 @@
+/** Visitor counts keyed by the feature `NAME_LONG`. */
 export const visitorsByCountry: Record<string, number> = {
-	// High
-	Germany: 15,
-	"United States": 14,
-	China: 10,
-	"United Kingdom": 12,
-	India: 12,
-	Japan: 12,
-	Canada: 10,
-	// Mid
-	France: 9,
-	Brazil: 9,
-	Netherlands: 8,
-	"Russian Federation": 8,
-	Australia: 7,
-	Indonesia: 7,
-	Italy: 6,
-	Sweden: 6,
-	"South Africa": 6,
-	Mexico: 5,
-	// Low
-	Poland: 4,
-	Argentina: 4,
-	Spain: 3,
-	Egypt: 3,
-	Greece: 2,
+	"United States": 100,
+	Canada: 70,
+	Brazil: 65,
+	"United Kingdom": 95,
+	Germany: 80,
+	France: 55,
+	India: 90,
+	China: 45,
+	Japan: 35,
+	Australia: 25,
+	"South Africa": 20,
+	Egypt: 15,
 };
-
-export const MAX_VISITORS = 15;
 
 export type Theme = "light" | "dark";
 
 interface ChoroplethColors {
+	/** Fill for countries with no data (value 0). */
 	base: string;
+	/** Sequential fill ramp from low to high, mapped to `scaleStops`. */
 	ramp: [string, string, string, string];
+	/** Fill for the hovered country. */
 	hover: string;
 }
 
@@ -43,16 +32,16 @@ export const mapConfig = {
 		minZoom: 1,
 		maxZoom: 4,
 	},
-	scaleStops: [0, 1, 5, 10, MAX_VISITORS] as const,
+	scaleStops: [0, 25, 50, 75, 100] as const,
 	colors: {
 		light: {
-			base: "#eef0f3",
-			ramp: ["#d4d4d4", "#9e9e9e", "#6b6b6b", "#3d3d3d"],
+			base: "#f0f0f0",
+			ramp: ["#d4d4d4", "#a3a3a3", "#737373", "#404040"],
 			hover: "#0a0a0a",
 		},
 		dark: {
 			base: "#2a2a2a",
-			ramp: ["#3d3d3d", "#6b6b6b", "#9e9e9e", "#d4d4d4"],
+			ramp: ["#404040", "#737373", "#a3a3a3", "#d4d4d4"],
 			hover: "#ffffff",
 		},
 	} satisfies Record<Theme, ChoroplethColors>,

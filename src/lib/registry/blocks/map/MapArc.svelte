@@ -1,5 +1,6 @@
 <script lang="ts" module>
 	import type MapLibreGL from "maplibre-gl";
+	import type * as GeoJSON from "geojson";
 
 	export type MapArcDatum = {
 		/** Unique identifier for this arc. Required for hover state tracking. */

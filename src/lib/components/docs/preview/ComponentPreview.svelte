@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { cn } from "$lib/utils";
 	import CopyButton from "$lib/components/CopyButton.svelte";
+	import CodeSurface from "$lib/components/CodeSurface.svelte";
 	import { Button } from "$lib/registry/ui/button/index.js";
 	import * as Select from "$lib/registry/ui/select";
 
@@ -77,20 +78,16 @@
 			</div>
 		{/if}
 
-		<div
+		<CodeSurface
 			id={codeId}
-			class={cn(
-				"bg-muted/40 p-4 text-sm [&_code]:bg-transparent! [&_pre]:bg-transparent!",
-				codeExpanded ? "max-h-[420px] overflow-auto" : "max-h-44 overflow-hidden"
-			)}
-		>
-			{@html currentFile.highlightedCode}
-		</div>
+			class={cn(codeExpanded ? "max-h-[420px] overflow-auto" : "max-h-44 overflow-hidden")}
+			html={currentFile.highlightedCode}
+		/>
 
 		<div
 			class={cn(
 				"absolute inset-x-0 bottom-0 flex w-full items-center justify-center",
-				!codeExpanded && "from-background to-background/0 bg-linear-to-t pt-12 pb-6"
+				!codeExpanded && "from-surface to-surface/0 bg-linear-to-t pt-12 pb-6"
 			)}
 		>
 			{#if !codeExpanded}
