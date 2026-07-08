@@ -13,7 +13,7 @@
 	<Header />
 
 	<main class="flex-1 pb-32">
-		<section class="relative w-full py-16 md:py-24 lg:pt-26 lg:pb-24">
+		<section class="relative w-full py-16 md:py-20 lg:py-24 lg:pb-20">
 			<Hero />
 		</section>
 

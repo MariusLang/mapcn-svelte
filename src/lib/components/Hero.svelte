@@ -4,18 +4,6 @@
 </script>
 
 <div class="relative">
-	<div class="absolute inset-x-0 -inset-y-10 -z-10 overflow-hidden">
-		<div
-			class="absolute inset-0 opacity-[0.16] dark:opacity-[0.12]"
-			style="background-image: radial-gradient(circle, currentColor 1px, transparent 1px); background-size: 24px 24px;"
-		></div>
-		<div class="absolute -top-40 -right-40 size-96 rounded-full bg-emerald-500/10 blur-3xl"></div>
-		<div class="bg-svelte/10 absolute -bottom-40 -left-40 size-96 rounded-full blur-3xl"></div>
-		<div
-			class="from-background to-background absolute inset-0 bg-linear-to-b via-transparent"
-		></div>
-	</div>
-
 	<div class="container flex max-w-6xl flex-col items-center gap-4 text-center">
 		<h1
 			class="animate-fade-up animate-stagger max-w-4xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"

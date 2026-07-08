@@ -3,8 +3,8 @@
 		AnalyticsExample,
 		TrailExample,
 		ArcExample,
-		FlyToExample,
 		EVChargingExample,
+		FlyToExample,
 		DeliveryExample,
 	} from "$lib/components/home/index";
 </script>
@@ -13,7 +13,7 @@
 	<AnalyticsExample />
 	<TrailExample />
 	<ArcExample />
-	<FlyToExample />
 	<EVChargingExample />
+	<FlyToExample />
 	<DeliveryExample />
 </div>
