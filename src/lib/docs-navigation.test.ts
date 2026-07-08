@@ -27,7 +27,19 @@ describe("docs navigation", () => {
 	it("finds adjacent docs pages after stripping query strings and hashes", () => {
 		expect(findNeighbors("/docs/installation?tab=cli#usage")).toEqual({
 			previous: fullNavItems[0],
-			next: fullNavItems[2],
+			next: fullNavItems[3],
+		});
+	});
+
+	it("includes llms.txt in the basics nav but skips it in docs neighbors", () => {
+		expect(docsNavigation[0].items[2]).toMatchObject({
+			title: "llms.txt",
+			href: "/llms.txt",
+			new: true,
+		});
+		expect(findNeighbors("/llms.txt")).toEqual({
+			previous: fullNavItems[1],
+			next: fullNavItems[3],
 		});
 	});
 
