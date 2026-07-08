@@ -8,7 +8,7 @@
     <br/><br/>
     Based on <a href="https://github.com/AnmolSaini16/mapcn">mapcn</a> by <a href="https://github.com/AnmolSaini16">Anmol Saini</a>.
   </p>
-  
+
   <p>
     <a href="https://mapcn-svelte.dev/docs">Get Started</a> •
     <a href="https://mapcn-svelte.dev/docs/installation">Installation</a> •

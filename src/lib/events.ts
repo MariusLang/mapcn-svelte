@@ -1,10 +1,7 @@
 import { track } from "@vercel/analytics";
 
 type EventName =
-	| "copy_install_command"
-	| "copy_block_cli"
-	| "copy_block_code"
-	| "copy_agent_prompt";
+	"copy_install_command" | "copy_block_cli" | "copy_block_code" | "copy_agent_prompt";
 
 type AllowedPropertyValues = string | number | boolean | null;
 
