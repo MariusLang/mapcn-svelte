@@ -22,10 +22,10 @@
 		className
 	)}
 >
-	<nav class="container flex size-full items-center gap-2 **:data-[slot=separator]:h-4!">
+	<nav class="container flex size-full items-center gap-2">
 		<MobileNav />
 		<Logo class="hidden shrink-0 lg:flex" />
-		<Separator orientation="vertical" class="bg-primary/15 hidden lg:block" />
+		<Separator orientation="vertical" class="bg-primary/15 ml-2.5 hidden h-4! lg:block" />
 		<nav class="hidden items-center gap-0.5 lg:flex">
 			{#each mainNavItems as item}
 				<Button variant="ghost" size="sm" href={item.href} class="px-2.5">
@@ -34,7 +34,7 @@
 			{/each}
 		</nav>
 
-		<div class="ml-auto flex items-center gap-2">
+		<div class="ml-auto flex items-center gap-1.5">
 			<CommandSearch />
 			<GitHubButton />
 			<ThemeToggle />

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ArrowDown, ArrowUp, CornerDownLeft, SearchIcon } from "@lucide/svelte";
+	import { ArrowDown, ArrowUp, CornerDownLeft, FileText, SearchIcon } from "@lucide/svelte";
 	import * as Command from "$lib/registry/ui/command/index.js";
 	import { Kbd } from "$lib/registry/ui/kbd/index.js";
 	import { siteNavigation } from "$lib/docs-navigation";
@@ -33,28 +33,29 @@
 </script>
 
 <Button
-	variant="outline"
+	variant="ghost"
 	size="sm"
 	onclick={() => (open = true)}
 	aria-label="Jump to pages, components, and docs"
 	class={cn(
-		"group bg-muted dark:bg-muted/50 text-muted-foreground hover:bg-muted/60 dark:hover:bg-muted/60 hover:text-foreground hidden w-[200px] items-center text-sm md:flex",
+		"bg-muted dark:bg-muted/50 text-muted-foreground hover:bg-muted/60 dark:hover:bg-muted/60 hover:text-foreground mr-2.5 hidden w-48 md:flex",
 		className
 	)}
 >
-	<SearchIcon class="size-3.5 shrink-0" />
+	<SearchIcon class="size-3.5" />
 	<span>Search...</span>
 	<Kbd class="ml-auto bg-transparent">⌘K</Kbd>
 </Button>
 
-<Command.Dialog
-	bind:open
-	title="Search Documentation"
-	description="Search for documentation pages and components"
->
-	<Command.Input placeholder="Search..." />
+<Command.Dialog bind:open title="Search..." description="Jump to pages, components, and docs">
+	<Command.Input placeholder="Search..." class="h-10 border-none text-sm" />
 	<Command.List>
-		<Command.Empty>No results found</Command.Empty>
+		<Command.Empty class="text-muted-foreground py-8 text-sm">
+			<div class="flex flex-col items-center gap-1.5">
+				<FileText class="size-5 opacity-40" />
+				<span>No results found</span>
+			</div>
+		</Command.Empty>
 		{#each siteNavigation as group}
 			<Command.Group heading={group.title}>
 				{#each group.items as item}
@@ -79,7 +80,7 @@
 			</span>
 			<span class="flex items-center gap-1.5">
 				<Kbd>
-					<CornerDownLeft className="size-3" />
+					<CornerDownLeft class="size-3" />
 				</Kbd>
 				<span>select</span>
 			</span>
