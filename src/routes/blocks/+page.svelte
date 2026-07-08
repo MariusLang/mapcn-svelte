@@ -3,6 +3,9 @@
 	import BlockDisplay from "$lib/components/blocks/BlockDisplay.svelte";
 	import Footer from "$lib/components/Footer.svelte";
 	import Header from "$lib/components/Header.svelte";
+	import PageHeader from "$lib/components/PageHeader.svelte";
+	import PageHeaderDescription from "$lib/components/PageHeaderDescription.svelte";
+	import PageHeaderHeading from "$lib/components/PageHeaderHeading.svelte";
 
 	const { data }: { data: PageData } = $props();
 </script>
@@ -17,39 +20,13 @@
 
 <Header />
 
-<!-- Page header -->
-<div class="relative">
-	<div class="pointer-events-none absolute inset-x-0 -inset-y-10 overflow-hidden">
-		<div
-			class="absolute inset-0 opacity-[0.16] dark:opacity-[0.12]"
-			style="background-image: radial-gradient(circle, currentColor 1px, transparent 1px); background-size: 24px 24px;"
-		></div>
-		<div
-			class="from-background to-background absolute inset-0 bg-gradient-to-b via-transparent"
-		></div>
-	</div>
-	<section
-		class="container mx-auto flex w-full max-w-6xl flex-col items-start gap-4 py-14 text-left md:py-18"
-	>
-		<h1
-			class="animate-fade-up animate-stagger max-w-4xl text-4xl font-bold tracking-tight sm:text-5xl md:text-5xl"
-			style="--stagger: 1"
-		>
-			<span
-				class="from-foreground via-foreground to-foreground/65 bg-gradient-to-b bg-clip-text text-transparent"
-			>
-				Blocks
-			</span>
-		</h1>
-		<p
-			class="text-foreground/80 animate-fade-up animate-stagger max-w-2xl leading-relaxed sm:text-lg md:text-xl"
-			style="--stagger: 2"
-		>
-			Pre-built, ready-to-use map blocks. Browse, preview, and copy them into your app with one
-			command.
-		</p>
-	</section>
-</div>
+<PageHeader align="left" size="sm">
+	<PageHeaderHeading>Blocks</PageHeaderHeading>
+	<PageHeaderDescription>
+		Pre-built, ready-to-use map blocks. Browse, preview, and copy them into your app with one
+		command.
+	</PageHeaderDescription>
+</PageHeader>
 
 <!-- Blocks list -->
 <section
