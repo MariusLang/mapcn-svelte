@@ -2,13 +2,8 @@ allowBuilds:
   esbuild: true
 minimumReleaseAge: 10080 # 7 days in minutes
 minimumReleaseAgeExclude:
-  - "@typescript/*"
-  - typescript
   - vite
 onlyBuiltDependencies:
   - esbuild
-peerDependencyRules:
-  allowedVersions:
-    typescript: 7.0.2
 overrides:
   cookie@<0.7.0: 0.7.2
