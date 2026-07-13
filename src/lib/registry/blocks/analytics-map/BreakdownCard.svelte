@@ -12,30 +12,34 @@
 	const maxRowValue = $derived(rows.length > 0 ? Math.max(...rows.map((row) => row.value)) : 0);
 </script>
 
-<Card.Root>
-	<Card.Header class="pb-3">
+<Card.Root class="gap-2">
+	<Card.Header>
 		<Card.Title class="text-sm font-medium">{title}</Card.Title>
 	</Card.Header>
-	<Card.Content class="space-y-3">
+	<Card.Content>
 		<div
 			class="text-muted-foreground mb-2 flex items-center justify-between text-[11px] tracking-wider uppercase"
 		>
 			<span>{title}</span>
 			<span>Visitors</span>
 		</div>
-		{#each rows as row}
-			<div class="space-y-1">
-				<div class="flex items-center justify-between text-xs">
-					<span class="text-foreground/90 truncate">{row.label}</span>
-					<span class="text-foreground font-medium">{row.value}%</span>
-				</div>
-				<div class="bg-muted h-1 w-full overflow-hidden rounded-full">
+		<div class="space-y-1.5">
+			{#each rows as row}
+				{@const pct = maxRowValue ? (row.value / maxRowValue) * 100 : 0}
+				<div
+					class="relative flex items-center justify-between overflow-hidden rounded-md px-2 py-1.5 text-xs"
+				>
 					<div
-						class="h-full rounded-full bg-blue-500/85"
-						style="width: {(row.value / maxRowValue) * 100}%"
+						class="bg-chart-2/20 absolute inset-y-0 left-0 rounded-md"
+						style="width: {pct}%"
+						aria-hidden="true"
 					></div>
+					<span class="text-foreground/90 relative truncate pr-2">{row.label}</span>
+					<span class="text-foreground relative font-medium tabular-nums">
+						{row.value.toLocaleString()}
+					</span>
 				</div>
-			</div>
-		{/each}
+			{/each}
+		</div>
 	</Card.Content>
 </Card.Root>

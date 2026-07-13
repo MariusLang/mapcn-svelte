@@ -3,9 +3,12 @@ import type { PageLoad } from "./$types";
 
 const blockComponents: Record<string, () => Promise<{ default: unknown }>> = {
 	"analytics-map": () => import("$lib/registry/blocks/analytics-map/Page.svelte"),
+	choropleth: () => import("$lib/registry/blocks/choropleth/Page.svelte"),
 	heatmap: () => import("$lib/registry/blocks/heatmap/Page.svelte"),
 	"delivery-tracker": () => import("$lib/registry/blocks/delivery-tracker/Page.svelte"),
 	"logistics-network": () => import("$lib/registry/blocks/logistics-network/Page.svelte"),
+	"store-locator": () => import("$lib/registry/blocks/store-locator/Page.svelte"),
+	"uptime-monitor": () => import("$lib/registry/blocks/uptime-monitor/Page.svelte"),
 };
 
 export const entries = () => Object.keys(blockComponents).map((name) => ({ name }));

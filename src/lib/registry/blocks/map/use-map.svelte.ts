@@ -5,6 +5,7 @@ type MapContext = {
 	getMap: () => MapLibreGL.Map | null;
 	isLoaded: () => boolean;
 	isStyleReady: () => boolean;
+	resolvedTheme?: () => "light" | "dark";
 };
 
 export function useMap() {
@@ -13,6 +14,7 @@ export function useMap() {
 	const map = $derived.by(() => mapCtx?.getMap() ?? null);
 	const isLoaded = $derived.by(() => mapCtx?.isLoaded() ?? false);
 	const isStyleReady = $derived.by(() => mapCtx?.isStyleReady() ?? false);
+	const resolvedTheme = $derived.by(() => mapCtx?.resolvedTheme?.() ?? "light");
 
 	return {
 		get map() {
@@ -23,6 +25,9 @@ export function useMap() {
 		},
 		get isStyleReady() {
 			return isStyleReady;
+		},
+		get resolvedTheme() {
+			return resolvedTheme;
 		},
 	};
 }

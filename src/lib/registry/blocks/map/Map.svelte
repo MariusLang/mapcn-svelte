@@ -5,6 +5,18 @@
 	import { browser } from "$app/environment";
 	import { resolveMapTheme } from "./theme";
 
+	const blankMapStyle: MapLibreGL.StyleSpecification = {
+		version: 8,
+		sources: {},
+		layers: [
+			{
+				id: "background",
+				type: "background",
+				paint: { "background-color": "rgba(0, 0, 0, 0)" },
+			},
+		],
+	};
+
 	// Check document class for theme (works with next-themes, etc.)
 	function getDocumentTheme(): "light" | "dark" | null {
 		if (typeof document === "undefined") return null;
@@ -41,6 +53,12 @@
 			light?: MapStyleOption;
 			dark?: MapStyleOption;
 		};
+		/**
+		 * Use a transparent, tile-less basemap instead of the default Carto style.
+		 * Useful for visualizations where child layers provide all geography.
+		 * Ignored when an explicit `styles` prop is provided.
+		 */
+		blank?: boolean;
 		theme?: "light" | "dark";
 		/** Map projection type. Use `{ type: "globe" }` for 3D globe view. */
 		projection?: MapLibreGL.ProjectionSpecification;
@@ -68,6 +86,8 @@
 		 * Runs after any viewport restoration, so it's safe to call map methods here.
 		 */
 		onstyleloaded?: () => void;
+		/** Show a loading indicator on top of the map. */
+		loading?: boolean;
 	}
 
 	const defaultStyles = {
@@ -78,6 +98,7 @@
 	let {
 		children,
 		styles,
+		blank = false,
 		theme: explicitTheme,
 		projection,
 		center = [13.405, 52.52],
@@ -87,6 +108,7 @@
 		viewport,
 		onviewportchange,
 		onstyleloaded,
+		loading = false,
 	}: Props = $props();
 
 	let mapContainer: HTMLDivElement;
@@ -113,8 +135,12 @@
 	}
 
 	const mapStyles = $derived({
-		dark: styles?.dark ?? defaultStyles.dark,
-		light: styles?.light ?? defaultStyles.light,
+		dark: styles ? (styles.dark ?? defaultStyles.dark) : blank ? blankMapStyle : defaultStyles.dark,
+		light: styles
+			? (styles.light ?? defaultStyles.light)
+			: blank
+				? blankMapStyle
+				: defaultStyles.light,
 	});
 
 	const resolvedTheme = $derived(resolveMapTheme({ explicitTheme, ambientTheme: tailwindTheme }));
@@ -125,8 +151,9 @@
 
 	setContext("map", {
 		getMap: () => map,
-		isLoaded: () => hasInitiallyLoaded,
+		isLoaded: () => isReady,
 		isStyleReady: () => isReady,
+		resolvedTheme: () => resolvedTheme,
 	});
 
 	function clearStyleTimeout() {
@@ -139,6 +166,10 @@
 	onMount(() => {
 		isMounted = true;
 
+		let observer: MutationObserver | undefined;
+		let mediaQuery: MediaQueryList | undefined;
+		let handleSystemChange: ((e: MediaQueryListEvent) => void) | undefined;
+
 		if (browser) {
 			// Also watch for document class changes (e.g., external theme togglers)
 			const updateTheme = () => {
@@ -149,26 +180,21 @@
 
 			updateTheme();
 
-			const observer = new MutationObserver(updateTheme);
+			observer = new MutationObserver(updateTheme);
 			observer.observe(document.documentElement, {
 				attributes: true,
 				attributeFilter: ["class"],
 			});
 
 			// Also watch for system preference changes
-			const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-			const handleSystemChange = (e: MediaQueryListEvent) => {
+			mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+			handleSystemChange = (e: MediaQueryListEvent) => {
 				// Only use system preference if no document class is set
 				if (!getDocumentTheme()) {
 					tailwindTheme = e.matches ? "dark" : "light";
 				}
 			};
 			mediaQuery.addEventListener("change", handleSystemChange);
-
-			onDestroy(() => {
-				observer.disconnect();
-				mediaQuery.removeEventListener("change", handleSystemChange);
-			});
 		}
 
 		const mapInstance = new MapLibreGL.Map({
@@ -230,6 +256,21 @@
 		mapInstance.on("pitchend", () => (isInteracting = false));
 
 		map = mapInstance;
+
+		return () => {
+			observer?.disconnect();
+			if (mediaQuery && handleSystemChange) {
+				mediaQuery.removeEventListener("change", handleSystemChange);
+			}
+			clearStyleTimeout();
+			mapInstance.off("load", loadHandler);
+			mapInstance.off("styledata", styleDataHandler);
+			mapInstance.off("move", handleMove);
+			mapInstance.remove();
+			map = null;
+			isLoaded = false;
+			isStyleLoaded = false;
+		};
 	});
 
 	// Sync controlled viewport to map
@@ -290,6 +331,14 @@
 	});
 
 	$effect(() => {
+		if (!map || !isReady || !projection) {
+			return;
+		}
+
+		map.setProjection(projection);
+	});
+
+	$effect(() => {
 		if (!map || !isReady || isInteracting || initialCenterZoomApplied || isControlled) {
 			return;
 		}
@@ -306,16 +355,17 @@
 	});
 
 	onDestroy(() => {
-		map?.remove();
-		map = null;
+		clearStyleTimeout();
 		isLoaded = false;
 		isStyleLoaded = false;
 	});
 </script>
 
 <div bind:this={mapContainer} class="relative h-full w-full">
-	{#if !isReady}
-		<div class="absolute inset-0 flex items-center justify-center">
+	{#if !isLoaded || loading}
+		<div
+			class="bg-background/50 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-xs"
+		>
 			<div class="flex gap-1">
 				<span class="bg-muted-foreground/60 size-1.5 animate-pulse rounded-full"></span>
 				<span
@@ -327,7 +377,7 @@
 			</div>
 		</div>
 	{/if}
-	{#if hasInitiallyLoaded}
+	{#if map}
 		{@render children?.()}
 	{/if}
 </div>

@@ -23,8 +23,9 @@
 
 		map.flyTo({
 			center: destination.center,
-			zoom: 14,
-			duration: 2500,
+			zoom: 6,
+			duration: 2000,
+			essential: true,
 		});
 	}
 </script>

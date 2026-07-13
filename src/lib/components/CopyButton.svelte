@@ -2,8 +2,17 @@
 	import Copy from "@lucide/svelte/icons/copy";
 	import Check from "@lucide/svelte/icons/check";
 	import { Button } from "$lib/registry/ui/button/index.js";
+	import { cn } from "$lib/utils";
 
-	const { command }: { command: string } = $props();
+	const {
+		command,
+		class: className,
+		onCopy,
+	}: {
+		command: string;
+		class?: string;
+		onCopy?: () => void;
+	} = $props();
 
 	let copied = $state(false);
 
@@ -11,13 +20,20 @@
 		navigator.clipboard.writeText(command);
 		copied = true;
 		setTimeout(() => (copied = false), 2000);
+		onCopy?.();
 	};
 </script>
 
-<Button variant="ghost" size="icon-sm" onclick={copy}>
+<Button
+	variant="ghost"
+	size="icon-sm"
+	onclick={copy}
+	aria-label={copied ? "Copied" : "Copy code"}
+	class={cn("text-muted-foreground bg-code", className)}
+>
 	{#if copied}
-		<Check class="size-3.5 text-emerald-500" />
+		<Check class="size-3.5" />
 	{:else}
-		<Copy class="text-muted-foreground size-3.5" />
+		<Copy class="size-3.5" />
 	{/if}
 </Button>

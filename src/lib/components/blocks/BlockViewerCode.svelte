@@ -5,6 +5,8 @@
 	import { Button } from "$lib/registry/ui/button/index.js";
 	import type { FileTree } from "$lib/blocks.js";
 	import TreeNode from "./TreeNode.svelte";
+	import { trackEvent } from "$lib/events";
+	import CodeSurface from "$lib/components/CodeSurface.svelte";
 
 	export interface HighlightedFile {
 		path: string;
@@ -31,6 +33,10 @@
 		await navigator.clipboard.writeText(currentFile.content);
 		copied = true;
 		setTimeout(() => (copied = false), 2000);
+		trackEvent({
+			name: "copy_block_code",
+			properties: { file: currentFile.target },
+		});
 	}
 </script>
 
@@ -71,12 +77,7 @@
 		</div>
 		{#if currentFile}
 			{#key currentFile.path}
-				<div
-					class="bg-muted/40 flex-1 overflow-y-auto p-4 text-sm [&_code]:bg-transparent! [&_pre]:bg-transparent!"
-				>
-					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-					{@html currentFile.highlightedContent}
-				</div>
+				<CodeSurface class="flex-1 overflow-y-auto" html={currentFile.highlightedContent} />
 			{/key}
 		{/if}
 	</div>

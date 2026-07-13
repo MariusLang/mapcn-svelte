@@ -1,5 +1,6 @@
 <script lang="ts" module>
 	import type MapLibreGL from "maplibre-gl";
+	import type * as GeoJSON from "geojson";
 
 	export type MapArcDatum = {
 		/** Unique identifier for this arc. Required for hover state tracking. */
@@ -54,6 +55,7 @@
 
 <script lang="ts" generics="T extends MapArcDatum = MapArcDatum">
 	import { useMap } from "./use-map.svelte.js";
+	import { untrack } from "svelte";
 
 	let {
 		data,
@@ -89,7 +91,7 @@
 	const layerId = $derived(`arc-layer-${id}`);
 	const hitLayerId = $derived(`arc-hit-layer-${id}`);
 
-	const { map, isLoaded } = useMap();
+	const mapCtx = useMap();
 
 	function buildArcCoordinates(
 		from: [number, number],
@@ -176,16 +178,24 @@
 	}
 
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!map || !isLoaded) return;
 
 		const currentSourceId = sourceId;
 		const currentLayerId = layerId;
 		const currentHitLayerId = hitLayerId;
+		const initialGeoJSON = untrack(() => geoJSON);
+		const initialLayout = untrack(() => mergedLayout);
+		const initialPaint = untrack(() => mergedPaint);
+		const initialHitWidth = untrack(() => hitWidth());
+		const initialInteractive = untrack(() => interactive);
+		const initialBeforeId = untrack(() => beforeId);
 
 		if (!map.getSource(currentSourceId)) {
 			map.addSource(currentSourceId, {
 				type: "geojson",
-				data: geoJSON,
+				data: initialGeoJSON,
 				promoteId: "_arc_id",
 			});
 
@@ -194,27 +204,32 @@
 					id: currentLayerId,
 					type: "line",
 					source: currentSourceId,
-					layout: mergedLayout,
-					paint: mergedPaint,
+					layout: initialLayout,
+					paint: initialPaint,
 				},
-				beforeId
+				initialBeforeId
 			);
 
-			if (interactive) {
+			if (initialInteractive) {
 				map.addLayer(
 					{
 						id: currentHitLayerId,
 						type: "line",
 						source: currentSourceId,
-						layout: mergedLayout,
-						paint: { "line-color": "transparent", "line-width": hitWidth() },
+						layout: initialLayout,
+						paint: { "line-color": "transparent", "line-width": initialHitWidth },
 					},
-					beforeId
+					initialBeforeId
 				);
 			}
 		}
 
 		return () => {
+			if (hoveredArcId !== null && map.getSource(currentSourceId)) {
+				map.setFeatureState({ source: currentSourceId, id: hoveredArcId }, { hover: false });
+				hoveredArcId = null;
+			}
+			map.getCanvas().style.cursor = "";
 			try {
 				if (map.getLayer(currentHitLayerId)) map.removeLayer(currentHitLayerId);
 				if (map.getLayer(currentLayerId)) map.removeLayer(currentLayerId);
@@ -227,6 +242,8 @@
 
 	// Update GeoJSON data reactively
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!map || !isLoaded) return;
 		const source = map.getSource(sourceId) as MapLibreGL.GeoJSONSource | undefined;
 		if (source) source.setData(geoJSON);
@@ -234,6 +251,8 @@
 
 	// Update paint reactively
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!map || !isLoaded) return;
 		if (map.getLayer(layerId)) {
 			for (const [key, value] of Object.entries(mergedPaint)) {
@@ -245,6 +264,8 @@
 
 	// Wire up interaction events
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!map || !isLoaded || !interactive) return;
 
 		const targetLayer = hitLayerId;
@@ -305,6 +326,7 @@
 			map.off("click", targetLayer, handleClick);
 			map.off("mousemove", targetLayer, handleMouseMove);
 			map.off("mouseleave", targetLayer, handleMouseLeave);
+			handleMouseLeave();
 		};
 	});
 </script>

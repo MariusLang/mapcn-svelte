@@ -15,13 +15,13 @@
 	<a
 		href="/"
 		{onclick}
-		class={cn("flex h-8 items-center gap-1.5 text-[17px] font-semibold", className)}
+		class={cn("flex h-8 items-center gap-1.5 text-lg font-semibold", className)}
 	>
 		<MapPin class="text-svelte size-4" />
 		mapcn-svelte
 	</a>
 {:else}
-	<div class={cn("flex items-center gap-1.5 text-[17px] font-semibold", className)}>
+	<div class={cn("flex items-center gap-1.5 text-lg font-semibold", className)}>
 		<MapPin class="text-svelte size-4" />
 		mapcn-svelte
 	</div>

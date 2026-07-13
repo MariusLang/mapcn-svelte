@@ -1,6 +1,7 @@
 <script lang="ts" generics="P extends GeoJSON.GeoJsonProperties">
-	import { getContext } from "svelte";
+	import { getContext, untrack } from "svelte";
 	import MapLibreGL from "maplibre-gl";
+	import type * as GeoJSON from "geojson";
 
 	interface Props {
 		/** GeoJSON FeatureCollection data or URL to fetch GeoJSON from */
@@ -24,12 +25,15 @@
 		onclusterclick?: (clusterId: number, coordinates: [number, number], pointCount: number) => void;
 	}
 
+	const DEFAULT_CLUSTER_COLORS: [string, string, string] = ["#22c55e", "#eab308", "#ef4444"];
+	const DEFAULT_CLUSTER_THRESHOLDS: [number, number] = [100, 750];
+
 	let {
 		data,
 		clusterMaxZoom = 14,
 		clusterRadius = 50,
-		clusterColors = ["#22c55e", "#eab308", "#ef4444"],
-		clusterThresholds = [100, 750],
+		clusterColors = DEFAULT_CLUSTER_COLORS,
+		clusterThresholds = DEFAULT_CLUSTER_THRESHOLDS,
 		pointColor = "#3b82f6",
 		onpointclick,
 		onclusterclick,
@@ -52,24 +56,20 @@
 		const loaded = mapCtx.isStyleReady();
 
 		if (!loaded || !map) return;
-
-		// Remove existing layers and source if they exist
-		try {
-			if (map.getLayer(clusterCountLayerId)) map.removeLayer(clusterCountLayerId);
-			if (map.getLayer(unclusteredLayerId)) map.removeLayer(unclusteredLayerId);
-			if (map.getLayer(clusterLayerId)) map.removeLayer(clusterLayerId);
-			if (map.getSource(sourceId)) map.removeSource(sourceId);
-		} catch {
-			// ignore
-		}
+		const initialData = untrack(() => data);
+		const initialClusterMaxZoom = untrack(() => clusterMaxZoom);
+		const initialClusterRadius = untrack(() => clusterRadius);
+		const initialClusterColors = untrack(() => clusterColors);
+		const initialClusterThresholds = untrack(() => clusterThresholds);
+		const initialPointColor = untrack(() => pointColor);
 
 		// Add clustered GeoJSON source
 		map.addSource(sourceId, {
 			type: "geojson",
-			data,
+			data: initialData,
 			cluster: true,
-			clusterMaxZoom,
-			clusterRadius,
+			clusterMaxZoom: initialClusterMaxZoom,
+			clusterRadius: initialClusterRadius,
 		});
 
 		// Add cluster circles layer
@@ -82,19 +82,19 @@
 				"circle-color": [
 					"step",
 					["get", "point_count"],
-					clusterColors[0],
-					clusterThresholds[0],
-					clusterColors[1],
-					clusterThresholds[1],
-					clusterColors[2],
+					initialClusterColors[0],
+					initialClusterThresholds[0],
+					initialClusterColors[1],
+					initialClusterThresholds[1],
+					initialClusterColors[2],
 				],
 				"circle-radius": [
 					"step",
 					["get", "point_count"],
 					20,
-					clusterThresholds[0],
+					initialClusterThresholds[0],
 					30,
-					clusterThresholds[1],
+					initialClusterThresholds[1],
 					40,
 				],
 				"circle-stroke-width": 1,
@@ -126,7 +126,7 @@
 			source: sourceId,
 			filter: ["!", ["has", "point_count"]],
 			paint: {
-				"circle-color": pointColor,
+				"circle-color": initialPointColor,
 				"circle-radius": 5,
 				"circle-stroke-width": 2,
 				"circle-stroke-color": "#fff",

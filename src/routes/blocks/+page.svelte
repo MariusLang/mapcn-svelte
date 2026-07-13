@@ -3,7 +3,9 @@
 	import BlockDisplay from "$lib/components/blocks/BlockDisplay.svelte";
 	import Footer from "$lib/components/Footer.svelte";
 	import Header from "$lib/components/Header.svelte";
-	import { Button } from "$lib/registry/ui/button/index";
+	import PageHeader from "$lib/components/PageHeader.svelte";
+	import PageHeaderDescription from "$lib/components/PageHeaderDescription.svelte";
+	import PageHeaderHeading from "$lib/components/PageHeaderHeading.svelte";
 
 	const { data }: { data: PageData } = $props();
 </script>
@@ -18,52 +20,19 @@
 
 <Header />
 
-<!-- Page header -->
-<div class="relative">
-	<div class="pointer-events-none absolute inset-x-0 -inset-y-10 overflow-hidden">
-		<div
-			class="absolute inset-0 opacity-[0.16] dark:opacity-[0.12]"
-			style="background-image: radial-gradient(circle, currentColor 1px, transparent 1px); background-size: 24px 24px;"
-		></div>
-		<div
-			class="from-background to-background absolute inset-0 bg-gradient-to-b via-transparent"
-		></div>
-	</div>
-	<section
-		class="container mx-auto flex w-full max-w-6xl flex-col items-start gap-4 py-16 text-left md:py-24"
-	>
-		<h1
-			class="animate-fade-up animate-stagger max-w-4xl text-4xl font-bold tracking-tight sm:text-5xl md:text-5xl"
-			style="--stagger: 1"
-		>
-			<span
-				class="from-foreground via-foreground to-foreground/65 bg-gradient-to-b bg-clip-text text-transparent"
-			>
-				Map blocks for your application
-			</span>
-		</h1>
-		<p
-			class="text-foreground/80 animate-fade-up animate-stagger max-w-2xl leading-relaxed sm:text-lg md:text-xl"
-			style="--stagger: 2"
-		>
-			Pre-built, ready-to-use map blocks. Browse, preview, and copy them into your app with one
-			command.
-		</p>
-		<div
-			class="animate-fade-up animate-stagger mt-3 flex flex-wrap items-center gap-3"
-			style="--stagger: 3"
-		>
-			<Button href="#blocks">Browse Blocks</Button>
-			<Button variant="outline" href="/docs">View Documentation</Button>
-		</div>
-	</section>
-</div>
+<PageHeader align="left" size="sm">
+	<PageHeaderHeading>Blocks</PageHeaderHeading>
+	<PageHeaderDescription>
+		Pre-built, ready-to-use map blocks. Browse, preview, and copy them into your app with one
+		command.
+	</PageHeaderDescription>
+</PageHeader>
 
 <!-- Blocks list -->
 <section
 	class="animate-fade-up animate-stagger container mb-20 scroll-mt-20 space-y-20"
 	id="blocks"
-	style="--stagger: 4"
+	style="--stagger: 3.5"
 >
 	{#each data.blocksWithData as { block, tree, highlightedFiles }}
 		<BlockDisplay {block} {tree} {highlightedFiles} />

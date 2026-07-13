@@ -61,7 +61,7 @@
 </script>
 
 <div class="flex gap-8">
-	<div class="mx-auto flex max-w-[50rem] min-w-0 flex-1 flex-col pt-10 pb-20 lg:px-4">
+	<div class="mx-auto flex max-w-[50rem] min-w-0 flex-1 flex-col px-4 pt-10 pb-20">
 		<div class="space-y-3">
 			<h1 class="text-foreground text-3xl font-semibold tracking-tight">{title}</h1>
 			<p class="text-muted-foreground leading-relaxed">{description}</p>
@@ -97,7 +97,7 @@
 		{/if}
 	</div>
 
-	<aside class="hidden w-42 shrink-0 xl:block">
+	<aside class="hidden w-48 shrink-0 xl:block">
 		<div class="sticky top-24 max-h-[calc(100svh-7rem)] overflow-y-auto pr-1">
 			<DocsToc items={toc ?? registeredToc} />
 		</div>

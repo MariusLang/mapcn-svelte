@@ -12,6 +12,7 @@
 			"title": "Map",
 			"description": "A MapLibre-powered map component with markers, popups, tooltips, routes, and controls.",
 			"dependencies": ["maplibre-gl"],
+			"devDependencies": ["@types/geojson"],
 			"registryDependencies": [],
 			"files": [
 				{
@@ -70,6 +71,11 @@
 					"target": "map/MapArc.svelte"
 				},
 				{
+					"path": "src/lib/registry/blocks/map/MapGeoJSON.svelte",
+					"type": "registry:ui",
+					"target": "map/MapGeoJSON.svelte"
+				},
+				{
 					"path": "src/lib/registry/blocks/map/theme.ts",
 					"type": "registry:ui",
 					"target": "map/theme.ts"
@@ -96,7 +102,49 @@
 				}
 			},
 			"meta": {
-				"author": "MariusLang"
+				"author": "MariusLang",
+				"components": [
+					{
+						"title": "Map",
+						"href": "/docs/basic-map",
+						"description": "Base MapLibre-powered map component."
+					},
+					{
+						"title": "Controls",
+						"href": "/docs/controls",
+						"description": "Zoom, geolocate, fullscreen, and compass controls."
+					},
+					{
+						"title": "Markers",
+						"href": "/docs/markers",
+						"description": "Map markers with labels, tooltips, and popup composition."
+					},
+					{
+						"title": "Popups",
+						"href": "/docs/popups",
+						"description": "Standalone and marker-attached popup content."
+					},
+					{
+						"title": "Routes",
+						"href": "/docs/routes",
+						"description": "Line routes with optional markers and interaction handlers."
+					},
+					{
+						"title": "Arcs",
+						"href": "/docs/arcs",
+						"description": "Curved connection arcs between coordinates."
+					},
+					{
+						"title": "GeoJSON",
+						"href": "/docs/geojson",
+						"description": "GeoJSON sources and layers for custom map data."
+					},
+					{
+						"title": "Clusters",
+						"href": "/docs/clusters",
+						"description": "Clustered point layers for dense datasets."
+					}
+				]
 			}
 		},
 		{
@@ -104,8 +152,8 @@
 			"type": "registry:block",
 			"title": "Analytics Map",
 			"description": "Real-time analytics overview with a world map, breakdown cards, and device stats.",
-			"dependencies": ["maplibre-gl", "layerchart"],
-			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card", "chart"],
+			"dependencies": ["maplibre-gl"],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card"],
 			"files": [
 				{
 					"path": "src/lib/registry/blocks/analytics-map/Page.svelte",
@@ -130,7 +178,75 @@
 			],
 			"categories": ["analytics", "dashboard"],
 			"meta": {
-				"iframeHeight": "970px"
+				"iframeHeight": "940px"
+			}
+		},
+		{
+			"name": "choropleth",
+			"type": "registry:block",
+			"title": "Choropleth",
+			"description": "World choropleth map shading countries by a metric, with a hover tooltip and legend.",
+			"dependencies": ["maplibre-gl"],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/choropleth/Page.svelte",
+					"type": "registry:page",
+					"target": "choropleth/+page.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/choropleth/data.ts",
+					"type": "registry:component",
+					"target": "choropleth/data.ts"
+				},
+				{
+					"path": "src/lib/use-world-data.svelte.ts",
+					"type": "registry:lib",
+					"target": "lib/use-world-data.svelte.ts"
+				},
+				{
+					"path": "src/lib/theme.ts",
+					"type": "registry:lib",
+					"target": "lib/theme.ts"
+				}
+			],
+			"categories": ["visualization", "choropleth"],
+			"meta": {
+				"iframeHeight": "720px"
+			}
+		},
+		{
+			"name": "uptime-monitor",
+			"type": "registry:block",
+			"title": "Uptime Monitor",
+			"description": "Status-page style map of edge network locations with live health, latency, and uptime.",
+			"dependencies": ["maplibre-gl"],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/uptime-monitor/Page.svelte",
+					"type": "registry:page",
+					"target": "uptime-monitor/+page.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/uptime-monitor/data.ts",
+					"type": "registry:component",
+					"target": "uptime-monitor/data.ts"
+				},
+				{
+					"path": "src/lib/registry/blocks/uptime-monitor/EdgeNodeMarker.svelte",
+					"type": "registry:component",
+					"target": "uptime-monitor/EdgeNodeMarker.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/uptime-monitor/StatusSidebar.svelte",
+					"type": "registry:component",
+					"target": "uptime-monitor/StatusSidebar.svelte"
+				}
+			],
+			"categories": ["monitoring", "status"],
+			"meta": {
+				"iframeHeight": "720px"
 			}
 		},
 		{
@@ -173,12 +289,51 @@
 			}
 		},
 		{
+			"name": "store-locator",
+			"type": "registry:block",
+			"title": "Store Locator",
+			"description": "Searchable store list synced with map markers.",
+			"dependencies": ["maplibre-gl"],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "input", "sidebar"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/store-locator/Page.svelte",
+					"type": "registry:page",
+					"target": "store-locator/+page.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/store-locator/data.ts",
+					"type": "registry:component",
+					"target": "store-locator/data.ts"
+				},
+				{
+					"path": "src/lib/registry/blocks/store-locator/StoreList.svelte",
+					"type": "registry:component",
+					"target": "store-locator/StoreList.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/store-locator/LocatorMap.svelte",
+					"type": "registry:component",
+					"target": "store-locator/LocatorMap.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/store-locator/FlyToSelected.svelte",
+					"type": "registry:component",
+					"target": "store-locator/FlyToSelected.svelte"
+				}
+			],
+			"categories": ["store-locator", "locator"],
+			"meta": {
+				"iframeHeight": "800px"
+			}
+		},
+		{
 			"name": "heatmap",
 			"type": "registry:block",
 			"title": "Heatmap",
 			"description": "Globe-projected heatmap visualizing earthquake density with zoom-dependent styling.",
-			"dependencies": ["maplibre-gl"],
-			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card"],
+			"dependencies": [],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json"],
 			"files": [
 				{
 					"path": "src/lib/registry/blocks/heatmap/Page.svelte",
@@ -191,7 +346,10 @@
 					"target": "heatmap/GlobeHeatmapLayers.svelte"
 				}
 			],
-			"categories": ["visualization", "heatmap"]
+			"categories": ["visualization", "heatmap"],
+			"meta": {
+				"iframeHeight": "800px"
+			}
 		},
 		{
 			"name": "delivery-tracker",
@@ -205,6 +363,16 @@
 					"path": "src/lib/registry/blocks/delivery-tracker/Page.svelte",
 					"type": "registry:page",
 					"target": "delivery/+page.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/delivery-tracker/data.ts",
+					"type": "registry:component",
+					"target": "delivery/data.ts"
+				},
+				{
+					"path": "src/lib/theme.ts",
+					"type": "registry:lib",
+					"target": "lib/theme.ts"
 				}
 			],
 			"categories": ["tracking", "delivery"],

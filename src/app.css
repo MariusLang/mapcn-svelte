@@ -35,8 +35,11 @@
 	--color-primary: var(--primary);
 	--color-popover-foreground: var(--popover-foreground);
 	--color-popover: var(--popover);
+	--color-surface: var(--surface);
 	--color-card-foreground: var(--card-foreground);
 	--color-card: var(--card);
+	--color-code-number: var(--code-number);
+	--color-code: var(--code);
 	--color-svelte: #ff3e00;
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
@@ -64,11 +67,11 @@
 	--border: oklch(0.922 0 0);
 	--input: oklch(0.922 0 0);
 	--ring: oklch(0.708 0 0);
-	--chart-1: oklch(0.646 0.222 41.116);
-	--chart-2: oklch(0.6 0.118 184.704);
-	--chart-3: oklch(0.398 0.07 227.392);
-	--chart-4: oklch(0.828 0.189 84.429);
-	--chart-5: oklch(0.769 0.188 70.08);
+	--chart-1: oklch(0.87 0 0);
+	--chart-2: oklch(0.556 0 0);
+	--chart-3: oklch(0.439 0 0);
+	--chart-4: oklch(0.371 0 0);
+	--chart-5: oklch(0.269 0 0);
 	--radius: 0.625rem;
 	--sidebar: oklch(0.985 0 0);
 	--sidebar-foreground: oklch(0.145 0 0);
@@ -80,6 +83,9 @@
 	--sidebar-ring: oklch(0.708 0 0);
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.145 0 0);
+	--surface: oklch(0.98 0 0);
+	--code-number: oklch(0.69 0 0);
+	--code: var(--surface);
 }
 
 .dark {
@@ -101,11 +107,11 @@
 	--border: oklch(1 0 0 / 10%);
 	--input: oklch(1 0 0 / 15%);
 	--ring: oklch(0.556 0 0);
-	--chart-1: oklch(0.488 0.243 264.376);
-	--chart-2: oklch(0.696 0.17 162.48);
-	--chart-3: oklch(0.769 0.188 70.08);
-	--chart-4: oklch(0.627 0.265 303.9);
-	--chart-5: oklch(0.645 0.246 16.439);
+	--chart-1: oklch(0.87 0 0);
+	--chart-2: oklch(0.556 0 0);
+	--chart-3: oklch(0.439 0 0);
+	--chart-4: oklch(0.371 0 0);
+	--chart-5: oklch(0.269 0 0);
 	--sidebar: oklch(0.205 0 0);
 	--sidebar-foreground: oklch(0.985 0 0);
 	--sidebar-primary: oklch(0.488 0.243 264.376);
@@ -114,6 +120,9 @@
 	--sidebar-accent-foreground: oklch(0.985 0 0);
 	--sidebar-border: oklch(1 0 0 / 10%);
 	--sidebar-ring: oklch(0.556 0 0);
+	--surface: oklch(0.195 0 0);
+	--code-number: oklch(0.54 0 0);
+	--code: var(--surface);
 }
 
 @layer base {
@@ -150,13 +159,13 @@
 }
 
 .container-wide {
-	@apply mx-auto max-w-[1640px] px-6;
+	@apply mx-auto max-w-[1650px] px-6;
 }
 
 @keyframes fade-up {
 	from {
 		opacity: 0;
-		transform: translateY(20px);
+		transform: translateY(12px);
 	}
 	to {
 		opacity: 1;
@@ -185,50 +194,70 @@
 }
 
 .animate-fade-up {
-	animation: fade-up 0.5s ease-out both;
+	animation: fade-up 0.45s ease-out both;
 }
 
 .animate-fade-in {
-	animation: fade-in 0.5s ease-out both;
+	animation: fade-in 0.4s ease-out both;
 }
 
 .animate-scale-in {
-	animation: scale-in 0.5s ease-out both;
+	animation: scale-in 0.45s ease-out both;
 }
 
 .animate-stagger {
 	--stagger: 0;
-	--delay: 100ms;
+	--delay: 85ms;
 	animation-delay: calc(var(--stagger) * var(--delay));
 }
 
-/* Shiki line numbers */
-.shiki code {
-	counter-reset: line;
-}
+@media (prefers-reduced-motion: reduce) {
+	.animate-fade-up,
+	.animate-fade-in,
+	.animate-scale-in {
+		animation: none;
+	}
 
-.shiki code .line::before {
-	counter-increment: line;
-	content: counter(line);
-	display: inline-block;
-	width: 1.5rem;
-	margin-right: 1.5rem;
-	text-align: right;
-	color: oklch(0.556 0 0);
-	user-select: none;
+	.animate-stagger {
+		animation-delay: 0ms;
+	}
 }
 
 /* Shiki dual theme support for code blocks */
 html .shiki,
 html .shiki span {
 	color: var(--shiki-light) !important;
-	background-color: transparent !important;
+	background-color: var(--color-code);
 }
 
 html.dark .shiki,
 html.dark .shiki span {
 	color: var(--shiki-dark) !important;
-	background-color: transparent !important;
+	background-color: var(--color-code);
+}
+
+html .shiki:focus,
+html .shiki:focus-visible {
+	outline: none;
+}
+
+code {
+	counter-reset: step;
+	counter-increment: step 0;
+}
+
+code .line::before {
+	font-size: var(--text-sm);
+	counter-increment: step;
+	content: counter(step);
+	display: inline-block;
+	width: calc(var(--spacing) * 16);
+	padding-right: calc(var(--spacing) * 6);
+	text-align: right;
+	color: var(--color-code-number);
+	background-color: var(--color-code);
+	position: sticky;
+	left: 0;
 }
 
 /* Scrollbar styling for light mode */

@@ -1,13 +1,14 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 	import Check from "@lucide/svelte/icons/check";
-	import Fullscreen from "@lucide/svelte/icons/fullscreen";
+	import Maximize from "@lucide/svelte/icons/maximize";
 	import Terminal from "@lucide/svelte/icons/terminal";
 	import * as Tabs from "$lib/registry/ui/tabs/index.js";
 	import { Button } from "$lib/registry/ui/button/index.js";
 	import { Separator } from "$lib/registry/ui/separator/index.js";
 	import BlockViewerCode, { type HighlightedFile } from "./BlockViewerCode.svelte";
 	import type { FileTree, RegistryBlockItem } from "$lib/blocks.js";
+	import { trackEvent } from "$lib/events";
 
 	interface Props {
 		block: RegistryBlockItem;
@@ -26,14 +27,15 @@
 		await navigator.clipboard.writeText(`npx shadcn-svelte add ${siteUrl}/r/${block.name}.json`);
 		copiedType = "cli";
 		setTimeout(() => (copiedType = null), 2000);
+		trackEvent({ name: "copy_block_cli", properties: { block: block.name } });
 	}
 </script>
 
 <div class="space-y-4" style="--block-preview-height: {block.meta?.iframeHeight ?? '930px'}">
 	<div>
-		<h2 class="text-xl font-semibold tracking-tight">{block.title}</h2>
+		<h2 class="text-lg font-semibold tracking-tight">{block.title}</h2>
 		{#if block.description}
-			<p class="text-muted-foreground mt-1 text-sm">{block.description}</p>
+			<p class="text-muted-foreground mt-0.5 text-sm">{block.description}</p>
 		{/if}
 	</div>
 
@@ -47,21 +49,27 @@
 			<div class="hidden items-center gap-3 md:flex">
 				<Button
 					variant="outline"
-					size="icon-sm"
-					href="/view/{block.name}"
-					target="_blank"
-					aria-label="Open in new tab"
+					size="sm"
+					onclick={copyCli}
+					aria-label="Copy CLI command"
+					class="font-mono text-xs"
 				>
-					<Fullscreen />
-				</Button>
-				<Separator orientation="vertical" class="h-4!" />
-				<Button variant="outline" size="sm" onclick={copyCli} aria-label="Copy CLI command">
 					{#if copiedType === "cli"}
 						<Check />
 					{:else}
 						<Terminal />
 					{/if}
 					npx shadcn-svelte add {siteUrl}/r/{block.name}.json
+				</Button>
+				<Separator orientation="vertical" class="h-4!" />
+				<Button
+					variant="outline"
+					size="icon-sm"
+					href="/view/{block.name}"
+					target="_blank"
+					aria-label="Open in new tab"
+				>
+					<Maximize />
 				</Button>
 			</div>
 		</div>

@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { Map, MapMarker, MarkerContent, MapRoute } from "$lib/components/ui/map";
 	import Bike from "@lucide/svelte/icons/bike";
-	import Flame from "@lucide/svelte/icons/flame";
-	import Clock from "@lucide/svelte/icons/clock";
-	import Route from "@lucide/svelte/icons/route";
 
 	import ExampleCard from "$lib/components/home/ExampleCard.svelte";
 
@@ -32,36 +29,31 @@
 		class="bg-background/95 border-border/50 absolute top-3 left-3 z-10 rounded-lg border p-3 shadow-lg backdrop-blur-md"
 	>
 		<div class="mb-2 flex items-center gap-1.5">
-			<Bike class="size-3.5 text-emerald-500" />
+			<Bike class="text-foreground size-3.5" />
 			<span class="text-xs font-medium">Central Park Loop</span>
 		</div>
 		<div class="grid grid-cols-3 gap-3 text-center">
 			<div>
-				<div class="text-muted-foreground mb-0.5 flex items-center justify-center gap-1">
-					<Route class="size-3" />
-				</div>
 				<div class="text-sm font-semibold">6.2</div>
 				<div class="text-muted-foreground text-[9px] uppercase">Miles</div>
 			</div>
 			<div>
-				<div class="text-muted-foreground mb-0.5 flex items-center justify-center gap-1">
-					<Clock class="size-3" />
-				</div>
 				<div class="text-sm font-semibold">32</div>
 				<div class="text-muted-foreground text-[9px] uppercase">Mins</div>
 			</div>
 			<div>
-				<div class="text-muted-foreground mb-0.5 flex items-center justify-center gap-1">
-					<Flame class="size-3" />
-				</div>
 				<div class="text-sm font-semibold">285</div>
 				<div class="text-muted-foreground text-[9px] uppercase">Cal</div>
 			</div>
 		</div>
 	</div>
 
-	<Map center={[-73.97, 40.782]} zoom={11.8}>
-		<MapRoute coordinates={trailCoordinates} color="#10b981" width={3} opacity={0.9} />
+	<Map
+		center={[-73.97, 40.782]}
+		zoom={11.8}
+		options={{ scrollZoom: false, dragRotate: false, pitchWithRotate: false }}
+	>
+		<MapRoute coordinates={trailCoordinates} color="#3b82f6" width={3} opacity={0.9} />
 
 		<MapMarker longitude={start[0]} latitude={start[1]}>
 			<MarkerContent>

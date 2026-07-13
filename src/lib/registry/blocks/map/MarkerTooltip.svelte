@@ -8,9 +8,10 @@
 		class?: string;
 		offset?: PopupOptions["offset"];
 		anchor?: PopupOptions["anchor"];
+		maxWidth?: string;
 	}
 
-	let { children, class: className, offset = 16, anchor }: Props = $props();
+	let { children, class: className, offset = 16, anchor, maxWidth }: Props = $props();
 
 	const markerCtx = getContext<{
 		getMarker: () => MapLibreGL.Marker | null;
@@ -20,6 +21,7 @@
 	}>("marker");
 
 	let wrapperElement: HTMLDivElement | null = $state(null);
+	let tooltip: MapLibreGL.Popup | null = null;
 
 	// Create tooltip popup when marker is ready
 	$effect(() => {
@@ -47,6 +49,7 @@
 		const popupInstance = new MapLibreGL.Popup(popupOptions)
 			.setMaxWidth("none")
 			.setDOMContent(container);
+		tooltip = popupInstance;
 
 		// Move content to popup container
 		while (wrapperElement.firstChild) {
@@ -75,7 +78,15 @@
 			}
 
 			popupInstance.remove();
+			tooltip = null;
 		};
+	});
+
+	$effect(() => {
+		if (!tooltip) return;
+
+		tooltip.setOffset(offset ?? 16);
+		tooltip.setMaxWidth(maxWidth ?? "none");
 	});
 </script>
 

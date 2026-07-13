@@ -33,29 +33,52 @@ export const locations: LocationPoint[] = [
 ];
 
 export const usersPerDay = [
-	{ day: "Mon", users: 320 },
-	{ day: "Tue", users: 410 },
-	{ day: "Wed", users: 560 },
-	{ day: "Thu", users: 640 },
-	{ day: "Fri", users: 780 },
-	{ day: "Sat", users: 690 },
-	{ day: "Sun", users: 720 },
+	{ day: "1", users: 420 },
+	{ day: "2", users: 468 },
+	{ day: "3", users: 512 },
+	{ day: "4", users: 390 },
+	{ day: "5", users: 540 },
+	{ day: "6", users: 305 },
+	{ day: "7", users: 268 },
+	{ day: "8", users: 498 },
+	{ day: "9", users: 610 },
+	{ day: "10", users: 472 },
+	{ day: "11", users: 845 },
+	{ day: "12", users: 690 },
+	{ day: "13", users: 360 },
+	{ day: "14", users: 322 },
+	{ day: "15", users: 588 },
+	{ day: "16", users: 654 },
+	{ day: "17", users: 720 },
+	{ day: "18", users: 505 },
+	{ day: "19", users: 932 },
+	{ day: "20", users: 410 },
+	{ day: "21", users: 372 },
+	{ day: "22", users: 640 },
+	{ day: "23", users: 712 },
+	{ day: "24", users: 598 },
+	{ day: "25", users: 1040 },
+	{ day: "26", users: 805 },
+	{ day: "27", users: 445 },
+	{ day: "28", users: 398 },
+	{ day: "29", users: 702 },
+	{ day: "30", users: 868 },
 ];
 
 export const deviceCategoryData = [
-	{ name: "Desktop", value: 73.3, fill: "var(--color-blue-500)" },
-	{ name: "Mobile", value: 25.0, fill: "var(--color-sky-500)" },
-	{ name: "Tablet", value: 1.7, fill: "var(--color-blue-300)" },
+	{ name: "Desktop", value: 73.3, fill: "var(--chart-1)" },
+	{ name: "Mobile", value: 25.0, fill: "var(--chart-2)" },
+	{ name: "Tablet", value: 1.7, fill: "var(--chart-3)" },
 ];
 
 export const usersPerDayChartConfig = {
-	users: { label: "Users", color: "var(--chart-1)" },
+	users: { label: "Users", color: "var(--chart-2)" },
 } as const;
 
 export const deviceCategoryChartConfig = {
-	Desktop: { label: "Desktop", color: "var(--chart-1)" },
-	Mobile: { label: "Mobile", color: "var(--chart-2)" },
-	Tablet: { label: "Tablet", color: "var(--chart-3)" },
+	desktop: { label: "Desktop", color: "var(--chart-1)" },
+	mobile: { label: "Mobile", color: "var(--chart-2)" },
+	tablet: { label: "Tablet", color: "var(--chart-3)" },
 } as const;
 
 export const visitedPagesRows: BreakdownRow[] = [
@@ -80,15 +103,15 @@ export const referrersRows: BreakdownRow[] = [
 	{ label: "google", value: 38 },
 	{ label: "direct", value: 26 },
 	{ label: "github.com", value: 19 },
-	{ label: "twitter.com", value: 11 },
-	{ label: "dev.to", value: 4 },
-	{ label: "other", value: 2 },
+	{ label: "x.com", value: 11 },
+	{ label: "ui.shadcn.com", value: 8 },
+	{ label: "other", value: 5 },
 ];
 
 export const browsersRows: BreakdownRow[] = [
-	{ label: "Chrome", value: 62 },
-	{ label: "Safari", value: 20 },
-	{ label: "Firefox", value: 9 },
-	{ label: "Edge", value: 6 },
-	{ label: "Other", value: 3 },
+	{ label: "Chrome", value: 52 },
+	{ label: "Safari", value: 21 },
+	{ label: "Firefox", value: 14 },
+	{ label: "Edge", value: 8 },
+	{ label: "Other", value: 5 },
 ];

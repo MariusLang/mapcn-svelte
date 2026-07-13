@@ -40,7 +40,7 @@
 		return hubs.find((h) => h.id === id)!;
 	}
 
-	const { map, isLoaded } = useMap();
+	const mapCtx = useMap();
 
 	const geoJSON = $derived.by<GeoJSON.FeatureCollection>(() => {
 		const features: GeoJSON.Feature[] = arcRoutes.map((route) => {
@@ -66,6 +66,8 @@
 	});
 
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!map || !isLoaded) return;
 
 		if (!map.getSource(SOURCE_ID)) {
@@ -96,6 +98,8 @@
 	});
 
 	$effect(() => {
+		const map = mapCtx.map;
+		const isLoaded = mapCtx.isLoaded;
 		if (!map || !isLoaded) return;
 		const source = map.getSource(SOURCE_ID) as MapLibreGL.GeoJSONSource | undefined;
 		if (source) source.setData(geoJSON);

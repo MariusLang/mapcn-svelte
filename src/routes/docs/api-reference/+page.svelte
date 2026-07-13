@@ -19,6 +19,7 @@
   <MapPopup longitude={...} latitude={...} />
   <MapControls />
   <MapRoute coordinates={...} />
+  <MapGeoJSON data={...} />
   <MapClusterLayer data={...} />
 </Map>`;
 
@@ -31,11 +32,14 @@
   const mapCtx = getContext<{
     getMap: () => MapLibreGL.Map | null;
     isLoaded: () => boolean;
+    isStyleReady: () => boolean;
+    resolvedTheme: () => "light" | "dark";
   }>("map");
 
   // Access the map instance
   const map = mapCtx.getMap();
   const isLoaded = mapCtx.isLoaded();
+  const resolvedTheme = mapCtx.resolvedTheme();
 </scr` +
 		`ipt>`;
 </script>
@@ -109,6 +113,19 @@
 						"Custom map styles for light and dark themes. Overrides the default Carto base map tiles.",
 				},
 				{
+					name: "blank",
+					type: "boolean",
+					default: "false",
+					description:
+						"Use a transparent tile-less basemap. Ignored when custom styles are provided.",
+				},
+				{
+					name: "loading",
+					type: "boolean",
+					default: "false",
+					description: "Show the loading indicator over the map.",
+				},
+				{
 					name: "projection",
 					type: "ProjectionSpecification",
 					description: "Map projection type. Use { type: 'globe' } for 3D globe view.",
@@ -137,8 +154,53 @@
 			</DocsLink>
 			instance, and
 			<DocsCode>isLoaded()</DocsCode>
-			returning a boolean tells you if the map is loaded and ready to use.
+			returning a boolean tells you if the map is loaded, plus
+			<DocsCode>isStyleReady()</DocsCode>
+			and
+			<DocsCode>resolvedTheme()</DocsCode>
+			for layer components that need style readiness or theme-aware paint.
 		</p>
+	</DocsSection>
+
+	<DocsSection title="MapGeoJSON">
+		<p>
+			Renders GeoJSON data as fill and line layers. Use it inside a
+			<DocsCode>Map</DocsCode>
+			, often with the
+			<DocsCode>blank</DocsCode>
+			prop for choropleths and region maps.
+		</p>
+
+		<DocsPropTable
+			props={[
+				{
+					name: "data",
+					type: "FeatureCollection | Feature | Geometry | string",
+					description: "GeoJSON object or URL to render.",
+				},
+				{
+					name: "promoteId",
+					type: "string",
+					description: "Feature property promoted to id for hover state.",
+				},
+				{
+					name: "fillPaint",
+					type: "FillLayerSpecification['paint'] | false",
+					description: "Fill layer paint. Pass false to omit the fill layer.",
+				},
+				{
+					name: "linePaint",
+					type: "LineLayerSpecification['paint'] | false",
+					description: "Outline layer paint. Pass false to omit outlines.",
+				},
+				{
+					name: "interactive",
+					type: "boolean",
+					default: "false",
+					description: "Enable hover and click events on the fill layer.",
+				},
+			]}
+		/>
 	</DocsSection>
 
 	<!-- MapControls -->

@@ -1,41 +1,33 @@
 <script lang="ts">
-	import { Map, MapMarker, MapRoute, MarkerContent, MarkerTooltip } from "$lib/components/ui/map";
+	import { Map, MapMarker, MapRoute, MarkerContent } from "$lib/components/ui/map";
 	import * as Badge from "$lib/registry/ui/badge/index.js";
 	import * as Button from "$lib/registry/ui/button/index.js";
 	import * as Card from "$lib/registry/ui/card/index.js";
 	import Clock3 from "@lucide/svelte/icons/clock-3";
+	import House from "@lucide/svelte/icons/house";
+	import Store from "@lucide/svelte/icons/store";
 	import Utensils from "@lucide/svelte/icons/utensils";
 	import Truck from "@lucide/svelte/icons/truck";
 	import UserRound from "@lucide/svelte/icons/user-round";
+	import { theme } from "$lib/theme";
+	import {
+		buildRouteUrl,
+		deliveryMeals,
+		dropoff,
+		mapView,
+		pickup,
+		progressFraction,
+		routeStyle,
+		type OsrmRouteData,
+	} from "./data";
 
-	interface DeliveryMeal {
-		name: string;
-		price: string;
-		quantity: number;
-	}
-
-	interface OsrmRouteData {
-		coordinates: [number, number][];
-		duration: number;
-		distance: number;
-	}
-
-	const deliveryMeals: DeliveryMeal[] = [
-		{ name: "Spicy Tofu Grain Bowl", price: "$44.00", quantity: 1 },
-		{ name: "Herb Chicken Rice Box", price: "$58.00", quantity: 2 },
-		{ name: "Roasted Veggie Wrap", price: "$29.00", quantity: 1 },
-	];
-
-	const pickup = { lng: -122.466, lat: 37.716 };
-	const dropoff = { lng: -122.399, lat: 37.683 };
-
-	function formatDistance(meters?: number) {
+	function formatDistance(meters: number | undefined) {
 		if (!meters) return "--";
 		if (meters < 1000) return `${Math.round(meters)} m`;
 		return `${(meters / 1000).toFixed(1)} km`;
 	}
 
-	function formatDuration(seconds?: number) {
+	function formatDuration(seconds: number | undefined) {
 		if (!seconds) return "--";
 		const minutes = Math.round(seconds / 60);
 		if (minutes < 60) return `${minutes} min`;
@@ -45,23 +37,32 @@
 	}
 
 	let routeData: OsrmRouteData | null = $state(null);
+	let loading = $state(true);
+	let currentTheme = $state<"light" | "dark">("light");
+	const remainingRouteColor = $derived(
+		currentTheme === "dark" ? routeStyle.remaining.color.dark : routeStyle.remaining.color.light
+	);
 
 	const progressCoordinates = $derived.by(() => {
-		const progressCount = Math.max(
-			2,
-			Math.floor((routeData?.coordinates?.length ?? 0) * (routeData ? 0.62 : 0.66))
-		);
+		const total = routeData?.coordinates?.length ?? 0;
+		const progressCount = Math.max(2, Math.floor(total * progressFraction));
 		return routeData?.coordinates?.slice(0, progressCount) ?? [];
 	});
 
 	const courierPosition = $derived(progressCoordinates[progressCoordinates.length - 1]);
 
 	$effect(() => {
+		const unsubscribe = theme.subscribe((value) => {
+			currentTheme = value;
+		});
+		return unsubscribe;
+	});
+
+	$effect(() => {
 		async function fetchRoute() {
+			loading = true;
 			try {
-				const response = await fetch(
-					`https://router.project-osrm.org/route/v1/driving/${pickup.lng},${pickup.lat};${dropoff.lng},${dropoff.lat}?overview=full&geometries=geojson`
-				);
+				const response = await fetch(buildRouteUrl(pickup, dropoff));
 				const data = await response.json();
 				const route = data?.routes?.[0];
 				if (!route?.geometry?.coordinates) return;
@@ -74,17 +75,15 @@
 			} catch (error) {
 				console.error("Failed to fetch route:", error);
 			} finally {
-				// route fetch complete
+				loading = false;
 			}
 		}
 		fetchRoute();
 	});
 </script>
 
-<div class="p-8">
-	<div
-		class="bg-sidebar mx-auto grid max-w-7xl overflow-hidden rounded-lg border md:h-[600px] md:grid-cols-[1.05fr_1fr]"
-	>
+<div class="flex min-h-screen items-center justify-center p-8">
+	<div class="bg-sidebar mx-auto grid w-[1200px] rounded-xl border md:grid-cols-[1.05fr_1fr]">
 		<!-- Left panel -->
 		<div class="flex flex-col p-5 md:p-6">
 			<div class="space-y-1">
@@ -130,7 +129,13 @@
 				<Card.Root>
 					<Card.Content class="space-y-2">
 						<p class="text-muted-foreground text-sm font-medium">Remaining travel</p>
-						<p class="text-sm font-medium">{formatDuration(routeData?.duration)}</p>
+						<p class="text-sm font-medium">
+							{formatDuration(routeData?.duration)}
+							<span class="text-muted-foreground font-normal">
+								·
+								{formatDistance(routeData?.distance)}
+							</span>
+						</p>
 					</Card.Content>
 				</Card.Root>
 			</div>
@@ -148,30 +153,27 @@
 		</div>
 
 		<!-- Map panel -->
-		<div class="relative h-[400px] overflow-hidden rounded-xl shadow-sm md:h-full">
+		<div class="relative h-[450px] overflow-hidden rounded-xl shadow-sm md:h-full">
 			<Map
-				center={[-122.435, 37.696]}
-				zoom={12}
-				options={{ minZoom: 10, maxZoom: 16 }}
-				styles={{
-					light: "https://tiles.openfreemap.org/styles/bright",
-					dark: "https://tiles.openfreemap.org/styles/dark",
-				}}
+				{loading}
+				center={mapView.center}
+				zoom={mapView.zoom}
+				options={{ minZoom: mapView.minZoom, maxZoom: mapView.maxZoom }}
 			>
 				<MapRoute
 					id="delivery-full-route"
 					coordinates={routeData?.coordinates ?? []}
-					color="#5b6572"
-					width={5.2}
-					opacity={0.3}
+					color={remainingRouteColor}
+					width={routeStyle.remaining.width}
+					opacity={routeStyle.remaining.opacity}
 					interactive={false}
 				/>
 				<MapRoute
 					id="delivery-progress-route"
 					coordinates={progressCoordinates}
-					color="#3b82f6"
-					width={6}
-					opacity={0.95}
+					color={routeStyle.progress.color}
+					width={routeStyle.progress.width}
+					opacity={routeStyle.progress.opacity}
 					interactive={false}
 				/>
 
@@ -179,36 +181,37 @@
 					<MapMarker longitude={courierPosition[0]} latitude={courierPosition[1]} offset={[0, 10]}>
 						<MarkerContent>
 							<div
-								class="relative grid size-9 place-items-center rounded-full bg-emerald-500 dark:bg-emerald-600"
+								class="relative grid size-9 place-items-center rounded-full shadow-md"
+								style:background-color={routeStyle.progress.color}
 							>
 								<Truck class="size-4 text-white" />
+								<div
+									class="bg-popover text-popover-foreground absolute bottom-full left-1/2 mb-2.5 -translate-x-1/2 rounded-md border px-2 py-1 text-xs font-medium whitespace-nowrap shadow-md"
+								>
+									{formatDuration(routeData?.duration)} away
+									<span
+										class="bg-popover absolute top-full left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rotate-45 border-r border-b"
+									></span>
+								</div>
 							</div>
 						</MarkerContent>
-						<MarkerTooltip>
-							<div class="space-y-0.5 text-xs">
-								<p class="font-medium">
-									Order {formatDuration(routeData?.duration)} away
-								</p>
-								<p class="text-background/70">
-									Route {formatDistance(routeData?.distance)}
-								</p>
-							</div>
-						</MarkerTooltip>
 					</MapMarker>
 				{/if}
 
 				<MapMarker longitude={pickup.lng} latitude={pickup.lat}>
 					<MarkerContent>
-						<div class="size-4 rounded-full border-2 border-white bg-emerald-500 shadow-sm"></div>
+						<div class="grid size-7 place-items-center rounded-full bg-emerald-500 shadow-md">
+							<Store class="size-3.5 text-white" />
+						</div>
 					</MarkerContent>
-					<MarkerTooltip>Origin</MarkerTooltip>
 				</MapMarker>
 
 				<MapMarker longitude={dropoff.lng} latitude={dropoff.lat}>
 					<MarkerContent>
-						<div class="size-4 rounded-full border-2 border-white bg-rose-500 shadow-sm"></div>
+						<div class="grid size-7 place-items-center rounded-full bg-rose-500 shadow-md">
+							<House class="size-3.5 text-white" />
+						</div>
 					</MarkerContent>
-					<MarkerTooltip>Destination</MarkerTooltip>
 				</MapMarker>
 			</Map>
 		</div>
