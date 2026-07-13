@@ -1,10 +1,12 @@
 <script lang="ts">
-	import Map from "$lib/registry/blocks/map/Map.svelte";
-	import MapControls from "$lib/registry/blocks/map/MapControls.svelte";
-	import MapGeoJSON from "$lib/registry/blocks/map/MapGeoJSON.svelte";
-	import MapMarker from "$lib/registry/blocks/map/MapMarker.svelte";
-	import MarkerContent from "$lib/registry/blocks/map/MarkerContent.svelte";
-	import MarkerTooltip from "$lib/registry/blocks/map/MarkerTooltip.svelte";
+	import {
+		Map,
+		MapControls,
+		MapGeoJSON,
+		MapMarker,
+		MarkerContent,
+		MarkerTooltip,
+	} from "$lib/components/ui/map";
 	import OverviewCard from "./OverviewCard.svelte";
 	import BreakdownCard from "./BreakdownCard.svelte";
 	import {

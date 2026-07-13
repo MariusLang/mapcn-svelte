@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Map from "$lib/registry/blocks/map/Map.svelte";
+	import { Map } from "$lib/components/ui/map";
 	import GlobeHeatmapLayers from "./GlobeHeatmapLayers.svelte";
 
 	const HEATMAP_GRADIENT_COLORS = ["#fff7bc", "#fee391", "#fec44f", "#fe9929", "#d7301f"];

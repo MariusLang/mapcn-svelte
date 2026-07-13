@@ -36,7 +36,7 @@
 </script>
 
 <script lang="ts" generics="P extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJsonProperties">
-	import { useMap } from "$lib/hooks/use-map.svelte.js";
+	import { useMap } from "./use-map.svelte.js";
 	import { untrack } from "svelte";
 
 	let {

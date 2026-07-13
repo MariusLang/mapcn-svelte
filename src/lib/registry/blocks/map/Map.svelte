@@ -3,7 +3,6 @@
 	import MapLibreGL from "maplibre-gl";
 	import "maplibre-gl/dist/maplibre-gl.css";
 	import { browser } from "$app/environment";
-	import { theme } from "$lib/theme";
 	import { resolveMapTheme } from "./theme";
 
 	const blankMapStyle: MapLibreGL.StyleSpecification = {
@@ -167,10 +166,6 @@
 	onMount(() => {
 		isMounted = true;
 
-		const themeUnsubscribe = theme.subscribe((value) => {
-			tailwindTheme = value;
-		});
-
 		let observer: MutationObserver | undefined;
 		let mediaQuery: MediaQueryList | undefined;
 		let handleSystemChange: ((e: MediaQueryListEvent) => void) | undefined;
@@ -263,7 +258,6 @@
 		map = mapInstance;
 
 		return () => {
-			themeUnsubscribe();
 			observer?.disconnect();
 			if (mediaQuery && handleSystemChange) {
 				mediaQuery.removeEventListener("change", handleSystemChange);

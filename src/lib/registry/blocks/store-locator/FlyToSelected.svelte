@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { useMap } from "$lib/hooks/use-map.svelte.js";
+	import { useMap } from "$lib/components/ui/map";
 	import type { Store } from "./data";
 
 	let { store }: { store?: Store } = $props();
