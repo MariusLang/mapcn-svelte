@@ -66,9 +66,7 @@ describe("registry.json", () => {
 		// Generalizes issue #17: any sibling file a registered file imports must
 		// itself be registered, otherwise a fresh install resolves a dangling import.
 		it("registers every local file its sources import", () => {
-			const registeredAbsPaths = new Set(
-				item.files.map((file) => path.resolve(repoRoot, file.path))
-			);
+			const registeredAbsPaths = collectRegisteredPaths(item);
 
 			for (const file of item.files) {
 				const absPath = path.join(repoRoot, file.path);
@@ -77,7 +75,7 @@ describe("registry.json", () => {
 				const source = readFileSync(absPath, "utf8");
 				const fileDir = path.dirname(absPath);
 
-				for (const spec of relativeImports(source)) {
+				for (const spec of importSpecifiers(source)) {
 					const resolved = resolveLocalImport(fileDir, spec);
 					if (!resolved) continue; // import target not found on disk -> not a registry concern here
 
@@ -91,10 +89,10 @@ describe("registry.json", () => {
 	});
 });
 
-/** Collect every relative specifier used in `import ... from "./x"` / `export ... from "./x"`. */
-function relativeImports(source: string): string[] {
+/** Collect every import/export specifier used in `from "./x"` / `from "$lib/x"`. */
+function importSpecifiers(source: string): string[] {
 	const specs = new Set<string>();
-	const re = /\bfrom\s+["'](\.\.?\/[^"']+)["']/g;
+	const re = /\bfrom\s+["']((?:\.\.?\/|\$lib\/)[^"']+)["']/g;
 	let match: RegExpExecArray | null;
 	while ((match = re.exec(source)) !== null) {
 		specs.add(match[1]);
@@ -102,9 +100,29 @@ function relativeImports(source: string): string[] {
 	return [...specs];
 }
 
+function collectRegisteredPaths(item: RegistryItem): Set<string> {
+	const paths = new Set(item.files.map((file) => path.resolve(repoRoot, file.path)));
+
+	for (const dependency of item.registryDependencies ?? []) {
+		if (!dependency.endsWith("/r/map.json")) continue;
+		const mapItem = items.find((entry) => entry.name === "map");
+		for (const file of mapItem?.files ?? []) {
+			paths.add(path.resolve(repoRoot, file.path));
+		}
+	}
+
+	return paths;
+}
+
 /** Resolve a relative import to an existing on-disk file, mirroring TS/Svelte resolution. */
 function resolveLocalImport(fromDir: string, spec: string): string | null {
-	const base = path.resolve(fromDir, spec);
+	if (spec.startsWith("$lib/registry/ui/")) return null;
+	if (spec === "$lib/utils.js" || spec === "$lib/utils") return null;
+
+	const registrySpec = spec.replace("$lib/components/ui/map", "$lib/registry/blocks/map");
+	const base = spec.startsWith("$lib/")
+		? path.resolve(repoRoot, "src/lib", registrySpec.slice("$lib/".length))
+		: path.resolve(fromDir, registrySpec);
 	const candidates: string[] = [];
 
 	if (spec.endsWith(".svelte") || spec.endsWith(".ts")) {

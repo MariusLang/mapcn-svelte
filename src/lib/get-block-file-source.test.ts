@@ -5,7 +5,7 @@ describe("getBlockFileSource", () => {
 	it("rewrites registry map imports to installed component imports", () => {
 		const source = getBlockFileSource("src/lib/registry/blocks/analytics-map/Page.svelte");
 
-		expect(source).toContain('import Map from "$lib/components/map/Map.svelte";');
+		expect(source).toContain('from "$lib/components/ui/map";');
 		expect(source).not.toContain("$lib/registry/blocks/map");
 	});
 
@@ -13,7 +13,7 @@ describe("getBlockFileSource", () => {
 		const source = getBlockFileSource("src/lib/registry/blocks/map/index.ts");
 
 		expect(source).toContain('export { default as Map } from "./Map.svelte";');
-		expect(source).not.toContain("$lib/components/map");
+		expect(source).not.toContain("$lib/components/ui/map");
 	});
 
 	it("surfaces filesystem errors for missing files", () => {

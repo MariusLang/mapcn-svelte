@@ -19,6 +19,7 @@
 	},
 	"dependencies": {
 		"@vercel/analytics": "^2.0.1",
+		"d3-shape": "^3.2.0",
 		"maplibre-gl": "^5.23.0",
 		"shiki": "^4.0.2"
 	},

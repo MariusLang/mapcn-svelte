@@ -2,6 +2,9 @@
 	"$schema": "../sites/docs/static/schema/registry.json",
 	"name": "mapcn-svelte",
 	"homepage": "https://github.com/MariusLang/mapcn-svelte",
+	"aliases": {
+		"components": "$lib/components"
+	},
 	"items": [
 		{
 			"name": "map",
@@ -70,6 +73,11 @@
 					"path": "src/lib/registry/blocks/map/theme.ts",
 					"type": "registry:ui",
 					"target": "map/theme.ts"
+				},
+				{
+					"path": "src/lib/registry/blocks/map/use-map.svelte.ts",
+					"type": "registry:ui",
+					"target": "map/use-map.svelte.ts"
 				},
 				{
 					"path": "src/lib/registry/blocks/map/index.ts",

@@ -1,9 +1,5 @@
 <script lang="ts">
-	import Map from "$lib/registry/blocks/map/Map.svelte";
-	import MapMarker from "$lib/registry/blocks/map/MapMarker.svelte";
-	import MapRoute from "$lib/registry/blocks/map/MapRoute.svelte";
-	import MarkerContent from "$lib/registry/blocks/map/MarkerContent.svelte";
-	import MarkerTooltip from "$lib/registry/blocks/map/MarkerTooltip.svelte";
+	import { Map, MapMarker, MapRoute, MarkerContent, MarkerTooltip } from "$lib/components/ui/map";
 	import * as Badge from "$lib/registry/ui/badge/index.js";
 	import * as Button from "$lib/registry/ui/button/index.js";
 	import * as Card from "$lib/registry/ui/card/index.js";

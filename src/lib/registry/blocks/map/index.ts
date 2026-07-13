@@ -11,3 +11,4 @@ export { default as MapRoute } from "./MapRoute.svelte";
 export { default as MapClusterLayer } from "./MapClusterLayer.svelte";
 export { default as MapArc } from "./MapArc.svelte";
 export type { MapArcDatum, MapArcEvent, MapArcProps } from "./MapArc.svelte";
+export { useMap } from "./use-map.svelte.js";
