@@ -26,7 +26,7 @@
 	}
 </script>
 
-<ExampleCard class="aspect-square" stagger={6}>
+<ExampleCard class="aspect-square" stagger={8}>
 	<Map
 		bind:map
 		center={active.center}
