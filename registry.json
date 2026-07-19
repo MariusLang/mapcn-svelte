@@ -182,6 +182,30 @@
 			}
 		},
 		{
+			"name": "analytics-card",
+			"type": "registry:block",
+			"title": "Analytics Card",
+			"description": "Compact analytics card with a headline metric over a world map.",
+			"dependencies": ["maplibre-gl"],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "button"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/analytics-card/Page.svelte",
+					"type": "registry:page",
+					"target": "analytics-card/+page.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/analytics-card/data.ts",
+					"type": "registry:component",
+					"target": "analytics-card/data.ts"
+				}
+			],
+			"categories": ["analytics", "card"],
+			"meta": {
+				"iframeHeight": "600px"
+			}
+		},
+		{
 			"name": "choropleth",
 			"type": "registry:block",
 			"title": "Choropleth",
