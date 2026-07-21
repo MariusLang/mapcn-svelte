@@ -187,7 +187,7 @@
 			"title": "Analytics Card",
 			"description": "Compact analytics card with a headline metric over a world map.",
 			"dependencies": ["maplibre-gl"],
-			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "button"],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json"],
 			"files": [
 				{
 					"path": "src/lib/registry/blocks/analytics-card/Page.svelte",

@@ -3,6 +3,7 @@
 	import MapLibreGL from "maplibre-gl";
 	import "maplibre-gl/dist/maplibre-gl.css";
 	import { browser } from "$app/environment";
+	import { cn } from "$lib/utils.js";
 	import { resolveMapTheme } from "./theme";
 
 	const blankMapStyle: MapLibreGL.StyleSpecification = {
@@ -53,6 +54,7 @@
 
 	interface Props {
 		children?: import("svelte").Snippet;
+		class?: string;
 		styles?: {
 			light?: MapStyleOption;
 			dark?: MapStyleOption;
@@ -101,6 +103,7 @@
 
 	let {
 		children,
+		class: className,
 		styles,
 		blank = false,
 		theme: explicitTheme,
@@ -356,7 +359,7 @@
 	});
 </script>
 
-<div bind:this={mapContainer} class="relative h-full w-full">
+<div bind:this={mapContainer} class={cn("relative h-full w-full", className)}>
 	{#if !isLoaded || loading}
 		<div
 			class="bg-background/50 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-xs"
