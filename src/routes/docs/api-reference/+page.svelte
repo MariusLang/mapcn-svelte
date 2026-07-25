@@ -629,7 +629,7 @@
 				{
 					name: "clusterColors",
 					type: "[string, string, string]",
-					default: '["#51bbd6", "#f1f075", "#f28cb1"]',
+					default: '["#3b82f6", "#1d4ed8", "#1e3a8a"]',
 					description: "Colors for cluster circles: [small, medium, large] based on point count.",
 				},
 				{

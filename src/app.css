@@ -152,6 +152,18 @@
 	.maplibregl-popup-tip {
 		@apply hidden!;
 	}
+	.maplibregl-ctrl-attrib {
+		@apply bg-background! text-muted-foreground! border-border! rounded-md! border! shadow-sm!;
+	}
+	.maplibregl-ctrl-attrib a {
+		@apply text-muted-foreground!;
+	}
+	.maplibregl-ctrl-attrib a:hover {
+		@apply text-foreground!;
+	}
+	.maplibregl-ctrl-attrib-button {
+		@apply bg-transparent! dark:invert;
+	}
 }
 
 .container {
@@ -165,7 +177,7 @@
 @keyframes fade-up {
 	from {
 		opacity: 0;
-		transform: translateY(12px);
+		transform: translateY(8px);
 	}
 	to {
 		opacity: 1;
@@ -194,7 +206,7 @@
 }
 
 .animate-fade-up {
-	animation: fade-up 0.45s ease-out both;
+	animation: fade-up 0.65s cubic-bezier(0.33, 1, 0.68, 1) both;
 }
 
 .animate-fade-in {
@@ -207,7 +219,7 @@
 
 .animate-stagger {
 	--stagger: 0;
-	--delay: 85ms;
+	--delay: 110ms;
 	animation-delay: calc(var(--stagger) * var(--delay));
 }
 

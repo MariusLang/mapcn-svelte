@@ -3,6 +3,7 @@
 	import MapLibreGL from "maplibre-gl";
 	import "maplibre-gl/dist/maplibre-gl.css";
 	import { browser } from "$app/environment";
+	import { cn } from "$lib/utils.js";
 	import { resolveMapTheme } from "./theme";
 
 	const blankMapStyle: MapLibreGL.StyleSpecification = {
@@ -17,11 +18,15 @@
 		],
 	};
 
-	// Check document class for theme (works with next-themes, etc.)
+	// Check the document for an explicit theme (works with next-themes, etc.).
+	// Covers both `class` and `data-theme` attributes.
 	function getDocumentTheme(): "light" | "dark" | null {
 		if (typeof document === "undefined") return null;
-		if (document.documentElement.classList.contains("dark")) return "dark";
-		if (document.documentElement.classList.contains("light")) return "light";
+		const root = document.documentElement;
+		if (root.classList.contains("dark")) return "dark";
+		if (root.classList.contains("light")) return "light";
+		const dataTheme = root.dataset.theme;
+		if (dataTheme === "dark" || dataTheme === "light") return dataTheme;
 		return null;
 	}
 
@@ -49,6 +54,7 @@
 
 	interface Props {
 		children?: import("svelte").Snippet;
+		class?: string;
 		styles?: {
 			light?: MapStyleOption;
 			dark?: MapStyleOption;
@@ -97,6 +103,7 @@
 
 	let {
 		children,
+		class: className,
 		styles,
 		blank = false,
 		theme: explicitTheme,
@@ -116,10 +123,11 @@
 	let isLoaded = $state(false);
 	let isStyleLoaded = $state(false);
 	let isInteracting = $state(false);
-	let hasInitiallyLoaded = $state(false);
 	let initialStyleApplied = false;
 	let initialCenterZoomApplied = false;
-	let styleTimeoutId: ReturnType<typeof setTimeout> | null = null;
+	let pendingStyle = $state<MapStyleOption | null>(null);
+	let styleSwapInFlight = false;
+	let appliedStyleKey: string | null = null;
 	let internalUpdate = false;
 
 	const isControlled = $derived(viewport !== undefined && onviewportchange !== undefined);
@@ -146,6 +154,9 @@
 	const resolvedTheme = $derived(resolveMapTheme({ explicitTheme, ambientTheme: tailwindTheme }));
 
 	const currentStyle = $derived(resolvedTheme === "light" ? mapStyles.light : mapStyles.dark);
+	const currentStyleKey = $derived(
+		typeof currentStyle === "string" ? currentStyle : (JSON.stringify(currentStyle) ?? "")
+	);
 
 	const isReady = $derived(isMounted && isLoaded && isStyleLoaded);
 
@@ -155,13 +166,6 @@
 		isStyleReady: () => isReady,
 		resolvedTheme: () => resolvedTheme,
 	});
-
-	function clearStyleTimeout() {
-		if (styleTimeoutId) {
-			clearTimeout(styleTimeoutId);
-			styleTimeoutId = null;
-		}
-	}
 
 	onMount(() => {
 		isMounted = true;
@@ -183,7 +187,7 @@
 			observer = new MutationObserver(updateTheme);
 			observer.observe(document.documentElement, {
 				attributes: true,
-				attributeFilter: ["class"],
+				attributeFilter: ["class", "data-theme"],
 			});
 
 			// Also watch for system preference changes
@@ -211,25 +215,13 @@
 			pitch: viewport?.pitch ?? 0,
 			...options,
 		});
+		appliedStyleKey = currentStyleKey;
 
-		const styleDataHandler = () => {
-			clearStyleTimeout();
-			// Delay to ensure style is fully processed before allowing layer operations
-			// This is a workaround to avoid race conditions with the style loading
-			// else we have to force update every layer on setStyle change
-			styleTimeoutId = setTimeout(() => {
-				isStyleLoaded = true;
-				if (!initialStyleApplied) {
-					initialStyleApplied = true;
-				}
-				if (!hasInitiallyLoaded) {
-					hasInitiallyLoaded = true;
-				}
-				if (projection) {
-					mapInstance.setProjection(projection);
-				}
-				onstyleloaded?.();
-			}, 100);
+		const styleLoadHandler = () => {
+			styleSwapInFlight = false;
+			isStyleLoaded = true;
+			initialStyleApplied = true;
+			onstyleloaded?.();
 		};
 
 		const loadHandler = () => {
@@ -243,7 +235,7 @@
 		};
 
 		mapInstance.on("load", loadHandler);
-		mapInstance.on("styledata", styleDataHandler);
+		mapInstance.on("style.load", styleLoadHandler);
 		mapInstance.on("move", handleMove);
 
 		mapInstance.on("dragstart", () => (isInteracting = true));
@@ -262,9 +254,8 @@
 			if (mediaQuery && handleSystemChange) {
 				mediaQuery.removeEventListener("change", handleSystemChange);
 			}
-			clearStyleTimeout();
 			mapInstance.off("load", loadHandler);
-			mapInstance.off("styledata", styleDataHandler);
+			mapInstance.off("style.load", styleLoadHandler);
 			mapInstance.off("move", handleMove);
 			mapInstance.remove();
 			map = null;
@@ -305,33 +296,41 @@
 
 	$effect(() => {
 		const style = currentStyle;
+		const styleKey = currentStyleKey;
 
-		if (!map || !initialStyleApplied) {
+		if (!map || !initialStyleApplied || appliedStyleKey === styleKey) {
 			return;
 		}
 
-		untrack(() => {
-			const currCenter = map!.getCenter();
-			const currZoom = map!.getZoom();
-			const currBearing = map!.getBearing();
-			const currPitch = map!.getPitch();
+		appliedStyleKey = styleKey;
+		isStyleLoaded = false;
+		pendingStyle = style;
+	});
 
-			isStyleLoaded = false;
-			map!.setStyle(style, { diff: true });
+	$effect(() => {
+		const style = pendingStyle;
+		if (!map || !style) return;
 
-			map!.once("styledata", () => {
-				map!.jumpTo({
-					center: currCenter,
-					zoom: currZoom,
-					bearing: currBearing,
-					pitch: currPitch,
-				});
+		pendingStyle = null;
+		const currCenter = map.getCenter();
+		const currZoom = map.getZoom();
+		const currBearing = map.getBearing();
+		const currPitch = map.getPitch();
+
+		styleSwapInFlight = true;
+		map.setStyle(style, { diff: false });
+		map.once("style.load", () => {
+			map?.jumpTo({
+				center: currCenter,
+				zoom: currZoom,
+				bearing: currBearing,
+				pitch: currPitch,
 			});
 		});
 	});
 
 	$effect(() => {
-		if (!map || !isReady || !projection) {
+		if (!map || !isReady || !projection || styleSwapInFlight) {
 			return;
 		}
 
@@ -355,13 +354,12 @@
 	});
 
 	onDestroy(() => {
-		clearStyleTimeout();
 		isLoaded = false;
 		isStyleLoaded = false;
 	});
 </script>
 
-<div bind:this={mapContainer} class="relative h-full w-full">
+<div bind:this={mapContainer} class={cn("relative h-full w-full", className)}>
 	{#if !isLoaded || loading}
 		<div
 			class="bg-background/50 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-xs"

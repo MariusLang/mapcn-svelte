@@ -85,30 +85,30 @@
 	function handleLocate() {
 		const map = mapCtx.getMap();
 		if (!map) return;
+		if (!("geolocation" in navigator)) return;
 
 		waitingForLocation = true;
 
-		if ("geolocation" in navigator) {
-			navigator.geolocation.getCurrentPosition(
-				(position) => {
-					const coords = {
-						longitude: position.coords.longitude,
-						latitude: position.coords.latitude,
-					};
-					map.flyTo({
-						center: [coords.longitude, coords.latitude],
-						zoom: 14,
-						duration: 1500,
-					});
-					onlocate?.(coords);
-					waitingForLocation = false;
-				},
-				(error) => {
-					console.error("Error getting location:", error);
-					waitingForLocation = false;
-				}
-			);
-		}
+		navigator.geolocation.getCurrentPosition(
+			(position) => {
+				const coords = {
+					longitude: position.coords.longitude,
+					latitude: position.coords.latitude,
+				};
+				map.flyTo({
+					center: [coords.longitude, coords.latitude],
+					zoom: 14,
+					duration: 1500,
+				});
+				onlocate?.(coords);
+				waitingForLocation = false;
+			},
+			(error) => {
+				console.error("Error getting location:", error);
+				waitingForLocation = false;
+			},
+			{ timeout: 10000 }
+		);
 	}
 
 	function handleFullscreen() {
@@ -134,7 +134,7 @@
 					onclick={handleZoomIn}
 					aria-label="Zoom in"
 					type="button"
-					class="hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring flex size-8 items-center justify-center transition-all first:rounded-t-md last:rounded-b-md focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
+					class="hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring flex size-8 items-center justify-center transition-colors first:rounded-t-md last:rounded-b-md focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
 				>
 					<Plus class="size-4" />
 				</button>
@@ -142,7 +142,7 @@
 					onclick={handleZoomOut}
 					aria-label="Zoom out"
 					type="button"
-					class="hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring flex size-8 items-center justify-center transition-all first:rounded-t-md last:rounded-b-md focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
+					class="hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring flex size-8 items-center justify-center transition-colors first:rounded-t-md last:rounded-b-md focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
 				>
 					<Minus class="size-4" />
 				</button>
@@ -157,12 +157,12 @@
 					onclick={handleResetBearing}
 					aria-label="Reset bearing to north"
 					type="button"
-					class="hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring flex size-8 items-center justify-center transition-all focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
+					class="hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring flex size-8 items-center justify-center transition-colors focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
 				>
 					<svg
 						bind:this={compassElement}
 						viewBox="0 0 24 24"
-						class="size-5 transition-transform duration-200"
+						class="size-5"
 						style="transform-style: preserve-3d;"
 					>
 						<path d="M12 2L16 12H12V2Z" class="fill-red-500" />
@@ -182,7 +182,7 @@
 					onclick={handleLocate}
 					aria-label="Find my location"
 					type="button"
-					class="hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring flex size-8 items-center justify-center transition-all first:rounded-t-md last:rounded-b-md focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
+					class="hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring flex size-8 items-center justify-center transition-colors first:rounded-t-md last:rounded-b-md focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
 					disabled={waitingForLocation}
 				>
 					{#if waitingForLocation}
@@ -202,7 +202,7 @@
 					onclick={handleFullscreen}
 					aria-label="Toggle fullscreen"
 					type="button"
-					class="hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring flex size-8 items-center justify-center transition-all first:rounded-t-md last:rounded-b-md focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
+					class="hover:bg-accent dark:hover:bg-accent/40 focus-visible:ring-ring flex size-8 items-center justify-center transition-colors first:rounded-t-md last:rounded-b-md focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50"
 				>
 					<Maximize class="size-4" />
 				</button>

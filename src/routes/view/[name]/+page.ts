@@ -3,6 +3,7 @@ import type { PageLoad } from "./$types";
 
 const blockComponents: Record<string, () => Promise<{ default: unknown }>> = {
 	"analytics-map": () => import("$lib/registry/blocks/analytics-map/Page.svelte"),
+	"analytics-card": () => import("$lib/registry/blocks/analytics-card/Page.svelte"),
 	choropleth: () => import("$lib/registry/blocks/choropleth/Page.svelte"),
 	heatmap: () => import("$lib/registry/blocks/heatmap/Page.svelte"),
 	"delivery-tracker": () => import("$lib/registry/blocks/delivery-tracker/Page.svelte"),
