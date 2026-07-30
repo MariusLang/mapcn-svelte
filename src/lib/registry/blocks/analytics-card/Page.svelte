@@ -1,6 +1,8 @@
 <script lang="ts">
 	import TrendingUp from "@lucide/svelte/icons/trending-up";
 	import { Map, MapGeoJSON, MapMarker, MarkerContent } from "$lib/registry/blocks/map";
+	import { Badge } from "$lib/registry/ui/badge";
+	import * as Card from "$lib/registry/ui/card";
 	import { totalVisitors, visitorGrowth, visitorLocations } from "./data.js";
 
 	const WORLD_GEOJSON =
@@ -12,9 +14,7 @@
 </script>
 
 <div class="flex min-h-screen items-center justify-center p-8">
-	<div
-		class="bg-card relative aspect-[16/10] w-full max-w-md overflow-hidden rounded-xl border shadow-sm"
-	>
+	<Card.Root class="relative aspect-[16/10] w-full max-w-md overflow-hidden py-0">
 		<div class="absolute inset-0">
 			<Map
 				center={[1, 30]}
@@ -43,28 +43,18 @@
 			</Map>
 		</div>
 
-		<div
-			class="from-card via-card/85 to-card/0 pointer-events-none absolute inset-x-0 top-0 z-10 h-24 rounded-t-xl bg-linear-to-b mask-[linear-gradient(to_bottom,black_70%,transparent)] backdrop-blur-[2px]"
-			aria-hidden="true"
-		></div>
+		<Card.Header
+			class="from-card via-card/85 to-card/0 relative z-10 gap-1 rounded-t-[inherit] bg-linear-to-b pt-4 pb-10 mask-[linear-gradient(to_bottom,black_calc(100%_-_2.5rem),transparent)] backdrop-blur-[2px]"
+		>
+			<Card.Description>Visitors</Card.Description>
+			<Card.Title class="text-lg tabular-nums">{totalVisitors}</Card.Title>
 
-		<div class="relative z-20 flex items-start justify-between gap-3 p-4">
-			<div>
-				<h2 class="text-foreground text-lg font-medium tracking-tight">Analytics</h2>
-				<p class="text-muted-foreground mt-1 text-xs font-medium">Last 30 days</p>
-			</div>
-
-			<div class="text-right">
-				<p class="text-foreground text-lg font-medium tracking-tight tabular-nums">
-					{totalVisitors}
-				</p>
-				<span
-					class="text-muted-foreground mt-1 inline-flex items-center gap-0.5 text-xs font-medium"
-				>
-					<TrendingUp class="size-2.5" />
-					{visitorGrowth} visitors
-				</span>
-			</div>
-		</div>
-	</div>
+			<Card.Action>
+				<Badge variant="outline">
+					<TrendingUp />
+					{visitorGrowth} growth
+				</Badge>
+			</Card.Action>
+		</Card.Header>
+	</Card.Root>
 </div>
