@@ -6,7 +6,7 @@ export interface VisitorLocation {
 }
 
 export const totalVisitors = "418.2K";
-export const visitorGrowth = "+10%";
+export const visitorGrowth = "+12%";
 
 export const visitorLocations: VisitorLocation[] = [
 	{ city: "San Francisco", lng: -122.4194, lat: 37.7749, visitors: 62 },

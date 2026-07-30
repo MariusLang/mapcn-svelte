@@ -206,7 +206,7 @@
 }
 
 .animate-fade-up {
-	animation: fade-up 0.65s cubic-bezier(0.33, 1, 0.68, 1) both;
+	animation: fade-up 0.6s both;
 }
 
 .animate-fade-in {
@@ -219,7 +219,7 @@
 
 .animate-stagger {
 	--stagger: 0;
-	--delay: 110ms;
+	--delay: 0.12s;
 	animation-delay: calc(var(--stagger) * var(--delay));
 }
 

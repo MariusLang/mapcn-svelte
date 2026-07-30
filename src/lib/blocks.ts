@@ -22,10 +22,26 @@ export interface FileTree {
 }
 
 const typedRegistry = registry as RegistrySchema;
+const upstreamBlockOrder = [
+	"analytics-map",
+	"choropleth",
+	"analytics-card",
+	"delivery-tracker",
+	"uptime-monitor",
+	"heatmap",
+	"logistics-network",
+	"store-locator",
+];
+const upstreamBlockRank = new Map(upstreamBlockOrder.map((name, index) => [name, index]));
 
 export function getAllBlocks(): RegistryBlockItem[] {
 	return typedRegistry.items
 		.filter((item) => item.type === "registry:block")
+		.toSorted(
+			(a, b) =>
+				(upstreamBlockRank.get(a.name) ?? Number.POSITIVE_INFINITY) -
+				(upstreamBlockRank.get(b.name) ?? Number.POSITIVE_INFINITY)
+		)
 		.map((item) => ({
 			name: item.name,
 			type: item.type,
