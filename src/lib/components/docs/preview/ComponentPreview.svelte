@@ -17,6 +17,7 @@
 		code,
 		highlightedCode,
 		files,
+		height = "420px",
 		class: className,
 		children,
 	}:
@@ -24,6 +25,7 @@
 				code: string;
 				highlightedCode: string;
 				files?: undefined;
+				height?: string;
 				class?: string;
 				children?: import("svelte").Snippet;
 		  }
@@ -31,6 +33,7 @@
 				code?: undefined;
 				highlightedCode?: undefined;
 				files: CodeFile[];
+				height?: string;
 				class?: string;
 				children?: import("svelte").Snippet;
 		  } = $props();
@@ -46,14 +49,17 @@
 	let currentFile = $derived(allFiles[Number(selectedFileIndex)] || allFiles[0]);
 </script>
 
-<div class="space-y-4">
+<div
+	class={cn("w-full overflow-hidden rounded-lg border", className)}
+	style={`--preview-height: ${height}`}
+>
 	<!-- Preview -->
-	<div class={cn("h-[420px] w-full overflow-hidden rounded-lg border", className)}>
+	<div class="h-(--preview-height) w-full overflow-hidden">
 		{@render children?.()}
 	</div>
 
 	<!-- Code block -->
-	<div class="relative w-full overflow-hidden rounded-lg border">
+	<div class="relative w-full overflow-hidden border-t">
 		{#if allFiles.length > 1}
 			<div class="bg-muted/40 flex h-12 items-center justify-between border-b ps-1.5 pe-2">
 				<Select.Root type="single" bind:value={selectedFileIndex}>
@@ -80,28 +86,25 @@
 
 		<CodeSurface
 			id={codeId}
-			class={cn(codeExpanded ? "max-h-[420px] overflow-auto" : "max-h-44 overflow-hidden")}
+			class={cn(codeExpanded ? "max-h-[420px] overflow-auto" : "max-h-36 overflow-hidden")}
 			html={currentFile.highlightedCode}
 		/>
 
-		<div
-			class={cn(
-				"absolute inset-x-0 bottom-0 flex w-full items-center justify-center",
-				!codeExpanded && "from-surface to-surface/0 bg-linear-to-t pt-12 pb-6"
-			)}
-		>
-			{#if !codeExpanded}
+		{#if !codeExpanded}
+			<div
+				class="from-surface to-surface/0 pointer-events-none absolute inset-x-0 bottom-0 flex w-full items-center justify-center bg-linear-to-t pt-22 pb-4"
+			>
 				<Button
 					variant="outline"
 					size="sm"
 					onclick={() => (codeExpanded = true)}
 					aria-expanded={codeExpanded}
 					aria-controls={codeId}
-					class="bg-background hover:bg-muted dark:bg-background dark:hover:bg-muted"
+					class="bg-background hover:bg-muted dark:bg-background dark:hover:bg-muted pointer-events-auto"
 				>
 					View Code
 				</Button>
-			{/if}
-		</div>
+			</div>
+		{/if}
 	</div>
 </div>

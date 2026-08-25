@@ -46,7 +46,7 @@
 				OSRM API
 			</DocsLink>. Click on a route or use the buttons to switch.
 		</p>
-		<ComponentPreview code={osrmRouteSource} highlightedCode={osrmRouteHighlighted} class="h-125">
+		<ComponentPreview code={osrmRouteSource} highlightedCode={osrmRouteHighlighted} height="500px">
 			<OsrmRouteExample />
 		</ComponentPreview>
 	</DocsSection>
