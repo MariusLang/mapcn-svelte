@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getContext, setContext, untrack } from "svelte";
-	import MapLibreGL, { type MarkerOptions } from "maplibre-gl";
+	import * as MapLibreGL from "maplibre-gl";
+	import type { MarkerOptions } from "maplibre-gl";
 
 	type Anchor =
 		| "center"

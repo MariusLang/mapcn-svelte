@@ -11,7 +11,7 @@
 			"type": "registry:ui",
 			"title": "Map",
 			"description": "A MapLibre-powered map component with markers, popups, tooltips, routes, and controls.",
-			"dependencies": ["maplibre-gl"],
+			"dependencies": ["maplibre-gl@^6"],
 			"devDependencies": ["@types/geojson"],
 			"registryDependencies": [],
 			"files": [
@@ -152,7 +152,7 @@
 			"type": "registry:block",
 			"title": "Analytics Map",
 			"description": "Real-time analytics overview with a world map, breakdown cards, and device stats.",
-			"dependencies": ["maplibre-gl"],
+			"dependencies": [],
 			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card"],
 			"files": [
 				{
@@ -186,7 +186,7 @@
 			"type": "registry:block",
 			"title": "Analytics Card",
 			"description": "Compact analytics card with a headline metric over a world map.",
-			"dependencies": ["maplibre-gl"],
+			"dependencies": [],
 			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card", "badge"],
 			"files": [
 				{
@@ -210,7 +210,7 @@
 			"type": "registry:block",
 			"title": "Choropleth",
 			"description": "World choropleth map shading countries by a metric, with a hover tooltip and legend.",
-			"dependencies": ["maplibre-gl"],
+			"dependencies": [],
 			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json"],
 			"files": [
 				{
@@ -244,7 +244,7 @@
 			"type": "registry:block",
 			"title": "Uptime Monitor",
 			"description": "Status-page style map of edge network locations with live health, latency, and uptime.",
-			"dependencies": ["maplibre-gl"],
+			"dependencies": [],
 			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json"],
 			"files": [
 				{
@@ -278,7 +278,7 @@
 			"type": "registry:block",
 			"title": "Logistics Network",
 			"description": "Domestic logistics map with a sidebar of stats.",
-			"dependencies": ["maplibre-gl"],
+			"dependencies": [],
 			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "sidebar", "separator"],
 			"files": [
 				{
@@ -317,7 +317,7 @@
 			"type": "registry:block",
 			"title": "Store Locator",
 			"description": "Searchable store list synced with map markers.",
-			"dependencies": ["maplibre-gl"],
+			"dependencies": [],
 			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "input", "sidebar"],
 			"files": [
 				{
@@ -380,7 +380,7 @@
 			"type": "registry:block",
 			"title": "Delivery Tracker",
 			"description": "Live order tracking with route progress, courier position, and order details.",
-			"dependencies": ["maplibre-gl"],
+			"dependencies": [],
 			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card", "badge", "button"],
 			"files": [
 				{

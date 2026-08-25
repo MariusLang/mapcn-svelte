@@ -1,10 +1,16 @@
 <script lang="ts">
 	import { onMount, onDestroy, setContext, untrack } from "svelte";
-	import MapLibreGL from "maplibre-gl";
+	import * as MapLibreGL from "maplibre-gl";
 	import "maplibre-gl/dist/maplibre-gl.css";
 	import { browser } from "$app/environment";
 	import { cn } from "$lib/utils.js";
 	import { resolveMapTheme } from "./theme";
+
+	if (browser && !MapLibreGL.getWorkerUrl()) {
+		MapLibreGL.setWorkerUrl(
+			`https://unpkg.com/maplibre-gl@${MapLibreGL.getVersion()}/dist/maplibre-gl-worker.mjs`
+		);
+	}
 
 	const blankMapStyle: MapLibreGL.StyleSpecification = {
 		version: 8,

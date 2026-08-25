@@ -27,7 +27,7 @@
 		`<scr` +
 		`ipt lang="ts">
   import { getContext } from "svelte";
-  import type MapLibreGL from "maplibre-gl";
+  import type * as MapLibreGL from "maplibre-gl";
 
   const mapCtx = getContext<{
     getMap: () => MapLibreGL.Map | null;
