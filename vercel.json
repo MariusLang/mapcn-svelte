@@ -1,6 +1,6 @@
 {
-	"buildCommand": "pnpm run build",
-	"installCommand": "pnpm install",
+	"buildCommand": "npx --yes pnpm@12.0.0 run build",
+	"installCommand": "npx --yes pnpm@12.0.0 install --frozen-lockfile",
 	"outputDirectory": "build",
 	"routes": [{ "handle": "filesystem" }, { "src": "/(.*)", "dest": "/200.html" }]
 }
