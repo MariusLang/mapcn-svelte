@@ -1,5 +1,3 @@
-engineStrict: true
-nodeLinker: hoisted
 allowBuilds:
   esbuild: true
 minimumReleaseAge: 10080 # 7 days in minutes
