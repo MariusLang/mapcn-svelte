@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getContext, untrack } from "svelte";
-	import MapLibreGL from "maplibre-gl";
+	import * as MapLibreGL from "maplibre-gl";
 
 	interface Props {
 		/** Optional unique identifier for the route layer */

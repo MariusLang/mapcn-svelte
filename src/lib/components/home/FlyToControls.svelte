@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getContext } from "svelte";
-	import MapLibreGL from "maplibre-gl";
+	import * as MapLibreGL from "maplibre-gl";
 	import { Button } from "$lib/registry/ui/button/index";
 	import Navigation from "@lucide/svelte/icons/navigation";
 

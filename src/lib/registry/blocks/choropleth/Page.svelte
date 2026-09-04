@@ -1,5 +1,5 @@
 <script lang="ts">
-	import MapLibreGL from "maplibre-gl";
+	import * as MapLibreGL from "maplibre-gl";
 	import type * as GeoJSON from "geojson";
 	import { Map, MapControls, MapGeoJSON, MapPopup } from "$lib/registry/blocks/map";
 	import { useWorldData } from "$lib/use-world-data.svelte.js";

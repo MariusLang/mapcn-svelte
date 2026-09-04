@@ -62,7 +62,7 @@
 
 <div class="flex gap-8">
 	<div class="mx-auto flex max-w-[50rem] min-w-0 flex-1 flex-col px-4 pt-10 pb-20">
-		<div class="space-y-3">
+		<div class="space-y-2">
 			<h1 class="text-foreground text-3xl font-semibold tracking-tight">{title}</h1>
 			<p class="text-muted-foreground leading-relaxed">{description}</p>
 		</div>

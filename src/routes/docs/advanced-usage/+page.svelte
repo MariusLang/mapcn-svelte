@@ -18,7 +18,7 @@
 
 	const useContextCode = `<script lang="ts">
 	import { Map } from "$lib/components/ui/map";
-	import MapLibreGL from "maplibre-gl";
+	import * as MapLibreGL from "maplibre-gl";
 	import { getContext } from "svelte";
 	import { onMount } from "svelte";
 

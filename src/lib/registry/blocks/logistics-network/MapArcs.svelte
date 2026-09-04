@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { useMap } from "$lib/components/ui/map";
-	import type MapLibreGL from "maplibre-gl";
+	import type * as MapLibreGL from "maplibre-gl";
 	import { hubs, modeConfig, statusConfig, type Route } from "./data.js";
 
 	interface Props {

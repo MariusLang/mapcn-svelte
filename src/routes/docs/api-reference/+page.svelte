@@ -27,7 +27,7 @@
 		`<scr` +
 		`ipt lang="ts">
   import { getContext } from "svelte";
-  import type MapLibreGL from "maplibre-gl";
+  import type * as MapLibreGL from "maplibre-gl";
 
   const mapCtx = getContext<{
     getMap: () => MapLibreGL.Map | null;
@@ -376,12 +376,12 @@
 		</p>
 
 		<DocsNote>
-			The
+			MapLibre&apos;s own
 			<DocsCode>className</DocsCode>
 			and
 			<DocsCode>closeButton</DocsCode>
-			from MapLibre&apos;s PopupOptions are excluded to prevent style conflicts. Use the component&apos;s
-			own props to style the popup. MapLibre&apos;s default popup styles are reset via CSS.
+			options are excluded to prevent style conflicts. Use the component&apos;s props of the same name
+			instead. MapLibre&apos;s default popup styles are reset via CSS.
 		</DocsNote>
 
 		<DocsPropTable
@@ -432,12 +432,12 @@
 		</p>
 
 		<DocsNote>
-			The
+			MapLibre&apos;s own
 			<DocsCode>className</DocsCode>
-			from MapLibre&apos;s PopupOptions is excluded to prevent style conflicts. Use the component&apos;s
-			own
-			<DocsCode>className</DocsCode>
-			prop to style the tooltip content. MapLibre&apos;s default popup styles are reset via CSS.
+			and
+			<DocsCode>closeButton</DocsCode>
+			options are excluded to prevent style conflicts. Use the component&apos;s
+			<DocsCode>className</DocsCode> instead. MapLibre&apos;s default popup styles are reset via CSS.
 		</DocsNote>
 
 		<DocsPropTable
@@ -507,12 +507,12 @@
 		</p>
 
 		<DocsNote>
-			The
+			MapLibre&apos;s own
 			<DocsCode>className</DocsCode>
 			and
 			<DocsCode>closeButton</DocsCode>
-			from MapLibre&apos;s PopupOptions are excluded to prevent style conflicts. Use the component&apos;s
-			own props to style the popup. MapLibre&apos;s default popup styles are reset via CSS.
+			options are excluded to prevent style conflicts. Use the component&apos;s props of the same name
+			instead. MapLibre&apos;s default popup styles are reset via CSS.
 		</DocsNote>
 
 		<DocsPropTable
