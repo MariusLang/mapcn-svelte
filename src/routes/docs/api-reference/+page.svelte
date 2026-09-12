@@ -559,6 +559,21 @@
 			<DocsCode>Map</DocsCode>
 			. Supports click and hover interactions for building route selection UIs.
 		</p>
+		<p>
+			The coordinates are the only input required, so any routing service works. Pass <DocsCode
+				>route.geometry.coordinates</DocsCode
+			> from a GeoJSON response.
+		</p>
+		<p>
+			<DocsCode>progress</DocsCode> drives <DocsCode>RouteProgress</DocsCode> and the progress marker.
+			Mark a route <DocsCode>active</DocsCode> to raise it above siblings with the <DocsCode
+				>active*</DocsCode
+			> styles.
+		</p>
+		<p>
+			Use <DocsCode>useMapRoute()</DocsCode> inside a route to read its resolved styles, progress geometry,
+			and anchors.
+		</p>
 
 		<DocsPropTable
 			props={[
@@ -588,9 +603,135 @@
 					description: "Dash pattern [dash length, gap length] for dashed lines.",
 				},
 				{
-					name: "onClick",
+					name: "onclick",
 					type: "() => void",
 					description: "Callback when the route line is clicked.",
+				},
+				{
+					name: "progress",
+					type: "number",
+					description: "Fraction of the route already covered (0 to 1).",
+				},
+				{
+					name: "active",
+					type: "boolean",
+					default: "false",
+					description:
+						"Raise this route and its child layers above siblings and apply active styles.",
+				},
+				{
+					name: "activeColor",
+					type: "string",
+					description: "Active line color. Falls back to color.",
+				},
+				{
+					name: "activeWidth",
+					type: "number",
+					description: "Active line width. Falls back to width.",
+				},
+				{
+					name: "activeOpacity",
+					type: "number",
+					description: "Active line opacity. Falls back to opacity.",
+				},
+				{
+					name: "activeDashArray",
+					type: "[number, number]",
+					description: "Active dash pattern. Falls back to dashArray.",
+				},
+				{
+					name: "beforeId",
+					type: "string",
+					description: "MapLibre layer to insert the route and its child layers before.",
+				},
+				{
+					name: "onmouseenter",
+					type: "() => void",
+					description: "Callback when the pointer enters the route.",
+				},
+				{
+					name: "onmouseleave",
+					type: "() => void",
+					description: "Callback when the pointer leaves the route.",
+				},
+				{
+					name: "interactive",
+					type: "boolean",
+					default: "true",
+					description: "Respond to mouse events and show a pointer cursor.",
+				},
+				{
+					name: "children",
+					type: "Snippet",
+					description: "Route subcomponents (RouteProgress, RouteMarker).",
+				},
+			]}
+		/>
+	</DocsSection>
+
+	<DocsSection title="RouteProgress">
+		<p>
+			Draws the covered portion of the parent <DocsCode>MapRoute</DocsCode> on top of the base line, ending
+			exactly at its <DocsCode>progress</DocsCode> fraction. Must be inside <DocsCode
+				>MapRoute</DocsCode
+			>. Renders nothing until progress is set and inherits the route's <DocsCode>beforeId</DocsCode
+			> boundary.
+		</p>
+		<DocsPropTable
+			props={[
+				{
+					name: "color",
+					type: "string",
+					default: "the route's color",
+					description: "Line color for the covered portion.",
+				},
+				{
+					name: "width",
+					type: "number",
+					default: "the route's width",
+					description: "Line width in pixels.",
+				},
+				{
+					name: "opacity",
+					type: "number",
+					default: "the route's opacity",
+					description: "Line opacity (0 to 1).",
+				},
+				{
+					name: "dashArray",
+					type: "[number, number]",
+					description: "Dash pattern [dash length, gap length].",
+				},
+			]}
+		/>
+	</DocsSection>
+	<DocsSection title="RouteMarker">
+		<p>
+			A <DocsCode>MapMarker</DocsCode> pinned to a position along its parent <DocsCode
+				>MapRoute</DocsCode
+			>. Must be inside <DocsCode>MapRoute</DocsCode>. Accepts every marker prop except <DocsCode
+				>longitude</DocsCode
+			> and <DocsCode>latitude</DocsCode>, and the same children (MarkerContent, MarkerPopup,
+			MarkerTooltip, MarkerLabel). Renders nothing for an empty route or while a progress anchor
+			waits for progress.
+		</p>
+		<DocsPropTable
+			props={[
+				{
+					name: "at",
+					type: '"start" | "end" | "progress" | number',
+					description: "Where to pin the marker. A number is a fraction along the line (0 to 1).",
+				},
+				{
+					name: "children",
+					type: "Snippet",
+					description:
+						"Marker subcomponents (MarkerContent, MarkerPopup, MarkerTooltip, MarkerLabel).",
+				},
+				{
+					name: "...props",
+					type: "MapMarker props",
+					description: "Any other MapMarker prop (offset, onclick, draggable, rotation, ...).",
 				},
 			]}
 		/>

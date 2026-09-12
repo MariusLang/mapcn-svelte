@@ -29,7 +29,7 @@
 <div class="relative w-full overflow-hidden rounded-lg">
 	{#if filename}
 		<div
-			class="bg-code border-border/60 flex items-center justify-between gap-3 border-b py-1 pr-1.5 pl-4"
+			class="bg-code border-border/60 flex items-center justify-between gap-3 border-b py-1 pr-2 pl-4"
 		>
 			<span class="text-muted-foreground truncate font-mono text-xs">{filename}</span>
 			{#if showCopyButton}

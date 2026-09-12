@@ -86,13 +86,13 @@
 
 		<CodeSurface
 			id={codeId}
-			class={cn(codeExpanded ? "max-h-[420px] overflow-auto" : "max-h-36 overflow-hidden")}
+			class={cn(codeExpanded ? "max-h-[420px] overflow-auto" : "max-h-32 overflow-hidden")}
 			html={currentFile.highlightedCode}
 		/>
 
 		{#if !codeExpanded}
 			<div
-				class="from-surface to-surface/0 pointer-events-none absolute inset-x-0 bottom-0 flex w-full items-center justify-center bg-linear-to-t pt-22 pb-4"
+				class="from-surface to-surface/0 pointer-events-none absolute inset-x-0 bottom-0 flex w-full items-center justify-center bg-linear-to-t pt-20 pb-4"
 			>
 				<Button
 					variant="outline"

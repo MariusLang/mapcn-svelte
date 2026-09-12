@@ -61,6 +61,26 @@
 					"target": "map/MapRoute.svelte"
 				},
 				{
+					"path": "src/lib/registry/blocks/map/RouteProgress.svelte",
+					"type": "registry:ui",
+					"target": "map/RouteProgress.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/map/RouteMarker.svelte",
+					"type": "registry:ui",
+					"target": "map/RouteMarker.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/map/route.ts",
+					"type": "registry:ui",
+					"target": "map/route.ts"
+				},
+				{
+					"path": "src/lib/registry/blocks/map/route-context.ts",
+					"type": "registry:ui",
+					"target": "map/route-context.ts"
+				},
+				{
 					"path": "src/lib/registry/blocks/map/MapClusterLayer.svelte",
 					"type": "registry:ui",
 					"target": "map/MapClusterLayer.svelte"

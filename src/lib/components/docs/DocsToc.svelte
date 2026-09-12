@@ -17,6 +17,7 @@
 		if (!browser) return;
 
 		const itemIds = items.map((item) => item.slug);
+		activeId = itemIds[0] ?? null;
 
 		observer = new IntersectionObserver(
 			(entries) => {

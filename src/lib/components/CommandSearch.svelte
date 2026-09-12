@@ -38,13 +38,13 @@
 	onclick={() => (open = true)}
 	aria-label="Jump to pages, components, and docs"
 	class={cn(
-		"bg-muted dark:bg-muted/50 text-muted-foreground hover:bg-muted/60 dark:hover:bg-muted/60 hover:text-foreground mr-2.5 hidden w-48 md:flex",
+		"bg-muted dark:bg-muted/40 text-muted-foreground hover:bg-muted dark:hover:bg-muted/60 hover:text-foreground mr-2.5 hidden w-36 md:flex",
 		className
 	)}
 >
 	<SearchIcon class="size-3.5" />
-	<span>Search...</span>
-	<Kbd class="ml-auto bg-transparent">⌘K</Kbd>
+	<span>Search</span>
+	<Kbd class="text-muted-foreground/70 ml-auto bg-transparent">⌘K</Kbd>
 </Button>
 
 <Command.Dialog bind:open title="Search..." description="Jump to pages, components, and docs">
