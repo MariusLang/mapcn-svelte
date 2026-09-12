@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as MapLibreGL from "maplibre-gl";
 	import type * as GeoJSON from "geojson";
-	import { Map, MapControls, MapGeoJSON, MapPopup } from "$lib/registry/blocks/map";
+	import { Map, MapControls, MapGeoJSON, MapPopup } from "$lib/registry/ui/map";
 	import { useWorldData } from "$lib/use-world-data.svelte.js";
 	import { theme as appTheme } from "$lib/theme";
 	import { mapConfig, visitorsByCountry, type Theme } from "./data";

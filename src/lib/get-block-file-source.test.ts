@@ -7,6 +7,7 @@ describe("getBlockFileSource", () => {
 
 		expect(source).toContain('from "$lib/components/ui/map";');
 		expect(source).not.toContain("$lib/registry/blocks/map");
+		expect(source).not.toContain("$lib/registry/ui/map");
 	});
 
 	it("leaves unrelated imports untouched", () => {

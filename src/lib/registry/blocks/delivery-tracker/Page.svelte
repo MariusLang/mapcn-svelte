@@ -6,7 +6,7 @@
 		MarkerContent,
 		RouteProgress,
 		RouteMarker,
-	} from "$lib/components/ui/map";
+	} from "$lib/registry/ui/map";
 	import * as Badge from "$lib/registry/ui/badge/index.js";
 	import * as Button from "$lib/registry/ui/button/index.js";
 	import * as Card from "$lib/registry/ui/card/index.js";

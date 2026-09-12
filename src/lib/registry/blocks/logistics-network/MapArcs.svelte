@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { useMap } from "$lib/components/ui/map";
+	import { useMap } from "$lib/registry/ui/map";
 	import type * as MapLibreGL from "maplibre-gl";
 	import { hubs, modeConfig, statusConfig, type Route } from "./data.js";
 

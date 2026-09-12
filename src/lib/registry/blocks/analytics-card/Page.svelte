@@ -1,6 +1,6 @@
 <script lang="ts">
 	import TrendingUp from "@lucide/svelte/icons/trending-up";
-	import { Map, MapGeoJSON, MapMarker, MarkerContent } from "$lib/registry/blocks/map";
+	import { Map, MapGeoJSON, MapMarker, MarkerContent } from "$lib/registry/ui/map";
 	import { Badge } from "$lib/registry/ui/badge";
 	import * as Card from "$lib/registry/ui/card";
 	import { totalVisitors, visitorGrowth, visitorLocations } from "./data.js";

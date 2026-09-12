@@ -9,7 +9,7 @@
 		MapPopup,
 		MarkerContent,
 		MarkerTooltip,
-	} from "$lib/registry/blocks/map";
+	} from "$lib/registry/ui/map";
 	import * as Sidebar from "$lib/registry/ui/sidebar";
 	import { cn } from "$lib/utils";
 	import FlyToSelected from "./FlyToSelected.svelte";
