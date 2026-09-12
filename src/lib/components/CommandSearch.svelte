@@ -33,17 +33,17 @@
 </script>
 
 <Button
-	variant="ghost"
+	variant="outline"
 	size="sm"
 	onclick={() => (open = true)}
 	aria-label="Jump to pages, components, and docs"
 	class={cn(
-		"bg-muted dark:bg-muted/40 text-muted-foreground hover:bg-muted dark:hover:bg-muted/60 hover:text-foreground mr-2.5 hidden w-36 md:flex",
+		"text-muted-foreground hover:text-foreground mr-2.5 hidden w-48 justify-start bg-transparent font-normal md:flex dark:bg-transparent",
 		className
 	)}
 >
 	<SearchIcon class="size-3.5" />
-	<span>Search</span>
+	<span>Search...</span>
 	<Kbd class="text-muted-foreground/70 ml-auto bg-transparent">⌘K</Kbd>
 </Button>
 

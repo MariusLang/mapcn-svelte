@@ -10,7 +10,6 @@ export { default as MapPopup } from "./MapPopup.svelte";
 export { default as MapRoute } from "./MapRoute.svelte";
 export { default as RouteProgress } from "./RouteProgress.svelte";
 export { default as RouteMarker } from "./RouteMarker.svelte";
-export { useMapRoute } from "./route-context.js";
 export type { RouteAnchor } from "./route.js";
 export { default as MapClusterLayer } from "./MapClusterLayer.svelte";
 export { default as MapArc } from "./MapArc.svelte";

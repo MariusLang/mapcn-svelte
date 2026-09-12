@@ -46,9 +46,17 @@
 
 <section class="space-y-5">
 	{#if title}
-		<h2 id={slug} class="scroll-mt-28 text-xl font-semibold tracking-tight">
-			{title}
-		</h2>
+		<div class="group flex w-fit items-baseline gap-2">
+			<h2 id={slug} class="scroll-mt-28 text-xl font-semibold tracking-tight">
+				{title}
+			</h2>
+			<a
+				href={`#${slug}`}
+				aria-label={`Link to ${title}`}
+				class="text-muted-foreground/60 hover:text-foreground text-xl font-semibold opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+				>#</a
+			>
+		</div>
 	{/if}
 
 	<div

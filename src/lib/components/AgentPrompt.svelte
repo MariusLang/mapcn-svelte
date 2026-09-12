@@ -26,12 +26,12 @@
 	onclick={copyPrompt}
 	aria-live="polite"
 	variant="ghost"
-	class="text-muted-foreground hover:text-foreground border-border/50 h-7 border px-2.5 text-xs"
+	class="text-muted-foreground hover:text-foreground h-7 px-2.5! text-xs"
 >
 	{#if copied}
 		<Check />
 	{:else}
 		<Copy />
 	{/if}
-	{copied ? "Copied — paste in your agent" : "Copy prompt for agents"}
+	{copied ? "Copied — paste into your agent" : "Copy prompt for your agent"}
 </Button>

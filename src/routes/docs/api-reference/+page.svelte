@@ -168,7 +168,8 @@
 			<DocsCode>Map</DocsCode>
 			, often with the
 			<DocsCode>blank</DocsCode>
-			prop for choropleths and region maps.
+			prop for choropleths and region maps. Accepts a generic type for feature properties. Defaults to
+			a theme-aware monochrome fill and outline; any paint value can be a MapLibre expression.
 		</p>
 
 		<DocsPropTable
@@ -565,14 +566,10 @@
 			> from a GeoJSON response.
 		</p>
 		<p>
-			<DocsCode>progress</DocsCode> drives <DocsCode>RouteProgress</DocsCode> and the progress marker.
-			Mark a route <DocsCode>active</DocsCode> to raise it above siblings with the <DocsCode
-				>active*</DocsCode
-			> styles.
-		</p>
-		<p>
-			Use <DocsCode>useMapRoute()</DocsCode> inside a route to read its resolved styles, progress geometry,
-			and anchors.
+			<DocsCode>progress</DocsCode> marks how far along the route you are; add a <DocsCode
+				>RouteProgress</DocsCode
+			> child to draw that portion. Mark one route <DocsCode>active</DocsCode> to raise it above its siblings
+			with the <DocsCode>active*</DocsCode> styles.
 		</p>
 
 		<DocsPropTable
@@ -674,8 +671,7 @@
 			Draws the covered portion of the parent <DocsCode>MapRoute</DocsCode> on top of the base line, ending
 			exactly at its <DocsCode>progress</DocsCode> fraction. Must be inside <DocsCode
 				>MapRoute</DocsCode
-			>. Renders nothing until progress is set and inherits the route's <DocsCode>beforeId</DocsCode
-			> boundary.
+			>. Renders nothing until progress is set.
 		</p>
 		<DocsPropTable
 			props={[
@@ -711,9 +707,7 @@
 				>MapRoute</DocsCode
 			>. Must be inside <DocsCode>MapRoute</DocsCode>. Accepts every marker prop except <DocsCode
 				>longitude</DocsCode
-			> and <DocsCode>latitude</DocsCode>, and the same children (MarkerContent, MarkerPopup,
-			MarkerTooltip, MarkerLabel). Renders nothing for an empty route or while a progress anchor
-			waits for progress.
+			> and <DocsCode>latitude</DocsCode>, and the same children.
 		</p>
 		<DocsPropTable
 			props={[
