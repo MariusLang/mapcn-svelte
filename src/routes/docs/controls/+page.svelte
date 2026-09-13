@@ -19,7 +19,7 @@
 	description="Add interactive controls to your map for zoom, compass, location, and fullscreen."
 	pathname="/docs/controls"
 >
-	<DocsSection>
+	<DocsSection title="Basic Usage">
 		<p>
 			The
 			<DocsCode>MapControls</DocsCode>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Map, MapControls } from "$lib/components/ui/map";
-	import MapLibreGL from "maplibre-gl";
+	import * as MapLibreGL from "maplibre-gl";
 	import { Button } from "$lib/registry/ui/button";
 	import Layers from "@lucide/svelte/icons/layers";
 	import X from "@lucide/svelte/icons/x";

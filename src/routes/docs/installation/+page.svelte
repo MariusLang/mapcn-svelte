@@ -11,6 +11,12 @@
 
 	const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://mapcn-svelte.dev";
 	const installItem = `${siteUrl}/r/map.json`;
+	const cspCode = `script-src 'self' https://unpkg.com;
+worker-src 'self' blob:;`;
+	const selfHostWorkerCode = `cp node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs \\
+   node_modules/maplibre-gl/dist/maplibre-gl-shared.mjs \\
+   static/`;
+	const workerUrlCode = `MapLibreGL.setWorkerUrl("/maplibre-gl-worker.mjs");`;
 
 	const usageCode =
 		`<scr` +
@@ -68,10 +74,30 @@
 				<MapControls />
 			</Map>
 		</Card>
+		<DocsNote>
+			<strong>Note:</strong> The map uses free CARTO basemap tiles by default. Tiles automatically switch
+			between light and dark themes.
+		</DocsNote>
 	</DocsSection>
 
-	<DocsNote>
-		<strong>Note:</strong> The map uses free CARTO basemap tiles by default. Tiles automatically switch
-		between light and dark themes.
-	</DocsNote>
+	<DocsSection title="Web Worker">
+		<p>
+			MapLibre parses tiles in a Web Worker, which ships as a separate file, so mapcn-svelte loads
+			it from unpkg, pinned to your installed version. No setup is needed. Under a strict CSP, the
+			worker needs:
+		</p>
+		<CodeBlock code={cspCode} language="bash" showLineNumbers={false} />
+		<p>Your basemap host needs its own entries alongside these.</p>
+		<p>
+			To self-host it instead, copy both files into <DocsCode>static/</DocsCode>. They must sit side
+			by side:
+		</p>
+		<CodeBlock code={selfHostWorkerCode} language="bash" showLineNumbers={false} />
+		<p>Then replace the unpkg URL near the top of the component:</p>
+		<CodeBlock
+			code={workerUrlCode}
+			filename="src/lib/components/ui/map/Map.svelte"
+			showLineNumbers={false}
+		/>
+	</DocsSection>
 </DocsLayout>

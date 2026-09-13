@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getContext } from "svelte";
-	import MapLibreGL from "maplibre-gl";
+	import * as MapLibreGL from "maplibre-gl";
 	import { cn } from "$lib/utils.js";
 	import Plus from "@lucide/svelte/icons/plus";
 	import Minus from "@lucide/svelte/icons/minus";

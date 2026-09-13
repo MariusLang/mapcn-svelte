@@ -1,5 +1,5 @@
 <script lang="ts">
-	import MapLibreGL from "maplibre-gl";
+	import * as MapLibreGL from "maplibre-gl";
 	import { Map, MapPopup } from "$lib/components/ui/map";
 	import { getContext } from "svelte";
 

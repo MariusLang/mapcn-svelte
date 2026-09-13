@@ -1,5 +1,12 @@
 <script lang="ts">
-	import { Map, MapMarker, MapRoute, MarkerContent } from "$lib/components/ui/map";
+	import {
+		Map,
+		MapMarker,
+		MapRoute,
+		MarkerContent,
+		RouteProgress,
+		RouteMarker,
+	} from "$lib/registry/ui/map";
 	import * as Badge from "$lib/registry/ui/badge/index.js";
 	import * as Button from "$lib/registry/ui/button/index.js";
 	import * as Card from "$lib/registry/ui/card/index.js";
@@ -42,14 +49,6 @@
 	const remainingRouteColor = $derived(
 		currentTheme === "dark" ? routeStyle.remaining.color.dark : routeStyle.remaining.color.light
 	);
-
-	const progressCoordinates = $derived.by(() => {
-		const total = routeData?.coordinates?.length ?? 0;
-		const progressCount = Math.max(2, Math.floor(total * progressFraction));
-		return routeData?.coordinates?.slice(0, progressCount) ?? [];
-	});
-
-	const courierPosition = $derived(progressCoordinates[progressCoordinates.length - 1]);
 
 	$effect(() => {
 		const unsubscribe = theme.subscribe((value) => {
@@ -161,24 +160,21 @@
 				options={{ minZoom: mapView.minZoom, maxZoom: mapView.maxZoom }}
 			>
 				<MapRoute
-					id="delivery-full-route"
+					id="delivery-route"
 					coordinates={routeData?.coordinates ?? []}
+					progress={progressFraction}
 					color={remainingRouteColor}
 					width={routeStyle.remaining.width}
 					opacity={routeStyle.remaining.opacity}
 					interactive={false}
-				/>
-				<MapRoute
-					id="delivery-progress-route"
-					coordinates={progressCoordinates}
-					color={routeStyle.progress.color}
-					width={routeStyle.progress.width}
-					opacity={routeStyle.progress.opacity}
-					interactive={false}
-				/>
+				>
+					<RouteProgress
+						color={routeStyle.progress.color}
+						width={routeStyle.progress.width}
+						opacity={routeStyle.progress.opacity}
+					/>
 
-				{#if courierPosition}
-					<MapMarker longitude={courierPosition[0]} latitude={courierPosition[1]} offset={[0, 10]}>
+					<RouteMarker at="progress" offset={[0, 10]}>
 						<MarkerContent>
 							<div
 								class="relative grid size-9 place-items-center rounded-full shadow-md"
@@ -195,8 +191,8 @@
 								</div>
 							</div>
 						</MarkerContent>
-					</MapMarker>
-				{/if}
+					</RouteMarker>
+				</MapRoute>
 
 				<MapMarker longitude={pickup.lng} latitude={pickup.lat}>
 					<MarkerContent>

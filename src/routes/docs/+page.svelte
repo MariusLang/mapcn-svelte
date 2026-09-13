@@ -4,7 +4,7 @@
 	import DocsLink from "$lib/components/docs/DocsLink.svelte";
 
 	import Zap from "@lucide/svelte/icons/zap";
-	import Moon from "@lucide/svelte/icons/moon";
+	import Palette from "@lucide/svelte/icons/palette";
 	import Puzzle from "@lucide/svelte/icons/puzzle";
 	import Code from "@lucide/svelte/icons/code";
 	import Box from "@lucide/svelte/icons/box";
@@ -17,7 +17,7 @@
 			description: "Works out of the box with free map tiles. No API keys needed.",
 		},
 		{
-			icon: Moon,
+			icon: Palette,
 			title: "Theme Aware",
 			description: "Automatically switches between light and dark map styles.",
 		},

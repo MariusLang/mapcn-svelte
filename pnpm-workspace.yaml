@@ -3,6 +3,11 @@ allowBuilds:
 minimumReleaseAge: 10080 # 7 days in minutes
 minimumReleaseAgeExclude:
   - vite
+  - "@vitest/coverage-v8@5.0.0"
+  - "@vitest/mocker@5.0.0"
+  - "@vitest/spy@5.0.0"
+  - "tinybench@6.1.4"
+  - "vitest@5.0.0"
 onlyBuiltDependencies:
   - esbuild
 overrides:

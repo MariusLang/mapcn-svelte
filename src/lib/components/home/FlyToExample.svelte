@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type MapLibreGL from "maplibre-gl";
+	import type * as MapLibreGL from "maplibre-gl";
 	import { Map, MapMarker, MarkerContent } from "$lib/components/ui/map";
 	import { Button } from "$lib/registry/ui/button/index";
 	import ExampleCard from "$lib/components/home/ExampleCard.svelte";

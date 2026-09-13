@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Map, MapControls, MapGeoJSON } from "$lib/registry/blocks/map";
+	import { Map, MapControls, MapGeoJSON } from "$lib/registry/ui/map";
 	import EdgeNodeMarker from "./EdgeNodeMarker.svelte";
 	import StatusSidebar from "./StatusSidebar.svelte";
 	import { edgeNodes, mapView, WORLD_GEOJSON } from "./data";

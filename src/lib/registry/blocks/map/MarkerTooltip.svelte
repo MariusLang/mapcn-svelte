@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getContext } from "svelte";
-	import MapLibreGL, { type PopupOptions } from "maplibre-gl";
+	import * as MapLibreGL from "maplibre-gl";
+	import type { PopupOptions } from "maplibre-gl";
 	import { cn } from "$lib/utils.js";
 
 	interface Props {

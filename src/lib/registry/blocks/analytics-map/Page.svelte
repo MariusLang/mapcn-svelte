@@ -6,7 +6,7 @@
 		MapMarker,
 		MarkerContent,
 		MarkerTooltip,
-	} from "$lib/components/ui/map";
+	} from "$lib/registry/ui/map";
 	import OverviewCard from "./OverviewCard.svelte";
 	import BreakdownCard from "./BreakdownCard.svelte";
 	import {

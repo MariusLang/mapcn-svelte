@@ -59,7 +59,7 @@
 		<p>
 			Build complex popups with images, ratings, and action buttons using shadcn-svelte components.
 		</p>
-		<ComponentPreview code={popupSource} highlightedCode={popupHighlighted} class="h-125">
+		<ComponentPreview code={popupSource} highlightedCode={popupHighlighted} height="500px">
 			<PopupExample />
 		</ComponentPreview>
 	</DocsSection>

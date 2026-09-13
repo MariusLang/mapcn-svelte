@@ -10,7 +10,7 @@
 
 <Sidebar.Root
 	collapsible="none"
-	class="sticky top-14 z-30 hidden h-[calc(100svh-3.5rem)] overscroll-none bg-transparent lg:flex"
+	class="sticky top-14 z-30 hidden h-[calc(100svh-3.5rem)] w-55 shrink-0 overscroll-none bg-transparent lg:flex"
 >
 	<Sidebar.Content class="no-scrollbar overflow-x-hidden pt-10">
 		{#each navigation as group}

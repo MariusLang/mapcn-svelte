@@ -2,7 +2,7 @@
 	import DocsLayout from "$lib/components/docs/DocsLayout.svelte";
 	import DocsSection from "$lib/components/docs/DocsSection.svelte";
 	import DocsCode from "$lib/components/docs/DocsCode.svelte";
-	import DocsLink from "$lib/components/docs/DocsLink.svelte";
+	import RouteProgressExample from "$lib/components/docs/preview/examples/RouteProgressExample.svelte";
 	import { ComponentPreview } from "$lib/components/docs/preview";
 	import RouteExample from "$lib/components/docs/preview/examples/RouteExample.svelte";
 	import OsrmRouteExample from "$lib/components/docs/preview/examples/OsrmRouteExample.svelte";
@@ -39,14 +39,28 @@
 		</ComponentPreview>
 	</DocsSection>
 
+	<DocsSection title="Route Progress">
+		<p>
+			Pass <DocsCode>progress</DocsCode> (0 to 1) and a <DocsCode>RouteProgress</DocsCode> child paints
+			the covered part of the line. <DocsCode>RouteMarker</DocsCode> pins a marker at <DocsCode
+				>"start"</DocsCode
+			>, <DocsCode>"end"</DocsCode>, <DocsCode>"progress"</DocsCode>, or any fraction.
+		</p>
+		<ComponentPreview
+			code={page.data.routeProgressSource}
+			highlightedCode={page.data.routeProgressHighlighted}
+		>
+			<RouteProgressExample />
+		</ComponentPreview>
+	</DocsSection>
+
 	<DocsSection title="Route Planning">
 		<p>
-			Display multiple route options and let users select between them. This example fetches real
-			driving directions from the <DocsLink href="https://project-osrm.org/" external>
-				OSRM API
-			</DocsLink>. Click on a route or use the buttons to switch.
+			Render one <DocsCode>MapRoute</DocsCode> per option and mark the selected one <DocsCode
+				>active</DocsCode
+			>, it moves on top and uses the <DocsCode>active*</DocsCode> styles. Click a line or a row to switch.
 		</p>
-		<ComponentPreview code={osrmRouteSource} highlightedCode={osrmRouteHighlighted} class="h-125">
+		<ComponentPreview code={osrmRouteSource} highlightedCode={osrmRouteHighlighted} height="500px">
 			<OsrmRouteExample />
 		</ComponentPreview>
 	</DocsSection>

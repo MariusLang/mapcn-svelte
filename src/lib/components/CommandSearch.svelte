@@ -33,18 +33,18 @@
 </script>
 
 <Button
-	variant="ghost"
+	variant="outline"
 	size="sm"
 	onclick={() => (open = true)}
 	aria-label="Jump to pages, components, and docs"
 	class={cn(
-		"bg-muted dark:bg-muted/50 text-muted-foreground hover:bg-muted/60 dark:hover:bg-muted/60 hover:text-foreground mr-2.5 hidden w-48 md:flex",
+		"text-muted-foreground hover:text-foreground mr-2.5 hidden w-48 justify-start bg-transparent font-normal md:flex dark:bg-transparent",
 		className
 	)}
 >
 	<SearchIcon class="size-3.5" />
 	<span>Search...</span>
-	<Kbd class="ml-auto bg-transparent">⌘K</Kbd>
+	<Kbd class="text-muted-foreground/70 ml-auto bg-transparent">⌘K</Kbd>
 </Button>
 
 <Command.Dialog bind:open title="Search..." description="Jump to pages, components, and docs">

@@ -46,8 +46,11 @@
 
 <div class="bg-surface relative w-full overflow-hidden rounded-lg">
 	<Tabs.Tabs bind:value={active} class="gap-0">
-		<div class="flex items-center justify-between pr-2 pl-2">
-			<Tabs.TabsList variant="line" class="h-9 bg-transparent">
+		<div class="flex items-center justify-between border-b pr-2 pl-[5px]">
+			<Tabs.TabsList
+				variant="line"
+				class="h-10 bg-transparent group-data-[orientation=horizontal]/tabs:h-10"
+			>
 				{#each tabs as tab (tab.manager)}
 					<Tabs.TabsTrigger value={tab.manager} class="font-mono text-xs">
 						{tab.manager}

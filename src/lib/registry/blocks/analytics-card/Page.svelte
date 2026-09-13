@@ -1,6 +1,6 @@
 <script lang="ts">
 	import TrendingUp from "@lucide/svelte/icons/trending-up";
-	import { Map, MapGeoJSON, MapMarker, MarkerContent } from "$lib/registry/blocks/map";
+	import { Map, MapGeoJSON, MapMarker, MarkerContent } from "$lib/registry/ui/map";
 	import { Badge } from "$lib/registry/ui/badge";
 	import * as Card from "$lib/registry/ui/card";
 	import { totalVisitors, visitorGrowth, visitorLocations } from "./data.js";
@@ -44,7 +44,7 @@
 		</div>
 
 		<Card.Header
-			class="from-card via-card/85 to-card/0 relative z-10 gap-1 rounded-t-[inherit] bg-linear-to-b pt-4 pb-10 mask-[linear-gradient(to_bottom,black_calc(100%_-_2.5rem),transparent)] backdrop-blur-[2px]"
+			class="from-card via-card/85 to-card/0 relative z-10 gap-1 rounded-t-[inherit] bg-linear-to-b mask-[linear-gradient(to_bottom,black_calc(100%_-_2.5rem),transparent)] pt-4 pb-10 backdrop-blur-[2px]"
 		>
 			<Card.Description>Visitors</Card.Description>
 			<Card.Title class="text-lg tabular-nums">{totalVisitors}</Card.Title>

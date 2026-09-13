@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { MapMarker, MarkerContent, MarkerTooltip } from "$lib/registry/blocks/map";
+	import { MapMarker, MarkerContent, MarkerTooltip } from "$lib/registry/ui/map";
 	import { cn } from "$lib/utils";
 	import { statusMeta, type EdgeNode } from "./data";
 

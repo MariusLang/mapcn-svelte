@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Map } from "$lib/components/ui/map";
-	import MapLibreGL from "maplibre-gl";
+	import * as MapLibreGL from "maplibre-gl";
 	import { Button } from "$lib/registry/ui/button/index";
 	import { RotateCcw, Mountain } from "@lucide/svelte";
 

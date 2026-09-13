@@ -19,7 +19,7 @@
 	description="Display popups anywhere on the map without markers."
 	pathname="/docs/popups"
 >
-	<DocsSection>
+	<DocsSection title="Basic Usage">
 		<p>
 			Use <DocsCode>MapPopup</DocsCode> to display a popup at any location on the map. Unlike
 			<DocsCode>MarkerPopup</DocsCode>, standalone popups are not attached to markers and can be

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Map } from "$lib/components/ui/map";
-	import MapLibreGL from "maplibre-gl";
+	import * as MapLibreGL from "maplibre-gl";
 
 	const styles = {
 		default: undefined,

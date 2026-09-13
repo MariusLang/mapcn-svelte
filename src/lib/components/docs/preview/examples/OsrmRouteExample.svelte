@@ -1,7 +1,9 @@
 <script lang="ts">
-	import { Map, MapMarker, MarkerContent, MapRoute, MarkerLabel } from "$lib/components/ui/map";
-	import { Loader2, Clock, Route } from "@lucide/svelte";
-	import { Button } from "$lib/registry/ui/button/index";
+	import { Map, MapMarker, MarkerContent, MapRoute } from "$lib/components/ui/map";
+	import { onMount } from "svelte";
+	import { cn } from "$lib/utils";
+	const routeColor = "#3b82f6";
+	const inactiveOpacity = 0.35;
 
 	const start = { name: "Amsterdam", lng: 4.9041, lat: 52.3676 };
 	const end = { name: "Rotterdam", lng: 4.4777, lat: 51.9244 };
@@ -61,72 +63,72 @@
 	const routesWithIndex = $derived(routes.map((route, index) => ({ route, index })));
 
 	// Fetch routes on mount
-	fetchRoutes();
+	onMount(() => {
+		void fetchRoutes();
+	});
 </script>
 
 <div class="relative h-125 w-full">
-	<Map center={[4.69, 52.14]} zoom={8.5}>
+	<Map center={[4.69, 52.14]} zoom={8.5} loading={isLoading}>
 		{#each routesWithIndex as { route, index } (index)}
 			{@const isSelected = index === selectedIndex}
 			<MapRoute
 				id={`route-${index}`}
 				coordinates={route.coordinates}
-				color={isSelected ? "#6366f1" : "#94a3b8"}
-				width={isSelected ? 6 : 5}
-				opacity={isSelected ? 1 : 0.6}
+				active={isSelected}
+				color={routeColor}
+				width={5}
+				opacity={inactiveOpacity}
+				activeWidth={6}
+				activeOpacity={1}
 				onclick={() => (selectedIndex = index)}
 			/>
 		{/each}
 
 		<MapMarker longitude={start.lng} latitude={start.lat}>
 			<MarkerContent>
-				<div class="size-5 rounded-full border-2 border-white bg-green-500 shadow-lg"></div>
-				<MarkerLabel position="top">{start.name}</MarkerLabel>
+				<div class="border-foreground bg-background size-3.5 rounded-full border-2 shadow-md"></div>
 			</MarkerContent>
 		</MapMarker>
 
 		<MapMarker longitude={end.lng} latitude={end.lat}>
 			<MarkerContent>
-				<div class="size-5 rounded-full border-2 border-white bg-red-500 shadow-lg"></div>
-				<MarkerLabel position="bottom">{end.name}</MarkerLabel>
+				<div class="bg-foreground ring-background size-3.5 rounded-full shadow-md ring-2"></div>
 			</MarkerContent>
 		</MapMarker>
 	</Map>
 
 	{#if routes.length > 0}
-		<div class="absolute top-3 left-3 flex flex-col gap-2">
+		<div
+			role="radiogroup"
+			aria-label="Route options"
+			class="bg-background/95 border-border/50 absolute top-3 left-3 w-48 space-y-0.5 rounded-lg border p-1 shadow-lg backdrop-blur-md"
+		>
 			{#each routes as route, index}
 				{@const isActive = index === selectedIndex}
-				{@const isFastest = index === 0}
-				<Button
-					variant={isActive ? "default" : "secondary"}
-					size="sm"
+				<button
+					type="button"
+					role="radio"
+					aria-checked={isActive}
 					onclick={() => (selectedIndex = index)}
-					class="justify-start gap-3"
+					class={cn(
+						"flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 transition-colors",
+						isActive ? "bg-muted" : "hover:bg-muted/50"
+					)}
 				>
-					<div class="flex items-center gap-1.5">
-						<Clock class="size-3.5" />
-						<span class="font-medium">{formatDuration(route.duration)}</span>
-					</div>
-					<div class="flex items-center gap-1.5 text-xs opacity-80">
-						<Route class="size-3" />
-						{formatDistance(route.distance)}
-					</div>
-					{#if isFastest}
-						<span
-							class="rounded bg-green-100 px-1.5 py-0.5 text-[10px] font-medium text-green-700 dark:bg-green-900 dark:text-green-300"
-						>
-							Fastest
-						</span>
-					{/if}
-				</Button>
+					<span
+						class="h-4 w-0.5 shrink-0 rounded-full"
+						style:background-color={routeColor}
+						style:opacity={isActive ? 1 : inactiveOpacity}
+					></span>
+					<span class={cn("text-sm font-medium tabular-nums", !isActive && "text-muted-foreground")}
+						>{formatDuration(route.duration)}</span
+					>
+					<span class="text-muted-foreground ml-auto text-xs tabular-nums"
+						>{formatDistance(route.distance)}</span
+					>
+				</button>
 			{/each}
-		</div>
-	{/if}
-
-	{#if isLoading}
-		<div class="bg-background/50 absolute inset-0 flex items-center justify-center">
-			<Loader2 class="text-muted-foreground size-6 animate-spin" />
 		</div>
 	{/if}
 </div>

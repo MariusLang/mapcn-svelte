@@ -6,7 +6,7 @@
 		MapMarker,
 		MarkerContent,
 		MarkerTooltip,
-	} from "$lib/components/ui/map";
+	} from "$lib/registry/ui/map";
 	import { SidebarTrigger } from "$lib/registry/ui/sidebar/index.js";
 	import { Separator } from "$lib/registry/ui/separator/index.js";
 	import { modeConfig, regionLabels, statusConfig, type Hub, type Route } from "./data.js";

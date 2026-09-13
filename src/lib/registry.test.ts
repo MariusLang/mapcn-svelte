@@ -31,6 +31,25 @@ describe("registry.json", () => {
 		expect(new Set(names).size).toBe(names.length);
 	});
 
+	it("keeps map targets relative to the consumer's UI directory", () => {
+		const map = items.find((item) => item.name === "map")!;
+		for (const file of map.files) {
+			expect(file.type).toBe("registry:ui");
+			expect(file.target).toBe(`map/${path.basename(file.path)}`);
+		}
+	});
+
+	it("uses the registry UI alias for every block's map import", () => {
+		for (const item of items.filter((item) => item.name !== "map")) {
+			for (const file of item.files) {
+				const source = readFileSync(path.join(repoRoot, file.path), "utf8");
+				for (const spec of importSpecifiers(source).filter((spec) => spec.endsWith("/map"))) {
+					expect(spec, file.path).toBe("$lib/registry/ui/map");
+				}
+			}
+		}
+	});
+
 	describe.each(items)("item: $name", (item) => {
 		it("has the required metadata fields", () => {
 			expect(item.name, "name").toBeTruthy();
@@ -116,10 +135,13 @@ function collectRegisteredPaths(item: RegistryItem): Set<string> {
 
 /** Resolve a relative import to an existing on-disk file, mirroring TS/Svelte resolution. */
 function resolveLocalImport(fromDir: string, spec: string): string | null {
-	if (spec.startsWith("$lib/registry/ui/")) return null;
+	if (spec.startsWith("$lib/registry/ui/") && spec !== "$lib/registry/ui/map") return null;
 	if (spec === "$lib/utils.js" || spec === "$lib/utils") return null;
 
-	const registrySpec = spec.replace("$lib/components/ui/map", "$lib/registry/blocks/map");
+	const registrySpec = spec.replace(
+		/\$lib\/(?:components|registry)\/ui\/map/,
+		"$lib/registry/blocks/map"
+	);
 	const base = spec.startsWith("$lib/")
 		? path.resolve(repoRoot, "src/lib", registrySpec.slice("$lib/".length))
 		: path.resolve(fromDir, registrySpec);

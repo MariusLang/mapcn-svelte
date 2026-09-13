@@ -11,7 +11,7 @@
 		<Header />
 		<div class="container flex flex-1 px-0">
 			<DocSidebar />
-			<main class="size-full">
+			<main class="flex min-w-0 flex-1">
 				{@render children()}
 			</main>
 		</div>
