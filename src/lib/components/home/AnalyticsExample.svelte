@@ -33,7 +33,15 @@
 		</div>
 	</div>
 
-	<Map center={[0, 30]} options={{ scrollZoom: false, dragRotate: false, pitchWithRotate: false }}>
+	<Map
+		center={[0, 30]}
+		options={{
+			attributionControl: false,
+			scrollZoom: false,
+			dragRotate: false,
+			pitchWithRotate: false,
+		}}
+	>
 		{#each analyticsData as loc (loc.city)}
 			<MapMarker longitude={loc.lng} latitude={loc.lat}>
 				<MarkerContent>

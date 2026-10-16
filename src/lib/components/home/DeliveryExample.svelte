@@ -87,7 +87,12 @@
 	<Map
 		center={[-0.105, 51.511]}
 		zoom={12.6}
-		options={{ scrollZoom: false, dragRotate: false, pitchWithRotate: false }}
+		options={{
+			attributionControl: false,
+			scrollZoom: false,
+			dragRotate: false,
+			pitchWithRotate: false,
+		}}
 	>
 		<MapRoute coordinates={route} width={4} color="#3b82f6" />
 		<MapMarker longitude={store.lng} latitude={store.lat}>

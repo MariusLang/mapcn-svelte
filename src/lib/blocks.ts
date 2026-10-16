@@ -87,3 +87,28 @@ export function createFileTreeForRegistryItemFiles(
 
 	return root;
 }
+
+export interface BlockCategory {
+	slug: string;
+	title: string;
+	blocks: RegistryBlockItem[];
+}
+
+export function getBlockCategories(): BlockCategory[] {
+	const groups = new Map<string, RegistryBlockItem[]>();
+	for (const block of getAllBlocks()) {
+		const slug = block.categories?.[0] ?? "more";
+		groups.set(slug, [...(groups.get(slug) ?? []), block]);
+	}
+	const more = groups.get("more");
+	groups.delete("more");
+	if (more) groups.set("more", more);
+	return Array.from(groups, ([slug, blocks]) => ({
+		slug,
+		title: slug
+			.split("-")
+			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+			.join(" "),
+		blocks,
+	}));
+}

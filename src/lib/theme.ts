@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import { browser } from "$app/environment";
+import { browser } from "$app/env";
 
 type Theme = "light" | "dark";
 const STORAGE_KEY = "theme";
@@ -24,3 +24,8 @@ theme.subscribe((value) => {
 	root.classList.toggle("dark", value === "dark");
 	root.classList.toggle("light", value === "light");
 });
+
+export const THEME_HOTKEY = "t";
+export function toggleTheme() {
+	theme.update((value) => (value === "dark" ? "light" : "dark"));
+}

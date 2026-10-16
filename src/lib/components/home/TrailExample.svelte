@@ -51,7 +51,12 @@
 	<Map
 		center={[-73.97, 40.782]}
 		zoom={11.8}
-		options={{ scrollZoom: false, dragRotate: false, pitchWithRotate: false }}
+		options={{
+			attributionControl: false,
+			scrollZoom: false,
+			dragRotate: false,
+			pitchWithRotate: false,
+		}}
 	>
 		<MapRoute coordinates={trailCoordinates} color="#3b82f6" width={3} opacity={0.9} />
 

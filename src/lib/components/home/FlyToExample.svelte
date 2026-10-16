@@ -31,7 +31,12 @@
 		bind:map
 		center={active.center}
 		zoom={5.5}
-		options={{ scrollZoom: false, dragRotate: false, pitchWithRotate: false }}
+		options={{
+			attributionControl: false,
+			scrollZoom: false,
+			dragRotate: false,
+			pitchWithRotate: false,
+		}}
 	>
 		<MapMarker longitude={active.center[0]} latitude={active.center[1]}>
 			<MarkerContent>

@@ -1,3 +1,4 @@
+import { isActiveSection } from "./docs-navigation";
 import { describe, expect, it } from "vitest";
 import {
 	docsNavigation,
@@ -52,5 +53,15 @@ describe("docs navigation", () => {
 			previous: fullNavItems.at(-2) ?? null,
 			next: null,
 		});
+	});
+});
+
+describe("active navigation sections", () => {
+	it("separates component pages from general documentation", () => {
+		expect(isActiveSection("/docs/basic-map", "/docs/routes")).toBe(true);
+		expect(isActiveSection("/docs", "/docs/routes")).toBe(false);
+		expect(isActiveSection("/docs", "/docs/installation")).toBe(true);
+		expect(isActiveSection("/blocks", "/blocks")).toBe(true);
+		expect(isActiveSection("/blocks", "/docs")).toBe(false);
 	});
 });

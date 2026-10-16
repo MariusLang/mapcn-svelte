@@ -6,7 +6,8 @@
 	import CommandSearch from "$lib/components/CommandSearch.svelte";
 	import MobileNav from "$lib/components/MobileNav.svelte";
 	import Logo from "$lib/components/Logo.svelte";
-	import { mainNavItems } from "$lib/docs-navigation.js";
+	import { page } from "$app/state";
+	import { mainNavItems, isActiveSection } from "$lib/docs-navigation.js";
 	import { Button } from "$lib/registry/ui/button/index.js";
 
 	interface Props {
@@ -25,10 +26,20 @@
 	<nav class="container flex size-full items-center gap-2">
 		<MobileNav />
 		<Logo class="hidden shrink-0 lg:flex" />
-		<Separator orientation="vertical" class="bg-primary/15 ml-2.5 hidden h-4! lg:block" />
+		<Separator orientation="vertical" class="bg-primary/15 mr-1 ml-4 hidden h-4! lg:block" />
 		<nav class="hidden items-center gap-0.5 lg:flex">
-			{#each mainNavItems as item}
-				<Button variant="ghost" size="sm" href={item.href} class="px-2.5">
+			{#each mainNavItems as item (item.href)}
+				{@const active = isActiveSection(item.href, page.url.pathname)}
+				<Button
+					variant="ghost"
+					size="sm"
+					href={item.href}
+					aria-current={active ? "page" : undefined}
+					class={cn(
+						"px-2.5",
+						active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+					)}
+				>
 					{item.title}
 				</Button>
 			{/each}

@@ -24,7 +24,7 @@
 		center={[-0.1276, 41.5074]}
 		zoom={1}
 		projection={{ type: "globe" }}
-		options={{ scrollZoom: false }}
+		options={{ attributionControl: false, scrollZoom: false }}
 	>
 		<MapArc
 			data={arcs}

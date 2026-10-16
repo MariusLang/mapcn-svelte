@@ -10,21 +10,21 @@
 
 <Sidebar.Root
 	collapsible="none"
-	class="sticky top-14 z-30 hidden h-[calc(100svh-3.5rem)] w-55 shrink-0 overscroll-none bg-transparent lg:flex"
+	class="sticky top-14 z-30 hidden h-[calc(100svh-3.5rem)] w-44 shrink-0 overscroll-none bg-transparent lg:flex"
 >
 	<Sidebar.Content class="no-scrollbar overflow-x-hidden pt-10">
-		{#each navigation as group}
+		{#each navigation as group (group.title)}
 			<Sidebar.Group>
 				<Sidebar.GroupLabel>
 					{group.title}
 				</Sidebar.GroupLabel>
 				<Sidebar.GroupContent>
 					<Sidebar.Menu>
-						{#each group.items as item}
+						{#each group.items as item (item.href)}
 							<Sidebar.MenuItem>
 								<Sidebar.MenuButton
 									isActive={pathname === item.href}
-									class="font-medium"
+									class="text-foreground hover:bg-sidebar-accent/50 data-[active=true]:font-medium"
 									onclick={() => {
 										goto(item.href);
 									}}

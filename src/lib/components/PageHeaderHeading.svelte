@@ -17,7 +17,7 @@
 {#if as === "h2"}
 	<h2
 		class={cn(
-			"animate-fade-up animate-stagger text-primary max-w-4xl font-bold tracking-tight",
+			"animate-fade-up animate-stagger text-primary max-w-4xl font-bold tracking-tight text-balance",
 			size === "sm" ? "text-4xl font-semibold md:text-5xl" : "text-4xl sm:text-5xl md:text-6xl",
 			align === "center" ? "text-center" : "text-left",
 			className
@@ -29,7 +29,7 @@
 {:else}
 	<h1
 		class={cn(
-			"animate-fade-up animate-stagger text-primary max-w-4xl font-bold tracking-tight",
+			"animate-fade-up animate-stagger text-primary max-w-4xl font-bold tracking-tight text-balance",
 			size === "sm" ? "text-4xl font-semibold md:text-5xl" : "text-4xl sm:text-5xl md:text-6xl",
 			align === "center" ? "text-center" : "text-left",
 			className

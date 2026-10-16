@@ -38,6 +38,23 @@ This project uses [CARTO Basemaps](https://docs.carto.com/faqs/carto-basemaps) w
 - **Non-commercial use**: Free for CARTO grantees under their [basemap terms](https://carto.com/legal/bmap).
 - **Alternative**: You can switch to [OpenStreetMap](https://www.openstreetmap.org/) tiles or any other MapLibre-compatible tile provider (MapTiler, Stadia Maps, etc).
 
+## Development
+
+Use Node.js 24 or newer and the pnpm version pinned in `package.json`.
+
+```sh
+pnpm install
+pnpm dev
+```
+
+Run `pnpm check`, `pnpm test:coverage`, `pnpm lint`, and `pnpm build` before submitting changes. Site configuration lives in `vite.config.ts` for SvelteKit 3. TypeScript stays on 6.x while the Svelte checker and ESLint require it.
+
+To refresh the block thumbnails, install Chromium with `pnpm exec playwright install chromium`, start the site, and run `pnpm blocks:thumbnails`. Set `BASE_URL` to capture another local server; optional block names limit the capture:
+
+```sh
+BASE_URL=http://localhost:4173 pnpm blocks:thumbnails analytics-map
+```
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.

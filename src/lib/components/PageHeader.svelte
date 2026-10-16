@@ -46,7 +46,7 @@
 <section
 	class={cn(
 		"container mx-auto flex w-full max-w-6xl flex-col",
-		size === "sm" ? "gap-3 py-14 md:py-18" : "gap-4 py-16 md:py-20 lg:py-24 lg:pb-20",
+		size === "sm" ? "gap-3 py-14 md:py-18" : "gap-4 py-16 md:gap-5 md:py-20 lg:py-24 lg:pb-20",
 		align === "center" ? "items-center text-center" : "items-start text-left",
 		className
 	)}

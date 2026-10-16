@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createFileTreeForRegistryItemFiles, getAllBlocks } from "./blocks";
+import { createFileTreeForRegistryItemFiles, getAllBlocks, getBlockCategories } from "./blocks";
 
 describe("getAllBlocks", () => {
 	it("returns only registry blocks with normalized defaults", () => {
@@ -82,5 +82,28 @@ describe("createFileTreeForRegistryItemFiles", () => {
 				],
 			},
 		]);
+	});
+});
+
+describe("getBlockCategories", () => {
+	it("groups every block once by its primary category in registry order", () => {
+		const categories = getBlockCategories();
+		expect(categories.map(({ slug, title }) => ({ slug, title }))).toEqual([
+			{ slug: "analytics", title: "Analytics" },
+			{ slug: "visualization", title: "Visualization" },
+			{ slug: "logistics", title: "Logistics" },
+			{ slug: "location", title: "Location" },
+		]);
+		expect(
+			categories.find(({ slug }) => slug === "analytics")?.blocks.map(({ name }) => name)
+		).toEqual(["analytics-map", "analytics-card", "uptime-monitor"]);
+		expect(
+			categories.find(({ slug }) => slug === "logistics")?.blocks.map(({ name }) => name)
+		).toEqual(["delivery-tracker", "logistics-network"]);
+		expect(categories.flatMap(({ blocks }) => blocks.map(({ name }) => name)).sort()).toEqual(
+			getAllBlocks()
+				.map(({ name }) => name)
+				.sort()
+		);
 	});
 });
