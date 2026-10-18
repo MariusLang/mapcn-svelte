@@ -5,7 +5,8 @@
 </script>
 
 <div
-	class="bg-surface text-foreground/70 [&_strong]:text-foreground rounded-lg px-5 py-4 text-[15px] leading-relaxed [&_strong]:font-medium"
+	data-slot="docs-note"
+	class="bg-surface text-foreground/70 [&_strong]:text-foreground rounded-lg px-5 py-4 text-[15px] leading-[1.75] [&_strong]:font-medium"
 >
 	{@render children?.()}
 </div>

@@ -128,16 +128,16 @@
 	</DocsSection>
 
 	<DocsSection title="Features">
-		<div class="not-prose mt-4 grid gap-4 sm:grid-cols-2">
-			{#each features as feature}
-				<div class="bg-surface space-y-2 rounded-lg p-4">
+		<div class="grid gap-4 sm:grid-cols-2">
+			{#each features as feature (feature.title)}
+				<div class="bg-surface space-y-1.5 rounded-lg p-4">
 					<div class="flex items-center gap-2">
 						<div class="bg-primary/10 flex size-8 items-center justify-center rounded-md">
 							<feature.icon class="text-primary size-4" />
 						</div>
 						<h3 class="text-foreground font-medium">{feature.title}</h3>
 					</div>
-					<p class="text-muted-foreground text-sm">
+					<p class="text-muted-foreground text-sm leading-relaxed">
 						{feature.description}
 					</p>
 				</div>

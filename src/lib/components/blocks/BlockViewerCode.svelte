@@ -40,7 +40,7 @@
 	}
 </script>
 
-<div class="flex h-(--block-preview-height) overflow-hidden rounded-xl border">
+<div class="bg-background flex h-(--block-preview-height) overflow-hidden rounded-xl border">
 	<!-- File tree sidebar -->
 	<div class="w-56 shrink-0">
 		<Sidebar.Provider class="flex min-h-full! flex-col border-r">

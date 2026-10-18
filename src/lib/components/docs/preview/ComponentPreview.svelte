@@ -68,7 +68,7 @@
 					</Select.Trigger>
 					<Select.Content>
 						<Select.Group>
-							{#each allFiles as file, i}
+							{#each allFiles as file, i (file.name)}
 								<Select.Item value={i.toString()} label={file.name}>
 									<span>{file.name}</span>
 								</Select.Item>
@@ -86,13 +86,13 @@
 
 		<CodeSurface
 			id={codeId}
-			class={cn(codeExpanded ? "max-h-[420px] overflow-auto" : "max-h-32 overflow-hidden")}
+			class={cn(codeExpanded ? "max-h-[420px] overflow-auto" : "max-h-26 overflow-hidden")}
 			html={currentFile.highlightedCode}
 		/>
 
 		{#if !codeExpanded}
 			<div
-				class="from-surface to-surface/0 pointer-events-none absolute inset-x-0 bottom-0 flex w-full items-center justify-center bg-linear-to-t pt-20 pb-4"
+				class="from-surface to-surface/0 pointer-events-none absolute inset-x-0 bottom-0 flex w-full items-center justify-center bg-linear-to-t pt-12 pb-3"
 			>
 				<Button
 					variant="outline"
@@ -100,7 +100,7 @@
 					onclick={() => (codeExpanded = true)}
 					aria-expanded={codeExpanded}
 					aria-controls={codeId}
-					class="bg-background hover:bg-muted dark:bg-background dark:hover:bg-muted pointer-events-auto"
+					class="dark:bg-background dark:hover:bg-muted pointer-events-auto"
 				>
 					View Code
 				</Button>

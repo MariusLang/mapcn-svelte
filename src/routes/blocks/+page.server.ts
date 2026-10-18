@@ -1,4 +1,8 @@
-import { getAllBlocks, createFileTreeForRegistryItemFiles } from "$lib/blocks.js";
+import {
+	getAllBlocks,
+	getBlockCategories,
+	createFileTreeForRegistryItemFiles,
+} from "$lib/blocks.js";
 import { getBlockFileSource } from "$lib/get-block-file-source.js";
 import { highlightCode } from "$lib/highlight.js";
 import type { PageServerLoad } from "./$types";
@@ -28,5 +32,5 @@ export const load: PageServerLoad = async () => {
 		})
 	);
 
-	return { blocksWithData };
+	return { blocksWithData, categories: getBlockCategories() };
 };

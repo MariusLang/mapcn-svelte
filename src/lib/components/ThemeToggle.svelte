@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { theme } from "$lib/theme";
+	import { theme, toggleTheme, THEME_HOTKEY } from "$lib/theme";
 	import { Button } from "$lib/registry/ui/button/index";
 	import { Skeleton } from "$lib/registry/ui/skeleton";
 	import Moon from "@lucide/svelte/icons/moon";
@@ -22,13 +22,10 @@
 		};
 	});
 
-	function toggleTheme() {
-		theme.set(currentTheme === "dark" ? "light" : "dark");
-	}
 	function handleKeyDown(e: KeyboardEvent) {
 		if (e.defaultPrevented || e.repeat) return;
 		if (e.metaKey || e.ctrlKey || e.altKey) return;
-		if (e.key.toLowerCase() !== "t") return;
+		if (e.key.toLowerCase() !== THEME_HOTKEY) return;
 
 		if (
 			(e.target instanceof HTMLElement && e.target.isContentEditable) ||
@@ -46,7 +43,13 @@
 {#if !mounted}
 	<Skeleton class="size-8" />
 {:else}
-	<Button onclick={toggleTheme} variant="ghost" aria-label="Toggle theme" size="icon-sm">
+	<Button
+		onclick={toggleTheme}
+		variant="ghost"
+		aria-label="Toggle theme"
+		aria-keyshortcuts={THEME_HOTKEY.toUpperCase()}
+		size="icon-sm"
+	>
 		{#if currentTheme === "dark"}
 			<Moon />
 		{:else}

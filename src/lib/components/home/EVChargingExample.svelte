@@ -116,7 +116,12 @@
 	<Map
 		center={[-122.434, 37.776]}
 		zoom={11}
-		options={{ scrollZoom: false, dragRotate: false, pitchWithRotate: false }}
+		options={{
+			attributionControl: false,
+			scrollZoom: false,
+			dragRotate: false,
+			pitchWithRotate: false,
+		}}
 	>
 		{#each stations as station (station.name)}
 			{@const config = statusConfig[station.status]}

@@ -2,7 +2,7 @@
 	import { onMount, onDestroy, setContext, untrack } from "svelte";
 	import * as MapLibreGL from "maplibre-gl";
 	import "maplibre-gl/dist/maplibre-gl.css";
-	import { browser } from "$app/environment";
+	const browser = typeof window !== "undefined";
 	import { cn } from "$lib/utils.js";
 	import { resolveMapTheme } from "./theme";
 

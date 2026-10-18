@@ -81,3 +81,13 @@ export function findNeighbors(pathName: string): {
 
 	return { previous, next };
 }
+
+export const githubRepoUrl = "https://github.com/MariusLang/mapcn-svelte";
+const componentHrefs = new Set(
+	docsNavigation.find((group) => group.title === "Components")?.items.map((item) => item.href)
+);
+export function isActiveSection(href: string, pathname: string) {
+	if (componentHrefs.has(href)) return componentHrefs.has(pathname);
+	if (href === "/docs") return pathname.startsWith("/docs") && !componentHrefs.has(pathname);
+	return pathname === href || pathname.startsWith(`${href}/`);
+}

@@ -44,7 +44,7 @@
 	});
 </script>
 
-<section class="space-y-5">
+<section class="space-y-4">
 	{#if title}
 		<div class="group flex w-fit items-baseline gap-2">
 			<h2 id={slug} class="scroll-mt-28 text-xl font-semibold tracking-tight">
@@ -60,7 +60,7 @@
 	{/if}
 
 	<div
-		class="text-foreground/80 [&_strong]:text-foreground [&_em]:text-muted-foreground space-y-4 text-base leading-7 [&_li]:leading-7 [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-5 [&_p]:leading-7 [&_strong]:font-medium [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5"
+		class="text-foreground/80 [&_strong]:text-foreground [&_em]:text-muted-foreground space-y-4 text-[15px] leading-[1.75] [&_li]:leading-[1.75] [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-5 [&_p]:leading-[1.75] [&_strong]:font-medium [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5"
 	>
 		{@render children?.()}
 	</div>

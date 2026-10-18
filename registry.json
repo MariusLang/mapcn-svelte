@@ -288,7 +288,7 @@
 					"target": "uptime-monitor/StatusSidebar.svelte"
 				}
 			],
-			"categories": ["monitoring", "status"],
+			"categories": ["analytics", "monitoring", "status"],
 			"meta": {
 				"iframeHeight": "720px"
 			}
@@ -366,7 +366,7 @@
 					"target": "store-locator/FlyToSelected.svelte"
 				}
 			],
-			"categories": ["store-locator", "locator"],
+			"categories": ["location", "store-locator", "locator"],
 			"meta": {
 				"iframeHeight": "800px"
 			}
@@ -419,7 +419,7 @@
 					"target": "lib/theme.ts"
 				}
 			],
-			"categories": ["tracking", "delivery"],
+			"categories": ["logistics", "tracking", "delivery"],
 			"meta": {
 				"iframeHeight": "680px"
 			}
