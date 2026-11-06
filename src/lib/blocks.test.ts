@@ -14,6 +14,7 @@ describe("getAllBlocks", () => {
 			"heatmap",
 			"logistics-network",
 			"store-locator",
+			"community-globe",
 		]);
 		expect(blocks.every((block) => block.type === "registry:block")).toBe(true);
 

@@ -423,6 +423,30 @@
 			"meta": {
 				"iframeHeight": "680px"
 			}
+		},
+		{
+			"name": "community-globe",
+			"type": "registry:block",
+			"title": "Community Globe",
+			"description": "Globe of community members with avatar markers, a member list, local time, and an awake filter.",
+			"dependencies": [],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "tabs"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/community-globe/Page.svelte",
+					"type": "registry:page",
+					"target": "community-globe/+page.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/community-globe/data.ts",
+					"type": "registry:component",
+					"target": "community-globe/data.ts"
+				}
+			],
+			"categories": ["location", "community", "globe"],
+			"meta": {
+				"iframeHeight": "800px"
+			}
 		}
 	]
 }

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Footer from "$lib/components/Footer.svelte";
 	import Header from "$lib/components/Header.svelte";
-	import ExamplesGrid from "$lib/components/home/ExamplesGrid.svelte";
+	import MapWall from "$lib/components/home/MapWall.svelte";
 	import Hero from "$lib/components/Hero.svelte";
 </script>
 
@@ -17,8 +17,11 @@
 			<Hero />
 		</section>
 
-		<section class="animate-fade-in animate-stagger container-wide" style="--stagger: 4">
-			<ExamplesGrid />
+		<section
+			class="animate-fade-in animate-stagger max-h-[42rem] overflow-hidden mask-b-from-75%"
+			style="--stagger: 4"
+		>
+			<MapWall />
 		</section>
 	</main>
 

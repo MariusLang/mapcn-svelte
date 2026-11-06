@@ -1,17 +1,11 @@
 <script lang="ts">
 	import type { RegistryBlockItem } from "$lib/blocks";
-	let { block, onopen }: { block: RegistryBlockItem; onopen: (name: string) => void } = $props();
+	let { block }: { block: RegistryBlockItem } = $props();
 </script>
 
 <a
 	id={block.name}
-	href={`#${block.name}`}
-	onclick={(event) => {
-		if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
-			return;
-		event.preventDefault();
-		onopen(block.name);
-	}}
+	href={`/blocks/${block.name}`}
 	class="bg-muted/50 hover:bg-muted ring-foreground/5 focus-visible:ring-ring/50 dark:bg-muted/30 dark:hover:bg-muted/50 block rounded-2xl p-2 ring-1 transition-[background-color,box-shadow] outline-none focus-visible:ring-[3px]"
 >
 	<div

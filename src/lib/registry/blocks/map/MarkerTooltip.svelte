@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { useMap } from "./use-map.svelte";
 	import { getContext } from "svelte";
-	import * as MapLibreGL from "maplibre-gl";
+	import type * as MapLibreGL from "maplibre-gl";
 	import type { PopupOptions } from "maplibre-gl";
 	import { cn } from "$lib/utils.js";
 
@@ -25,7 +26,11 @@
 	let tooltip: MapLibreGL.Popup | null = null;
 
 	// Create tooltip popup when marker is ready
+	const mapContext = useMap();
+
 	$effect(() => {
+		const lib = mapContext.mapLib;
+		if (!lib) return;
 		const marker = markerCtx.getMarker();
 		const markerElement = markerCtx.getElement();
 		const map = markerCtx.getMap();
@@ -47,9 +52,7 @@
 		if (anchor !== undefined) popupOptions.anchor = anchor;
 
 		// Create popup
-		const popupInstance = new MapLibreGL.Popup(popupOptions)
-			.setMaxWidth("none")
-			.setDOMContent(container);
+		const popupInstance = new lib.Popup(popupOptions).setMaxWidth("none").setDOMContent(container);
 		tooltip = popupInstance;
 
 		// Move content to popup container

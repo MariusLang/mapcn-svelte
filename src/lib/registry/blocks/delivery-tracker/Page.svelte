@@ -155,9 +155,12 @@
 		<div class="relative h-[450px] overflow-hidden rounded-xl shadow-sm md:h-full">
 			<Map
 				{loading}
-				center={mapView.center}
-				zoom={mapView.zoom}
-				options={{ minZoom: mapView.minZoom, maxZoom: mapView.maxZoom }}
+				options={{
+					bounds: mapView.bounds,
+					fitBoundsOptions: { padding: mapView.padding },
+					minZoom: mapView.minZoom,
+					maxZoom: mapView.maxZoom,
+				}}
 			>
 				<MapRoute
 					id="delivery-route"

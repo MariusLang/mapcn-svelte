@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { useMap } from "./use-map.svelte";
 	import { getContext, setContext, untrack } from "svelte";
-	import * as MapLibreGL from "maplibre-gl";
+	import type * as MapLibreGL from "maplibre-gl";
 	import type { MarkerOptions } from "maplibre-gl";
 
 	type Anchor =
@@ -24,6 +25,7 @@
 		ondragstart?: (lngLat: { lng: number; lat: number }) => void;
 		ondrag?: (lngLat: { lng: number; lat: number }) => void;
 		ondragend?: (lngLat: { lng: number; lat: number }) => void;
+		opacityWhenCovered?: MarkerOptions["opacityWhenCovered"];
 		draggable?: boolean;
 		anchor?: Anchor;
 		offset?: MarkerOptions["offset"];
@@ -42,6 +44,7 @@
 		ondragstart,
 		ondrag,
 		ondragend,
+		opacityWhenCovered,
 		draggable = false,
 		anchor = "center",
 		offset,
@@ -71,7 +74,11 @@
 	});
 
 	// Create marker when map is ready
+	const mapContext = useMap();
+
 	$effect(() => {
+		const lib = mapContext.mapLib;
+		if (!lib) return;
 		const map = mapCtx.getMap();
 		const mapLoaded = mapCtx.isLoaded();
 
@@ -104,6 +111,7 @@
 		const markerOptions: MarkerOptions = {
 			element: container,
 			draggable: initialDraggable,
+			opacityWhenCovered: untrack(() => opacityWhenCovered),
 			anchor: initialAnchor,
 		};
 
@@ -115,7 +123,7 @@
 		}
 
 		// Create and add marker
-		const markerInstance = new MapLibreGL.Marker(markerOptions).setLngLat([lng, lat]).addTo(map);
+		const markerInstance = new lib.Marker(markerOptions).setLngLat([lng, lat]).addTo(map);
 
 		marker = markerInstance;
 

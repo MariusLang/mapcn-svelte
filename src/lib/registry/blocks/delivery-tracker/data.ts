@@ -16,17 +16,20 @@ export const deliveryMeals: DeliveryMeal[] = [
 	{ name: "Roasted Veggie Wrap", price: "$29.00", quantity: 1 },
 ];
 
-export const pickup = { lng: -122.4185, lat: 37.7645 };
-export const dropoff = { lng: -122.434, lat: 37.7475 };
+export const pickup = { lng: -73.9445, lat: 40.6885 };
+export const dropoff = { lng: -73.959, lat: 40.685 };
 
 export const mapView = {
-	center: [-122.4263, 37.756] as [number, number],
-	zoom: 13.6,
+	bounds: [
+		[dropoff.lng, dropoff.lat],
+		[pickup.lng, pickup.lat],
+	] as [[number, number], [number, number]],
+	padding: 72,
 	minZoom: 12,
 	maxZoom: 15,
 };
 
-export const progressFraction = 0.62;
+export const progressFraction = 0.45;
 
 export function buildRouteUrl(
 	from: { lng: number; lat: number },
@@ -40,6 +43,6 @@ export const routeStyle = {
 	remaining: {
 		width: 5.2,
 		opacity: 0.5,
-		color: { light: "#6b7280", dark: "#9ca3af" },
+		color: { light: "#6b7280", dark: "#e5e7eb" },
 	},
 } as const;

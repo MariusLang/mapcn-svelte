@@ -214,3 +214,10 @@ export const regionLabels: Record<Hub["region"], string> = {
 	south: "South",
 	northeast: "Northeast",
 };
+
+export type Filter = Route["mode"] | Route["status"] | Hub["region"];
+
+export const networkBounds: [[number, number], [number, number]] = [
+	[Math.min(...hubs.map((hub) => hub.lng)), Math.min(...hubs.map((hub) => hub.lat))],
+	[Math.max(...hubs.map((hub) => hub.lng)), Math.max(...hubs.map((hub) => hub.lat))],
+];

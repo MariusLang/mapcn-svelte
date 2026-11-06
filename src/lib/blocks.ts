@@ -31,6 +31,7 @@ const upstreamBlockOrder = [
 	"heatmap",
 	"logistics-network",
 	"store-locator",
+	"community-globe",
 ];
 const upstreamBlockRank = new Map(upstreamBlockOrder.map((name, index) => [name, index]));
 

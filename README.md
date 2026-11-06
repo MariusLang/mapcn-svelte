@@ -68,3 +68,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Agent skill
+
+The [MapCN Svelte skill](skills/mapcn-svelte/SKILL.md) gives coding agents the registry install command, Svelte composition patterns, and links to the component API.

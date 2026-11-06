@@ -40,13 +40,7 @@
 	style="--block-preview-height: {block.meta?.iframeHeight ?? '930px'}"
 >
 	<Tabs.Tabs bind:value={activeTab} class="w-full gap-4">
-		<div class="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between xl:gap-6">
-			<div class="min-w-0">
-				<h3 class="text-lg font-semibold tracking-tight">{block.title}</h3>
-				{#if block.description}<p class="text-muted-foreground mt-0.5 text-sm">
-						{block.description}
-					</p>{/if}
-			</div>
+		<div class="flex items-center justify-end">
 			<div class="flex shrink-0 items-center gap-3">
 				<Tabs.TabsList
 					class="bg-background dark:border-input dark:bg-input/30 h-8! gap-0.5 rounded-md border p-0.5 shadow-xs"

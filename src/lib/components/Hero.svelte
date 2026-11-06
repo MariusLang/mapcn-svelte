@@ -1,5 +1,6 @@
 <script lang="ts">
-	import AgentPrompt from "$lib/components/AgentPrompt.svelte";
+	import { mapInstallCommand } from "$lib/llm-prompts";
+	import CopyButton from "$lib/components/CopyButton.svelte";
 	import { Button } from "$lib/registry/ui/button/index";
 </script>
 
@@ -35,7 +36,12 @@
 					View Components
 				</Button>
 			</div>
-			<AgentPrompt />
+			<div
+				class="bg-muted/40 flex max-w-full items-center gap-2 rounded-lg border py-1 pr-1 pl-3 text-left"
+			>
+				<code class="overflow-x-auto text-xs whitespace-nowrap">{mapInstallCommand}</code>
+				<CopyButton command={mapInstallCommand} />
+			</div>
 		</div>
 	</div>
 </div>

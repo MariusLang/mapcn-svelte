@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getContext } from "svelte";
-	import * as MapLibreGL from "maplibre-gl";
+	import type * as MapLibreGL from "maplibre-gl";
 	import { cn } from "$lib/utils.js";
 
 	interface Props {

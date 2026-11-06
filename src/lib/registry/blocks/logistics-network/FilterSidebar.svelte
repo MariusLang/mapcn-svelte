@@ -4,7 +4,7 @@
 	import Network from "@lucide/svelte/icons/network";
 	import Plane from "@lucide/svelte/icons/plane";
 	import Truck from "@lucide/svelte/icons/truck";
-	import { regionLabels, statusConfig, type Hub, type Route } from "./data.js";
+	import { regionLabels, statusConfig, type Filter, type Hub, type Route } from "./data.js";
 
 	const regionIcons: Record<Hub["region"], string> = {
 		west: "W",
@@ -16,11 +16,14 @@
 	interface Props {
 		hubs: Hub[];
 		routes: Route[];
+		visibleRoutes: Route[];
+		hidden: Set<Filter>;
+		ontoggle: (filter: Filter) => void;
 	}
 
-	const { hubs, routes }: Props = $props();
+	const { hubs, routes, visibleRoutes, hidden, ontoggle }: Props = $props();
 
-	const totalShipments = $derived(routes.reduce((s, r) => s + r.shipments, 0));
+	const totalShipments = $derived(visibleRoutes.reduce((s, r) => s + r.shipments, 0));
 	const activeCount = $derived(routes.filter((r) => r.status === "active").length);
 	const delayedCount = $derived(routes.filter((r) => r.status === "delayed").length);
 	const airRouteCount = $derived(routes.filter((r) => r.mode === "air").length);
@@ -64,14 +67,24 @@
 			<Sidebar.GroupContent>
 				<Sidebar.Menu>
 					<Sidebar.MenuItem>
-						<Sidebar.MenuButton tooltipContent="Air" class="pointer-events-none">
+						<Sidebar.MenuButton
+							tooltipContent="Air"
+							onclick={() => ontoggle("air")}
+							aria-pressed={!hidden.has("air")}
+							class={hidden.has("air") ? "opacity-50" : undefined}
+						>
 							<Plane class="size-4" />
 							<span>Air Freight</span>
 						</Sidebar.MenuButton>
 						<Sidebar.MenuBadge>{airRouteCount}</Sidebar.MenuBadge>
 					</Sidebar.MenuItem>
 					<Sidebar.MenuItem>
-						<Sidebar.MenuButton tooltipContent="Ground" class="pointer-events-none">
+						<Sidebar.MenuButton
+							tooltipContent="Ground"
+							onclick={() => ontoggle("ground")}
+							aria-pressed={!hidden.has("ground")}
+							class={hidden.has("ground") ? "opacity-50" : undefined}
+						>
 							<Truck class="size-4" />
 							<span>Ground</span>
 						</Sidebar.MenuButton>
@@ -88,7 +101,9 @@
 					<Sidebar.MenuItem>
 						<Sidebar.MenuButton
 							tooltipContent={statusConfig.active.label}
-							class="pointer-events-none"
+							onclick={() => ontoggle("active")}
+							aria-pressed={!hidden.has("active")}
+							class={hidden.has("active") ? "opacity-50" : undefined}
 						>
 							<span class="flex size-4 items-center justify-center">
 								<span
@@ -103,7 +118,9 @@
 					<Sidebar.MenuItem>
 						<Sidebar.MenuButton
 							tooltipContent={statusConfig.delayed.label}
-							class="pointer-events-none"
+							onclick={() => ontoggle("delayed")}
+							aria-pressed={!hidden.has("delayed")}
+							class={hidden.has("delayed") ? "opacity-50" : undefined}
 						>
 							<span class="flex size-4 items-center justify-center">
 								<span
@@ -123,10 +140,15 @@
 			<Sidebar.GroupLabel>Region</Sidebar.GroupLabel>
 			<Sidebar.GroupContent>
 				<Sidebar.Menu>
-					{#each ["west", "midwest", "south", "northeast"] as const as region}
+					{#each ["west", "midwest", "south", "northeast"] as const as region (region)}
 						{@const hubsInRegion = hubs.filter((h) => h.region === region)}
 						<Sidebar.MenuItem>
-							<Sidebar.MenuButton tooltipContent={regionLabels[region]} class="pointer-events-none">
+							<Sidebar.MenuButton
+								tooltipContent={regionLabels[region]}
+								onclick={() => ontoggle(region)}
+								aria-pressed={!hidden.has(region)}
+								class={hidden.has(region) ? "opacity-50" : undefined}
+							>
 								<span
 									class="bg-muted text-muted-foreground flex size-4 items-center justify-center rounded text-[9px] font-bold"
 								>
@@ -155,7 +177,7 @@
 			</div>
 			<div class="flex justify-between">
 				<span class="text-muted-foreground">Routes</span>
-				<span class="text-primary font-medium tabular-nums">{routes.length}</span>
+				<span class="text-primary font-medium tabular-nums">{visibleRoutes.length}</span>
 			</div>
 		</div>
 	</Sidebar.Footer>

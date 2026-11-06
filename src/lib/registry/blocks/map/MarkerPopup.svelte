@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { useMap } from "./use-map.svelte";
 	import { getContext } from "svelte";
-	import * as MapLibreGL from "maplibre-gl";
+	import type * as MapLibreGL from "maplibre-gl";
 	import type { PopupOptions } from "maplibre-gl";
 	import { cn } from "$lib/utils.js";
 	import X from "@lucide/svelte/icons/x";
@@ -43,7 +44,11 @@
 	let shouldStayOpen = $state(false);
 
 	// Create popup when marker is ready
+	const mapContext = useMap();
+
 	$effect(() => {
+		const lib = mapContext.mapLib;
+		if (!lib) return;
 		const marker = markerCtx.getMarker();
 		const ready = markerCtx.isReady();
 
@@ -70,7 +75,7 @@
 		}
 
 		// Create popup
-		const popupInstance = new MapLibreGL.Popup(popupOptions).setDOMContent(container);
+		const popupInstance = new lib.Popup(popupOptions).setDOMContent(container);
 
 		if (maxWidth) {
 			popupInstance.setMaxWidth(maxWidth);
