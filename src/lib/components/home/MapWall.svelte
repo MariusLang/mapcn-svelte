@@ -43,7 +43,7 @@
 
 <div
 	aria-hidden="true"
-	class="pointer-events-none relative left-1/2 flex w-[40rem] -translate-x-1/2 gap-3 select-none md:w-[calc(100%-8rem)] md:max-w-[84rem] md:gap-4 xl:gap-6"
+	class="pointer-events-none relative left-1/2 flex w-[40rem] -translate-x-1/2 gap-3 pt-6 select-none md:left-0 md:mx-auto md:w-[calc(100%-8rem)] md:max-w-[84rem] md:translate-x-0 md:gap-4 xl:w-[calc(100%-12rem)] xl:gap-6"
 >
 	{#each columns as column, index (index)}
 		<div

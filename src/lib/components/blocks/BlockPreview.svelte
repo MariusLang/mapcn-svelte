@@ -41,24 +41,25 @@
 >
 	<Tabs.Tabs bind:value={activeTab} class="w-full gap-4">
 		<div class="flex items-center justify-end">
-			<div class="flex shrink-0 items-center gap-3">
+			<div class="flex items-center gap-2 sm:gap-3">
 				<Tabs.TabsList
 					class="bg-background dark:border-input dark:bg-input/30 h-8! gap-0.5 rounded-md border p-0.5 shadow-xs"
 				>
 					<Tabs.TabsTrigger value="preview" class={tabTriggerClassName}>Preview</Tabs.TabsTrigger>
 					<Tabs.TabsTrigger value="code" class={tabTriggerClassName}>Code</Tabs.TabsTrigger>
 				</Tabs.TabsList>
-				<div class="hidden items-center gap-2 md:flex">
-					<Separator orientation="vertical" class="mr-1 h-5!" />
+				<div class="flex items-center gap-2">
+					<Separator orientation="vertical" class="mr-1 hidden h-5! md:block" />
 					<Button
 						variant="outline"
 						size="sm"
 						onclick={copyCli}
 						aria-label="Copy CLI command"
-						class="font-mono text-xs"
+						class="size-8 px-0 font-mono text-xs md:w-auto md:px-3"
 					>
 						{#if copiedType === "cli"}<Check />{:else}<Terminal />{/if}
-						npx shadcn-svelte add {siteUrl}/r/{block.name}.json
+						<span class="hidden md:inline">npx shadcn-svelte add {siteUrl}/r/{block.name}.json</span
+						>
 					</Button>
 					<Button
 						variant="outline"
