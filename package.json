@@ -15,7 +15,8 @@
 		"test:coverage": "vitest run --coverage",
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
-		"build:registry": "pnpm shadcn-svelte registry build",
+		"build:registry": "pnpm shadcn-svelte registry build && pnpm build:skill",
+		"build:skill": "node scripts/build-skill.ts",
 		"blocks:thumbnails": "node scripts/capture-block-thumbnails.ts"
 	},
 	"dependencies": {

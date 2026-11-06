@@ -11,7 +11,7 @@
 			"type": "registry:ui",
 			"title": "Map",
 			"description": "A MapLibre-powered map component with markers, popups, tooltips, routes, and controls.",
-			"dependencies": ["maplibre-gl@^6"],
+			"dependencies": ["maplibre-gl@^6", "@lucide/svelte"],
 			"devDependencies": ["@types/geojson"],
 			"registryDependencies": [],
 			"files": [
@@ -183,17 +183,17 @@
 				{
 					"path": "src/lib/registry/blocks/analytics-map/data.ts",
 					"type": "registry:component",
-					"target": "analytics/data.ts"
+					"target": "~/src/routes/analytics/data.ts"
 				},
 				{
 					"path": "src/lib/registry/blocks/analytics-map/OverviewCard.svelte",
 					"type": "registry:component",
-					"target": "analytics/OverviewCard.svelte"
+					"target": "~/src/routes/analytics/OverviewCard.svelte"
 				},
 				{
 					"path": "src/lib/registry/blocks/analytics-map/BreakdownCard.svelte",
 					"type": "registry:component",
-					"target": "analytics/BreakdownCard.svelte"
+					"target": "~/src/routes/analytics/BreakdownCard.svelte"
 				}
 			],
 			"categories": ["analytics", "dashboard"],
@@ -217,7 +217,7 @@
 				{
 					"path": "src/lib/registry/blocks/analytics-card/data.ts",
 					"type": "registry:component",
-					"target": "analytics-card/data.ts"
+					"target": "~/src/routes/analytics-card/data.ts"
 				}
 			],
 			"categories": ["analytics", "card"],
@@ -241,17 +241,17 @@
 				{
 					"path": "src/lib/registry/blocks/choropleth/data.ts",
 					"type": "registry:component",
-					"target": "choropleth/data.ts"
+					"target": "~/src/routes/choropleth/data.ts"
 				},
 				{
 					"path": "src/lib/use-world-data.svelte.ts",
 					"type": "registry:lib",
-					"target": "lib/use-world-data.svelte.ts"
+					"target": "use-world-data.svelte.ts"
 				},
 				{
 					"path": "src/lib/theme.ts",
 					"type": "registry:lib",
-					"target": "lib/theme.ts"
+					"target": "theme.ts"
 				}
 			],
 			"categories": ["visualization", "choropleth"],
@@ -275,17 +275,17 @@
 				{
 					"path": "src/lib/registry/blocks/uptime-monitor/data.ts",
 					"type": "registry:component",
-					"target": "uptime-monitor/data.ts"
+					"target": "~/src/routes/uptime-monitor/data.ts"
 				},
 				{
 					"path": "src/lib/registry/blocks/uptime-monitor/EdgeNodeMarker.svelte",
 					"type": "registry:component",
-					"target": "uptime-monitor/EdgeNodeMarker.svelte"
+					"target": "~/src/routes/uptime-monitor/EdgeNodeMarker.svelte"
 				},
 				{
 					"path": "src/lib/registry/blocks/uptime-monitor/StatusSidebar.svelte",
 					"type": "registry:component",
-					"target": "uptime-monitor/StatusSidebar.svelte"
+					"target": "~/src/routes/uptime-monitor/StatusSidebar.svelte"
 				}
 			],
 			"categories": ["analytics", "monitoring", "status"],
@@ -309,22 +309,22 @@
 				{
 					"path": "src/lib/registry/blocks/logistics-network/data.ts",
 					"type": "registry:component",
-					"target": "logistics/data.ts"
+					"target": "~/src/routes/logistics/data.ts"
 				},
 				{
 					"path": "src/lib/registry/blocks/logistics-network/MapArcs.svelte",
 					"type": "registry:component",
-					"target": "logistics/MapArcs.svelte"
+					"target": "~/src/routes/logistics/MapArcs.svelte"
 				},
 				{
 					"path": "src/lib/registry/blocks/logistics-network/FilterSidebar.svelte",
 					"type": "registry:component",
-					"target": "logistics/FilterSidebar.svelte"
+					"target": "~/src/routes/logistics/FilterSidebar.svelte"
 				},
 				{
 					"path": "src/lib/registry/blocks/logistics-network/NetworkMap.svelte",
 					"type": "registry:component",
-					"target": "logistics/NetworkMap.svelte"
+					"target": "~/src/routes/logistics/NetworkMap.svelte"
 				}
 			],
 			"categories": ["logistics", "network"],
@@ -348,22 +348,22 @@
 				{
 					"path": "src/lib/registry/blocks/store-locator/data.ts",
 					"type": "registry:component",
-					"target": "store-locator/data.ts"
+					"target": "~/src/routes/store-locator/data.ts"
 				},
 				{
 					"path": "src/lib/registry/blocks/store-locator/StoreList.svelte",
 					"type": "registry:component",
-					"target": "store-locator/StoreList.svelte"
+					"target": "~/src/routes/store-locator/StoreList.svelte"
 				},
 				{
 					"path": "src/lib/registry/blocks/store-locator/LocatorMap.svelte",
 					"type": "registry:component",
-					"target": "store-locator/LocatorMap.svelte"
+					"target": "~/src/routes/store-locator/LocatorMap.svelte"
 				},
 				{
 					"path": "src/lib/registry/blocks/store-locator/FlyToSelected.svelte",
 					"type": "registry:component",
-					"target": "store-locator/FlyToSelected.svelte"
+					"target": "~/src/routes/store-locator/FlyToSelected.svelte"
 				}
 			],
 			"categories": ["location", "store-locator", "locator"],
@@ -387,7 +387,7 @@
 				{
 					"path": "src/lib/registry/blocks/heatmap/GlobeHeatmapLayers.svelte",
 					"type": "registry:component",
-					"target": "heatmap/GlobeHeatmapLayers.svelte"
+					"target": "~/src/routes/heatmap/GlobeHeatmapLayers.svelte"
 				}
 			],
 			"categories": ["visualization", "heatmap"],
@@ -411,12 +411,12 @@
 				{
 					"path": "src/lib/registry/blocks/delivery-tracker/data.ts",
 					"type": "registry:component",
-					"target": "delivery/data.ts"
+					"target": "~/src/routes/delivery/data.ts"
 				},
 				{
 					"path": "src/lib/theme.ts",
 					"type": "registry:lib",
-					"target": "lib/theme.ts"
+					"target": "theme.ts"
 				}
 			],
 			"categories": ["logistics", "tracking", "delivery"],
@@ -440,7 +440,7 @@
 				{
 					"path": "src/lib/registry/blocks/community-globe/data.ts",
 					"type": "registry:component",
-					"target": "community-globe/data.ts"
+					"target": "~/src/routes/community-globe/data.ts"
 				}
 			],
 			"categories": ["location", "community", "globe"],

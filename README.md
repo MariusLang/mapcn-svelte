@@ -71,4 +71,10 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Agent skill
 
-The [MapCN Svelte skill](skills/mapcn-svelte/SKILL.md) gives coding agents the registry install command, Svelte composition patterns, and links to the component API.
+Teach Claude Code, Cursor, Codex, or another skills-compatible coding agent how to use MapCN Svelte.
+
+```sh
+npx skills add MariusLang/mapcn-svelte --skill mapcn-svelte
+```
+
+Then ask for a map or ask where one would fit in your app. See the [agent skill docs](https://mapcn-svelte.dev/docs/skill) for manual installation, prompts, and the reference files.

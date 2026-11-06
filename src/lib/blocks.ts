@@ -5,7 +5,7 @@ export interface RegistryBlockItem {
 	type: string;
 	title?: string;
 	description?: string;
-	files?: Array<{ path: string; target?: string }>;
+	files?: Array<{ path: string; target?: string; type?: string }>;
 	registryDependencies?: string[];
 	categories?: string[];
 	meta?: { iframeHeight?: string };
@@ -48,7 +48,13 @@ export function getAllBlocks(): RegistryBlockItem[] {
 			type: item.type,
 			title: item.title ?? item.name,
 			description: item.description,
-			files: item.files ?? [],
+			files: (item.files ?? []).map((file) => ({
+				...file,
+				target:
+					file.type === "registry:lib" && file.target
+						? `lib/${file.target}`
+						: file.target?.replace(/^~\/src\/routes\//, ""),
+			})),
 			registryDependencies: item.registryDependencies ?? [],
 			categories: item.categories ?? [],
 			meta: item.meta,

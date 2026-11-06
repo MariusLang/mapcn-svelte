@@ -11,7 +11,7 @@ describe("llm content", () => {
 		const markdown = createLlmIndexMarkdown();
 
 		expect(markdown).toContain("# mapcn-svelte");
-		expect(markdown).toContain("https://mapcn-svelte.dev/r/registry.json");
+		expect(markdown).toContain("https://mapcn-svelte.dev/r/index.json");
 		expect(markdown).toContain("npx shadcn-svelte@latest add https://mapcn-svelte.dev/r/map.json");
 		expect(markdown).toContain('import { Map, MapControls } from "$lib/components/ui/map";');
 		expect(markdown).toContain("- [Analytics Map](/llm/analytics-map)");
