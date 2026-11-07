@@ -101,3 +101,7 @@ export function getBlockCategories(): BlockCategory[] {
 		blocks,
 	}));
 }
+
+export function getBlocksInGridOrder(): RegistryBlockItem[] {
+	return getBlockCategories().flatMap((category) => category.blocks);
+}

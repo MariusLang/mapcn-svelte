@@ -1,14 +1,22 @@
-import { getAllBlocks, createFileTreeForRegistryItemFiles } from "$lib/blocks.js";
+import { getBlocksInGridOrder, createFileTreeForRegistryItemFiles } from "$lib/blocks.js";
 import { getBlockFileSource } from "$lib/get-block-file-source.js";
 import { highlightCode } from "$lib/highlight.js";
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
-export const entries = () => getAllBlocks().map(({ name }) => ({ name }));
+export const entries = () => getBlocksInGridOrder().map(({ name }) => ({ name }));
 
 export const load: PageServerLoad = async ({ params }) => {
-	const block = getAllBlocks().find(({ name }) => name === params.name);
-	if (!block) error(404, "Block not found");
+	const blocks = getBlocksInGridOrder();
+	const index = blocks.findIndex(({ name }) => name === params.name);
+	if (index === -1) error(404, "Block not found");
+	const block = blocks[index];
+	const neighbours = [
+		...new Set([
+			blocks[(index - 1 + blocks.length) % blocks.length],
+			blocks[(index + 1) % blocks.length],
+		]),
+	].filter((other) => other !== block);
 	const tree = createFileTreeForRegistryItemFiles(block.files ?? []);
 
 	const highlightedFiles = await Promise.all(
@@ -25,5 +33,5 @@ export const load: PageServerLoad = async ({ params }) => {
 		})
 	);
 
-	return { block, tree, highlightedFiles };
+	return { block, tree, highlightedFiles, neighbours };
 };

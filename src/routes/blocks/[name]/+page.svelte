@@ -1,4 +1,5 @@
 <script lang="ts">
+	import BlockCard from "$lib/components/blocks/BlockCard.svelte";
 	import BlockDisplay from "$lib/components/blocks/BlockDisplay.svelte";
 	import Footer from "$lib/components/Footer.svelte";
 	import Header from "$lib/components/Header.svelte";
@@ -17,7 +18,7 @@
 </svelte:head>
 
 <Header />
-<PageHeader align="left" size="sm">
+<PageHeader align="left" size="sm" class="pb-8 md:pb-10">
 	<a href="/blocks" class="text-muted-foreground hover:text-foreground text-sm">← All blocks</a>
 	<PageHeaderHeading>{title}</PageHeaderHeading>
 	{#if data.block.description}
@@ -25,9 +26,21 @@
 	{/if}
 </PageHeader>
 
-<section class="container pb-24" aria-label={title}>
+<section class="container space-y-20 pb-24" aria-label={title}>
 	{#key data.block.name}
 		<BlockDisplay block={data.block} tree={data.tree} highlightedFiles={data.highlightedFiles} />
 	{/key}
+	{#if data.neighbours.length > 0}
+		<section aria-labelledby="more-blocks" class="space-y-6">
+			<h2 id="more-blocks" class="text-foreground text-lg font-medium tracking-tight">
+				More blocks
+			</h2>
+			<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+				{#each data.neighbours as block (block.name)}
+					<BlockCard {block} />
+				{/each}
+			</div>
+		</section>
+	{/if}
 </section>
 <Footer />
