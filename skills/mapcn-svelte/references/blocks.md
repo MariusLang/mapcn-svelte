@@ -20,18 +20,6 @@ npx shadcn-svelte@latest add https://mapcn-svelte.dev/r/analytics-map.json
 - Registry dependencies — `https://mapcn-svelte.dev/r/map.json`, `card`
 - [Preview and source](https://mapcn-svelte.dev/blocks/analytics-map)
 
-## Analytics Card
-
-Compact analytics card with a headline metric over a world map.
-
-```sh
-npx shadcn-svelte@latest add https://mapcn-svelte.dev/r/analytics-card.json
-```
-
-- Registry file targets — `analytics-card/+page.svelte`, `~/src/routes/analytics-card/data.ts`
-- Registry dependencies — `https://mapcn-svelte.dev/r/map.json`, `card`, `badge`
-- [Preview and source](https://mapcn-svelte.dev/blocks/analytics-card)
-
 ## Choropleth
 
 World choropleth map shading countries by a metric, with a hover tooltip and legend.
@@ -44,6 +32,30 @@ npx shadcn-svelte@latest add https://mapcn-svelte.dev/r/choropleth.json
 - Registry dependencies — `https://mapcn-svelte.dev/r/map.json`
 - [Preview and source](https://mapcn-svelte.dev/blocks/choropleth)
 
+## Analytics Card
+
+Compact analytics card with a headline metric over a world map.
+
+```sh
+npx shadcn-svelte@latest add https://mapcn-svelte.dev/r/analytics-card.json
+```
+
+- Registry file targets — `analytics-card/+page.svelte`, `~/src/routes/analytics-card/data.ts`
+- Registry dependencies — `https://mapcn-svelte.dev/r/map.json`, `card`, `badge`
+- [Preview and source](https://mapcn-svelte.dev/blocks/analytics-card)
+
+## Delivery Tracker
+
+Live order tracking with route progress, courier position, and order details.
+
+```sh
+npx shadcn-svelte@latest add https://mapcn-svelte.dev/r/delivery-tracker.json
+```
+
+- Registry file targets — `delivery/+page.svelte`, `~/src/routes/delivery/data.ts`, `theme.ts`
+- Registry dependencies — `https://mapcn-svelte.dev/r/map.json`, `card`, `badge`, `button`
+- [Preview and source](https://mapcn-svelte.dev/blocks/delivery-tracker)
+
 ## Uptime Monitor
 
 Status-page style map of edge network locations with live health, latency, and uptime.
@@ -55,6 +67,30 @@ npx shadcn-svelte@latest add https://mapcn-svelte.dev/r/uptime-monitor.json
 - Registry file targets — `uptime-monitor/+page.svelte`, `~/src/routes/uptime-monitor/data.ts`, `~/src/routes/uptime-monitor/EdgeNodeMarker.svelte`, `~/src/routes/uptime-monitor/StatusSidebar.svelte`
 - Registry dependencies — `https://mapcn-svelte.dev/r/map.json`
 - [Preview and source](https://mapcn-svelte.dev/blocks/uptime-monitor)
+
+## Heatmap
+
+Globe-projected heatmap visualizing earthquake density with zoom-dependent styling.
+
+```sh
+npx shadcn-svelte@latest add https://mapcn-svelte.dev/r/heatmap.json
+```
+
+- Registry file targets — `heatmap/+page.svelte`, `~/src/routes/heatmap/GlobeHeatmapLayers.svelte`
+- Registry dependencies — `https://mapcn-svelte.dev/r/map.json`
+- [Preview and source](https://mapcn-svelte.dev/blocks/heatmap)
+
+## Community Globe
+
+Globe of community members with avatar markers, a member list, local time, and an awake filter.
+
+```sh
+npx shadcn-svelte@latest add https://mapcn-svelte.dev/r/community-globe.json
+```
+
+- Registry file targets — `community-globe/+page.svelte`, `~/src/routes/community-globe/data.ts`
+- Registry dependencies — `https://mapcn-svelte.dev/r/map.json`, `tabs`
+- [Preview and source](https://mapcn-svelte.dev/blocks/community-globe)
 
 ## Logistics Network
 
@@ -79,39 +115,3 @@ npx shadcn-svelte@latest add https://mapcn-svelte.dev/r/store-locator.json
 - Registry file targets — `store-locator/+page.svelte`, `~/src/routes/store-locator/data.ts`, `~/src/routes/store-locator/StoreList.svelte`, `~/src/routes/store-locator/LocatorMap.svelte`, `~/src/routes/store-locator/FlyToSelected.svelte`
 - Registry dependencies — `https://mapcn-svelte.dev/r/map.json`, `input`, `sidebar`
 - [Preview and source](https://mapcn-svelte.dev/blocks/store-locator)
-
-## Heatmap
-
-Globe-projected heatmap visualizing earthquake density with zoom-dependent styling.
-
-```sh
-npx shadcn-svelte@latest add https://mapcn-svelte.dev/r/heatmap.json
-```
-
-- Registry file targets — `heatmap/+page.svelte`, `~/src/routes/heatmap/GlobeHeatmapLayers.svelte`
-- Registry dependencies — `https://mapcn-svelte.dev/r/map.json`
-- [Preview and source](https://mapcn-svelte.dev/blocks/heatmap)
-
-## Delivery Tracker
-
-Live order tracking with route progress, courier position, and order details.
-
-```sh
-npx shadcn-svelte@latest add https://mapcn-svelte.dev/r/delivery-tracker.json
-```
-
-- Registry file targets — `delivery/+page.svelte`, `~/src/routes/delivery/data.ts`, `theme.ts`
-- Registry dependencies — `https://mapcn-svelte.dev/r/map.json`, `card`, `badge`, `button`
-- [Preview and source](https://mapcn-svelte.dev/blocks/delivery-tracker)
-
-## Community Globe
-
-Globe of community members with avatar markers, a member list, local time, and an awake filter.
-
-```sh
-npx shadcn-svelte@latest add https://mapcn-svelte.dev/r/community-globe.json
-```
-
-- Registry file targets — `community-globe/+page.svelte`, `~/src/routes/community-globe/data.ts`
-- Registry dependencies — `https://mapcn-svelte.dev/r/map.json`, `tabs`
-- [Preview and source](https://mapcn-svelte.dev/blocks/community-globe)

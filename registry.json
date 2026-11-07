@@ -202,30 +202,6 @@
 			}
 		},
 		{
-			"name": "analytics-card",
-			"type": "registry:block",
-			"title": "Analytics Card",
-			"description": "Compact analytics card with a headline metric over a world map.",
-			"dependencies": [],
-			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card", "badge"],
-			"files": [
-				{
-					"path": "src/lib/registry/blocks/analytics-card/Page.svelte",
-					"type": "registry:page",
-					"target": "analytics-card/+page.svelte"
-				},
-				{
-					"path": "src/lib/registry/blocks/analytics-card/data.ts",
-					"type": "registry:component",
-					"target": "~/src/routes/analytics-card/data.ts"
-				}
-			],
-			"categories": ["analytics", "card"],
-			"meta": {
-				"iframeHeight": "600px"
-			}
-		},
-		{
 			"name": "choropleth",
 			"type": "registry:block",
 			"title": "Choropleth",
@@ -260,6 +236,59 @@
 			}
 		},
 		{
+			"name": "analytics-card",
+			"type": "registry:block",
+			"title": "Analytics Card",
+			"description": "Compact analytics card with a headline metric over a world map.",
+			"dependencies": [],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card", "badge"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/analytics-card/Page.svelte",
+					"type": "registry:page",
+					"target": "analytics-card/+page.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/analytics-card/data.ts",
+					"type": "registry:component",
+					"target": "~/src/routes/analytics-card/data.ts"
+				}
+			],
+			"categories": ["analytics", "card"],
+			"meta": {
+				"iframeHeight": "600px"
+			}
+		},
+		{
+			"name": "delivery-tracker",
+			"type": "registry:block",
+			"title": "Delivery Tracker",
+			"description": "Live order tracking with route progress, courier position, and order details.",
+			"dependencies": [],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card", "badge", "button"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/delivery-tracker/Page.svelte",
+					"type": "registry:page",
+					"target": "delivery/+page.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/delivery-tracker/data.ts",
+					"type": "registry:component",
+					"target": "~/src/routes/delivery/data.ts"
+				},
+				{
+					"path": "src/lib/theme.ts",
+					"type": "registry:lib",
+					"target": "theme.ts"
+				}
+			],
+			"categories": ["logistics", "tracking", "delivery"],
+			"meta": {
+				"iframeHeight": "680px"
+			}
+		},
+		{
 			"name": "uptime-monitor",
 			"type": "registry:block",
 			"title": "Uptime Monitor",
@@ -291,6 +320,54 @@
 			"categories": ["analytics", "monitoring", "status"],
 			"meta": {
 				"iframeHeight": "720px"
+			}
+		},
+		{
+			"name": "heatmap",
+			"type": "registry:block",
+			"title": "Heatmap",
+			"description": "Globe-projected heatmap visualizing earthquake density with zoom-dependent styling.",
+			"dependencies": [],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/heatmap/Page.svelte",
+					"type": "registry:page",
+					"target": "heatmap/+page.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/heatmap/GlobeHeatmapLayers.svelte",
+					"type": "registry:component",
+					"target": "~/src/routes/heatmap/GlobeHeatmapLayers.svelte"
+				}
+			],
+			"categories": ["visualization", "heatmap"],
+			"meta": {
+				"iframeHeight": "800px"
+			}
+		},
+		{
+			"name": "community-globe",
+			"type": "registry:block",
+			"title": "Community Globe",
+			"description": "Globe of community members with avatar markers, a member list, local time, and an awake filter.",
+			"dependencies": [],
+			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "tabs"],
+			"files": [
+				{
+					"path": "src/lib/registry/blocks/community-globe/Page.svelte",
+					"type": "registry:page",
+					"target": "community-globe/+page.svelte"
+				},
+				{
+					"path": "src/lib/registry/blocks/community-globe/data.ts",
+					"type": "registry:component",
+					"target": "~/src/routes/community-globe/data.ts"
+				}
+			],
+			"categories": ["location", "community", "globe"],
+			"meta": {
+				"iframeHeight": "800px"
 			}
 		},
 		{
@@ -367,83 +444,6 @@
 				}
 			],
 			"categories": ["location", "store-locator", "locator"],
-			"meta": {
-				"iframeHeight": "800px"
-			}
-		},
-		{
-			"name": "heatmap",
-			"type": "registry:block",
-			"title": "Heatmap",
-			"description": "Globe-projected heatmap visualizing earthquake density with zoom-dependent styling.",
-			"dependencies": [],
-			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json"],
-			"files": [
-				{
-					"path": "src/lib/registry/blocks/heatmap/Page.svelte",
-					"type": "registry:page",
-					"target": "heatmap/+page.svelte"
-				},
-				{
-					"path": "src/lib/registry/blocks/heatmap/GlobeHeatmapLayers.svelte",
-					"type": "registry:component",
-					"target": "~/src/routes/heatmap/GlobeHeatmapLayers.svelte"
-				}
-			],
-			"categories": ["visualization", "heatmap"],
-			"meta": {
-				"iframeHeight": "800px"
-			}
-		},
-		{
-			"name": "delivery-tracker",
-			"type": "registry:block",
-			"title": "Delivery Tracker",
-			"description": "Live order tracking with route progress, courier position, and order details.",
-			"dependencies": [],
-			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "card", "badge", "button"],
-			"files": [
-				{
-					"path": "src/lib/registry/blocks/delivery-tracker/Page.svelte",
-					"type": "registry:page",
-					"target": "delivery/+page.svelte"
-				},
-				{
-					"path": "src/lib/registry/blocks/delivery-tracker/data.ts",
-					"type": "registry:component",
-					"target": "~/src/routes/delivery/data.ts"
-				},
-				{
-					"path": "src/lib/theme.ts",
-					"type": "registry:lib",
-					"target": "theme.ts"
-				}
-			],
-			"categories": ["logistics", "tracking", "delivery"],
-			"meta": {
-				"iframeHeight": "680px"
-			}
-		},
-		{
-			"name": "community-globe",
-			"type": "registry:block",
-			"title": "Community Globe",
-			"description": "Globe of community members with avatar markers, a member list, local time, and an awake filter.",
-			"dependencies": [],
-			"registryDependencies": ["https://mapcn-svelte.dev/r/map.json", "tabs"],
-			"files": [
-				{
-					"path": "src/lib/registry/blocks/community-globe/Page.svelte",
-					"type": "registry:page",
-					"target": "community-globe/+page.svelte"
-				},
-				{
-					"path": "src/lib/registry/blocks/community-globe/data.ts",
-					"type": "registry:component",
-					"target": "~/src/routes/community-globe/data.ts"
-				}
-			],
-			"categories": ["location", "community", "globe"],
 			"meta": {
 				"iframeHeight": "800px"
 			}

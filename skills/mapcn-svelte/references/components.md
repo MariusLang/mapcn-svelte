@@ -15,8 +15,8 @@ Examples use this repository’s aliases. Adjust them to match your project, and
 Example source:
 
 - [BasicMapExample.svelte](https://github.com/MariusLang/mapcn-svelte/blob/main/src/lib/components/docs/preview/examples/BasicMapExample.svelte)
-- [BlankMapExample.svelte](https://github.com/MariusLang/mapcn-svelte/blob/main/src/lib/components/docs/preview/examples/BlankMapExample.svelte)
 - [ControlledMapExample.svelte](https://github.com/MariusLang/mapcn-svelte/blob/main/src/lib/components/docs/preview/examples/ControlledMapExample.svelte)
+- [BlankMapExample.svelte](https://github.com/MariusLang/mapcn-svelte/blob/main/src/lib/components/docs/preview/examples/BlankMapExample.svelte)
 - [CustomStyleExample.svelte](https://github.com/MariusLang/mapcn-svelte/blob/main/src/lib/components/docs/preview/examples/CustomStyleExample.svelte)
 
 ## Controls

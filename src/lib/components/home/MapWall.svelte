@@ -6,11 +6,17 @@
 	const columns: Tile[][] = [
 		["analytics-map", "route-alternatives", "heatmap", "analytics-card"],
 		["logistics-network", "choropleth", "clusters", "route-alternatives"],
-		["delivery-tracker", "globe", "uptime-monitor", "choropleth"],
+		["delivery-tracker", "globe", "store-locator", "uptime-monitor"],
 	];
-	const rails: Tile[][] = [
-		["marker-popup", "geojson-overlay", "arcs", "route-progress"],
-		["route", "arcs", "popup", "custom-layer"],
+	const rails: Tile[][][] = [
+		[
+			["popup", "custom-layer", "route", "geojson-overlay", "arcs"],
+			["marker-popup", "geojson-overlay", "arcs", "route-progress", "popup"],
+		],
+		[
+			["route", "arcs", "popup", "marker-popup", "custom-layer"],
+			["geojson-overlay", "route-progress", "custom-layer", "route", "marker-popup"],
+		],
 	];
 </script>
 
@@ -58,15 +64,21 @@
 			{/each}
 		</div>
 	{/each}
-	{#each rails as rail, index (index)}
+	{#each rails as rail, side (side)}
 		<div
 			class={[
-				"absolute top-10 hidden w-60 flex-col gap-4 opacity-70 blur-[3px] md:flex",
-				index === 0 ? "right-full mr-4 mask-l-from-50%" : "left-full ml-4 mask-r-from-50%",
+				"absolute top-0 hidden transform-gpu gap-4 opacity-70 blur-[3px] md:flex xl:gap-6",
+				side === 0
+					? "right-full mr-4 mask-l-from-50% xl:mr-6"
+					: "left-full ml-4 mask-r-from-50% xl:ml-6",
 			]}
 		>
-			{#each rail as name (name)}
-				{@render tile(name, false)}
+			{#each rail as column, index (index)}
+				<div class="flex w-60 flex-col gap-4 xl:gap-6" style:margin-top={`${[3, 6][index]}rem`}>
+					{#each column as name, row (row)}
+						{@render tile(name, false)}
+					{/each}
+				</div>
 			{/each}
 		</div>
 	{/each}

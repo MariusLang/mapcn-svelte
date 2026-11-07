@@ -5,8 +5,8 @@
 	import DocsLink from "$lib/components/docs/DocsLink.svelte";
 	import { ComponentPreview } from "$lib/components/docs/preview";
 	import BasicMapExample from "$lib/components/docs/preview/examples/BasicMapExample.svelte";
-	import BlankMapExample from "$lib/components/docs/preview/examples/BlankMapExample.svelte";
 	import ControlledMapExample from "$lib/components/docs/preview/examples/ControlledMapExample.svelte";
+	import BlankMapExample from "$lib/components/docs/preview/examples/BlankMapExample.svelte";
 	import CustomStyleExample from "$lib/components/docs/preview/examples/CustomStyleExample.svelte";
 	import { page } from "$app/state";
 
@@ -39,16 +39,6 @@
 		</ComponentPreview>
 	</DocsSection>
 
-	<DocsSection title="Blank Basemap">
-		<p>
-			Use the <DocsCode>blank</DocsCode> prop when you want a transparent canvas for custom data layers
-			like GeoJSON, arcs, or dot maps.
-		</p>
-		<ComponentPreview code={blankMapSource} highlightedCode={blankMapHighlighted}>
-			<BlankMapExample />
-		</ComponentPreview>
-	</DocsSection>
-
 	<DocsSection title="Controlled Mode">
 		<p>
 			Monitor the map's viewport state in real-time. This is useful when you need to sync the map
@@ -56,6 +46,16 @@
 		</p>
 		<ComponentPreview files={controlledMapFiles}>
 			<ControlledMapExample />
+		</ComponentPreview>
+	</DocsSection>
+
+	<DocsSection title="Blank Basemap">
+		<p>
+			Use the <DocsCode>blank</DocsCode> prop when you want a transparent canvas for custom data layers
+			like GeoJSON, arcs, or dot maps.
+		</p>
+		<ComponentPreview code={blankMapSource} highlightedCode={blankMapHighlighted}>
+			<BlankMapExample />
 		</ComponentPreview>
 	</DocsSection>
 
