@@ -94,6 +94,25 @@
 		</ul>
 	</DocsSection>
 
+	<DocsSection title="Why mapcn-svelte?">
+		<p>
+			MapCN Svelte combines copyable components with direct access to MapLibre so you can build a
+			map that fits your application.
+		</p>
+		<ul>
+			<li>
+				<strong>Own Your Code.</strong> Install the components into your project and customize them.
+			</li>
+			<li><strong>Start Fast.</strong> Run one command to add the map and its defaults.</li>
+			<li>
+				<strong>Scale Safely.</strong> Use MapLibre directly when you need additional features.
+			</li>
+			<li>
+				<strong>Design-System Friendly.</strong> Style the components with Tailwind and shadcn-svelte.
+			</li>
+		</ul>
+	</DocsSection>
+
 	<DocsSection title="Any Map Style">
 		<p>
 			mapcn-svelte works with any

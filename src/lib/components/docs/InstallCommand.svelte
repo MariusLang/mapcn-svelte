@@ -7,9 +7,10 @@
 
 	interface Props {
 		name: string;
+		cli?: "shadcn-svelte@latest add" | "skills add";
 	}
 
-	const { name }: Props = $props();
+	const { name, cli = "shadcn-svelte@latest add" }: Props = $props();
 
 	const packageManagers = [
 		{ manager: "pnpm", exec: "pnpm dlx" },
@@ -21,7 +22,7 @@
 	const tabs = $derived(
 		packageManagers.map(({ manager, exec }) => ({
 			manager,
-			command: `${exec} shadcn-svelte@latest add ${name}`,
+			command: `${exec} ${cli} ${name}`,
 		}))
 	);
 

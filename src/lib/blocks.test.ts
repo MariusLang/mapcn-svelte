@@ -12,6 +12,7 @@ describe("getAllBlocks", () => {
 			"delivery-tracker",
 			"uptime-monitor",
 			"heatmap",
+			"community-globe",
 			"logistics-network",
 			"store-locator",
 		]);

@@ -4,10 +4,11 @@
 
 	interface Props {
 		title: string;
+		label: string;
 		rows: BreakdownRow[];
 	}
 
-	const { title, rows }: Props = $props();
+	const { title, label, rows }: Props = $props();
 
 	const maxRowValue = $derived(rows.length > 0 ? Math.max(...rows.map((row) => row.value)) : 0);
 </script>
@@ -20,11 +21,11 @@
 		<div
 			class="text-muted-foreground mb-2 flex items-center justify-between text-[11px] tracking-wider uppercase"
 		>
-			<span>{title}</span>
+			<span>{label}</span>
 			<span>Visitors</span>
 		</div>
 		<div class="space-y-1.5">
-			{#each rows as row}
+			{#each rows as row (row.label)}
 				{@const pct = maxRowValue ? (row.value / maxRowValue) * 100 : 0}
 				<div
 					class="relative flex items-center justify-between overflow-hidden rounded-md px-2 py-1.5 text-xs"

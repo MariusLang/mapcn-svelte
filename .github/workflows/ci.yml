@@ -39,5 +39,8 @@ jobs:
           path: coverage
           if-no-files-found: error
 
+      - name: Verify generated skill references
+        run: pnpm build:skill --check
+
       - name: Lint
         run: pnpm lint

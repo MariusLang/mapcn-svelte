@@ -9,7 +9,14 @@
 	} from "$lib/registry/ui/map";
 	import { SidebarTrigger } from "$lib/registry/ui/sidebar/index.js";
 	import { Separator } from "$lib/registry/ui/separator/index.js";
-	import { modeConfig, regionLabels, statusConfig, type Hub, type Route } from "./data.js";
+	import {
+		networkBounds,
+		modeConfig,
+		regionLabels,
+		statusConfig,
+		type Hub,
+		type Route,
+	} from "./data.js";
 
 	interface Props {
 		hubs: Hub[];
@@ -74,7 +81,13 @@
 		</div>
 	</div>
 
-	<Map center={[-98, 39]} zoom={4} projection={{ type: "globe" }}>
+	<Map
+		options={{
+			bounds: networkBounds,
+			fitBoundsOptions: { padding: { top: 80, bottom: 40, left: 40, right: 40 } },
+		}}
+		projection={{ type: "globe" }}
+	>
 		<MapControls />
 		<MapArc
 			data={arcs}

@@ -16,38 +16,39 @@
 	const layerMarkersSource = $derived(page.data.layerMarkersSource);
 	const layerMarkersHighlighted = $derived(page.data.layerMarkersHighlighted);
 
-	const useContextCode = `<script lang="ts">
-	import { Map } from "$lib/components/ui/map";
-	import * as MapLibreGL from "maplibre-gl";
-	import { getContext } from "svelte";
-	import { onMount } from "svelte";
+	const refCode = `<script lang="ts">
+  import { Map } from "$lib/components/ui/map";
+  import type { Map as MapInstance } from "maplibre-gl";
 
-	// For child components inside Map, use getContext
-	function MapEventListener() {
-		const mapCtx = getContext<{
-			getMap: () => MapLibreGL.Map | null;
-			isLoaded: () => boolean;
-		}>("map");
-
-		onMount(() => {
-			const map = mapCtx.getMap();
-			if (!map || !mapCtx.isLoaded()) return;
-
-			const handleClick = (e: MapLibreGL.MapMouseEvent) => {
-				console.log("Clicked at:", e.lngLat);
-			};
-
-			map.on("click", handleClick);
-			return () => map.off("click", handleClick);
-		});
-
-		return null;
-	}
+  let map = $state<MapInstance | null>(null);
 <\/script>
-	// Usage
-	<Map center={[-74, 40.7]} zoom={10}>
-		<MapEventListener />
-	</Map>`;
+
+<button type="button" onclick={() => map?.flyTo({ center: [-74, 40.7], zoom: 12 })}>
+  Fly to NYC
+</button>
+<div class="h-[400px]">
+  <Map bind:map center={[-74, 40.7]} zoom={10} />
+</div>`;
+
+	const useMapCode = `<!-- MapEventListener.svelte -->
+<script lang="ts">
+  import { useMap } from "$lib/components/ui/map";
+  import type { MapMouseEvent } from "maplibre-gl";
+
+  const context = useMap();
+
+  $effect(() => {
+    const map = context.map;
+    if (!map || !context.isLoaded) return;
+
+    const handleClick = (event: MapMouseEvent) => {
+      console.log("Clicked at:", event.lngLat);
+    };
+
+    map.on("click", handleClick);
+    return () => map.off("click", handleClick);
+  });
+<\/script>`;
 </script>
 
 <svelte:head>
@@ -62,7 +63,8 @@
 	<DocsSection>
 		<p>
 			Access the underlying MapLibre GL map instance to use any feature from the MapLibre GL JS API.
-			You can use <DocsCode>getContext</DocsCode> in child components to access the map instance.
+			Use <DocsCode>bind:map</DocsCode> from a parent component or <DocsCode>useMap</DocsCode> from a
+			child.
 		</p>
 	</DocsSection>
 
@@ -74,19 +76,20 @@
 		for the full list of available methods and events.
 	</DocsNote>
 
-	<DocsSection title="Using Context">
+	<DocsSection title="Using a Ref">
 		<p>
-			For child components rendered inside <DocsCode>Map</DocsCode>, use
-			<DocsCode>getContext("map")</DocsCode> to access the map instance and listen to events.
+			Use <DocsCode>bind:map</DocsCode> to call MapLibre methods from a parent component’s event handlers
+			or effects.
 		</p>
+		<CodeBlock code={refCode} language="svelte" />
 	</DocsSection>
 
-	<DocsSection title="Listening to Map Events">
+	<DocsSection title="Using the Hook">
 		<p>
-			Use <DocsCode>onMount</DocsCode> with <DocsCode>getContext</DocsCode> to set up event listeners
-			in child components.
+			For a child component rendered inside <DocsCode>Map</DocsCode>, use
+			<DocsCode>useMap()</DocsCode> to access the map and listen for events.
 		</p>
-		<CodeBlock code={useContextCode} language="svelte" />
+		<CodeBlock code={useMapCode} language="svelte" />
 	</DocsSection>
 
 	<DocsSection title="Example: Custom Controls">

@@ -1,16 +1,33 @@
-<script lang="ts">
-	import { onMount, onDestroy, setContext, untrack } from "svelte";
-	import * as MapLibreGL from "maplibre-gl";
-	import "maplibre-gl/dist/maplibre-gl.css";
+<script module lang="ts">
+	type MapLibreModule = typeof import("maplibre-gl");
+	let mapLibrePromise: Promise<MapLibreModule> | undefined;
+
+	function loadMapLibre() {
+		return (mapLibrePromise ??= import("maplibre-gl")
+			.then((lib) => {
+				if (!lib.getWorkerUrl()) {
+					lib.setWorkerUrl(
+						`https://unpkg.com/maplibre-gl@${lib.getVersion()}/dist/maplibre-gl-worker.mjs`
+					);
+				}
+				return lib;
+			})
+			.catch((error: unknown) => {
+				mapLibrePromise = undefined;
+				throw error;
+			}));
+	}
+
 	const browser = typeof window !== "undefined";
+	if (browser) void loadMapLibre().catch(() => {});
+</script>
+
+<script lang="ts">
+	import { onMount, setContext, untrack } from "svelte";
+	import type * as MapLibreGL from "maplibre-gl";
+	import "maplibre-gl/dist/maplibre-gl.css";
 	import { cn } from "$lib/utils.js";
 	import { resolveMapTheme } from "./theme";
-
-	if (browser && !MapLibreGL.getWorkerUrl()) {
-		MapLibreGL.setWorkerUrl(
-			`https://unpkg.com/maplibre-gl@${MapLibreGL.getVersion()}/dist/maplibre-gl-worker.mjs`
-		);
-	}
 
 	const blankMapStyle: MapLibreGL.StyleSpecification = {
 		version: 8,
@@ -20,6 +37,18 @@
 				id: "background",
 				type: "background",
 				paint: { "background-color": "rgba(0, 0, 0, 0)" },
+			},
+		],
+	};
+
+	const blankGlobeStyle: MapLibreGL.StyleSpecification = {
+		...blankMapStyle,
+		projection: { type: "globe" },
+		layers: [
+			{
+				id: "background",
+				type: "background",
+				paint: { "background-color": "rgba(128, 128, 128, 0.12)" },
 			},
 		],
 	};
@@ -125,6 +154,8 @@
 	}: Props = $props();
 
 	let mapContainer: HTMLDivElement;
+	let mapLib = $state.raw<MapLibreModule | null>(null);
+	let failure = $state.raw<{ error: unknown } | null>(null);
 	let isMounted = $state(false);
 	let isLoaded = $state(false);
 	let isStyleLoaded = $state(false);
@@ -148,12 +179,13 @@
 		};
 	}
 
+	const blankStyle = $derived(projection?.type === "globe" ? blankGlobeStyle : blankMapStyle);
 	const mapStyles = $derived({
-		dark: styles ? (styles.dark ?? defaultStyles.dark) : blank ? blankMapStyle : defaultStyles.dark,
+		dark: styles ? (styles.dark ?? defaultStyles.dark) : blank ? blankStyle : defaultStyles.dark,
 		light: styles
 			? (styles.light ?? defaultStyles.light)
 			: blank
-				? blankMapStyle
+				? blankStyle
 				: defaultStyles.light,
 	});
 
@@ -168,6 +200,7 @@
 
 	setContext("map", {
 		getMap: () => map,
+		getMapLib: () => mapLib,
 		isLoaded: () => isReady,
 		isStyleReady: () => isReady,
 		resolvedTheme: () => resolvedTheme,
@@ -207,63 +240,72 @@
 			mediaQuery.addEventListener("change", handleSystemChange);
 		}
 
-		const mapInstance = new MapLibreGL.Map({
-			container: mapContainer,
-			style: currentStyle,
-			fadeDuration: 0,
-			renderWorldCopies: false,
-			attributionControl: {
-				compact: true,
-			},
-			center: viewport?.center ?? center,
-			zoom: viewport?.zoom ?? zoom,
-			bearing: viewport?.bearing ?? 0,
-			pitch: viewport?.pitch ?? 0,
-			...options,
-		});
-		appliedStyleKey = currentStyleKey;
+		let cancelled = false;
+		let instance: MapLibreGL.Map | undefined;
+		void loadMapLibre()
+			.then((lib) => {
+				if (cancelled) return;
+				const mapInstance = new lib.Map({
+					container: mapContainer,
+					style: currentStyle,
+					fadeDuration: 0,
+					renderWorldCopies: false,
+					attributionControl: {
+						compact: true,
+					},
+					center: viewport?.center ?? center,
+					zoom: viewport?.zoom ?? zoom,
+					bearing: viewport?.bearing ?? 0,
+					pitch: viewport?.pitch ?? 0,
+					...options,
+				});
+				instance = mapInstance;
+				appliedStyleKey = currentStyleKey;
 
-		const styleLoadHandler = () => {
-			styleSwapInFlight = false;
-			isStyleLoaded = true;
-			initialStyleApplied = true;
-			onstyleloaded?.();
-		};
+				const styleLoadHandler = () => {
+					styleSwapInFlight = false;
+					isStyleLoaded = true;
+					initialStyleApplied = true;
+					onstyleloaded?.();
+				};
 
-		const loadHandler = () => {
-			isLoaded = true;
-		};
+				const loadHandler = () => {
+					isLoaded = true;
+				};
 
-		// Viewport change handler - skip if triggered by internal update
-		const handleMove = () => {
-			if (internalUpdate) return;
-			onviewportchange?.(getViewport(mapInstance));
-		};
+				// Viewport change handler - skip if triggered by internal update
+				const handleMove = () => {
+					if (internalUpdate) return;
+					onviewportchange?.(getViewport(mapInstance));
+				};
 
-		mapInstance.on("load", loadHandler);
-		mapInstance.on("style.load", styleLoadHandler);
-		mapInstance.on("move", handleMove);
+				mapInstance.on("load", loadHandler);
+				mapInstance.on("style.load", styleLoadHandler);
+				mapInstance.on("move", handleMove);
 
-		mapInstance.on("dragstart", () => (isInteracting = true));
-		mapInstance.on("dragend", () => (isInteracting = false));
-		mapInstance.on("zoomstart", () => (isInteracting = true));
-		mapInstance.on("zoomend", () => (isInteracting = false));
-		mapInstance.on("rotatestart", () => (isInteracting = true));
-		mapInstance.on("rotateend", () => (isInteracting = false));
-		mapInstance.on("pitchstart", () => (isInteracting = true));
-		mapInstance.on("pitchend", () => (isInteracting = false));
+				mapInstance.on("dragstart", () => (isInteracting = true));
+				mapInstance.on("dragend", () => (isInteracting = false));
+				mapInstance.on("zoomstart", () => (isInteracting = true));
+				mapInstance.on("zoomend", () => (isInteracting = false));
+				mapInstance.on("rotatestart", () => (isInteracting = true));
+				mapInstance.on("rotateend", () => (isInteracting = false));
+				mapInstance.on("pitchstart", () => (isInteracting = true));
+				mapInstance.on("pitchend", () => (isInteracting = false));
 
-		map = mapInstance;
+				mapLib = lib;
+				map = mapInstance;
+			})
+			.catch((error: unknown) => {
+				if (!cancelled) failure = { error };
+			});
 
 		return () => {
+			cancelled = true;
 			observer?.disconnect();
 			if (mediaQuery && handleSystemChange) {
 				mediaQuery.removeEventListener("change", handleSystemChange);
 			}
-			mapInstance.off("load", loadHandler);
-			mapInstance.off("style.load", styleLoadHandler);
-			mapInstance.off("move", handleMove);
-			mapInstance.remove();
+			instance?.remove();
 			map = null;
 			isLoaded = false;
 			isStyleLoaded = false;
@@ -352,6 +394,7 @@
 		// Skip if controlled mode is enabled
 		initialCenterZoomApplied = true;
 
+		if (options.bounds) return;
 		const [lng, lat] = center;
 
 		untrack(() => {
@@ -359,14 +402,15 @@
 		});
 	});
 
-	onDestroy(() => {
-		isLoaded = false;
-		isStyleLoaded = false;
-	});
+	function showFailure(error: unknown): never {
+		throw error;
+	}
 </script>
 
 <div bind:this={mapContainer} class={cn("relative h-full w-full", className)}>
-	{#if !isLoaded || loading}
+	{#if failure}
+		{showFailure(failure.error)}
+	{:else if !isLoaded || loading}
 		<div
 			class="bg-background/50 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-xs"
 		>

@@ -39,6 +39,20 @@ describe("registry.json", () => {
 		}
 	});
 
+	it("keeps block companions beside their route and shared files under the library alias", () => {
+		for (const block of items.filter((item) => item.type === "registry:block")) {
+			const page = block.files.find((file) => file.type === "registry:page")!;
+			for (const file of block.files) {
+				if (file.type === "registry:component") {
+					expect(file.target).toMatch(`~/src/routes/${path.dirname(page.target)}/`);
+				}
+				if (file.type === "registry:lib") {
+					expect(file.target).toBe(path.basename(file.path));
+				}
+			}
+		}
+	});
+
 	it("uses the registry UI alias for every block's map import", () => {
 		for (const item of items.filter((item) => item.name !== "map")) {
 			for (const file of item.files) {

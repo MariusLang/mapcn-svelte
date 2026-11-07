@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Footer from "$lib/components/Footer.svelte";
 	import Header from "$lib/components/Header.svelte";
-	import ExamplesGrid from "$lib/components/home/ExamplesGrid.svelte";
+	import MapWall from "$lib/components/home/MapWall.svelte";
 	import Hero from "$lib/components/Hero.svelte";
 </script>
 
@@ -12,15 +12,25 @@
 <div class="flex flex-col">
 	<Header />
 
-	<main class="flex-1 pb-32">
-		<section class="relative w-full py-16 md:py-20 lg:py-24 lg:pb-20">
-			<Hero />
-		</section>
+	<main class="min-w-0 flex-1">
+		<Hero />
 
-		<section class="animate-fade-in animate-stagger container-wide" style="--stagger: 4">
-			<ExamplesGrid />
+		<section class="animate-fade-up animate-stagger relative" style="--stagger: 4.5">
+			<div
+				class="relative h-[34rem] overflow-hidden mask-b-from-65% max-md:mask-r-from-85% max-md:mask-l-from-85% md:h-[44rem] lg:h-[clamp(52rem,calc(100svh-28.5rem),90rem)]"
+			>
+				<MapWall />
+			</div>
+			<p class="text-muted-foreground absolute inset-x-0 bottom-4 container text-right text-xs">
+				Map data ©
+				<a href="https://www.openstreetmap.org/copyright" class="hover:text-foreground"
+					>OpenStreetMap</a
+				>
+				contributors · ©
+				<a href="https://carto.com/attributions" class="hover:text-foreground">CARTO</a>
+			</p>
 		</section>
 	</main>
 
-	<Footer />
+	<Footer class="mt-0!" />
 </div>

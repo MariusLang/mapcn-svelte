@@ -18,30 +18,28 @@
 
   <MapPopup longitude={...} latitude={...} />
   <MapControls />
-  <MapRoute coordinates={...} />
+  <MapRoute coordinates={...} progress={...}>
+    <RouteProgress />
+    <RouteMarker at="progress">
+      <MarkerContent />
+    </RouteMarker>
+  </MapRoute>
+
+  <MapArc data={...} />
   <MapGeoJSON data={...} />
   <MapClusterLayer data={...} />
 </Map>`;
 
-	const useMapCode =
-		`<scr` +
-		`ipt lang="ts">
-  import { getContext } from "svelte";
-  import type * as MapLibreGL from "maplibre-gl";
+	const useMapCode = `<script lang="ts">
+  import { useMap } from "$lib/components/ui/map";
 
-  const mapCtx = getContext<{
-    getMap: () => MapLibreGL.Map | null;
-    isLoaded: () => boolean;
-    isStyleReady: () => boolean;
-    resolvedTheme: () => "light" | "dark";
-  }>("map");
+  const context = useMap();
 
-  // Access the map instance
-  const map = mapCtx.getMap();
-  const isLoaded = mapCtx.isLoaded();
-  const resolvedTheme = mapCtx.resolvedTheme();
-</scr` +
-		`ipt>`;
+  $effect(() => {
+    if (!context.map || !context.isLoaded) return;
+    console.log(context.map.getCenter(), context.resolvedTheme);
+  });
+<\/script>`;
 </script>
 
 <svelte:head>
@@ -120,88 +118,32 @@
 						"Use a transparent tile-less basemap. Ignored when custom styles are provided.",
 				},
 				{
+					name: "projection",
+					type: "ProjectionSpecification",
+					description: "Map projection type. Use { type: 'globe' } for 3D globe view.",
+				},
+				{
 					name: "loading",
 					type: "boolean",
 					default: "false",
 					description: "Show the loading indicator over the map.",
 				},
-				{
-					name: "projection",
-					type: "ProjectionSpecification",
-					description: "Map projection type. Use { type: 'globe' } for 3D globe view.",
-				},
 			]}
 		/>
 	</DocsSection>
 
-	<!-- Map Context -->
-	<DocsSection title="Map Context">
+	<!-- useMap -->
+	<DocsSection title="useMap">
 		<p>
-			A hook that provides access to the MapLibre map instance and loading state. Must be used
-			within a
-			<DocsCode>Map</DocsCode>
-			component.
+			Call <DocsCode>useMap()</DocsCode> from a child component rendered inside
+			<DocsCode>Map</DocsCode> to access the map instance and its reactive load state.
 		</p>
-
-		<CodeBlock code={useMapCode} language="svelte" showCopyButton={false} />
-
+		<CodeBlock code={useMapCode} language="svelte" />
 		<p>
-			Provides
-			<DocsCode>getMap()</DocsCode>
-			returning
-			<DocsLink href="https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/" external>
-				MapLibre.Map
-			</DocsLink>
-			instance, and
-			<DocsCode>isLoaded()</DocsCode>
-			returning a boolean tells you if the map is loaded, plus
-			<DocsCode>isStyleReady()</DocsCode>
-			and
-			<DocsCode>resolvedTheme()</DocsCode>
-			for layer components that need style readiness or theme-aware paint.
+			The context exposes <DocsCode>map</DocsCode>, <DocsCode>isLoaded</DocsCode>,
+			<DocsCode>isStyleReady</DocsCode>, and <DocsCode>resolvedTheme</DocsCode> as reactive getters. Read
+			them inside an effect or event handler.
 		</p>
-	</DocsSection>
-
-	<DocsSection title="MapGeoJSON">
-		<p>
-			Renders GeoJSON data as fill and line layers. Use it inside a
-			<DocsCode>Map</DocsCode>
-			, often with the
-			<DocsCode>blank</DocsCode>
-			prop for choropleths and region maps. Accepts a generic type for feature properties. Defaults to
-			a theme-aware monochrome fill and outline; any paint value can be a MapLibre expression.
-		</p>
-
-		<DocsPropTable
-			props={[
-				{
-					name: "data",
-					type: "FeatureCollection | Feature | Geometry | string",
-					description: "GeoJSON object or URL to render.",
-				},
-				{
-					name: "promoteId",
-					type: "string",
-					description: "Feature property promoted to id for hover state.",
-				},
-				{
-					name: "fillPaint",
-					type: "FillLayerSpecification['paint'] | false",
-					description: "Fill layer paint. Pass false to omit the fill layer.",
-				},
-				{
-					name: "linePaint",
-					type: "LineLayerSpecification['paint'] | false",
-					description: "Outline layer paint. Pass false to omit outlines.",
-				},
-				{
-					name: "interactive",
-					type: "boolean",
-					default: "false",
-					description: "Enable hover and click events on the fill layer.",
-				},
-			]}
-		/>
 	</DocsSection>
 
 	<!-- MapControls -->
@@ -600,11 +542,6 @@
 					description: "Dash pattern [dash length, gap length] for dashed lines.",
 				},
 				{
-					name: "onclick",
-					type: "() => void",
-					description: "Callback when the route line is clicked.",
-				},
-				{
 					name: "progress",
 					type: "number",
 					description: "Fraction of the route already covered (0 to 1).",
@@ -640,6 +577,11 @@
 					name: "beforeId",
 					type: "string",
 					description: "MapLibre layer to insert the route and its child layers before.",
+				},
+				{
+					name: "onclick",
+					type: "() => void",
+					description: "Callback when the route line is clicked.",
 				},
 				{
 					name: "onmouseenter",
@@ -731,7 +673,118 @@
 		/>
 	</DocsSection>
 
-	<!-- MapClusterLayer -->
+	<!-- MapArc -->
+	<DocsSection title="MapArc">
+		<p>
+			Draw curved connections between coordinates. Each arc has a unique id and a pair of
+			longitude/latitude endpoints.
+		</p>
+		<DocsPropTable
+			props={[
+				{
+					name: "data",
+					type: "MapArcDatum[]",
+					description: "Arcs with id, from, and to coordinates.",
+				},
+				{
+					name: "id",
+					type: "string",
+					description: "Unique source and layer prefix. Generated when omitted.",
+				},
+				{
+					name: "curvature",
+					type: "number",
+					default: "0.2",
+					description: "Curve strength. Use zero for straight connections.",
+				},
+				{
+					name: "samples",
+					type: "number",
+					default: "64",
+					description: "Number of samples along each curve.",
+				},
+				{
+					name: "paint",
+					type: "LineLayerSpecification['paint']",
+					description: "Paint properties for the arc layer.",
+				},
+				{
+					name: "layout",
+					type: "LineLayerSpecification['layout']",
+					description: "Layout properties for the arc layer.",
+				},
+				{
+					name: "hoverPaint",
+					type: "LineLayerSpecification['paint']",
+					description: "Paint properties for the hovered arc.",
+				},
+				{
+					name: "onclick",
+					type: "(event: MapArcEvent) => void",
+					description: "Called when an arc is clicked.",
+				},
+				{
+					name: "onhover",
+					type: "(event: MapArcEvent | null) => void",
+					description: "Called when the hovered arc changes.",
+				},
+				{
+					name: "interactive",
+					type: "boolean",
+					default: "true",
+					description: "Enable mouse interactions.",
+				},
+				{
+					name: "beforeId",
+					type: "string",
+					description: "Insert the arc layers before this layer id.",
+				},
+			]}
+		/>
+	</DocsSection>
+
+	<DocsSection title="MapGeoJSON">
+		<p>
+			Renders GeoJSON data as fill and line layers. Use it inside a
+			<DocsCode>Map</DocsCode>
+			, often with the
+			<DocsCode>blank</DocsCode>
+			prop for choropleths and region maps. Accepts a generic type for feature properties. Defaults to
+			a theme-aware monochrome fill and outline; any paint value can be a MapLibre expression.
+		</p>
+
+		<DocsPropTable
+			props={[
+				{
+					name: "data",
+					type: "FeatureCollection | Feature | Geometry | string",
+					description: "GeoJSON object or URL to render.",
+				},
+				{
+					name: "promoteId",
+					type: "string",
+					description: "Feature property promoted to id for hover state.",
+				},
+				{
+					name: "fillPaint",
+					type: "FillLayerSpecification['paint'] | false",
+					description: "Fill layer paint. Pass false to omit the fill layer.",
+				},
+				{
+					name: "linePaint",
+					type: "LineLayerSpecification['paint'] | false",
+					description: "Outline layer paint. Pass false to omit outlines.",
+				},
+				{
+					name: "interactive",
+					type: "boolean",
+					default: "false",
+					description: "Enable hover and click events on the fill layer.",
+				},
+			]}
+		/>
+	</DocsSection>
+
 	<DocsSection title="MapClusterLayer">
 		<p>
 			Renders clustered point data using MapLibre GL&apos;s native clustering. Automatically groups
