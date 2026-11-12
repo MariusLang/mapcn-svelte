@@ -14,10 +14,10 @@ Examples use this repository’s aliases. Adjust them to match your project, and
 
 Example source:
 
-- [BasicMapExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/BasicMapExample.svelte)
-- [ControlledMapExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/ControlledMapExample.svelte)
-- [BlankMapExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/BlankMapExample.svelte)
-- [CustomStyleExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/CustomStyleExample.svelte)
+- [BasicMapExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/BasicMapExample.svelte)
+- [ControlledMapExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/ControlledMapExample.svelte)
+- [BlankMapExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/BlankMapExample.svelte)
+- [CustomStyleExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/CustomStyleExample.svelte)
 
 ## Controls
 
@@ -27,7 +27,7 @@ Example source:
 
 Example source:
 
-- [MapControlsExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/MapControlsExample.svelte)
+- [MapControlsExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/MapControlsExample.svelte)
 
 ## Markers
 
@@ -41,9 +41,9 @@ Example source:
 
 Example source:
 
-- [MarkersExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/MarkersExample.svelte)
-- [PopupExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/PopupExample.svelte)
-- [DraggableMarkerExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/DraggableMarkerExample.svelte)
+- [MarkersExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/MarkersExample.svelte)
+- [PopupExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/PopupExample.svelte)
+- [DraggableMarkerExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/DraggableMarkerExample.svelte)
 
 ## Popups
 
@@ -53,7 +53,7 @@ Example source:
 
 Example source:
 
-- [StandalonePopupExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/StandalonePopupExample.svelte)
+- [StandalonePopupExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/StandalonePopupExample.svelte)
 
 ## Routes
 
@@ -66,9 +66,9 @@ Example source:
 
 Example source:
 
-- [RouteProgressExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/RouteProgressExample.svelte)
-- [RouteExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/RouteExample.svelte)
-- [OsrmRouteExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/OsrmRouteExample.svelte)
+- [RouteProgressExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/RouteProgressExample.svelte)
+- [RouteExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/RouteExample.svelte)
+- [OsrmRouteExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/OsrmRouteExample.svelte)
 
 ## Arcs
 
@@ -81,8 +81,8 @@ Example source:
 
 Example source:
 
-- [ArcExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/ArcExample.svelte)
-- [InteractiveArcExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/InteractiveArcExample.svelte)
+- [ArcExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/ArcExample.svelte)
+- [InteractiveArcExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/InteractiveArcExample.svelte)
 
 ## GeoJSON
 
@@ -94,8 +94,8 @@ Example source:
 
 Example source:
 
-- [GeoJSONExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/GeoJSONExample.svelte)
-- [MapOverlayExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/MapOverlayExample.svelte)
+- [GeoJSONExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/GeoJSONExample.svelte)
+- [MapOverlayExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/MapOverlayExample.svelte)
 
 ## Clusters
 
@@ -105,7 +105,7 @@ Example source:
 
 Example source:
 
-- [ClusterExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/ClusterExample.svelte)
+- [ClusterExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/ClusterExample.svelte)
 
 ## Advanced
 
@@ -113,6 +113,6 @@ Example source:
 
 Example source:
 
-- [AdvancedUsageExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/AdvancedUsageExample.svelte)
-- [CustomLayerExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/CustomLayerExample.svelte)
-- [LayerMarkersExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/914b4566d82f8755fe39ae3f22c31d5c9d4ffddb/src/lib/components/docs/preview/examples/LayerMarkersExample.svelte)
+- [AdvancedUsageExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/AdvancedUsageExample.svelte)
+- [CustomLayerExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/CustomLayerExample.svelte)
+- [LayerMarkersExample.svelte](https://raw.githubusercontent.com/MariusLang/mapcn-svelte/b487adf280f0d20cf4b377b8e116db3017669cab/src/lib/components/docs/preview/examples/LayerMarkersExample.svelte)
