@@ -11,7 +11,7 @@
 </script>
 
 <div class="relative h-[420px] w-full">
-	<Map center={viewport.center} zoom={viewport.zoom} onviewportchange={(v) => (viewport = v)}>
+	<Map {viewport} onviewportchange={(v) => (viewport = v)}>
 		<div
 			role="status"
 			aria-live="polite"
