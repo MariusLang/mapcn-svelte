@@ -1,4 +1,6 @@
 <script lang="ts">
+	import ChevronLeft from "@lucide/svelte/icons/chevron-left";
+	import { Button } from "$lib/registry/ui/button";
 	import BlockCard from "$lib/components/blocks/BlockCard.svelte";
 	import BlockDisplay from "$lib/components/blocks/BlockDisplay.svelte";
 	import Footer from "$lib/components/Footer.svelte";
@@ -19,10 +21,17 @@
 
 <Header />
 <PageHeader align="left" size="sm" class="pb-8 md:pb-10">
-	<a href="/blocks" class="text-muted-foreground hover:text-foreground text-sm">← All blocks</a>
+	<Button
+		href="/blocks"
+		variant="ghost"
+		size="sm"
+		class="text-muted-foreground hover:text-foreground -ml-2.5 w-fit gap-1 hover:bg-transparent!"
+	>
+		<ChevronLeft /> All Blocks
+	</Button>
 	<PageHeaderHeading>{title}</PageHeaderHeading>
 	{#if data.block.description}
-		<PageHeaderDescription>{data.block.description}</PageHeaderDescription>
+		<PageHeaderDescription class="max-w-4xl">{data.block.description}</PageHeaderDescription>
 	{/if}
 </PageHeader>
 

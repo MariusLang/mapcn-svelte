@@ -9,6 +9,7 @@
 	export interface PageHeaderContext {
 		align: () => PageHeaderAlign;
 		size: () => PageHeaderSize;
+		animated: () => boolean;
 	}
 
 	export function setPageHeaderContext(context: PageHeaderContext) {
@@ -20,6 +21,7 @@
 			getContext<PageHeaderContext>(pageHeaderContextKey) ?? {
 				align: () => "center",
 				size: () => "default",
+				animated: () => false,
 			}
 		);
 	}
@@ -32,14 +34,22 @@
 		class?: string;
 		align?: PageHeaderAlign;
 		size?: PageHeaderSize;
+		animated?: boolean;
 		children?: import("svelte").Snippet;
 	}
 
-	const { class: className, align = "center", size = "default", children }: Props = $props();
+	const {
+		class: className,
+		align = "center",
+		size = "default",
+		animated = false,
+		children,
+	}: Props = $props();
 
 	setPageHeaderContext({
 		align: () => align,
 		size: () => size,
+		animated: () => animated,
 	});
 </script>
 

@@ -77,14 +77,14 @@
 		</p>
 
 		<p>
-			Extends
+			Pass additional
 			<DocsLink
 				href="https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MapOptions/"
 				external
 			>
 				MapOptions
 			</DocsLink>
-			from MapLibre GL (excluding
+			through <DocsCode>options</DocsCode> (excluding
 			<DocsCode>container</DocsCode>
 			and
 			<DocsCode>style</DocsCode>
@@ -98,6 +98,7 @@
 					type: "Snippet",
 					description: "Child components (markers, popups, controls, routes).",
 				},
+				{ name: "class", type: "string", description: "Classes for the map container." },
 				{
 					name: "theme",
 					type: '"light" | "dark"',
@@ -121,6 +122,38 @@
 					name: "projection",
 					type: "ProjectionSpecification",
 					description: "Map projection type. Use { type: 'globe' } for 3D globe view.",
+				},
+				{
+					name: "center",
+					type: "[number, number]",
+					description: "Initial center in longitude, latitude order.",
+				},
+				{ name: "zoom", type: "number", default: "0", description: "Initial zoom level." },
+				{
+					name: "options",
+					type: "Omit<MapOptions, 'container' | 'style'>",
+					description:
+						"Additional MapLibre constructor options, including bounds and fitBoundsOptions.",
+				},
+				{
+					name: "map",
+					type: "MapLibreGL.Map | null",
+					description: "Bindable MapLibre instance. Use bind:map to call instance methods.",
+				},
+				{
+					name: "viewport",
+					type: "Partial<MapViewport>",
+					description: "Controlled camera state when used with onviewportchange.",
+				},
+				{
+					name: "onviewportchange",
+					type: "(viewport: MapViewport) => void",
+					description: "Called as the camera moves.",
+				},
+				{
+					name: "onstyleloaded",
+					type: "() => void",
+					description: "Called after the initial style or a replacement style loads.",
 				},
 				{
 					name: "loading",
@@ -187,12 +220,12 @@
 					description: "Show fullscreen toggle button.",
 				},
 				{
-					name: "className",
+					name: "class",
 					type: "string",
 					description: "Additional CSS classes for the controls container.",
 				},
 				{
-					name: "onLocate",
+					name: "onlocate",
 					type: "(coords: { longitude: number; latitude: number }) => void",
 					description: "Callback with user coordinates when located.",
 				},
@@ -238,32 +271,32 @@
 					description: "Marker subcomponents (MarkerContent, MarkerPopup, etc).",
 				},
 				{
-					name: "onClick",
+					name: "onclick",
 					type: "(e: MouseEvent) => void",
 					description: "Callback when marker is clicked.",
 				},
 				{
-					name: "onMouseEnter",
+					name: "onmouseenter",
 					type: "(e: MouseEvent) => void",
 					description: "Callback when mouse enters marker.",
 				},
 				{
-					name: "onMouseLeave",
+					name: "onmouseleave",
 					type: "(e: MouseEvent) => void",
 					description: "Callback when mouse leaves marker.",
 				},
 				{
-					name: "onDragStart",
+					name: "ondragstart",
 					type: "(lngLat: {lng, lat}) => void",
 					description: "Callback when marker drag starts (requires draggable: true).",
 				},
 				{
-					name: "onDrag",
+					name: "ondrag",
 					type: "(lngLat: {lng, lat}) => void",
 					description: "Callback during marker drag (requires draggable: true).",
 				},
 				{
-					name: "onDragEnd",
+					name: "ondragend",
 					type: "(lngLat: {lng, lat}) => void",
 					description: "Callback when marker drag ends (requires draggable: true).",
 				},
@@ -287,7 +320,7 @@
 					description: "Custom marker content. Defaults to a blue dot.",
 				},
 				{
-					name: "className",
+					name: "class",
 					type: "string",
 					description: "Additional CSS classes for the marker container.",
 				},
@@ -335,7 +368,7 @@
 					description: "Popup content.",
 				},
 				{
-					name: "className",
+					name: "class",
 					type: "string",
 					description: "Additional CSS classes for the popup container.",
 				},
@@ -391,7 +424,7 @@
 					description: "Tooltip content.",
 				},
 				{
-					name: "className",
+					name: "class",
 					type: "string",
 					description: "Additional CSS classes for the tooltip container.",
 				},
@@ -414,7 +447,7 @@
 					type: "Snippet",
 					description: "Label text content.",
 				},
-				{ name: "className", type: "string", description: "Additional CSS classes for the label." },
+				{ name: "class", type: "string", description: "Additional CSS classes for the label." },
 				{
 					name: "position",
 					type: '"top" | "bottom"',
@@ -471,7 +504,7 @@
 					description: "Latitude coordinate for popup position.",
 				},
 				{
-					name: "onClose",
+					name: "onclose",
 					type: "() => void",
 					description: "Callback when popup is closed.",
 				},
@@ -481,7 +514,7 @@
 					description: "Popup content.",
 				},
 				{
-					name: "className",
+					name: "class",
 					type: "string",
 					description: "Additional CSS classes for the popup container.",
 				},
@@ -760,6 +793,7 @@
 					type: "FeatureCollection | Feature | Geometry | string",
 					description: "GeoJSON object or URL to render.",
 				},
+				{ name: "id", type: "string", description: "Prefix for the source and layer ids." },
 				{
 					name: "promoteId",
 					type: "string",
@@ -776,10 +810,30 @@
 					description: "Outline layer paint. Pass false to omit outlines.",
 				},
 				{
+					name: "fillHoverPaint",
+					type: "FillLayerSpecification['paint']",
+					description: "Paint for the hovered feature. Set promoteId for hover state.",
+				},
+				{
+					name: "onclick",
+					type: "(event: MapGeoJSONEvent) => void",
+					description: "Called when a feature is clicked.",
+				},
+				{
+					name: "onhover",
+					type: "(event: MapGeoJSONEvent | null) => void",
+					description: "Called as the hovered feature changes.",
+				},
+				{
 					name: "interactive",
 					type: "boolean",
 					default: "false",
 					description: "Enable hover and click events on the fill layer.",
+				},
+				{
+					name: "beforeId",
+					type: "string",
+					description: "Insert the layers before this layer id.",
 				},
 			]}
 		/>
@@ -833,12 +887,12 @@
 					description: "Color for unclustered individual points.",
 				},
 				{
-					name: "onPointClick",
+					name: "onpointclick",
 					type: "(feature: GeoJSON.Feature, coordinates: [number, number]) => void",
 					description: "Callback when an unclustered point is clicked.",
 				},
 				{
-					name: "onClusterClick",
+					name: "onclusterclick",
 					type: "(clusterId: number, coordinates: [number, number], pointCount: number) => void",
 					description:
 						"Callback when a cluster is clicked. If not provided, zooms into the cluster.",

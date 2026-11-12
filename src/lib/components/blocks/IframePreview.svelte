@@ -27,7 +27,14 @@
 </script>
 
 <div
-	class="bg-background relative h-(--block-preview-height) w-full overflow-hidden rounded-xl border"
+	class="bg-background ring-foreground/5 relative h-(--block-preview-height) w-full overflow-hidden rounded-lg shadow-xs ring-1"
 >
-	<iframe bind:this={iframe} {src} {title} class="size-full border-0" onload={syncTheme}></iframe>
+	<iframe
+		bind:this={iframe}
+		{src}
+		{title}
+		loading="lazy"
+		class="size-full border-0"
+		onload={syncTheme}
+	></iframe>
 </div>

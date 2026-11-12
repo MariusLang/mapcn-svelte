@@ -1,23 +1,15 @@
 <script lang="ts">
+	import { useCopy } from "$lib/use-copy.svelte";
 	import Check from "@lucide/svelte/icons/check";
 	import Copy from "@lucide/svelte/icons/copy";
 	import { Button } from "$lib/registry/ui/button/index";
 	import { mapInstallAgentPrompt } from "$lib/llm-prompts";
 	import { trackEvent } from "$lib/events";
 
-	let copied = $state(false);
+	const clipboard = useCopy(2500);
 
 	async function copyPrompt() {
-		try {
-			await navigator.clipboard.writeText(mapInstallAgentPrompt);
-			copied = true;
-			setTimeout(() => {
-				copied = false;
-			}, 2500);
-			trackEvent({ name: "copy_agent_prompt" });
-		} catch (error) {
-			console.error("Failed to copy prompt:", error);
-		}
+		if (await clipboard.copy(mapInstallAgentPrompt)) trackEvent({ name: "copy_agent_prompt" });
 	}
 </script>
 
@@ -25,13 +17,14 @@
 	type="button"
 	onclick={copyPrompt}
 	aria-live="polite"
-	variant="ghost"
-	class="text-muted-foreground hover:text-foreground h-7 px-2.5! text-xs"
+	variant="outline"
+	size="sm"
+	class="text-muted-foreground hover:text-foreground h-7 shrink-0 bg-transparent px-2.5! text-[13px] font-normal shadow-none dark:bg-transparent"
 >
-	{#if copied}
+	{#if clipboard.copied}
 		<Check />
 	{:else}
 		<Copy />
 	{/if}
-	{copied ? "Copied — paste into your agent" : "Copy prompt for your agent"}
+	{clipboard.label("Copy prompt")}
 </Button>

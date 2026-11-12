@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { useCopy } from "$lib/use-copy.svelte";
 	import Check from "@lucide/svelte/icons/check";
 	import Copy from "@lucide/svelte/icons/copy";
 	import { Button } from "$lib/registry/ui/button";
@@ -27,20 +28,14 @@
 	);
 
 	let active = $state<(typeof packageManagers)[number]["manager"]>("pnpm");
-	let copied = $state(false);
+	const clipboard = useCopy();
 
 	async function copyCommand() {
 		const current = tabs.find((tab) => tab.manager === active);
-		if (!current) return;
-
-		await navigator.clipboard.writeText(current.command);
-		copied = true;
-		setTimeout(() => {
-			copied = false;
-		}, 2000);
+		if (!current || !(await clipboard.copy(current.command))) return;
 		trackEvent({
 			name: "copy_install_command",
-			properties: { name, packageManager: active },
+			properties: { name, cli, packageManager: current.manager },
 		});
 	}
 </script>
@@ -62,10 +57,10 @@
 				variant="ghost"
 				size="icon-sm"
 				onclick={copyCommand}
-				aria-label={copied ? "Copied" : "Copy command"}
+				aria-label={clipboard.label("Copy command")}
 				class="text-muted-foreground"
 			>
-				{#if copied}
+				{#if clipboard.copied}
 					<Check />
 				{:else}
 					<Copy />

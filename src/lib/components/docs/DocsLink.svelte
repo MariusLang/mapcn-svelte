@@ -1,7 +1,7 @@
 <script lang="ts">
 	const {
 		href,
-		external = false,
+		external = /^https?:\/\//.test(href),
 		children,
 	} = $props<{
 		href: string;
@@ -14,7 +14,7 @@
 	{href}
 	target={external ? "_blank" : undefined}
 	rel={external ? "noopener noreferrer" : undefined}
-	class="decoration-foreground/25 hover:text-foreground hover:decoration-foreground/60 underline decoration-1 underline-offset-[5px] transition-colors"
+	class="text-foreground decoration-foreground/25 hover:decoration-foreground/60 underline underline-offset-4 transition-colors"
 >
 	{@render children?.()}
 </a>

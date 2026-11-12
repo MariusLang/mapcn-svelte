@@ -1,4 +1,5 @@
 <script lang="ts">
+	import BlockThumbnail from "./BlockThumbnail.svelte";
 	import type { RegistryBlockItem } from "$lib/blocks";
 	let { block }: { block: RegistryBlockItem } = $props();
 </script>
@@ -8,26 +9,7 @@
 	href={`/blocks/${block.name}`}
 	class="bg-muted/50 hover:bg-muted ring-foreground/5 focus-visible:ring-ring/50 dark:bg-muted/30 dark:hover:bg-muted/50 block rounded-2xl p-2 ring-1 transition-[background-color,box-shadow] outline-none focus-visible:ring-[3px]"
 >
-	<div
-		class="bg-background ring-foreground/5 relative aspect-[16/10] overflow-hidden rounded-lg shadow-xs ring-1"
-	>
-		<img
-			src={`/blocks/${block.name}-light.jpg`}
-			alt=""
-			width="1280"
-			height="800"
-			loading="lazy"
-			class="size-full object-cover dark:hidden"
-		/>
-		<img
-			src={`/blocks/${block.name}-dark.jpg`}
-			alt=""
-			width="1280"
-			height="800"
-			loading="lazy"
-			class="hidden size-full object-cover dark:block"
-		/>
-	</div>
+	<BlockThumbnail name={block.name} />
 	<div class="min-w-0 px-2 pt-3.5 pb-2">
 		<h3 class="truncate text-base font-medium">{block.title ?? block.name}</h3>
 		{#if block.description}<p class="text-muted-foreground mt-0.5 truncate text-sm">

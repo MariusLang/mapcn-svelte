@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { useCopy } from "$lib/use-copy.svelte";
 	import Check from "@lucide/svelte/icons/check";
 	import Copy from "@lucide/svelte/icons/copy";
 	import * as Sidebar from "$lib/registry/ui/sidebar/index.js";
@@ -26,26 +27,23 @@
 
 	const currentFile = $derived(highlightedFiles.find((f) => f.target === activeFile));
 
-	let copied = $state(false);
+	const clipboard = useCopy();
 
 	async function copyCode() {
-		if (!currentFile) return;
-		await navigator.clipboard.writeText(currentFile.content);
-		copied = true;
-		setTimeout(() => (copied = false), 2000);
-		trackEvent({
-			name: "copy_block_code",
-			properties: { file: currentFile.target },
-		});
+		const file = currentFile;
+		if (!file || !(await clipboard.copy(file.content))) return;
+		trackEvent({ name: "copy_block_code", properties: { file: file.target } });
 	}
 </script>
 
-<div class="bg-background flex h-(--block-preview-height) overflow-hidden rounded-xl border">
+<div
+	class="bg-background ring-foreground/5 flex h-(--block-preview-height) overflow-hidden rounded-lg shadow-xs ring-1"
+>
 	<!-- File tree sidebar -->
 	<div class="w-56 shrink-0">
 		<Sidebar.Provider class="flex min-h-full! flex-col border-r">
 			<Sidebar.Root collapsible="none" class="bg-card w-full flex-1">
-				<Sidebar.GroupLabel class="h-12 rounded-none border-b px-4 text-sm">
+				<Sidebar.GroupLabel class="h-12 rounded-none border-b px-4 pr-2 text-sm">
 					Files
 				</Sidebar.GroupLabel>
 				<Sidebar.Group class="p-0">
@@ -63,11 +61,16 @@
 
 	<!-- Code panel -->
 	<div class="flex min-w-0 flex-1 flex-col">
-		<div class="bg-muted/40 flex h-12 shrink-0 items-center gap-2 border-b px-4 text-sm">
+		<div class="bg-muted/40 flex h-12 shrink-0 items-center gap-2 border-b px-4 pr-2 text-sm">
 			<span class="text-muted-foreground truncate">{currentFile?.target ?? ""}</span>
 			<div class="ml-auto">
-				<Button variant="ghost" size="icon-sm" onclick={copyCode}>
-					{#if copied}
+				<Button
+					variant="ghost"
+					size="icon-sm"
+					onclick={copyCode}
+					aria-label={clipboard.label("Copy code")}
+				>
+					{#if clipboard.copied}
 						<Check class="size-4" />
 					{:else}
 						<Copy class="size-4" />

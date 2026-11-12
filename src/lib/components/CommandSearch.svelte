@@ -153,7 +153,7 @@
 			</Command.Item>
 			<Command.Item
 				value="Copy prompt for your agent"
-				keywords={["ai", "llm", "claude", "cursor"]}
+				keywords={["ai", "llm", "claude", "cursor", "skill"]}
 				onSelect={() => copy("prompt", mapInstallAgentPrompt, "copy_agent_prompt")}
 			>
 				{#if isCopied("prompt")}<Check />{:else}<Bot />{/if}<span aria-live="polite"

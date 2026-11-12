@@ -18,13 +18,14 @@
 
 	const DOCS_TOC_CONTEXT = "docs-toc";
 
-	const { title, description, pathname, prev, next, toc, children } = $props<{
+	const { title, description, pathname, prev, next, toc, action, children } = $props<{
 		title: string;
 		description: string;
 		pathname?: string;
 		prev?: NavLink;
 		next?: NavLink;
 		toc?: TocItem[];
+		action?: import("svelte").Snippet;
 		children?: import("svelte").Snippet;
 	}>();
 
@@ -65,7 +66,10 @@
 		class="mx-auto flex max-w-[52rem] min-w-0 flex-1 flex-col px-4 pt-10 pb-20 lg:px-12 lg:pt-12"
 	>
 		<div class="space-y-2">
-			<h1 class="text-foreground text-3xl font-semibold tracking-tight">{title}</h1>
+			<div class="flex items-baseline justify-between gap-4">
+				<h1 class="text-foreground text-3xl font-semibold tracking-tight">{title}</h1>
+				{@render action?.()}
+			</div>
 			<p class="text-muted-foreground leading-relaxed">{description}</p>
 		</div>
 
@@ -101,7 +105,7 @@
 
 	<aside class="hidden w-42 shrink-0 xl:block">
 		<div
-			class="sticky top-14 max-h-[calc(100svh-3.5rem)] [scrollbar-gutter:stable] overflow-y-auto pt-12 pb-10"
+			class="sticky top-14 -mx-3 max-h-[calc(100svh-3.5rem)] [scrollbar-gutter:stable] overflow-y-auto px-3 pt-12 pb-10"
 		>
 			<DocsToc items={toc ?? registeredToc} />
 		</div>

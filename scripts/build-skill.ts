@@ -10,7 +10,9 @@ import { mapInstallCommand } from "../src/lib/llm-prompts.ts";
 
 const skillDir = "skills/mapcn-svelte";
 const exampleDir = "src/lib/components/docs/preview/examples";
-const sourceUrl = "https://github.com/MariusLang/mapcn-svelte/blob/main";
+// Update after changing the docs examples so installed skills keep stable source links.
+const exampleRevision = "914b4566d82f8755fe39ae3f22c31d5c9d4ffddb";
+const sourceUrl = `https://raw.githubusercontent.com/MariusLang/mapcn-svelte/${exampleRevision}`;
 const check = process.argv.includes("--check");
 
 const groups = [

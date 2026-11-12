@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { useCopy } from "$lib/use-copy.svelte";
 	import Check from "@lucide/svelte/icons/check";
 	import ChevronRight from "@lucide/svelte/icons/chevron-right";
 	import Copy from "@lucide/svelte/icons/copy";
@@ -10,26 +11,16 @@
 	import PageHeaderDescription from "./PageHeaderDescription.svelte";
 	import PageHeaderHeading from "./PageHeaderHeading.svelte";
 
-	let copyStatus = $state<"idle" | "copied" | "failed">("idle");
-	let reset: ReturnType<typeof setTimeout>;
+	const clipboard = useCopy();
 
 	async function copyInstallCommand() {
-		clearTimeout(reset);
-		try {
-			await navigator.clipboard.writeText(mapInstallCommand);
-			copyStatus = "copied";
-			trackEvent({
-				name: "copy_install_command",
-				properties: { name: "map", source: "hero" },
-			});
-		} catch {
-			copyStatus = "failed";
+		if (await clipboard.copy(mapInstallCommand)) {
+			trackEvent({ name: "copy_install_command", properties: { name: "map", source: "hero" } });
 		}
-		reset = setTimeout(() => (copyStatus = "idle"), 2000);
 	}
 </script>
 
-<PageHeader class="pt-7 pb-12 md:pt-12 md:pb-14 lg:pt-16">
+<PageHeader animated class="pt-7 pb-12 md:pt-12 md:pb-14 lg:pt-16">
 	<a
 		href="/docs/skill"
 		class="animate-fade-up animate-stagger bg-muted/50 text-foreground/80 ring-foreground/5 hover:bg-muted dark:bg-muted/30 -mb-1 inline-flex items-center gap-0.5 rounded-full py-1 pr-1.5 pl-2.5 text-xs font-medium ring-1"
@@ -53,16 +44,16 @@
 			class="bg-surface ring-foreground/10 focus-visible:ring-ring/50 hover:bg-muted inline-flex h-10 max-w-full min-w-0 items-center gap-2 rounded-lg px-4 font-mono text-[13px] ring-1 transition-colors outline-none focus-visible:ring-[3px]"
 		>
 			<code class="truncate">{mapInstallCommand}</code>
-			{#if copyStatus === "copied"}
+			{#if clipboard.copied}
 				<Check class="text-muted-foreground ml-1 size-3.5 shrink-0" aria-hidden="true" />
 			{:else}
 				<Copy class="text-muted-foreground ml-1 size-3.5 shrink-0" aria-hidden="true" />
 			{/if}
 		</button>
 		<span class="sr-only" aria-live="polite">
-			{copyStatus === "copied"
+			{clipboard.copied
 				? "Install command copied"
-				: copyStatus === "failed"
+				: clipboard.label("") === "Couldn't copy"
 					? "Could not copy the install command"
 					: ""}
 		</span>
