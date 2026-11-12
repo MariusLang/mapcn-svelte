@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { useMap } from "./use-map.svelte";
 	import { getContext } from "svelte";
-	import * as MapLibreGL from "maplibre-gl";
+	import type * as MapLibreGL from "maplibre-gl";
 	import type { PopupOptions } from "maplibre-gl";
 	import { cn } from "$lib/utils.js";
 	import X from "@lucide/svelte/icons/x";
@@ -17,6 +18,7 @@
 		closeOnClick?: boolean;
 		closeOnMove?: boolean;
 		focusAfterOpen?: boolean;
+		locationOccludedOpacity?: PopupOptions["locationOccludedOpacity"];
 		maxWidth?: string;
 	}
 
@@ -32,6 +34,7 @@
 		closeOnClick,
 		closeOnMove,
 		focusAfterOpen,
+		locationOccludedOpacity,
 		maxWidth,
 	}: Props = $props();
 
@@ -49,7 +52,11 @@
 	let wrapperElement: HTMLDivElement | null = $state(null);
 
 	// Create popup when map is ready
+	const mapContext = useMap();
+
 	$effect(() => {
+		const lib = mapContext.mapLib;
+		if (!lib) return;
 		const map = mapCtx.getMap();
 		const loaded = mapCtx.isLoaded();
 
@@ -71,6 +78,7 @@
 		// Build popup options
 		const popupOptions: PopupOptions = {
 			offset,
+			locationOccludedOpacity,
 			closeButton: false,
 			className: "maplibre-popup-transparent",
 		};
@@ -86,7 +94,7 @@
 		if (focusAfterOpen !== undefined) popupOptions.focusAfterOpen = focusAfterOpen;
 
 		// Create popup
-		const popupInstance = new MapLibreGL.Popup(popupOptions)
+		const popupInstance = new lib.Popup(popupOptions)
 			.setDOMContent(container)
 			.setLngLat([longitude, latitude])
 			.addTo(map);

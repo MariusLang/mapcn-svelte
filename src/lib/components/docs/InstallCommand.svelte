@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { useCopy } from "$lib/use-copy.svelte";
 	import Check from "@lucide/svelte/icons/check";
 	import Copy from "@lucide/svelte/icons/copy";
 	import { Button } from "$lib/registry/ui/button";
@@ -7,9 +8,10 @@
 
 	interface Props {
 		name: string;
+		cli?: "shadcn-svelte@latest add" | "skills add";
 	}
 
-	const { name }: Props = $props();
+	const { name, cli = "shadcn-svelte@latest add" }: Props = $props();
 
 	const packageManagers = [
 		{ manager: "pnpm", exec: "pnpm dlx" },
@@ -21,38 +23,31 @@
 	const tabs = $derived(
 		packageManagers.map(({ manager, exec }) => ({
 			manager,
-			command: `${exec} shadcn-svelte@latest add ${name}`,
+			command: `${exec} ${cli} ${name}`,
 		}))
 	);
 
 	let active = $state<(typeof packageManagers)[number]["manager"]>("pnpm");
-	let copied = $state(false);
+	const clipboard = useCopy();
 
 	async function copyCommand() {
 		const current = tabs.find((tab) => tab.manager === active);
-		if (!current) return;
-
-		await navigator.clipboard.writeText(current.command);
-		copied = true;
-		setTimeout(() => {
-			copied = false;
-		}, 2000);
+		if (!current || !(await clipboard.copy(current.command))) return;
 		trackEvent({
 			name: "copy_install_command",
-			properties: { name, packageManager: active },
+			properties: { name, cli, packageManager: current.manager },
 		});
 	}
 </script>
 
-<div class="bg-surface relative w-full overflow-hidden rounded-lg">
-	<Tabs.Tabs bind:value={active} class="gap-0">
-		<div class="flex items-center justify-between border-b pr-2 pl-[5px]">
+<div class="bg-muted/50 ring-foreground/5 dark:bg-muted/30 w-full rounded-xl p-1 ring-1">
+	<Tabs.Tabs bind:value={active} class="gap-1">
+		<div class="flex items-center justify-between p-0.5">
 			<Tabs.TabsList
-				variant="line"
-				class="h-10 bg-transparent group-data-[orientation=horizontal]/tabs:h-10"
+				class="h-8 gap-0.5 bg-transparent p-0 group-data-[orientation=horizontal]/tabs:h-8"
 			>
 				{#each tabs as tab (tab.manager)}
-					<Tabs.TabsTrigger value={tab.manager} class="font-mono text-xs">
+					<Tabs.TabsTrigger value={tab.manager} class="h-7 flex-none px-2.5 font-mono text-xs">
 						{tab.manager}
 					</Tabs.TabsTrigger>
 				{/each}
@@ -61,10 +56,10 @@
 				variant="ghost"
 				size="icon-sm"
 				onclick={copyCommand}
-				aria-label={copied ? "Copied" : "Copy command"}
+				aria-label={clipboard.label("Copy command")}
 				class="text-muted-foreground"
 			>
-				{#if copied}
+				{#if clipboard.copied}
 					<Check />
 				{:else}
 					<Copy />
@@ -74,8 +69,10 @@
 
 		{#each tabs as tab (tab.manager)}
 			<Tabs.TabsContent value={tab.manager}>
-				<pre class="overflow-x-auto p-4 text-sm"><code class="font-mono" data-language="bash"
-						>{tab.command}</code
+				<pre
+					class="bg-background ring-foreground/5 overflow-x-auto rounded-lg p-4 text-sm shadow-xs ring-1"><code
+						class="font-mono"
+						data-language="bash">{tab.command}</code
 					></pre>
 			</Tabs.TabsContent>
 		{/each}

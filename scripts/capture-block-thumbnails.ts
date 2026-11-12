@@ -1,51 +1,303 @@
-import { mkdir } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { chromium } from "playwright";
+import { chromium, type Locator, type Page } from "playwright";
 import registry from "../registry.json" with { type: "json" };
 
 const baseUrl = process.env.BASE_URL ?? "http://localhost:62726";
-const outDir = path.join(process.cwd(), "static", "blocks");
-const only = process.argv.slice(2);
-const blocks = registry.items
-	.filter((item) => item.type === "registry:block")
-	.map((item) => item.name)
-	.filter((name) => only.length === 0 || only.includes(name));
+const blocksDir = path.join(process.cwd(), "static", "blocks");
+const showcaseDir = path.join(process.cwd(), "static", "showcase");
+const sizesFile = path.join(process.cwd(), "src/lib/components/home/showcase-sizes.json");
+const viewport = { width: 1280, height: 800 };
+const schemes = ["light", "dark"] as const;
+
+// Smaller than the default, so block UI matches the docs maps in scale.
+const blockViewport = { width: 960, height: 640 };
+
+// Space kept around a block that floats in the middle of the page.
+const blockMargin = 60;
+
+// Home page wall tiles. `click` presses something first (and hides it if it is
+// a button), `zoom` and `pan` (in pixels) reframe the map, and `trim` cuts
+// pixels off the top and bottom.
+const showcaseMaps: ShowcaseMap[] = [
+	{ name: "globe", path: "/docs/arcs" },
+	{ name: "arcs", path: "/docs/arcs", index: 1 },
+	{ name: "clusters", path: "/docs/clusters", zoom: -0.4 },
+	{ name: "geojson-overlay", path: "/docs/geojson", index: 1 },
+	{
+		name: "marker-popup",
+		path: "/docs/markers",
+		index: 1,
+		click: '.maplibregl-marker:has-text("Museum") .bg-rose-500',
+		zoom: -0.6,
+		pan: [-120, 40],
+	},
+	{ name: "popup", path: "/docs/popups" },
+	{ name: "route", path: "/docs/routes" },
+	{ name: "route-progress", path: "/docs/routes", index: 1 },
+	{ name: "route-alternatives", path: "/docs/routes", index: 2 },
+	{
+		name: "custom-layer",
+		path: "/docs/advanced-usage",
+		index: 1,
+		click: 'button:has-text("Show Parks")',
+	},
+	{ name: "analytics-card", path: "/view/analytics-card" },
+	{
+		name: "delivery-tracker",
+		path: "/view/delivery-tracker",
+		zoom: -0.25,
+		trim: [90, 95],
+	},
+	{ name: "uptime-monitor", path: "/view/uptime-monitor", trim: [25, 65] },
+	{ name: "analytics-map", path: "/view/analytics-map" },
+	{
+		name: "store-locator",
+		path: "/view/store-locator",
+		viewport: { width: 860, height: 560 },
+		zoom: -0.9,
+		pan: [-40, -50],
+		trim: [110, 110],
+	},
+	{
+		name: "choropleth",
+		path: "/view/choropleth",
+		viewport: blockViewport,
+		zoom: -0.4,
+		pan: [-45, -35],
+	},
+	{
+		name: "heatmap",
+		path: "/view/heatmap",
+		viewport: blockViewport,
+		zoom: -0.4,
+	},
+	{
+		name: "logistics-network",
+		path: "/view/logistics-network",
+		viewport: { width: 1100, height: 600 },
+		zoom: -0.2,
+		trim: [0, 70],
+	},
+];
+
+// The page credits the map data once, so tiles leave out map chrome.
+const hideControls = `
+  .maplibregl-ctrl,
+  .maplibregl-map div:has(> div > button:is(
+    [aria-label="Zoom in"],
+    [aria-label="Find my location"],
+    [aria-label="Toggle fullscreen"],
+    [aria-label="Reset bearing to north"]
+  )) { display: none !important; }
+`;
+
+// Names limit the run to those blocks and tiles; `--blocks` or `--showcase`
+// limits it to one set.
+const args = process.argv.slice(2);
+const names = args.filter((arg) => !arg.startsWith("--"));
+const include = (name: string) => names.length === 0 || names.includes(name);
+
+const blocks = args.includes("--showcase")
+	? []
+	: registry.items
+			.filter((item) => item.type === "registry:block")
+			.map((item) => item.name)
+			.filter(include);
+
+// Maps sharing a page and viewport are captured from one page load.
+const showcasePages = new Map<string, ShowcaseMap[]>();
+if (!args.includes("--blocks")) {
+	for (const map of showcaseMaps.filter((map) => include(map.name))) {
+		const key = JSON.stringify([map.path, map.viewport ?? viewport]);
+		showcasePages.set(key, [...(showcasePages.get(key) ?? []), map]);
+	}
+}
 
 async function main() {
-	await mkdir(outDir, { recursive: true });
+	await mkdir(blocksDir, { recursive: true });
+	await mkdir(showcaseDir, { recursive: true });
 	const browser = await chromium.launch();
+	const sizes: Sizes = {};
 	try {
-		for (const scheme of ["light", "dark"] as const) {
+		for (const scheme of schemes) {
 			const context = await browser.newContext({
-				viewport: { width: 1280, height: 800 },
+				viewport,
 				colorScheme: scheme,
 			});
-			await context.addInitScript((theme) => localStorage.setItem("theme", theme), scheme);
-			try {
-				const page = await context.newPage();
-				for (const name of blocks) {
-					await page.goto(`${baseUrl}/view/${name}`, { waitUntil: "load" });
-					await page.addStyleTag({
-						content:
-							"#svelte-inspector-host, #svelte-inspector-toggle { display: none !important; }",
-					});
-					await page.waitForSelector(".maplibregl-canvas", { timeout: 15_000 });
-					await page.waitForLoadState("networkidle", { timeout: 10_000 }).catch(() => {});
-					await page.waitForTimeout(1_500);
-					const file = path.join(outDir, `${name}-${scheme}.jpg`);
-					await page.screenshot({ path: file, type: "jpeg", quality: 85 });
-					console.log(`✓ ${path.relative(process.cwd(), file)}`);
-				}
-			} finally {
-				await context.close();
+			const page = await context.newPage();
+
+			for (const name of blocks) {
+				await page.setViewportSize(viewport);
+				await open(page, `/view/${name}`);
+				const frame = await measureBlockFrame(page);
+				const framedContext = frame
+					? await browser.newContext({
+							viewport: frame,
+							deviceScaleFactor: viewport.width / frame.width,
+							colorScheme: scheme,
+						})
+					: undefined;
+				const blockPage = framedContext ? await framedContext.newPage() : page;
+				if (framedContext) await open(blockPage, `/view/${name}`);
+				const file = path.join(blocksDir, `${name}-${scheme}.jpg`);
+				await blockPage.screenshot({ path: file, type: "jpeg", quality: 85 });
+				logSaved(file);
+				await framedContext?.close();
 			}
+
+			for (const maps of showcasePages.values()) {
+				await page.setViewportSize(maps[0].viewport ?? viewport);
+				await open(page, maps[0].path);
+				await page.addStyleTag({ content: hideControls });
+
+				for (const map of maps) {
+					const element = page.locator(".maplibregl-map").nth(map.index ?? 0);
+					await element.scrollIntoViewIfNeeded();
+					if (map.zoom || map.pan) await adjustView(element, map.zoom, map.pan);
+					if (map.click) {
+						const target = await page.locator(map.click).elementHandle();
+						await target?.click();
+						await target?.evaluate((node) => {
+							if (node.tagName === "BUTTON") node.style.visibility = "hidden";
+						});
+					}
+					await page.waitForTimeout(2_000);
+					sizes[map.name] = await captureMap(
+						page,
+						element,
+						path.join(showcaseDir, `${map.name}-${scheme}.jpg`),
+						map.trim
+					);
+				}
+			}
+
+			await context.close();
 		}
 	} finally {
 		await browser.close();
 	}
+	if (Object.keys(sizes).length > 0) await saveSizes(sizes);
+}
+
+async function open(page: Page, route: string) {
+	await page.goto(`${baseUrl}${route}`, { waitUntil: "load" });
+	await page.addStyleTag({
+		content: "#svelte-inspector-host, #svelte-inspector-toggle { display: none !important; }",
+	});
+	await page.waitForSelector(".maplibregl-canvas", { timeout: 15_000 });
+	await page.waitForLoadState("networkidle", { timeout: 10_000 }).catch(() => {});
+	await page.waitForTimeout(1_500);
+}
+
+// Returns a tighter 16:10 viewport for a block centered in the page, so it fills
+// the thumbnail once scaled back up, but never narrower than `blockViewport` so
+// small blocks keep the same scale. Page-filling blocks return undefined.
+async function measureBlockFrame(page: Page) {
+	const box = await page.evaluate(() => {
+		let block = document.querySelector(".maplibregl-map");
+		while (block?.parentElement) {
+			const parent = block.parentElement.getBoundingClientRect();
+			if (parent.width >= innerWidth && parent.height >= innerHeight) break;
+			block = block.parentElement;
+		}
+		if (!block) return null;
+
+		const { left, top, width, height } = block.getBoundingClientRect();
+		const centered =
+			Math.abs(left + width / 2 - innerWidth / 2) <= 1 &&
+			Math.abs(top + height / 2 - innerHeight / 2) <= 1;
+		return centered ? { width, height } : null;
+	});
+	if (!box) return undefined;
+
+	const minWidth = Math.max(
+		blockViewport.width,
+		box.width + blockMargin * 2,
+		((box.height + blockMargin * 2) * 8) / 5
+	);
+	const width = Math.ceil(minWidth / 8) * 8;
+	return width < viewport.width ? { width, height: (width * 5) / 8 } : undefined;
+}
+
+// Frame the map using its public pointer controls.
+async function adjustView(element: Locator, zoom = 0, [x, y]: [number, number] = [0, 0]) {
+	const box = await element.boundingBox();
+	if (!box) throw new Error("Map is not visible");
+
+	const { mouse } = element.page();
+	const centerX = box.x + box.width / 2;
+	const centerY = box.y + box.height / 2;
+	await mouse.move(centerX, centerY);
+	if (zoom) {
+		await mouse.wheel(0, -zoom * 450);
+		await element.page().waitForTimeout(400);
+	}
+	if (x || y) {
+		await mouse.down();
+		await mouse.move(centerX - x, centerY - y, { steps: 12 });
+		await mouse.up();
+	}
+}
+
+// Clips to whole pixels so both themes, and the recorded size, always match.
+async function captureMap(
+	page: Page,
+	element: Locator,
+	file: string,
+	[top, bottom]: [number, number] = [0, 0]
+) {
+	await element.scrollIntoViewIfNeeded();
+	const box = await element.boundingBox();
+	if (!box) throw new Error(`Map for ${file} is not visible`);
+
+	const clip = {
+		x: Math.round(box.x),
+		y: Math.round(box.y) + top,
+		width: Math.round(box.width),
+		height: Math.round(box.height) - top - bottom,
+	};
+	await page.screenshot({ path: file, type: "jpeg", quality: 85, clip });
+	logSaved(file);
+	return { width: clip.width, height: clip.height };
+}
+
+// A partial run keeps the other tiles' sizes; tiles no longer listed in
+// `showcaseMaps` are dropped.
+async function saveSizes(sizes: Sizes) {
+	const existing: Sizes = await readFile(sizesFile, "utf8")
+		.then((text) => JSON.parse(text))
+		.catch(() => ({}));
+	const merged = { ...existing, ...sizes };
+	const sorted = Object.fromEntries(
+		showcaseMaps
+			.map((map) => map.name)
+			.filter((name) => name in merged)
+			.sort()
+			.map((name) => [name, merged[name]])
+	);
+	await writeFile(sizesFile, `${JSON.stringify(sorted, null, "\t")}\n`);
+	logSaved(sizesFile);
+}
+
+function logSaved(file: string) {
+	console.log(`✓ ${path.relative(process.cwd(), file)}`);
 }
 
 main().catch((error) => {
 	console.error(error);
-	process.exitCode = 1;
+	process.exit(1);
 });
+
+type ShowcaseMap = {
+	name: string;
+	path: string;
+	index?: number;
+	click?: string;
+	zoom?: number;
+	pan?: [number, number];
+	viewport?: typeof viewport;
+	trim?: [number, number];
+};
+
+type Sizes = Record<string, { width: number; height: number }>;

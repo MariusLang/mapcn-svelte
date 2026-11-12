@@ -15,7 +15,8 @@
 
 <p
 	class={cn(
-		"text-foreground/80 animate-fade-up animate-stagger max-w-2xl leading-relaxed text-pretty",
+		"text-foreground/80 max-w-2xl leading-relaxed text-balance",
+		context.animated() && "animate-fade-up animate-stagger",
 		size === "sm" ? "text-muted-foreground text-base sm:text-lg" : "sm:text-lg md:text-xl",
 		align === "center" ? "text-center" : "text-left",
 		className

@@ -50,20 +50,20 @@
 </script>
 
 <div
-	class={cn("w-full overflow-hidden rounded-lg border", className)}
+	class={cn("bg-code overflow-hidden rounded-lg lg:-mx-3", className)}
 	style={`--preview-height: ${height}`}
 >
 	<!-- Preview -->
-	<div class="h-(--preview-height) w-full overflow-hidden">
+	<div class="bg-background h-(--preview-height) overflow-hidden rounded-lg border *:h-full!">
 		{@render children?.()}
 	</div>
 
 	<!-- Code block -->
-	<div class="relative w-full overflow-hidden border-t">
+	<div class="relative">
 		{#if allFiles.length > 1}
 			<div class="bg-muted/40 flex h-12 items-center justify-between border-b ps-1.5 pe-2">
 				<Select.Root type="single" bind:value={selectedFileIndex}>
-					<Select.Trigger class="w-auto max-w-72 min-w-64 text-xs sm:max-w-full">
+					<Select.Trigger class="max-w-72 min-w-0 flex-1 text-xs sm:max-w-full">
 						<span class="truncate">{currentFile.name}</span>
 					</Select.Trigger>
 					<Select.Content>
@@ -92,11 +92,11 @@
 
 		{#if !codeExpanded}
 			<div
-				class="from-surface to-surface/0 pointer-events-none absolute inset-x-0 bottom-0 flex w-full items-center justify-center bg-linear-to-t pt-12 pb-3"
+				class="from-surface to-surface/0 pointer-events-none absolute inset-x-0 bottom-0 flex w-full items-center justify-center bg-linear-to-t pt-12 pb-4"
 			>
 				<Button
 					variant="outline"
-					size="sm"
+					size="xs"
 					onclick={() => (codeExpanded = true)}
 					aria-expanded={codeExpanded}
 					aria-controls={codeId}

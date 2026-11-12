@@ -21,6 +21,7 @@ export const docsNavigation: NavGroup[] = [
 			{ title: "Getting Started", href: "/docs", icon: BookOpen },
 			{ title: "Installation", href: "/docs/installation", icon: BookOpen },
 			{ title: "llms.txt", href: "/llms.txt", icon: BookOpen, new: true },
+			{ title: "Agent Skill", href: "/docs/skill", icon: BookOpen, new: true },
 			{ title: "API Reference", href: "/docs/api-reference", icon: BookOpen },
 		],
 	},

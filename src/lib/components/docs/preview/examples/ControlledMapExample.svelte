@@ -4,14 +4,14 @@
 
 	let viewport = $state<MapViewport>({
 		center: [-74.006, 40.7128],
-		zoom: 8,
+		zoom: 7,
 		bearing: 0,
 		pitch: 0,
 	});
 </script>
 
 <div class="relative h-[420px] w-full">
-	<Map center={viewport.center} zoom={viewport.zoom} onviewportchange={(v) => (viewport = v)}>
+	<Map {viewport} onviewportchange={(v) => (viewport = v)}>
 		<div
 			role="status"
 			aria-live="polite"

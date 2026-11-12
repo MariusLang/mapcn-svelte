@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getContext, setContext, untrack, type Snippet } from "svelte";
-	import * as MapLibreGL from "maplibre-gl";
+	import type * as MapLibreGL from "maplibre-gl";
 	import { ROUTE_CONTEXT, type RouteContext } from "./route-context.js";
 	import {
 		measureRoute,

@@ -1,7 +1,8 @@
 import { getContext } from "svelte";
-import * as MapLibreGL from "maplibre-gl";
+import type * as MapLibreGL from "maplibre-gl";
 
 type MapContext = {
+	getMapLib: () => typeof MapLibreGL | null;
 	getMap: () => MapLibreGL.Map | null;
 	isLoaded: () => boolean;
 	isStyleReady: () => boolean;
@@ -17,6 +18,9 @@ export function useMap() {
 	const resolvedTheme = $derived.by(() => mapCtx?.resolvedTheme?.() ?? "light");
 
 	return {
+		get mapLib() {
+			return mapCtx?.getMapLib() ?? null;
+		},
 		get map() {
 			return map;
 		},

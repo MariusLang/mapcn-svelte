@@ -1,25 +1,13 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { theme, toggleTheme, THEME_HOTKEY } from "$lib/theme";
+	import { toggleTheme, THEME_HOTKEY } from "$lib/theme";
 	import { Button } from "$lib/registry/ui/button/index";
-	import { Skeleton } from "$lib/registry/ui/skeleton";
 	import Moon from "@lucide/svelte/icons/moon";
 	import Sun from "@lucide/svelte/icons/sun";
 
-	let mounted = $state(false);
-	let currentTheme = $state<"light" | "dark">("light");
-
-	const unsubscribe = theme.subscribe((t) => {
-		currentTheme = t;
-	});
-
 	onMount(() => {
-		mounted = true;
 		window.addEventListener("keydown", handleKeyDown);
-		return () => {
-			unsubscribe();
-			window.removeEventListener("keydown", handleKeyDown);
-		};
+		return () => window.removeEventListener("keydown", handleKeyDown);
 	});
 
 	function handleKeyDown(e: KeyboardEvent) {
@@ -40,21 +28,14 @@
 	}
 </script>
 
-{#if !mounted}
-	<Skeleton class="size-8" />
-{:else}
-	<Button
-		onclick={toggleTheme}
-		variant="ghost"
-		aria-label="Toggle theme"
-		aria-keyshortcuts={THEME_HOTKEY.toUpperCase()}
-		size="icon-sm"
-	>
-		{#if currentTheme === "dark"}
-			<Moon />
-		{:else}
-			<Sun />
-		{/if}
-		<span class="sr-only">Toggle theme</span>
-	</Button>
-{/if}
+<Button
+	onclick={toggleTheme}
+	variant="ghost"
+	aria-label="Toggle theme"
+	aria-keyshortcuts={THEME_HOTKEY.toUpperCase()}
+	size="icon-sm"
+	class="text-muted-foreground hover:text-foreground"
+>
+	<Moon class="hidden dark:block" />
+	<Sun class="block dark:hidden" />
+</Button>

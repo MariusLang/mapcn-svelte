@@ -5,7 +5,7 @@ export interface RegistryBlockItem {
 	type: string;
 	title?: string;
 	description?: string;
-	files?: Array<{ path: string; target?: string }>;
+	files?: Array<{ path: string; target?: string; type?: string }>;
 	registryDependencies?: string[];
 	categories?: string[];
 	meta?: { iframeHeight?: string };
@@ -22,32 +22,21 @@ export interface FileTree {
 }
 
 const typedRegistry = registry as RegistrySchema;
-const upstreamBlockOrder = [
-	"analytics-map",
-	"choropleth",
-	"analytics-card",
-	"delivery-tracker",
-	"uptime-monitor",
-	"heatmap",
-	"logistics-network",
-	"store-locator",
-];
-const upstreamBlockRank = new Map(upstreamBlockOrder.map((name, index) => [name, index]));
-
 export function getAllBlocks(): RegistryBlockItem[] {
 	return typedRegistry.items
 		.filter((item) => item.type === "registry:block")
-		.toSorted(
-			(a, b) =>
-				(upstreamBlockRank.get(a.name) ?? Number.POSITIVE_INFINITY) -
-				(upstreamBlockRank.get(b.name) ?? Number.POSITIVE_INFINITY)
-		)
 		.map((item) => ({
 			name: item.name,
 			type: item.type,
 			title: item.title ?? item.name,
 			description: item.description,
-			files: item.files ?? [],
+			files: (item.files ?? []).map((file) => ({
+				...file,
+				target:
+					file.type === "registry:lib" && file.target
+						? `lib/${file.target}`
+						: file.target?.replace(/^~\/src\/routes\//, ""),
+			})),
 			registryDependencies: item.registryDependencies ?? [],
 			categories: item.categories ?? [],
 			meta: item.meta,
@@ -111,4 +100,8 @@ export function getBlockCategories(): BlockCategory[] {
 			.join(" "),
 		blocks,
 	}));
+}
+
+export function getBlocksInGridOrder(): RegistryBlockItem[] {
+	return getBlockCategories().flatMap((category) => category.blocks);
 }

@@ -1,26 +1,32 @@
 <script lang="ts">
 	import * as Sidebar from "$lib/registry/ui/sidebar/index.js";
 	import { Separator } from "$lib/registry/ui/separator/index.js";
+	import MapPin from "@lucide/svelte/icons/map-pin";
 	import Network from "@lucide/svelte/icons/network";
 	import Plane from "@lucide/svelte/icons/plane";
 	import Truck from "@lucide/svelte/icons/truck";
-	import { regionLabels, statusConfig, type Hub, type Route } from "./data.js";
-
-	const regionIcons: Record<Hub["region"], string> = {
-		west: "W",
-		midwest: "MW",
-		south: "S",
-		northeast: "NE",
-	};
+	import { regionLabels, statusConfig, type Filter, type Hub, type Route } from "./data.js";
 
 	interface Props {
 		hubs: Hub[];
 		routes: Route[];
+		visibleRoutes: Route[];
+		hidden: Set<Filter>;
+		ontoggle: (filter: Filter) => void;
 	}
 
-	const { hubs, routes }: Props = $props();
+	const { hubs, routes, visibleRoutes, hidden, ontoggle }: Props = $props();
 
-	const totalShipments = $derived(routes.reduce((s, r) => s + r.shipments, 0));
+	const totalShipments = $derived(visibleRoutes.reduce((s, r) => s + r.shipments, 0));
+	const onTimeShipments = $derived(
+		visibleRoutes
+			.filter((route) => route.status === "active")
+			.reduce((sum, route) => sum + route.shipments, 0)
+	);
+	const delayedShipments = $derived(totalShipments - onTimeShipments);
+	const onTimeRate = $derived(
+		totalShipments ? Math.round((onTimeShipments / totalShipments) * 100) : 0
+	);
 	const activeCount = $derived(routes.filter((r) => r.status === "active").length);
 	const delayedCount = $derived(routes.filter((r) => r.status === "delayed").length);
 	const airRouteCount = $derived(routes.filter((r) => r.mode === "air").length);
@@ -40,38 +46,55 @@
 				<span class="text-muted-foreground text-xs">Domestic Routes</span>
 			</div>
 		</div>
-		<div class="mt-3 grid grid-cols-3 gap-2">
-			<div class="bg-background rounded-md border px-2.5 py-2 text-center">
-				<p class="text-lg leading-none font-bold tabular-nums">{hubs.length}</p>
-				<p class="text-muted-foreground mt-1 text-[10px]">Hubs</p>
-			</div>
-			<div class="bg-background rounded-md border px-2.5 py-2 text-center">
-				<p class="text-lg leading-none font-bold tabular-nums">{activeCount}</p>
-				<p class="text-muted-foreground mt-1 text-[10px]">Active</p>
-			</div>
-			<div class="bg-background rounded-md border px-2.5 py-2 text-center">
-				<p class="text-lg leading-none font-bold tabular-nums">{delayedCount}</p>
-				<p class="text-muted-foreground mt-1 text-[10px]">Delayed</p>
-			</div>
-		</div>
 	</Sidebar.Header>
 
 	<Separator class="mx-0" />
 
 	<Sidebar.Content>
+		<Sidebar.Group class="gap-3 px-4 pt-4 pb-2">
+			<dl class="grid grid-cols-2 gap-4">
+				<div class="flex flex-col gap-1">
+					<dt class="text-muted-foreground text-xs">Shipments</dt>
+					<dd class="text-lg font-medium tabular-nums">{totalShipments.toLocaleString()}</dd>
+				</div>
+				<div class="flex flex-col gap-1">
+					<dt class="text-muted-foreground text-xs">On time</dt>
+					<dd class="text-lg font-medium tabular-nums">{onTimeRate}%</dd>
+				</div>
+			</dl>
+			<div class="flex h-1 gap-0.5" aria-hidden="true">
+				{#each [["active", onTimeShipments], ["delayed", delayedShipments]] as const as [status, count] (status)}
+					{#if count > 0}
+						<span
+							class="rounded-full"
+							style:flex-grow={count}
+							style:background-color={statusConfig[status].color}
+						></span>
+					{/if}
+				{/each}
+			</div>
+		</Sidebar.Group>
 		<Sidebar.Group>
 			<Sidebar.GroupLabel>Transport Mode</Sidebar.GroupLabel>
 			<Sidebar.GroupContent>
 				<Sidebar.Menu>
-					<Sidebar.MenuItem>
-						<Sidebar.MenuButton tooltipContent="Air" class="pointer-events-none">
+					<Sidebar.MenuItem class={["transition-opacity", hidden.has("air") && "opacity-50"]}>
+						<Sidebar.MenuButton
+							tooltipContent="Air"
+							onclick={() => ontoggle("air")}
+							aria-pressed={!hidden.has("air")}
+						>
 							<Plane class="size-4" />
 							<span>Air Freight</span>
 						</Sidebar.MenuButton>
 						<Sidebar.MenuBadge>{airRouteCount}</Sidebar.MenuBadge>
 					</Sidebar.MenuItem>
-					<Sidebar.MenuItem>
-						<Sidebar.MenuButton tooltipContent="Ground" class="pointer-events-none">
+					<Sidebar.MenuItem class={["transition-opacity", hidden.has("ground") && "opacity-50"]}>
+						<Sidebar.MenuButton
+							tooltipContent="Ground"
+							onclick={() => ontoggle("ground")}
+							aria-pressed={!hidden.has("ground")}
+						>
 							<Truck class="size-4" />
 							<span>Ground</span>
 						</Sidebar.MenuButton>
@@ -85,10 +108,11 @@
 			<Sidebar.GroupLabel>Status</Sidebar.GroupLabel>
 			<Sidebar.GroupContent>
 				<Sidebar.Menu>
-					<Sidebar.MenuItem>
+					<Sidebar.MenuItem class={["transition-opacity", hidden.has("active") && "opacity-50"]}>
 						<Sidebar.MenuButton
 							tooltipContent={statusConfig.active.label}
-							class="pointer-events-none"
+							onclick={() => ontoggle("active")}
+							aria-pressed={!hidden.has("active")}
 						>
 							<span class="flex size-4 items-center justify-center">
 								<span
@@ -100,10 +124,11 @@
 						</Sidebar.MenuButton>
 						<Sidebar.MenuBadge>{activeCount}</Sidebar.MenuBadge>
 					</Sidebar.MenuItem>
-					<Sidebar.MenuItem>
+					<Sidebar.MenuItem class={["transition-opacity", hidden.has("delayed") && "opacity-50"]}>
 						<Sidebar.MenuButton
 							tooltipContent={statusConfig.delayed.label}
-							class="pointer-events-none"
+							onclick={() => ontoggle("delayed")}
+							aria-pressed={!hidden.has("delayed")}
 						>
 							<span class="flex size-4 items-center justify-center">
 								<span
@@ -123,15 +148,15 @@
 			<Sidebar.GroupLabel>Region</Sidebar.GroupLabel>
 			<Sidebar.GroupContent>
 				<Sidebar.Menu>
-					{#each ["west", "midwest", "south", "northeast"] as const as region}
+					{#each ["west", "midwest", "south", "northeast"] as const as region (region)}
 						{@const hubsInRegion = hubs.filter((h) => h.region === region)}
-						<Sidebar.MenuItem>
-							<Sidebar.MenuButton tooltipContent={regionLabels[region]} class="pointer-events-none">
-								<span
-									class="bg-muted text-muted-foreground flex size-4 items-center justify-center rounded text-[9px] font-bold"
-								>
-									{regionIcons[region]}
-								</span>
+						<Sidebar.MenuItem class={["transition-opacity", hidden.has(region) && "opacity-50"]}>
+							<Sidebar.MenuButton
+								tooltipContent={regionLabels[region]}
+								onclick={() => ontoggle(region)}
+								aria-pressed={!hidden.has(region)}
+							>
+								<MapPin class="size-4" />
 								<span>{regionLabels[region]}</span>
 							</Sidebar.MenuButton>
 							<Sidebar.MenuBadge>{hubsInRegion.length}</Sidebar.MenuBadge>
@@ -141,22 +166,4 @@
 			</Sidebar.GroupContent>
 		</Sidebar.Group>
 	</Sidebar.Content>
-
-	<Sidebar.Footer class="p-4 pt-0">
-		<p class="text-muted-foreground mb-2 text-[11px] font-medium tracking-wider uppercase">
-			Summary
-		</p>
-		<div class="bg-background space-y-1.5 rounded-md border px-3 py-2 text-xs">
-			<div class="flex justify-between">
-				<span class="text-muted-foreground">Shipments</span>
-				<span class="text-primary font-medium tabular-nums">
-					{totalShipments.toLocaleString()}
-				</span>
-			</div>
-			<div class="flex justify-between">
-				<span class="text-muted-foreground">Routes</span>
-				<span class="text-primary font-medium tabular-nums">{routes.length}</span>
-			</div>
-		</div>
-	</Sidebar.Footer>
 </Sidebar.Sidebar>

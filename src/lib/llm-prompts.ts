@@ -1,3 +1,8 @@
+export const skillSource = "MariusLang/mapcn-svelte --skill mapcn-svelte";
+
 export const mapInstallCommand = "npx shadcn-svelte@latest add https://mapcn-svelte.dev/r/map.json";
 
-export const mapInstallAgentPrompt = `Read the mapcn-svelte agent instructions at https://mapcn-svelte.dev/llms.txt, then install mapcn-svelte in this project. Run ${mapInstallCommand}. Then add a basic example that imports Map and MapControls from "$lib/components/ui/map" and renders a map inside a sized container. Use the default tiled basemap for maps that need streets, labels, or geographic context. If the user wants a blank/data-only map, such as countries or country borders, use <Map blank> with MapGeoJSON and either a user-provided GeoJSON URL/object or a world countries GeoJSON source. Preserve the existing Tailwind CSS and shadcn-svelte setup. Do not manually rewrite the registry component unless the command fails; if it fails, inspect https://mapcn-svelte.dev/r/map.json and install the listed dependencies.`;
+const skillRawUrl =
+	"https://raw.githubusercontent.com/MariusLang/mapcn-svelte/main/skills/mapcn-svelte";
+
+export const mapInstallAgentPrompt = `Install the MapCN Svelte agent skill with npx skills add ${skillSource} -y and read its SKILL.md. If skill installation is unavailable, read ${skillRawUrl}/SKILL.md and fetch its references from the same folder. Then run ${mapInstallCommand} and add a basic map example following the skill's instructions. When you're done, offer to look through the project and suggest where other maps or blocks would fit. Build additional examples only if I ask.`;

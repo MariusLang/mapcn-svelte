@@ -39,41 +39,20 @@
 		return () => observer?.disconnect();
 	});
 
-	function scrollTo(slug: string, event: MouseEvent) {
-		event.preventDefault();
-		const element = document.getElementById(slug);
-		if (element) {
-			const header = document.querySelector("header");
-			const headerOffset = header ? header.offsetHeight + 20 : 100;
-			const elementPosition = element.getBoundingClientRect().top;
-			const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-			window.scrollTo({
-				top: offsetPosition,
-				behavior: "smooth",
-			});
-		}
-	}
-
 	onDestroy(() => observer?.disconnect());
 </script>
 
 {#if items?.length}
 	<nav aria-label="On this page" class={cn("flex flex-col gap-0.5", className)}>
 		<p class="text-muted-foreground mb-4 text-xs font-medium">On This Page</p>
-		<div
-			class="before:bg-border relative flex flex-col gap-0.5 before:absolute before:top-1 before:bottom-1 before:left-0 before:w-0.5 before:rounded-full"
-		>
+		<div class="flex flex-col gap-1.5">
 			{#each items as item (item.slug)}
 				{@const isActive = item.slug === activeId}
 				<a
 					href={`#${item.slug}`}
-					onclick={(e) => scrollTo(item.slug, e)}
 					class={cn(
-						"relative py-0.5 pl-3 text-[0.8rem] no-underline transition-colors",
-						isActive
-							? "text-foreground before:bg-foreground before:absolute before:top-1 before:bottom-1 before:left-0 before:w-0.5 before:rounded-full"
-							: "text-muted-foreground hover:text-foreground"
+						"py-0.5 text-[0.8rem] no-underline transition-colors",
+						isActive ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground"
 					)}
 				>
 					{item.title}

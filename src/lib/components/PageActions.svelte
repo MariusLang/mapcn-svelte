@@ -14,7 +14,8 @@
 
 <div
 	class={cn(
-		"animate-fade-up animate-stagger mt-3 flex flex-wrap items-center gap-3",
+		"mt-3 flex flex-wrap items-center gap-3",
+		context.animated() && "animate-fade-up animate-stagger",
 		align === "center" ? "justify-center" : "justify-start",
 		className
 	)}

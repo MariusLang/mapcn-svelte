@@ -1,41 +1,62 @@
 <script lang="ts">
-	import AgentPrompt from "$lib/components/AgentPrompt.svelte";
-	import { Button } from "$lib/registry/ui/button/index";
+	import { useCopy } from "$lib/use-copy.svelte";
+	import Check from "@lucide/svelte/icons/check";
+	import ChevronRight from "@lucide/svelte/icons/chevron-right";
+	import Copy from "@lucide/svelte/icons/copy";
+	import { mapInstallCommand } from "$lib/llm-prompts";
+	import { trackEvent } from "$lib/events";
+	import { Button } from "$lib/registry/ui/button";
+	import PageActions from "./PageActions.svelte";
+	import PageHeader from "./PageHeader.svelte";
+	import PageHeaderDescription from "./PageHeaderDescription.svelte";
+	import PageHeaderHeading from "./PageHeaderHeading.svelte";
+
+	const clipboard = useCopy();
+
+	async function copyInstallCommand() {
+		if (await clipboard.copy(mapInstallCommand)) {
+			trackEvent({ name: "copy_install_command", properties: { name: "map", source: "hero" } });
+		}
+	}
 </script>
 
-<div class="relative">
-	<div class="container flex max-w-6xl flex-col items-center gap-4 text-center">
-		<h1
-			class="animate-fade-up animate-stagger max-w-4xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"
-			style="--stagger: 1"
+<PageHeader animated class="pt-7 pb-12 md:pt-12 md:pb-14 lg:pt-16">
+	<a
+		href="/docs/skill"
+		class="animate-fade-up animate-stagger bg-muted/50 text-foreground/80 ring-foreground/5 hover:bg-muted dark:bg-muted/30 -mb-1 inline-flex items-center gap-0.5 rounded-full py-1 pr-1.5 pl-2.5 text-xs font-medium ring-1"
+		style="--stagger: 0"
+	>
+		Agent skill for mapcn-svelte
+		<ChevronRight class="size-3.5" aria-hidden="true" />
+	</a>
+	<PageHeaderHeading>Beautiful maps, made simple</PageHeaderHeading>
+	<PageHeaderDescription class="text-balance sm:text-wrap">
+		Ready to use, customizable map components for Svelte.
+		<br class="hidden sm:block" />
+		Built on MapLibre. Styled with Tailwind.
+	</PageHeaderDescription>
+	<PageActions class="w-full min-w-0 gap-4 max-sm:flex-col">
+		<button
+			type="button"
+			onclick={copyInstallCommand}
+			title="Copy install command"
+			aria-label="Copy install command"
+			class="bg-surface ring-foreground/10 focus-visible:ring-ring/50 hover:bg-muted inline-flex h-10 max-w-full min-w-0 items-center gap-2 rounded-lg px-4 font-mono text-[13px] ring-1 transition-colors outline-none focus-visible:ring-[3px]"
 		>
-			<span
-				class="from-foreground via-foreground to-foreground/65 bg-linear-to-b bg-clip-text text-transparent"
-			>
-				Beautiful maps, made simple
-			</span>
-		</h1>
-
-		<p
-			class="text-foreground/80 animate-fade-up animate-stagger max-w-2xl sm:text-lg sm:leading-relaxed md:text-xl md:leading-relaxed"
-			style="--stagger: 2"
-		>
-			Ready to use, customizable map components for Svelte.
-			<br class="hidden sm:block" />
-			Built on MapLibre. Styled with Tailwind.
-		</p>
-
-		<div
-			class="animate-fade-up animate-stagger mt-5 flex flex-col items-center justify-center gap-4"
-			style="--stagger: 3"
-		>
-			<div class="flex flex-wrap items-center justify-center gap-3">
-				<Button href="/docs" class="min-w-36 justify-center">Get Started</Button>
-				<Button variant="outline" href="/docs/basic-map" class="min-w-36 justify-center">
-					View Components
-				</Button>
-			</div>
-			<AgentPrompt />
-		</div>
-	</div>
-</div>
+			<code class="truncate">{mapInstallCommand}</code>
+			{#if clipboard.copied}
+				<Check class="text-muted-foreground ml-1 size-3.5 shrink-0" aria-hidden="true" />
+			{:else}
+				<Copy class="text-muted-foreground ml-1 size-3.5 shrink-0" aria-hidden="true" />
+			{/if}
+		</button>
+		<span class="sr-only" aria-live="polite">
+			{clipboard.copied
+				? "Install command copied"
+				: clipboard.label("") === "Couldn't copy"
+					? "Could not copy the install command"
+					: ""}
+		</span>
+		<Button href="/docs" size="lg" class="rounded-lg">Get Started</Button>
+	</PageActions>
+</PageHeader>

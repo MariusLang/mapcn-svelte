@@ -79,7 +79,7 @@
 		</div>
 
 		<!-- Device breakdown -->
-		<div class="border-border/60 border-t pt-4">
+		<div class="border-border/60 border-t pt-4 max-md:hidden">
 			<p class="text-muted-foreground text-[10px] font-medium tracking-wider uppercase">
 				Device category in last 30 days
 			</p>
@@ -89,7 +89,7 @@
 				role="img"
 				aria-label="Device category breakdown"
 			>
-				{#each donutSegments as segment}
+				{#each donutSegments as segment (segment.offset)}
 					<circle
 						cx="64"
 						cy="64"
@@ -104,7 +104,7 @@
 				{/each}
 			</svg>
 			<div class="mt-3 grid grid-cols-3 gap-2">
-				{#each deviceCategoryData as device}
+				{#each deviceCategoryData as device (device.name)}
 					<div class="text-center">
 						<p
 							class="text-muted-foreground flex items-center justify-center gap-1.5 text-[10px] tracking-wide uppercase"

@@ -29,13 +29,13 @@
 	} from "./data";
 
 	function formatDistance(meters: number | undefined) {
-		if (!meters) return "--";
+		if (meters === undefined) return "--";
 		if (meters < 1000) return `${Math.round(meters)} m`;
 		return `${(meters / 1000).toFixed(1)} km`;
 	}
 
 	function formatDuration(seconds: number | undefined) {
-		if (!seconds) return "--";
+		if (seconds === undefined) return "--";
 		const minutes = Math.round(seconds / 60);
 		if (minutes < 60) return `${minutes} min`;
 		const hours = Math.floor(minutes / 60);
@@ -48,6 +48,13 @@
 	let currentTheme = $state<"light" | "dark">("light");
 	const remainingRouteColor = $derived(
 		currentTheme === "dark" ? routeStyle.remaining.color.dark : routeStyle.remaining.color.light
+	);
+
+	const remainingDuration = $derived.by(() =>
+		routeData ? routeData.duration * (1 - progressFraction) : undefined
+	);
+	const remainingDistance = $derived.by(() =>
+		routeData ? routeData.distance * (1 - progressFraction) : undefined
 	);
 
 	$effect(() => {
@@ -87,7 +94,7 @@
 		<div class="flex flex-col p-5 md:p-6">
 			<div class="space-y-1">
 				<h3 class="text-2xl font-semibold tracking-tight">Track Delivery</h3>
-				<p class="text-muted-foreground text-sm">Mon Feb 10 - 2-3 PM</p>
+				<p class="text-muted-foreground text-sm">Mon, Feb 10 · 2–3 PM</p>
 			</div>
 
 			<Card.Root class="mt-5">
@@ -128,11 +135,10 @@
 				<Card.Root>
 					<Card.Content class="space-y-2">
 						<p class="text-muted-foreground text-sm font-medium">Remaining travel</p>
-						<p class="text-sm font-medium">
-							{formatDuration(routeData?.duration)}
+						<p class="flex items-baseline gap-1.5 text-sm font-medium">
+							{formatDuration(remainingDuration)}
 							<span class="text-muted-foreground font-normal">
-								·
-								{formatDistance(routeData?.distance)}
+								{formatDistance(remainingDistance)}
 							</span>
 						</p>
 					</Card.Content>
@@ -152,12 +158,17 @@
 		</div>
 
 		<!-- Map panel -->
-		<div class="relative h-[450px] overflow-hidden rounded-xl shadow-sm md:h-full">
+		<div
+			class="relative h-[450px] overflow-hidden rounded-xl shadow-sm max-md:order-first md:h-full"
+		>
 			<Map
 				{loading}
-				center={mapView.center}
-				zoom={mapView.zoom}
-				options={{ minZoom: mapView.minZoom, maxZoom: mapView.maxZoom }}
+				options={{
+					bounds: mapView.bounds,
+					fitBoundsOptions: { padding: mapView.padding },
+					minZoom: mapView.minZoom,
+					maxZoom: mapView.maxZoom,
+				}}
 			>
 				<MapRoute
 					id="delivery-route"
@@ -174,7 +185,7 @@
 						opacity={routeStyle.progress.opacity}
 					/>
 
-					<RouteMarker at="progress" offset={[0, 10]}>
+					<RouteMarker at="progress">
 						<MarkerContent>
 							<div
 								class="relative grid size-9 place-items-center rounded-full shadow-md"
@@ -184,7 +195,7 @@
 								<div
 									class="bg-popover text-popover-foreground absolute bottom-full left-1/2 mb-2.5 -translate-x-1/2 rounded-md border px-2 py-1 text-xs font-medium whitespace-nowrap shadow-md"
 								>
-									{formatDuration(routeData?.duration)} away
+									{formatDuration(remainingDuration)} away
 									<span
 										class="bg-popover absolute top-full left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rotate-45 border-r border-b"
 									></span>

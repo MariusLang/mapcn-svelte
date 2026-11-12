@@ -18,30 +18,28 @@
 
   <MapPopup longitude={...} latitude={...} />
   <MapControls />
-  <MapRoute coordinates={...} />
+  <MapRoute coordinates={...} progress={...}>
+    <RouteProgress />
+    <RouteMarker at="progress">
+      <MarkerContent />
+    </RouteMarker>
+  </MapRoute>
+
+  <MapArc data={...} />
   <MapGeoJSON data={...} />
   <MapClusterLayer data={...} />
 </Map>`;
 
-	const useMapCode =
-		`<scr` +
-		`ipt lang="ts">
-  import { getContext } from "svelte";
-  import type * as MapLibreGL from "maplibre-gl";
+	const useMapCode = `<script lang="ts">
+  import { useMap } from "$lib/components/ui/map";
 
-  const mapCtx = getContext<{
-    getMap: () => MapLibreGL.Map | null;
-    isLoaded: () => boolean;
-    isStyleReady: () => boolean;
-    resolvedTheme: () => "light" | "dark";
-  }>("map");
+  const context = useMap();
 
-  // Access the map instance
-  const map = mapCtx.getMap();
-  const isLoaded = mapCtx.isLoaded();
-  const resolvedTheme = mapCtx.resolvedTheme();
-</scr` +
-		`ipt>`;
+  $effect(() => {
+    if (!context.map || !context.isLoaded) return;
+    console.log(context.map.getCenter(), context.resolvedTheme);
+  });
+<\/script>`;
 </script>
 
 <svelte:head>
@@ -79,14 +77,14 @@
 		</p>
 
 		<p>
-			Extends
+			Pass additional
 			<DocsLink
 				href="https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MapOptions/"
 				external
 			>
 				MapOptions
 			</DocsLink>
-			from MapLibre GL (excluding
+			through <DocsCode>options</DocsCode> (excluding
 			<DocsCode>container</DocsCode>
 			and
 			<DocsCode>style</DocsCode>
@@ -100,6 +98,7 @@
 					type: "Snippet",
 					description: "Child components (markers, popups, controls, routes).",
 				},
+				{ name: "class", type: "string", description: "Classes for the map container." },
 				{
 					name: "theme",
 					type: '"light" | "dark"',
@@ -120,88 +119,64 @@
 						"Use a transparent tile-less basemap. Ignored when custom styles are provided.",
 				},
 				{
+					name: "projection",
+					type: "ProjectionSpecification",
+					description: "Map projection type. Use { type: 'globe' } for 3D globe view.",
+				},
+				{
+					name: "center",
+					type: "[number, number]",
+					description: "Initial center in longitude, latitude order.",
+				},
+				{ name: "zoom", type: "number", default: "0", description: "Initial zoom level." },
+				{
+					name: "options",
+					type: "Omit<MapOptions, 'container' | 'style'>",
+					description:
+						"Additional MapLibre constructor options, including bounds and fitBoundsOptions.",
+				},
+				{
+					name: "map",
+					type: "MapLibreGL.Map | null",
+					description: "Bindable MapLibre instance. Use bind:map to call instance methods.",
+				},
+				{
+					name: "viewport",
+					type: "Partial<MapViewport>",
+					description: "Controlled camera state when used with onviewportchange.",
+				},
+				{
+					name: "onviewportchange",
+					type: "(viewport: MapViewport) => void",
+					description: "Called as the camera moves.",
+				},
+				{
+					name: "onstyleloaded",
+					type: "() => void",
+					description: "Called after the initial style or a replacement style loads.",
+				},
+				{
 					name: "loading",
 					type: "boolean",
 					default: "false",
 					description: "Show the loading indicator over the map.",
 				},
-				{
-					name: "projection",
-					type: "ProjectionSpecification",
-					description: "Map projection type. Use { type: 'globe' } for 3D globe view.",
-				},
 			]}
 		/>
 	</DocsSection>
 
-	<!-- Map Context -->
-	<DocsSection title="Map Context">
+	<!-- useMap -->
+	<DocsSection title="useMap">
 		<p>
-			A hook that provides access to the MapLibre map instance and loading state. Must be used
-			within a
-			<DocsCode>Map</DocsCode>
-			component.
+			Call <DocsCode>useMap()</DocsCode> from a child component rendered inside
+			<DocsCode>Map</DocsCode> to access the map instance and its reactive load state.
 		</p>
-
-		<CodeBlock code={useMapCode} language="svelte" showCopyButton={false} />
-
+		<CodeBlock code={useMapCode} language="svelte" />
 		<p>
-			Provides
-			<DocsCode>getMap()</DocsCode>
-			returning
-			<DocsLink href="https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/" external>
-				MapLibre.Map
-			</DocsLink>
-			instance, and
-			<DocsCode>isLoaded()</DocsCode>
-			returning a boolean tells you if the map is loaded, plus
-			<DocsCode>isStyleReady()</DocsCode>
-			and
-			<DocsCode>resolvedTheme()</DocsCode>
-			for layer components that need style readiness or theme-aware paint.
+			The context exposes <DocsCode>map</DocsCode>, <DocsCode>isLoaded</DocsCode>,
+			<DocsCode>isStyleReady</DocsCode>, and <DocsCode>resolvedTheme</DocsCode> as reactive getters. Read
+			them inside an effect or event handler.
 		</p>
-	</DocsSection>
-
-	<DocsSection title="MapGeoJSON">
-		<p>
-			Renders GeoJSON data as fill and line layers. Use it inside a
-			<DocsCode>Map</DocsCode>
-			, often with the
-			<DocsCode>blank</DocsCode>
-			prop for choropleths and region maps. Accepts a generic type for feature properties. Defaults to
-			a theme-aware monochrome fill and outline; any paint value can be a MapLibre expression.
-		</p>
-
-		<DocsPropTable
-			props={[
-				{
-					name: "data",
-					type: "FeatureCollection | Feature | Geometry | string",
-					description: "GeoJSON object or URL to render.",
-				},
-				{
-					name: "promoteId",
-					type: "string",
-					description: "Feature property promoted to id for hover state.",
-				},
-				{
-					name: "fillPaint",
-					type: "FillLayerSpecification['paint'] | false",
-					description: "Fill layer paint. Pass false to omit the fill layer.",
-				},
-				{
-					name: "linePaint",
-					type: "LineLayerSpecification['paint'] | false",
-					description: "Outline layer paint. Pass false to omit outlines.",
-				},
-				{
-					name: "interactive",
-					type: "boolean",
-					default: "false",
-					description: "Enable hover and click events on the fill layer.",
-				},
-			]}
-		/>
 	</DocsSection>
 
 	<!-- MapControls -->
@@ -245,12 +220,12 @@
 					description: "Show fullscreen toggle button.",
 				},
 				{
-					name: "className",
+					name: "class",
 					type: "string",
 					description: "Additional CSS classes for the controls container.",
 				},
 				{
-					name: "onLocate",
+					name: "onlocate",
 					type: "(coords: { longitude: number; latitude: number }) => void",
 					description: "Callback with user coordinates when located.",
 				},
@@ -296,32 +271,32 @@
 					description: "Marker subcomponents (MarkerContent, MarkerPopup, etc).",
 				},
 				{
-					name: "onClick",
+					name: "onclick",
 					type: "(e: MouseEvent) => void",
 					description: "Callback when marker is clicked.",
 				},
 				{
-					name: "onMouseEnter",
+					name: "onmouseenter",
 					type: "(e: MouseEvent) => void",
 					description: "Callback when mouse enters marker.",
 				},
 				{
-					name: "onMouseLeave",
+					name: "onmouseleave",
 					type: "(e: MouseEvent) => void",
 					description: "Callback when mouse leaves marker.",
 				},
 				{
-					name: "onDragStart",
+					name: "ondragstart",
 					type: "(lngLat: {lng, lat}) => void",
 					description: "Callback when marker drag starts (requires draggable: true).",
 				},
 				{
-					name: "onDrag",
+					name: "ondrag",
 					type: "(lngLat: {lng, lat}) => void",
 					description: "Callback during marker drag (requires draggable: true).",
 				},
 				{
-					name: "onDragEnd",
+					name: "ondragend",
 					type: "(lngLat: {lng, lat}) => void",
 					description: "Callback when marker drag ends (requires draggable: true).",
 				},
@@ -345,7 +320,7 @@
 					description: "Custom marker content. Defaults to a blue dot.",
 				},
 				{
-					name: "className",
+					name: "class",
 					type: "string",
 					description: "Additional CSS classes for the marker container.",
 				},
@@ -393,7 +368,7 @@
 					description: "Popup content.",
 				},
 				{
-					name: "className",
+					name: "class",
 					type: "string",
 					description: "Additional CSS classes for the popup container.",
 				},
@@ -449,7 +424,7 @@
 					description: "Tooltip content.",
 				},
 				{
-					name: "className",
+					name: "class",
 					type: "string",
 					description: "Additional CSS classes for the tooltip container.",
 				},
@@ -472,7 +447,7 @@
 					type: "Snippet",
 					description: "Label text content.",
 				},
-				{ name: "className", type: "string", description: "Additional CSS classes for the label." },
+				{ name: "class", type: "string", description: "Additional CSS classes for the label." },
 				{
 					name: "position",
 					type: '"top" | "bottom"',
@@ -529,7 +504,7 @@
 					description: "Latitude coordinate for popup position.",
 				},
 				{
-					name: "onClose",
+					name: "onclose",
 					type: "() => void",
 					description: "Callback when popup is closed.",
 				},
@@ -539,7 +514,7 @@
 					description: "Popup content.",
 				},
 				{
-					name: "className",
+					name: "class",
 					type: "string",
 					description: "Additional CSS classes for the popup container.",
 				},
@@ -600,11 +575,6 @@
 					description: "Dash pattern [dash length, gap length] for dashed lines.",
 				},
 				{
-					name: "onclick",
-					type: "() => void",
-					description: "Callback when the route line is clicked.",
-				},
-				{
 					name: "progress",
 					type: "number",
 					description: "Fraction of the route already covered (0 to 1).",
@@ -640,6 +610,11 @@
 					name: "beforeId",
 					type: "string",
 					description: "MapLibre layer to insert the route and its child layers before.",
+				},
+				{
+					name: "onclick",
+					type: "() => void",
+					description: "Callback when the route line is clicked.",
 				},
 				{
 					name: "onmouseenter",
@@ -731,7 +706,139 @@
 		/>
 	</DocsSection>
 
-	<!-- MapClusterLayer -->
+	<!-- MapArc -->
+	<DocsSection title="MapArc">
+		<p>
+			Draw curved connections between coordinates. Each arc has a unique id and a pair of
+			longitude/latitude endpoints.
+		</p>
+		<DocsPropTable
+			props={[
+				{
+					name: "data",
+					type: "MapArcDatum[]",
+					description: "Arcs with id, from, and to coordinates.",
+				},
+				{
+					name: "id",
+					type: "string",
+					description: "Unique source and layer prefix. Generated when omitted.",
+				},
+				{
+					name: "curvature",
+					type: "number",
+					default: "0.2",
+					description: "Curve strength. Use zero for straight connections.",
+				},
+				{
+					name: "samples",
+					type: "number",
+					default: "64",
+					description: "Number of samples along each curve.",
+				},
+				{
+					name: "paint",
+					type: "LineLayerSpecification['paint']",
+					description: "Paint properties for the arc layer.",
+				},
+				{
+					name: "layout",
+					type: "LineLayerSpecification['layout']",
+					description: "Layout properties for the arc layer.",
+				},
+				{
+					name: "hoverPaint",
+					type: "LineLayerSpecification['paint']",
+					description: "Paint properties for the hovered arc.",
+				},
+				{
+					name: "onclick",
+					type: "(event: MapArcEvent) => void",
+					description: "Called when an arc is clicked.",
+				},
+				{
+					name: "onhover",
+					type: "(event: MapArcEvent | null) => void",
+					description: "Called when the hovered arc changes.",
+				},
+				{
+					name: "interactive",
+					type: "boolean",
+					default: "true",
+					description: "Enable mouse interactions.",
+				},
+				{
+					name: "beforeId",
+					type: "string",
+					description: "Insert the arc layers before this layer id.",
+				},
+			]}
+		/>
+	</DocsSection>
+
+	<DocsSection title="MapGeoJSON">
+		<p>
+			Renders GeoJSON data as fill and line layers. Use it inside a
+			<DocsCode>Map</DocsCode>
+			, often with the
+			<DocsCode>blank</DocsCode>
+			prop for choropleths and region maps. Accepts a generic type for feature properties. Defaults to
+			a theme-aware monochrome fill and outline; any paint value can be a MapLibre expression.
+		</p>
+
+		<DocsPropTable
+			props={[
+				{
+					name: "data",
+					type: "FeatureCollection | Feature | Geometry | string",
+					description: "GeoJSON object or URL to render.",
+				},
+				{ name: "id", type: "string", description: "Prefix for the source and layer ids." },
+				{
+					name: "promoteId",
+					type: "string",
+					description: "Feature property promoted to id for hover state.",
+				},
+				{
+					name: "fillPaint",
+					type: "FillLayerSpecification['paint'] | false",
+					description: "Fill layer paint. Pass false to omit the fill layer.",
+				},
+				{
+					name: "linePaint",
+					type: "LineLayerSpecification['paint'] | false",
+					description: "Outline layer paint. Pass false to omit outlines.",
+				},
+				{
+					name: "fillHoverPaint",
+					type: "FillLayerSpecification['paint']",
+					description: "Paint for the hovered feature. Set promoteId for hover state.",
+				},
+				{
+					name: "onclick",
+					type: "(event: MapGeoJSONEvent) => void",
+					description: "Called when a feature is clicked.",
+				},
+				{
+					name: "onhover",
+					type: "(event: MapGeoJSONEvent | null) => void",
+					description: "Called as the hovered feature changes.",
+				},
+				{
+					name: "interactive",
+					type: "boolean",
+					default: "false",
+					description: "Enable hover and click events on the fill layer.",
+				},
+				{
+					name: "beforeId",
+					type: "string",
+					description: "Insert the layers before this layer id.",
+				},
+			]}
+		/>
+	</DocsSection>
+
 	<DocsSection title="MapClusterLayer">
 		<p>
 			Renders clustered point data using MapLibre GL&apos;s native clustering. Automatically groups
@@ -780,12 +887,12 @@
 					description: "Color for unclustered individual points.",
 				},
 				{
-					name: "onPointClick",
+					name: "onpointclick",
 					type: "(feature: GeoJSON.Feature, coordinates: [number, number]) => void",
 					description: "Callback when an unclustered point is clicked.",
 				},
 				{
-					name: "onClusterClick",
+					name: "onclusterclick",
 					type: "(clusterId: number, coordinates: [number, number], pointCount: number) => void",
 					description:
 						"Callback when a cluster is clicked. If not provided, zooms into the cluster.",
