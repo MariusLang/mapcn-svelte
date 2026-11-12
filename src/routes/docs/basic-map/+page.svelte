@@ -1,6 +1,7 @@
 <script lang="ts">
 	import DocsLayout from "$lib/components/docs/DocsLayout.svelte";
 	import DocsSection from "$lib/components/docs/DocsSection.svelte";
+	import DocsNote from "$lib/components/docs/DocsNote.svelte";
 	import DocsCode from "$lib/components/docs/DocsCode.svelte";
 	import DocsLink from "$lib/components/docs/DocsLink.svelte";
 	import { ComponentPreview } from "$lib/components/docs/preview";
@@ -41,8 +42,8 @@
 
 	<DocsSection title="Controlled Mode">
 		<p>
-			Monitor the map's viewport state in real-time. This is useful when you need to sync the map
-			state with your application or respond to viewport changes.
+			Pass <DocsCode>viewport</DocsCode> and <DocsCode>onviewportchange</DocsCode> together to keep the
+			camera in sync with application state.
 		</p>
 		<ComponentPreview files={controlledMapFiles}>
 			<ControlledMapExample />
@@ -54,6 +55,13 @@
 			Use the <DocsCode>blank</DocsCode> prop when you want a transparent canvas for custom data layers
 			like GeoJSON, arcs, or dot maps.
 		</p>
+		<DocsNote>
+			Add a data layer to <DocsCode>&lt;Map blank /&gt;</DocsCode> to show geography. This example uses
+			<DocsCode>MapGeoJSON</DocsCode> to draw country borders. See <DocsLink href="/docs/geojson"
+				>GeoJSON</DocsLink
+			>
+			for fill and outline options.
+		</DocsNote>
 		<ComponentPreview code={blankMapSource} highlightedCode={blankMapHighlighted}>
 			<BlankMapExample />
 		</ComponentPreview>

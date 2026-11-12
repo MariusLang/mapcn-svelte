@@ -44,6 +44,10 @@
 
 <svelte:head>
 	<link rel="canonical" href={canonical} />
+	{#if !block && page.url.pathname !== "/blocks" && page.url.pathname !== "/docs/skill"}
+		<meta name="description" content={siteDescription} />
+	{/if}
+	<meta property="og:locale" content="en_US" />
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="mapcn-svelte" />
 	<meta property="og:url" content={canonical} />

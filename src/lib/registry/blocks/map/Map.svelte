@@ -411,9 +411,7 @@
 	{#if failure}
 		{showFailure(failure.error)}
 	{:else if !isLoaded || loading}
-		<div
-			class="bg-background/50 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-xs"
-		>
+		<div class="bg-background/50 absolute inset-0 z-10 flex items-center justify-center">
 			<div class="flex gap-1">
 				<span class="bg-muted-foreground/60 size-1.5 animate-pulse rounded-full"></span>
 				<span

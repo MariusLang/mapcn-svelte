@@ -7,6 +7,6 @@
 	}>();
 </script>
 
-<code class={cn("bg-muted relative rounded-md px-2 py-1 font-mono text-sm", className)}>
+<code class={cn("bg-muted relative rounded-md px-1.5 py-0.5 font-mono text-sm", className)}>
 	{@render children?.()}
 </code>

@@ -54,7 +54,7 @@
 			<div>
 				<h3 class="mb-3 text-sm font-semibold">Product</h3>
 				<ul class="space-y-2.5">
-					{#each footerLinks.product as link}
+					{#each footerLinks.product as link (link.href)}
 						<li>
 							<a
 								href={link.href}
@@ -70,7 +70,7 @@
 			<div>
 				<h3 class="mb-3 text-sm font-semibold">Community</h3>
 				<ul class="space-y-2.5">
-					{#each footerLinks.community as link}
+					{#each footerLinks.community as link (link.href)}
 						<li>
 							<a
 								href={link.href}
@@ -88,7 +88,7 @@
 			<div>
 				<h3 class="mb-3 text-sm font-semibold">Resources</h3>
 				<ul class="space-y-2.5">
-					{#each footerLinks.resources as link}
+					{#each footerLinks.resources as link (link.href)}
 						<li>
 							<a
 								href={link.href}
@@ -102,6 +102,25 @@
 					{/each}
 				</ul>
 			</div>
+		</div>
+		<div class="text-muted-foreground mt-12 flex flex-col gap-1.5 border-t pt-6 text-xs">
+			<p>© {new Date().getFullYear()} mapcn-svelte. All rights reserved.</p>
+			<p>
+				Map data ©
+				<a
+					href="https://www.openstreetmap.org/copyright"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="hover:text-foreground transition-colors">OpenStreetMap</a
+				>
+				contributors · ©
+				<a
+					href="https://carto.com/attributions"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="hover:text-foreground transition-colors">CARTO</a
+				>
+			</p>
 		</div>
 	</div>
 </footer>

@@ -26,5 +26,5 @@
 	{:else}
 		<Copy />
 	{/if}
-	{clipboard.label("Copy prompt")}
+	{clipboard.label("Copy agent prompt")}
 </Button>
