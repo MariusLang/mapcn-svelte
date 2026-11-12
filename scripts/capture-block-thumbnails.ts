@@ -276,7 +276,7 @@ async function saveSizes(sizes: Sizes) {
 			.sort()
 			.map((name) => [name, merged[name]])
 	);
-	await writeFile(sizesFile, `${JSON.stringify(sorted, null, 2)}\n`);
+	await writeFile(sizesFile, `${JSON.stringify(sorted, null, "\t")}\n`);
 	logSaved(sizesFile);
 }
 
